@@ -23,3 +23,4 @@ Route::get('/', function () {
 Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 Route::get('/admin/orders', [OrderController::class, 'index'])->name('orders');
 Route::get('/admin/add-order', [OrderController::class, 'create'])->name('add-order');
+Route::get('/admin/profile', [AdminDashboardController::class, 'profile'])->name('profile');
