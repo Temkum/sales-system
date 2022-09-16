@@ -42,11 +42,16 @@ class OrderController extends Controller
         $new_order = new Order();
         $order = $new_order->create($validated_data);
 
-        // dd('stored order');
+        # check if order was created successfully
+        if ($order) {
+            $request->session()->flash('success', "Order created successfully!");
+            
+            return redirect(route('orders'));
+        }else{
+            $request->session()->flash('error', "Ops! Something went wrong. Please try again later.");
 
-        $request->session()->flash('success', "Order created successfully!");
-
-        return redirect(route('orders'));
+            return redirect(route('admin.add-order'));
+        }        
     }
 
     /**
