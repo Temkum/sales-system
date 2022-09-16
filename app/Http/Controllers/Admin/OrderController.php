@@ -16,7 +16,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return view('admin.orders');
+        $orders = Order::paginate(3);
+
+        return view('admin.orders', ['orders' => $orders]);
     }
 
     /**
@@ -50,7 +52,7 @@ class OrderController extends Controller
         }else{
             $request->session()->flash('error', "Ops! Something went wrong. Please try again later.");
 
-            return redirect(route('admin.add-order'));
+            return redirect(route('add-order'));
         }        
     }
 
