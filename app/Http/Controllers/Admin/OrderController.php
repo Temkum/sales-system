@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\OrderRequest;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -33,9 +35,18 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OrderRequest $request)
     {
-        //
+        $validated_data = $request->validated();
+
+        $new_order = new Order();
+        $order = $new_order->create($validated_data);
+
+        // dd('stored order');
+
+        $request->session()->flash('success', "Order created successfully!");
+
+        return redirect(route('orders'));
     }
 
     /**
@@ -46,7 +57,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        //         
     }
 
     /**
