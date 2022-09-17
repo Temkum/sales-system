@@ -23,7 +23,7 @@ class CreateOrdersTable extends Migration
             $table->bigInteger('advance');
             $table->date('due_date');
             $table->integer('balance');
-            $table->enum('status', ['completed', 'processing', 'due', 'cancelled']);
+            $table->enum('status', ['processing', 'completed', 'due', 'cancelled']);
             $table->text('description');
             $table->timestamps();
         });

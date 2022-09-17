@@ -112,7 +112,6 @@
                 </div>
             </div>
         </div>
-
         <div class="card-footer">
             {{ $orders->links() }}
         </div>
