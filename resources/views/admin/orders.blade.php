@@ -90,9 +90,7 @@
                             @endforeach
                         @else
                             <tr>
-                                <td>
-                                    <h3>No orders available</h3>
-                                </td>
+                                <td colspan='7' class="text-center text-bold"> No orders available!</td>
                             </tr>
                         @endif
                     </tbody>

@@ -307,9 +307,7 @@
             let value = $(this).val();
 
             let noItem = `<tr>
-                                <td>
-                                    <h3>No records available</h3>
-                                </td>
+                                <td colspan='7' class="text-center text-bold"> No records found!</td>
                             </tr>`;
 
             // show search results
@@ -333,7 +331,12 @@
 
                 success: function(data) {
                     // console.log(data)
-                    $('#searchResults').html(data);
+                    if (data) {
+                        $('#searchResults').html(data);
+                    } else {
+                        $('#searchResults').html(noItem);
+
+                    }
                 }
             })
         })
