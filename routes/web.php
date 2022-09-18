@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,3 +26,6 @@ Route::get('/admin/orders', [OrderController::class, 'index'])->name('orders');
 Route::get('/admin/add-order', [OrderController::class, 'create'])->name('add-order');
 Route::post('/admin/orders/add', [OrderController::class, 'store'])->name('store-order');
 Route::get('/admin/profile', [AdminDashboardController::class, 'profile'])->name('profile');
+
+Route::get('/admin/orders/search', [OrderController::class, 'search'])->name('search');
+// Route::get('/admin/orders/search', [SearchController::class, 'search'])->name('search');

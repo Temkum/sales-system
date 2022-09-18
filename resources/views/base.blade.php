@@ -298,6 +298,46 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    {{-- custom --}}
+    <script src="{{ asset('assets/js/custom.js') }}"></script>
+
+    <script>
+        $('body').on('keyup', '#search', function() {
+            let value = $(this).val();
+
+            let noItem = `<tr>
+                                <td>
+                                    <h3>No records available</h3>
+                                </td>
+                            </tr>`;
+
+            // show search results
+            if (value) {
+                $('.allOrders').hide();
+                $('#searchResults').show();
+            } else {
+                $('.allOrders').show();
+                $('#searchResults').hide();
+            }
+
+            let searchItem = $(this).val();
+
+            $.ajax({
+                type: 'GET',
+                // url: '{{ URL::to('admin/orders/search') }}',
+                url: '{{ route('search') }}',
+                data: {
+                    'search': value
+                },
+
+                success: function(data) {
+                    // console.log(data)
+                    $('#searchResults').html(data);
+                }
+            })
+        })
+    </script>
 </body>
 
 </html>

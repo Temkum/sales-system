@@ -24,15 +24,15 @@ class OrderRequest extends FormRequest
     public function rules()
     {
         return [
-           'name'=>'required|max:255',
-            'phone'=>'required|max:20',
-            'address'=>'required|max:255',
-            'price'=>'required|numeric|min:1000',
-            'quantity'=>'required|numeric|min:1',
-            'advance'=>'required|numeric|min:1000',
-            'due_date'=>'required',
-            'balance'=>'required',
-            'description'=>'required|min:50',
+            'name' => 'required|max:255',
+            'phone' => 'required|max:20',
+            'address' => 'required|max:255',
+            'price' => 'required|numeric|min:1000',
+            'quantity' => 'required|numeric|min:1',
+            'advance' => 'required|numeric|min:1000',
+            'due_date' => 'required',
+            'balance' => 'required',
+            'description' => 'required|min:30',
         ];
     }
 }
