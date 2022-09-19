@@ -70,28 +70,28 @@
 
                 <ul class="menu-inner py-1">
                     <!-- Dashboard -->
-                    <li class="menu-item active">
+                    <li class="menu-item {{ request()->route()->named('admin.dashboard')? 'active': '' }}">
                         <a href="{{ route('admin.dashboard') }}" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-home-circle"></i>
                             <div data-i18n="Analytics">Dashboard</div>
                         </a>
                     </li>
 
-                    <li class="menu-item">
+                    <li class="menu-item {{ request()->route()->named('orders')? 'active': '' }}">
                         <a href="{{ route('orders') }}" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-money"></i>
                             <div data-i18n="Analytics">Orders</div>
                         </a>
                     </li>
 
-                    <li class="menu-item">
+                    <li class="menu-item {{ request()->route()->named('add-order')? 'active': '' }}">
                         <a href="{{ route('add-order') }}" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-dollar"></i>
                             <div data-i18n="Analytics">Add new order</div>
                         </a>
                     </li>
 
-                    <li class="menu-header small text-uppercase">
+                    <li class="menu-header small text-uppercase ">
                         <span class="menu-header-text">Account</span>
                     </li>
                     <li class="menu-item">
@@ -100,7 +100,8 @@
                             <div data-i18n="Account Settings">Account Settings</div>
                         </a>
                         <ul class="menu-sub">
-                            <li class="menu-item">
+                            <li
+                                class="menu-item {{ strpos(Route::currentRouteName(), 'profile') == 0 ? 'active' : '' }}">
                                 <a href="{{ route('profile') }}" class="menu-link">
                                     <div data-i18n="Account">Profile</div>
                                 </a>
