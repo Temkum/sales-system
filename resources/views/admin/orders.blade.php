@@ -20,7 +20,7 @@
                 </form>
             </div>
             {{-- date filter --}}
-            <form action="" method="GET">
+            <form action="{{ route('date-search') }}" method="GET">
                 <div class="range-box row mb-3">
                     <div class="col-md-6 col-lg-6">
                         <label for="start_date">Start date</label>
@@ -43,7 +43,7 @@
                             <th>Client</th>
                             <th>Price</th>
                             <th>Due Date</th>
-                            <th>Advance</th>
+                            <th>Advance Paid</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -52,13 +52,13 @@
                         <?php $index = 1; ?>
 
                         @if (count($orders) >= 1)
-                            @foreach ($orders as $order)
+                            @foreach ($orders as $key => $order)
                                 <tr>
-                                    <td>{{ $index++ }}</td>
+                                    <td>{{ ++$key }}</td>
                                     <td>{{ $order->name }}</td>
-                                    <td><strong>{{ $order->price }}</strong></td>
+                                    <td><strong>{{ $order->price }} Fcfa</strong></td>
                                     <td>{{ date('d-m-Y', strtotime($order->due_date)) }}</td>
-                                    <td>{{ $order->advance }}</td>
+                                    <td>{{ $order->advance }} Fcfa</td>
                                     <td>
                                         @if ($order->status == 'completed')
                                             <span class="badge bg-label-success me-1">{{ $order->status }}</span>
@@ -71,20 +71,20 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                data-bs-toggle="dropdown">
-                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                            </button>
-                                            <div class="dropdown-menu action-btns">
-                                                <a class="dropdown-item" href="javascript:void(0);"><i
-                                                        class="bx bx-edit-alt me-1"></i>
-                                                    Edit</a>
-                                                <a class="dropdown-item" href="javascript:void(0);"><i
-                                                        class="bx bx-trash me-1"></i>
-                                                    Delete</a>
-                                            </div>
+                                        {{-- <div class="dropdown"> --}}
+                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                            data-bs-toggle="dropdown">
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div class="dropdown-menu action-btns">
+                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                    class="bx bx-edit-alt me-1"></i>
+                                                Edit</a>
+                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                    class="bx bx-trash me-1"></i>
+                                                Delete</a>
                                         </div>
+                                        {{-- </div> --}}
                                     </td>
                                 </tr>
                             @endforeach
@@ -101,7 +101,7 @@
             </div>
         </div>
         <div class="card-footer">
-            {{ $orders->links() }}
+            {{-- {{ $orders->links() }} --}}
         </div>
     </div>
     <!-- add order modal -->

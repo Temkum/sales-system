@@ -6,7 +6,7 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Http\Requests\OrderRequest;
 use App\Http\Controllers\Controller;
-use stdClass;
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
@@ -110,34 +110,50 @@ class OrderController extends Controller
 
         $orders = Order::where('name', 'LIKE', '%' . $request->search . '%')->orWhere('price', 'LIKE', '%' . $request->search . '%')->orWhere('due_date', 'LIKE', '%' . $request->search . '%')->get();
 
-        foreach ($orders as $order) {
+        foreach ($orders as $key => $order) {
 
             $output .= ' 
             <tr>
+                <td>' . ++$key . '</td>
                 <td>' . $order->name . '</td>
                 <td><strong>' . $order->price . '</strong></td>
                 <td>' . date('d-m-Y', strtotime($order->due_date)) . '</td>
                 <td>' . $order->advance . '</td>
-                <td>' . $order->status . '</td>
+                <td><span class="badge bg-label-primary me-1">' . $order->status . '</span></td>
                 <td>
-                    <div class="dropdown">
-                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                             data-bs-toggle="dropdown">
                             <i class="bx bx-dots-vertical-rounded"></i>
-                        </button>
-                        <div class="dropdown-menu action-btns">
-                            <a class="dropdown-item" href="javascript:void(0);"><i
+                    </button>
+                    <div class="dropdown-menu action-btns">
+                        <a class="dropdown-item" href="javascript:void(0);"><i
                                     class="bx bx-edit-alt me-1"></i>
                                 Edit</a>
                             <a class="dropdown-item" href="javascript:void(0);"><i
                                     class="bx bx-trash me-1"></i>
                                 Delete</a>
                         </div>
-                    </div>
                 </td>
             </tr>';
         };
 
         return response($output);
+    }
+
+    public function dateSearch(Request $request)
+    {
+        // $orders = Order::paginate(10);
+
+        if ($request->start_date || $request->end_date) {
+            $start_date = Carbon::parse($request->start_date)->toDateTimeString();
+            $end_date = Carbon::parse($request->end_date)->toDateTimeString();
+
+            $orders = Order::whereBetween('created_at', [$start_date, $end_date])->get();
+        } else {
+            $orders = Order::latest()->get();
+        }
+
+
+        return view('admin.orders', ['orders' => $orders]);
     }
 }

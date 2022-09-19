@@ -27,5 +27,5 @@ Route::get('/admin/add-order', [OrderController::class, 'create'])->name('add-or
 Route::post('/admin/orders/add', [OrderController::class, 'store'])->name('store-order');
 Route::get('/admin/profile', [AdminDashboardController::class, 'profile'])->name('profile');
 
-Route::get('/admin/orders/search', [OrderController::class, 'search'])->name('search');
-// Route::get('/admin/orders/search', [SearchController::class, 'search'])->name('search');
+Route::get('search', [OrderController::class, 'search'])->name('search');
+Route::get('date-search', [OrderController::class, 'dateSearch'])->name('date-search');
