@@ -13,3 +13,7 @@
 .hidden {
     display: none;
 }
+
+.pwr-icon {
+    color: yellowgreen;
+}

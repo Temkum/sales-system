@@ -61,7 +61,8 @@ return [
     |
     */
 
-    'home' => RouteServiceProvider::HOME,
+    // 'home' => RouteServiceProvider::HOME,
+    'home' => RouteServiceProvider::DASHBOARD,
 
     /*
     |--------------------------------------------------------------------------
@@ -143,5 +144,9 @@ return [
             // 'window' => 0,
         ]),
     ],
+
+    'redirects' => [
+        'logout' => 'login'
+    ]
 
 ];
