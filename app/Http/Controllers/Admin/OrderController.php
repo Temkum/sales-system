@@ -142,17 +142,15 @@ class OrderController extends Controller
 
     public function dateSearch(Request $request)
     {
-        // $orders = Order::paginate(10);
 
         if ($request->start_date || $request->end_date) {
             $start_date = Carbon::parse($request->start_date)->toDateTimeString();
             $end_date = Carbon::parse($request->end_date)->toDateTimeString();
 
-            $orders = Order::whereBetween('created_at', [$start_date, $end_date])->get();
+            $orders = Order::whereBetween('created_at', [$start_date, $end_date])->paginate(10);
         } else {
-            $orders = Order::latest()->get();
+            $orders = Order::latest()->paginate(13);
         }
-
 
         return view('admin.orders', ['orders' => $orders]);
     }
