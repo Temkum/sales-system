@@ -1,8 +1,6 @@
 @extends('base')
 
 @section('content')
-    {{-- <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tables /</span> Basic Tables</h4> --}}
-
     @include('admin.components.breadcrumb')
 
     <!-- Basic Bootstrap Table -->

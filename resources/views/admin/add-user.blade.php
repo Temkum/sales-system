@@ -1,0 +1,79 @@
+@extends('base')
+
+@section('content')
+    @include('admin.components.breadcrumb')
+
+    <div class="row center-item">
+        {{-- <div class="col-lg-10 col-xl-12"> --}}
+        <div class="col-lg-5">
+            <div class="card mb-4">
+                <div class="card-header text-center mb-3">
+                    <h5 class="mb-0 text-uppercase">New User</h5>
+                </div>
+                <div class="card-body">
+                    <div class="center-item">
+                        <div class="">
+                            <form id="formAuthentication" class="mb-3" action="{{ route('register') }}" method="POST">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                        id="name" name="name" placeholder="Enter your name" autofocus
+                                        value="{{ old('name') }}" aria-describedby="name" />
+                                    @error('name')
+                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="text" class="form-control @error('email') is-invalid @enderror"
+                                        id="email" name="email" placeholder="Enter your email"
+                                        value="{{ old('email') }}" aria-describedby="email" />
+                                    @error('email')
+                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="mb-3 form-password-toggle">
+                                    <label class="form-label" for="password">Password</label>
+                                    <div class="input-group input-group-merge">
+                                        <input type="password" id="password"
+                                            class="form-control @error('password') is-invalid @enderror" name="password"
+                                            placeholder="......" aria-describedby="password" />
+                                        <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                                        @error('password')
+                                            <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="mb-4 form-password-toggle">
+                                    <label class="form-label" for="password">Repeat Password</label>
+                                    <div class="input-group input-group-merge">
+                                        <input type="password" id="password_confirmation"
+                                            class="form-control @error('password_confirmation') is-invalid @enderror"
+                                            name="password_confirmation" placeholder="......"
+                                            aria-describedby="password_confirmation" />
+                                        <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                                        @error('password_confirmation')
+                                            <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                {{-- <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
+                                    <label class="form-check-label" for="terms-conditions">
+                                        I agree to
+                                        <a href="javascript:void(0);">privacy policy & terms</a>
+                                    </label>
+                                </div>
+                            </div> --}}
+                                <button class="btn btn-primary d-grid w-50" type="submit">Add</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

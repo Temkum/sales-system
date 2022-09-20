@@ -17,3 +17,9 @@
 .pwr-icon {
     color: yellowgreen;
 }
+
+.center-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

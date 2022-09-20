@@ -82,14 +82,14 @@
                         <li class="menu-item {{ request()->route()->named('orders')? 'active': '' }}">
                             <a href="{{ route('orders') }}" class="menu-link">
                                 <i class="menu-icon tf-icons bx bx-money"></i>
-                                <div data-i18n="Analytics">Orders</div>
+                                <div>Orders</div>
                             </a>
                         </li>
 
                         <li class="menu-item {{ request()->route()->named('add-order')? 'active': '' }}">
                             <a href="{{ route('add-order') }}" class="menu-link">
-                                <i class="menu-icon tf-icons bx bx-dollar"></i>
-                                <div data-i18n="Analytics">Add new order</div>
+                                <i class="menu-icon tf-icons bx bx-cart"></i>
+                                <div>Add new order</div>
                             </a>
                         </li>
 
@@ -98,33 +98,27 @@
                         </li>
                         <li class="menu-item">
                             <a href="#" class="menu-link menu-toggle">
-                                <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                                <div data-i18n="Account Settings">Account Settings</div>
+                                <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
+                                <div>Account Settings</div>
                             </a>
                             <ul class="menu-sub">
-                                <li
-                                    class="menu-item {{ strpos(Route::currentRouteName(), 'profile') == 0 ? 'active' : '' }}">
+                                <li class="menu-item {{ request()->route()->named('profile')? 'active': '' }}">
                                     <a href="{{ route('profile') }}" class="menu-link">
-                                        <div data-i18n="Account">Profile</div>
+                                        <div>Profile</div>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="menu-item">
-                            <a href="#" class="menu-link menu-toggle">
-                                <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-                                <div data-i18n="Authentications">Users</div>
+                        <li class="menu-item {{ request()->route()->named('users')? 'active': '' }}">
+                            <a href="{{ route('users') }}" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-group"></i>
+                                <div>Users</div>
                             </a>
                         </li>
-                        <!-- Components -->
-                        <li class="menu-header small text-uppercase"><span
-                                class="menu-header-text">Authentication</span>
-                        </li>
-                        <!-- Cards -->
-                        <li class="menu-item">
-                            <a href="{{ route('register') }}" class="menu-link">
-                                <i class="menu-icon tf-icons bx bx-collection"></i>
-                                <div data-i18n="Basic">Add new user</div>
+                        <li class="menu-item {{ request()->route()->named('add-user')? 'active': '' }}">
+                            <a href="{{ route('add-user') }}" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-user-plus"></i>
+                                <div data-i18n="Basic">Add New User</div>
                             </a>
                         </li>
                         <!-- Misc -->
@@ -243,7 +237,6 @@
                                                 <span class="align-middle">Log Out</span>
                                             </a>
                                             <form action="{{ route('logout') }}" method="POST" id="logout-form">
-                                                @method('POST')
                                                 @csrf
                                             </form>
                                         </li>
@@ -299,7 +292,8 @@
     {{-- show add order btn except on auth pages --}}
     @if (!request()->route()->named('add-order') &&
         !request()->route()->named('register') &&
-        !request()->route()->named('login'))
+        !request()->route()->named('login') &&
+        !request()->route()->named('add-user'))
         <div class="buy-now" id="new_order">
             <a href="{{ route('add-order') }}" class="btn btn-danger btn-buy-now">Add New Order</a>
         </div>

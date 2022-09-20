@@ -15,8 +15,8 @@
                             <span class="app-brand-text demo text-body fw-bolder">pacho design</span>
                         </a>
                     </div>
-                    <h4 class="mb-2 text-center">Welcome Back!</h4>
-                    <p class="mb-4">Please sign-in to your account and start the adventure</p>
+                    {{-- <h4 class="mb-2 text-center">Welcome Back!</h4> --}}
+                    <p class="mb-4 text-center">Please sign-in to access your account</p>
 
                     <form id="formAuthentication" class="mb-3" action="{{ route('login') }}" method="POST">
                         @csrf
@@ -33,9 +33,7 @@
                         <div class="mb-3 form-password-toggle">
                             <div class="d-flex justify-content-between">
                                 <label class="form-label" for="password">Password</label>
-                                <a href="#">
-                                    <small>Forgot Password?</small>
-                                </a>
+
                             </div>
                             <div class="input-group input-group-merge">
                                 <input type="password" id="password"
@@ -47,10 +45,15 @@
                                 <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="remember-me" />
-                                <label class="form-check-label" for="remember-me"> Remember Me </label>
+                        <div class="mb-4">
+                            <div class="form-check d-flex justify-content-between">
+                                <div>
+                                    <input class="form-check-input" type="checkbox" id="remember-me" />
+                                    <label class="form-check-label" for="remember-me"> Remember Me </label>
+                                </div>
+                                <a href="#">
+                                    <small>Forgot Password?</small>
+                                </a>
                             </div>
                         </div>
                         <div class="mb-3">
