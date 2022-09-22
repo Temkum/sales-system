@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,7 @@ class UserController extends Controller
     {
         $users = User::paginate(10);
 
-        return view('admin.users')->with(['users' => $users]);
+        return view('admin.users')->with(['users' => $users, 'roles' => Role::all()]);
     }
 
     /**
@@ -26,7 +27,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.add-user');
+        $roles = Role::all();
+
+        return view('admin.add-user', ['roles' => $roles]);
     }
 
     /**
@@ -37,7 +40,10 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $user = User::create($request->except(['_token', 'roles']));
+
+        return redirect(route('users'));
     }
 
     /**

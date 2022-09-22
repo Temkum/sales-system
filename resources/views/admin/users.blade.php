@@ -5,6 +5,11 @@
 
     <div class="card">
         <div class="card-header d-flex justify-content-between mb-4">
+            <h5 class="">
+                <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#newUser">
+                    <i class="bx bx-plus"></i>Create
+                </button>
+            </h5>
             {{-- search --}}
             <div class="search-box">
                 <form action="" method="GET">
@@ -93,6 +98,28 @@
                     <div class="row">
                         <div class="col">
                             edit user form
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- add user -->
+    <div class="modal fade" id="newUser" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel4">New user</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <form id="formAuthentication" class="mb-3" action="{{ route('save-user') }}" method="POST">
+                                @include('admin.components.user-form')
+                            </form>
                         </div>
                     </div>
 

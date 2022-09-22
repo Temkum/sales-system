@@ -89,7 +89,7 @@
                         <li class="menu-item {{ request()->route()->named('add-order')? 'active': '' }}">
                             <a href="{{ route('add-order') }}" class="menu-link">
                                 <i class="menu-icon tf-icons bx bx-cart"></i>
-                                <div>Add new order</div>
+                                <div>Add New Order</div>
                             </a>
                         </li>
 
