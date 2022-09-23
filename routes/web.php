@@ -35,5 +35,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/add-user', [UserController::class, 'create'])->name('add-user');
     Route::post('/admin/users/store', [UserController::class, 'store'])->name('save-user');
     Route::get('/admin/users/edit/{id}', [UserController::class, 'edit'])->name('edit-user');
+    Route::post('/admin/users/edit', [UserController::class, 'update'])->name('update-user');
     Route::delete('/users/remove/{id}', [UserController::class, 'destroy'])->name('delete-user');
 });

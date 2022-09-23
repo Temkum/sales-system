@@ -14,7 +14,7 @@
                     <div class="center-item">
                         <div class="">
                             <form id="formAuthentication" class="mb-3" action="{{ route('save-user') }}" method="POST">
-                                @include('admin.components.user-form')
+                                @include('admin.components.user-form', ['create' => true])
                             </form>
                         </div>
                     </div>

@@ -46,7 +46,7 @@ class User extends Authenticatable
     public function roles()
     {
         # code...
-        return $this->belongsToMany('App\Models\Roles');
+        return $this->belongsToMany('App\Models\Role');
     }
 
     public function setPasswordAttribute($password)

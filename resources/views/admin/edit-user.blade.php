@@ -13,7 +13,15 @@
             </div>
         </div>
         <div class="card-body">
-            EDIT
+            <div class="row">
+                <div class="col">
+                    <form id="formAuthentication" class="mb-3" action="{{ route('update-user', $user->id) }}"
+                        method="POST">
+                        @method('PATCH')
+                        @include('admin.components.user-form')
+                    </form>
+                </div>
+            </div>
         </div>
         <div class="card-footer">
         </div>

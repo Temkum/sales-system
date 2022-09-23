@@ -86,7 +86,7 @@
         </div>
     </div>
 
-    <!-- add order modal -->
+    <!-- edit user modal -->
     <div class="modal fade" id="editUser" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -97,7 +97,9 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col">
-                            edit user form
+                            <form id="formAuthentication" class="mb-3" action="{{ route('update-user') }}" method="POST">
+                                @include('admin.components.user-form')
+                            </form>
                         </div>
                     </div>
 
@@ -118,7 +120,7 @@
                     <div class="row">
                         <div class="col">
                             <form id="formAuthentication" class="mb-3" action="{{ route('save-user') }}" method="POST">
-                                @include('admin.components.user-form')
+                                @include('admin.components.user-form', ['create' => true])
                             </form>
                         </div>
                     </div>

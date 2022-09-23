@@ -17,7 +17,7 @@ class UserController extends Controller
     {
         $users = User::paginate(10);
 
-        return view('admin.users')->with(['users' => $users, 'roles' => Role::all()]);
+        return view('admin.users', ['users' => $users, 'roles' => Role::all()]);
     }
 
     /**
@@ -40,8 +40,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-
         $user = User::create($request->except(['_token', 'roles']));
+        $user->roles()->sync($request->roles);
 
         return redirect(route('users'));
     }
@@ -65,9 +65,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
-
-        return view('admin.users', ['user' => $user]);
+        return view('admin.users', ['roles' => Role::all(), 'user' => User::find($id)]);
     }
 
     /**
@@ -79,7 +77,12 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id); // findOrFail prevents deleting users who don't exist
+
+        $user->update($request->except(['_token', 'roles']));
+        $user->roles()->sync($request->roles);
+
+        return redirect(route('users'));
     }
 
     /**
