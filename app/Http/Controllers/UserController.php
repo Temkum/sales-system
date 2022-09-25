@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -38,10 +39,15 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        $user = User::create($request->except(['_token', 'roles']));
+        $validated_data = $request->validated();
+
+        $user = User::create($validated_data);
+
         $user->roles()->sync($request->roles);
+
+        $request->session()->flash('success', "User created successfully!");
 
         return redirect(route('users'));
     }
@@ -79,8 +85,16 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id); // findOrFail prevents deleting users who don't exist
 
+        if (!$user) {
+            $request->session()->flash('error', 'You can not edit this user!');
+
+            return redirect(route('users'));
+        }
+
         $user->update($request->except(['_token', 'roles']));
         $user->roles()->sync($request->roles);
+
+        $request->session()->flash('success', "User updated successfully!");
 
         return redirect(route('users'));
     }
@@ -91,9 +105,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
         User::destroy($id);
+
+        $request->session()->flash('success', "User has been deleted successfully!");
 
         return redirect(route('users'));
     }

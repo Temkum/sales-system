@@ -6,9 +6,9 @@
     <div class="card">
         <div class="card-header d-flex justify-content-between mb-4">
             <h5 class="">
-                <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#newUser">
+                <a href="{{ route('add-user') }}" class="btn btn-sm btn-success">
                     <i class="bx bx-plus"></i>Create
-                </button>
+                </a>
             </h5>
             {{-- search --}}
             <div class="search-box">
@@ -97,7 +97,9 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col">
-                            <form id="formAuthentication" class="mb-3" action="{{ route('update-user') }}" method="POST">
+                            <form id="formAuthentication" class="mb-3" action="{{ route('update-user', $user->id) }}"
+                                method="POST">
+                                @method('PATCH')
                                 @include('admin.components.user-form')
                             </form>
                         </div>
