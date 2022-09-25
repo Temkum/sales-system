@@ -21,11 +21,11 @@
                     <form id="formAuthentication" class="mb-3" action="{{ route('login') }}" method="POST">
                         @csrf
                         <div class="mb-3">
-                            <label for="email" class="form-label @error('email') is-invalid @enderror">Email
+                            <label for="email" class="form-label ">Email
                                 or Username</label>
-                            <input type="email" class="form-control" id="email" name="email"
-                                placeholder="Enter your email or username" autofocus value="{{ old('email') }}"
-                                aria-describedby="email" />
+                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
+                                name="email" placeholder="Enter your email or username" autofocus
+                                value="{{ old('email') }}" aria-describedby="email" />
                             @error('email')
                                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
                             @enderror

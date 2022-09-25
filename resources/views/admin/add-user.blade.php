@@ -45,6 +45,18 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="mb-3 form-password-toggle">
+                                    <label class="form-label" for="password">Confirm Password</label>
+                                    <div class="input-group input-group-merge">
+                                        <input type="password" id="password"
+                                            class="form-control @error('password') is-invalid @enderror"
+                                            name="password_confirmation" placeholder="......" aria-describedby="password" />
+                                        <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                                        @error('password_confirmation')
+                                            <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="password">Roles</label>
                                     <div class="">
