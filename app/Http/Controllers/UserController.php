@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreUserRequest;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\StoreUserRequest;
 
 class UserController extends Controller
 {
@@ -17,6 +18,16 @@ class UserController extends Controller
     public function index()
     {
         $users = User::paginate(10);
+        $roles = Role::all();
+
+        if (Gate::denies('logged-in')) {
+            return view('auth.login');
+        }
+
+        if (Gate::allows('is-admin')) {
+            # code...
+            return view('admin.users', ['users' => $users, 'roles' => $roles]);
+        }
 
         return view('admin.users', ['users' => $users, 'roles' => Role::all()]);
     }

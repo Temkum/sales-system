@@ -109,12 +109,14 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="menu-item {{ request()->route()->named('users')? 'active': '' }}">
-                            <a href="{{ route('users') }}" class="menu-link">
-                                <i class="menu-icon tf-icons bx bx-group"></i>
-                                <div>Users</div>
-                            </a>
-                        </li>
+                        @can('is-admin')
+                            <li class="menu-item {{ request()->route()->named('users')? 'active': '' }}">
+                                <a href="{{ route('users') }}" class="menu-link">
+                                    <i class="menu-icon tf-icons bx bx-group"></i>
+                                    <div>Users</div>
+                                </a>
+                            </li>
+                        @endcan
                         <li class="menu-item {{ request()->route()->named('add-user')? 'active': '' }}">
                             <a href="{{ route('add-user') }}" class="menu-link">
                                 <i class="menu-icon tf-icons bx bx-user-plus"></i>
@@ -357,7 +359,6 @@
                         $('#searchResults').html(data);
                     } else {
                         $('#searchResults').html(noItem);
-
                     }
                 }
             })

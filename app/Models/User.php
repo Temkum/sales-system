@@ -53,4 +53,26 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = Hash::make($password);
     }
+
+    /**
+     * check if user has a role
+     * @param string $role
+     * @return bool
+     */
+
+    public function hasAnyRole($role)
+    {
+        return null !== $this->roles()->where('name', $role)->first();
+    }
+
+    /**
+     * check if user has any given role
+     * @param array $role
+     * @return bool
+     */
+
+    public function hasAnyRoles($role)
+    {
+        return null !== $this->roles()->whereIn('name', $role)->first();
+    }
 }
