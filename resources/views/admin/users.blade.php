@@ -54,8 +54,7 @@
                                     <td>
                                         <div class="d-flex">
                                             <a class="me-4 btn btn-sm btn-outline-primary"
-                                                href="{{ route('edit-user', $user->id) }}" data-bs-toggle="modal"
-                                                data-bs-target="#editUser">
+                                                href="{{ route('edit-user', $user->id) }}">
                                                 Edit</a>
                                             <button class="btn btn-sm btn-outline-danger" role="button"
                                                 onclick="event.preventDefault(); document.getElementById('delete-user-form-{{ $user->id }}').submit();">Delete</button>

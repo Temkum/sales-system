@@ -31,7 +31,7 @@
                         </div>
                         <button class="btn btn-primary d-grid w-100">Send Reset Link</button>
                     </form>
-                    <div class="text-center">
+                    <div class="text-center mt-4">
                         <a href="{{ route('login') }}" class="d-flex align-items-center justify-content-center">
                             <i class="bx bx-chevron-left scaleX-n1-rtl bx-sm"></i>
                             Back to login

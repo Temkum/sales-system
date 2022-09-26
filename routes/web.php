@@ -35,7 +35,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin/users/', [UserController::class, 'index'])->name('users');
     Route::get('/admin/add-user', [UserController::class, 'create'])->name('add-user');
     Route::post('/admin/users/store', [UserController::class, 'store'])->name('save-user');
-    Route::get('/admin/users/{id}', [UserController::class, 'edit'])->name('edit-user');
-    Route::patch('/users/edit/{id}', [UserController::class, 'update'])->name('update-user');
-    Route::delete('/users/remove/{id}', [UserController::class, 'destroy'])->name('delete-user');
+    Route::get('/admin/user/edit/{id}', [UserController::class, 'edit'])->name('edit-user');
+    Route::patch('/admin/user/{id}', [UserController::class, 'update'])->name('update-user');
+    Route::delete('/admin/users/remove/{id}', [UserController::class, 'destroy'])->name('delete-user');
 });

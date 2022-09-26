@@ -2,18 +2,24 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class AdminDashboardController extends Controller
 {
     public function index()
     {
-        return view('admin.dashboard');
+        $users = User::all();
+        $roles = Role::all();
+
+        return view('admin.dashboard', ['users' => $users, 'roles' => $roles]);
     }
 
     public function profile()
     {
+
         return view('admin.profile');
     }
 }
