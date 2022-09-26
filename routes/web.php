@@ -23,6 +23,7 @@ Route::get('/', function () {
 // admin routes
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+
     Route::get('/admin/orders', [OrderController::class, 'index'])->name('orders');
     Route::get('/admin/add-order', [OrderController::class, 'create'])->name('add-order');
     Route::post('/admin/orders/add', [OrderController::class, 'store'])->name('store-order');
@@ -34,7 +35,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/users/', [UserController::class, 'index'])->name('users');
     Route::get('/admin/add-user', [UserController::class, 'create'])->name('add-user');
     Route::post('/admin/users/store', [UserController::class, 'store'])->name('save-user');
-    Route::get('/admin/users/edit/{id}', [UserController::class, 'edit'])->name('edit-user');
+    Route::get('/admin/users/{id}', [UserController::class, 'edit'])->name('edit-user');
     Route::patch('/users/edit/{id}', [UserController::class, 'update'])->name('update-user');
     Route::delete('/users/remove/{id}', [UserController::class, 'destroy'])->name('delete-user');
 });

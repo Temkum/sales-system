@@ -52,6 +52,8 @@
         <div class="layout-container">
             <!-- Menu -->
             @if (!request()->route()->named('register') &&
+                !request()->route()->named('password.request') &&
+                !request()->route()->named('password.reset') &&
                 !request()->route()->named('login'))
                 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                     <div class="app-brand demo">
@@ -295,6 +297,8 @@
     @if (!request()->route()->named('add-order') &&
         !request()->route()->named('register') &&
         !request()->route()->named('login') &&
+        !request()->route()->named('password.request') &&
+        !request()->route()->named('password.reset') &&
         !request()->route()->named('add-user'))
         <div class="buy-now" id="new_order">
             <a href="{{ route('add-order') }}" class="btn btn-danger btn-buy-now">Add New Order</a>

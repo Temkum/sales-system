@@ -6,7 +6,9 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use App\Actions\Fortify\CreateNewUser;
 use App\Http\Requests\StoreUserRequest;
+use Illuminate\Support\Facades\Password;
 
 class UserController extends Controller
 {
@@ -27,9 +29,12 @@ class UserController extends Controller
         if (Gate::allows('is-admin')) {
             # code...
             return view('admin.users', ['users' => $users, 'roles' => $roles]);
+        } else {
+
+            return view('admin.users')->with('error', 'You do not have permission to access this page!');
         }
 
-        return view('admin.users', ['users' => $users, 'roles' => Role::all()]);
+        // return view('admin.users', ['users' => $users, 'roles' => Role::all()]);
     }
 
     /**
@@ -52,11 +57,13 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $validated_data = $request->validated();
+        $new_user = new CreateNewUser();
 
-        $user = User::create($validated_data);
+        $user = $new_user->create($request->only(['name', 'email', 'password', 'password_confirmation']));
 
         $user->roles()->sync($request->roles);
+
+        Password::sendResetLink($request->only(['email']));
 
         $request->session()->flash('success', "User created successfully!");
 
@@ -82,7 +89,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.users', ['roles' => Role::all(), 'user' => User::find($id)]);
+        return view('admin.edit-user', ['roles' => Role::all(), 'user' => User::find($id)]);
     }
 
     /**
