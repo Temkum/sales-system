@@ -21,7 +21,7 @@ Route::get('/', function () {
 });
 
 // admin routes
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
     Route::get('/admin/orders', [OrderController::class, 'index'])->name('orders');

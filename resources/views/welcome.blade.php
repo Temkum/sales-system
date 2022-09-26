@@ -41,7 +41,6 @@
         <div class="text-center">
             <div class="container">
                 <p>Welcome to pacho designs</p>
-
             </div>
         </div>
     </div>
