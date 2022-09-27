@@ -91,7 +91,7 @@
                         <li class="menu-item {{ request()->route()->named('add-order')? 'active': '' }}">
                             <a href="{{ route('add-order') }}" class="menu-link">
                                 <i class="menu-icon tf-icons bx bx-cart"></i>
-                                <div>Add New Order</div>
+                                <div>New Order</div>
                             </a>
                         </li>
 
@@ -99,17 +99,12 @@
                             <span class="menu-header-text">Account</span>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="menu-link menu-toggle">
-                                <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-                                <div>Account Settings</div>
+                        <li class="menu-item {{ request()->route()->named('profile')? 'active': '' }}">
+                            <a href="{{ route('profile') }}" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-user-circle"></i>
+                                <div>Profile</div>
                             </a>
-                            <ul class="menu-sub">
-                                <li class="menu-item {{ request()->route()->named('profile')? 'active': '' }}">
-                                    <a href="{{ route('profile') }}" class="menu-link">
-                                        <div>Profile</div>
-                                    </a>
-                                </li>
-                            </ul>
+                        </li>
                         </li>
                         @can('is-admin')
                             <li class="menu-item {{ request()->route()->named('users')? 'active': '' }}">
@@ -122,7 +117,7 @@
                         <li class="menu-item {{ request()->route()->named('add-user')? 'active': '' }}">
                             <a href="{{ route('add-user') }}" class="menu-link">
                                 <i class="menu-icon tf-icons bx bx-user-plus"></i>
-                                <div data-i18n="Basic">Add New User</div>
+                                <div data-i18n="Basic">Add User</div>
                             </a>
                         </li>
                         <!-- Misc -->
@@ -189,8 +184,9 @@
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
-                                                        <span class="fw-semibold d-block">John Doe</span>
-                                                        <small class="text-muted">Admin</small>
+                                                        <span
+                                                            class="fw-semibold d-block">{{ auth()->user()->name }}</span>
+                                                        <small class="text-muted">{{ auth()->user()->role }}</small>
                                                     </div>
                                                 </div>
                                             </a>
@@ -199,25 +195,9 @@
                                             <div class="dropdown-divider"></div>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="#">
-                                                <i class="bx bx-user me-2"></i>
+                                            <a class="dropdown-item" href="{{ route('profile') }}">
+                                                <i class="bx bx-user-detail me-2"></i>
                                                 <span class="align-middle">My Profile</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#">
-                                                <i class="bx bx-cog me-2"></i>
-                                                <span class="align-middle">Settings</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#">
-                                                <span class="d-flex align-items-center align-middle">
-                                                    <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                                                    <span class="flex-grow-1 align-middle">Billing</span>
-                                                    <span
-                                                        class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                                                </span>
                                             </a>
                                         </li>
                                         <li>

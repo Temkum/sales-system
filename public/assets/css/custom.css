@@ -27,3 +27,7 @@
 .b-1 {
     border: .8px solid;
 }
+
+.br-100 {
+    border-radius: 100%;
+}

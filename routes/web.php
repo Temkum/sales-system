@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminDashboardController;
-use App\Http\Controllers\Admin\OrderController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\AdminDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +28,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin/orders', [OrderController::class, 'index'])->name('orders');
     Route::get('/admin/add-order', [OrderController::class, 'create'])->name('add-order');
     Route::post('/admin/orders/add', [OrderController::class, 'store'])->name('store-order');
-    Route::get('/admin/profile', [AdminDashboardController::class, 'profile'])->name('profile');
 
     Route::get('search', [OrderController::class, 'search'])->name('search');
     Route::get('date-search', [OrderController::class, 'dateSearch'])->name('date-search');
@@ -39,3 +39,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/admin/user/{id}', [UserController::class, 'update'])->name('update-user');
     Route::delete('/admin/users/remove/{id}', [UserController::class, 'destroy'])->name('delete-user');
 });
+
+// user
+Route::get('/user/profile', [ProfileController::class, 'index'])->name('profile');
