@@ -2,48 +2,75 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+  <title>Laravel</title>
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <!-- Styles -->
+  <!-- Styles -->
 
-    <style>
-        body {
-            font-family: 'Nunito', sans-serif;
-        }
-    </style>
+  <style>
+    body {
+      font-family: 'Nunito', sans-serif;
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    nav {
+      background: rgb(186, 205, 247);
+    }
+
+    .nav-items {
+      display: flex;
+      justify-content: space-evenly;
+      width: 300px;
+    }
+
+    .p-3 {
+      padding: 20px;
+    }
+
+    .ml-3 {
+      margin-left: 10px;
+    }
+  </style>
 </head>
 
 <body class="antialiased">
-    <div
-        class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-        @if (Route::has('login'))
-            <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                @auth
-                    <a href="{{ route('admin.dashboard') }}"
-                        class="text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</a>
-                @else
-                    <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
+  <div
+    class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
+    @if (Route::has('login'))
+      <nav class="p-3">
+        <div class="nav-items">
+          @auth
+            <a href="{{ route('admin.dashboard') }}" class="m-3">Dashboard</a>
+          @else
+            <a href="{{ route('login') }}" class="">Log in</a>
 
-                    @if (Route::has('register'))
-                        <a href="{{ route('register') }}"
-                            class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
-                    @endif
-                @endauth
-            </div>
-        @endif
-
-        <div class="text-center">
-            <div class="container">
-                <p>Welcome to pacho designs</p>
-            </div>
+            @if (Route::has('register'))
+              <a href="{{ route('register') }}"
+                class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
+            @endif
+          @endauth
         </div>
+      </nav>
+    @endif
+
+    <div class="text-center">
+      <div class="container">
+        <marquee behavior="" direction="">
+          <h1>Welcome to pacho designs</h1>
+        </marquee>
+      </div>
     </div>
+  </div>
 </body>
 
 </html>
