@@ -22,4 +22,9 @@ class Order extends Model
         'balance',
         'description'
     ];
+
+    public function productCategory()
+    {
+        return $this->hasMany(ProductCategory::class);
+    }
 }

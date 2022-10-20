@@ -1,0 +1,105 @@
+<div>
+  @include('admin.components.breadcrumb')
+
+  <!-- Basic Bootstrap Table -->
+  <div class="card">
+    <div class="card-header d-flex justify-content-between mb-4">
+      <h5 class="md sm">
+        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#newProdModal">
+          <i class="bx bx-plus"></i> New
+        </button>
+      </h5>
+      {{-- search --}}
+      <div class="search-box">
+        <form action="" method="GET">
+          <input type="text" id="search" placeholder="Search item..." class="form-control" name="search" />
+        </form>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table order-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Image</th>
+              <th>Description</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody class="allproducts">
+            <?php $index = 1; ?>
+
+            @if (count($products) >= 1)
+              @foreach ($products as $key => $product)
+                <tr>
+                  <td>{{ ++$key }}</td>
+                  <td>{{ $product->prod_name }}</td>
+                  <td><strong>{{ $product->price }} Fcfa</strong></td>
+                  <td>{{ $product->short_desc }} Fcfa</td>
+                  <td>
+                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                      <i class="bx bx-dots-vertical-rounded"></i>
+                    </button>
+                    <div class="dropdown-menu action-btns">
+                      <a class="dropdown-item text-primary" href="javascript:void(0);"><i
+                          class="bx bx-edit-alt me-1 "></i>
+                        Edit</a>
+                      <a class="dropdown-item text-danger" href="javascript:void(0);"><i class="bx bx-trash me-1 "></i>
+                        Delete</a>
+                    </div>
+
+                  </td>
+                </tr>
+              @endforeach
+            @else
+              <tr>
+                <td colspan='7' class="text-center text-bold"> No products available!</td>
+              </tr>
+            @endif
+          </tbody>
+          {{-- search --}}
+          <tbody class="table-border-bottom-0 " id="searchResults">
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-footer">
+      {{ $products->links() }}
+    </div>
+  </div>
+  <!-- add order modal -->
+  <div class="modal fade" id="newProdModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel4">New Products</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label class="form-label" for="basic-default-fullname">Product Name</label>
+              <input type="text" class="form-control" id="basic-default-fullname" placeholder="Ex. Afritude">
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="basic-default-phone">Price</label>
+              <input type="number" id="basic-default-phone" class="form-control phone-mask" placeholder="75,000">
+            </div>
+            <div class="mb-3">
+              <label for="formFile" class="form-label">Image</label>
+              <input class="form-control" type="file" id="formFile">
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="basic-default-message">Short Description</label>
+              <textarea id="basic-default-message" class="form-control" placeholder="Enter product description"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Create</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

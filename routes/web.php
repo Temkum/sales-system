@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Livewire\AddOrderComponent;
+use App\Http\Livewire\ProductCategories;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,8 +44,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin/user/edit/{id}', [UserController::class, 'edit'])->name('edit-user');
     Route::patch('/admin/user/{id}', [UserController::class, 'update'])->name('update-user');
     Route::delete('/admin/users/remove/{id}', [UserController::class, 'destroy'])->name('delete-user');
-
     Route::get('/user/profile', [ProfileController::class, 'index'])->name('profile');
+
+    Route::get('/admin/products', ProductCategories::class)->name('product-categories');
 });
 
 // user

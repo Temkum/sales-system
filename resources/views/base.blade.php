@@ -74,32 +74,40 @@
                 <div data-i18n="Analytics">Dashboard</div>
               </a>
             </li>
-
             <li class="menu-item {{ request()->route()->named('orders')? 'active': '' }}">
               <a href="{{ route('orders') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-money"></i>
                 <div>Orders</div>
               </a>
             </li>
-
             <li class="menu-item {{ request()->route()->named('add-order')? 'active': '' }}">
               <a href="{{ route('add-order') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-cart"></i>
                 <div>New Order</div>
               </a>
             </li>
+            {{-- product --}}
+            <li class="menu-header small text-uppercase ">
+              <span class="menu-header-text">Product Categories</span>
+            </li>
+            <li class="menu-item {{ request()->route()->named('product-categories')? 'active': '' }}">
+              <a href="{{ route('product-categories') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-cart"></i>
+                <div>Products</div>
+              </a>
+            </li>
 
+            {{-- account --}}
             <li class="menu-header small text-uppercase ">
               <span class="menu-header-text">Account</span>
             </li>
-            <li class="menu-item">
             <li class="menu-item {{ request()->route()->named('profile')? 'active': '' }}">
               <a href="{{ route('profile') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user-circle"></i>
                 <div>Profile</div>
               </a>
             </li>
-            </li>
+
             @can('is-admin')
               <li class="menu-item {{ request()->route()->named('users')? 'active': '' }}">
                 <a href="{{ route('users') }}" class="menu-link">
