@@ -11,8 +11,16 @@ class ProductCategories extends Component
     use WithPagination;
     public $search_item;
 
-    public function updatingSearch()
+    public function deleteProduct($id)
     {
+        $product = ProductCategory::find($id);
+
+        if ($product->image) {
+            unlink('assets/img/products/' . $product->image);
+        }
+        $product->delete();
+
+        session()->flash('success', 'Product deleted successfully!');
     }
 
     public function render()

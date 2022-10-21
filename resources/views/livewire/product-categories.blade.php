@@ -47,7 +47,9 @@
                       <a class="me-4 btn btn-sm btn-outline-primary"
                         href="{{ route('edit-product', ['product_slug' => $product->slug]) }}">
                         Edit</a>
-                      <button class="btn btn-sm btn-outline-danger" role="button">Delete</button>
+                      <button class="btn btn-sm btn-outline-danger" role="button"
+                        onclick="confirm('Sure you want to delete this product?') || event.stopImmediatePropagation()"
+                        wire:click.prevent="deleteProduct({{ $product->id }})">Delete</button>
                     </div>
 
                   </td>
@@ -98,34 +100,16 @@
     </div>
 
   </div>
-  <!-- add order modal -->
+  <!-- add prod modal -->
   <div class="modal fade" id="newProdModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel4">New Products</h5>
+          <h5 class="modal-title" id="exampleModalLabel4">New Product</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <label class="form-label" for="basic-default-fullname">Product Name</label>
-              <input type="text" class="form-control" id="basic-default-fullname" placeholder="Ex. Afritude">
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="basic-default-phone">Price</label>
-              <input type="number" id="basic-default-phone" class="form-control phone-mask" placeholder="75,000">
-            </div>
-            <div class="mb-3">
-              <label for="formFile" class="form-label">Image</label>
-              <input class="form-control" type="file" id="formFile">
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="basic-default-message">Short Description</label>
-              <textarea id="basic-default-message" class="form-control" placeholder="Enter product description"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Create</button>
-          </form>
+          {{-- add product form --}}
         </div>
       </div>
     </div>
