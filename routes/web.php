@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Livewire\AddOrderComponent;
+use App\Http\Livewire\AddProductCategory;
 use App\Http\Livewire\ProductCategories;
 
 /*
@@ -47,6 +48,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/user/profile', [ProfileController::class, 'index'])->name('profile');
 
     Route::get('/admin/products', ProductCategories::class)->name('product-categories');
+    Route::get('/admin/add-product', AddProductCategory::class)->name('add-product');
 });
 
 // user

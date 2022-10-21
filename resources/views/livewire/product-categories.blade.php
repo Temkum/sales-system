@@ -23,7 +23,7 @@
             <tr>
               <th>#</th>
               <th>Product</th>
-              <th>Price</th>
+              <th>Price (Xaf)</th>
               <th>Image</th>
               <th>Description</th>
               <th>Actions</th>
@@ -37,18 +37,15 @@
                 <tr>
                   <td>{{ ++$key }}</td>
                   <td>{{ $product->prod_name }}</td>
-                  <td><strong>{{ $product->price }} Fcfa</strong></td>
-                  <td>{{ $product->short_desc }} Fcfa</td>
+                  <td><strong>{{ $product->price }} </strong></td>
+                  <td><img src="{{ asset('assets/img/products') }}/{{ $product->image }}"
+                      alt="{{ $product->prod_name }}" width="60"></td>
+                  <td>{{ $product->short_desc }}</td>
                   <td>
-                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                      <i class="bx bx-dots-vertical-rounded"></i>
-                    </button>
-                    <div class="dropdown-menu action-btns">
-                      <a class="dropdown-item text-primary" href="javascript:void(0);"><i
-                          class="bx bx-edit-alt me-1 "></i>
+                    <div class="d-flex">
+                      <a class="me-4 btn btn-sm btn-outline-primary" href="#">
                         Edit</a>
-                      <a class="dropdown-item text-danger" href="javascript:void(0);"><i class="bx bx-trash me-1 "></i>
-                        Delete</a>
+                      <button class="btn btn-sm btn-outline-danger" role="button">Delete</button>
                     </div>
 
                   </td>

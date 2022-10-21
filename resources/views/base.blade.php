@@ -92,8 +92,14 @@
             </li>
             <li class="menu-item {{ request()->route()->named('product-categories')? 'active': '' }}">
               <a href="{{ route('product-categories') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-cart"></i>
+                <i class="menu-icon tf-icons bx bx-category"></i>
                 <div>Products</div>
+              </a>
+            </li>
+            <li class="menu-item {{ request()->route()->named('add-product')? 'active': '' }}">
+              <a href="{{ route('add-product') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-duplicate"></i>
+                <div>Add New Product</div>
               </a>
             </li>
 
