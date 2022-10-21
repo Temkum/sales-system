@@ -22,21 +22,22 @@
     rel="stylesheet" />
 
   <!-- Icons. Uncomment required icon fonts -->
-  <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
+  <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/boxicons.css') }}" />
 
   <!-- Core CSS -->
-  <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
-  <link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-  <link rel="stylesheet" href="../assets/css/demo.css" />
+  <link rel="stylesheet" href="{{ asset('assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
+  <link rel="stylesheet" href="{{ asset('assets/vendor/css/theme-default.css') }}"
+    class="template-customizer-theme-css" />
+  <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
 
   <!-- Vendors CSS -->
-  <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-  <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
-  <link rel="stylesheet" href="../assets/vendor/css/pages/page-auth.css" />
+  <link rel="stylesheet" href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
+  <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}" />
+  <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-auth.css') }}" />
   <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
   <!-- Helpers -->
-  <script src="../assets/vendor/js/helpers.js"></script>
-  <script src="../assets/js/config.js"></script>
+  <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
+  <script src="{{ asset('assets/js/config.js') }}"></script>
 
   @livewireStyles
 </head>
@@ -177,7 +178,7 @@
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                     data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                      <img src="../assets/img/avatars/Jude.png" alt="user avatar"
+                      <img src="{{ asset('assets/img/avatars/Jude.png') }}" alt="user avatar"
                         class="w-px-40 h-auto rounded-circle" />
                     </div>
                   </a>
@@ -187,7 +188,7 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img src="../assets/img/avatars/Jude.png" alt="avatar"
+                              <img src="{{ asset('assets/img/avatars/Jude.png') }}" alt="avatar"
                                 class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </div>
@@ -253,7 +254,7 @@
               <script>
                 document.write(new Date().getFullYear());
               </script>,
-              made with ❤️ by
+              Bult with Laravel ❤️ by
               <a href="https://kumjudetem.com" target="_blank" class="footer-link fw-bolder">Kum
                 Jude</a>
             </div>
