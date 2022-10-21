@@ -37,23 +37,14 @@ class AddProductCategory extends Component
         $product->price = $this->price;
         $product->short_desc = $this->short_desc;
 
-        $imageName = $this->prod_name . '.' . $this->image->extension();
+        $rand_num = rand(5000, 9000);
+        $imageName = $this->prod_name[0] . $rand_num . '.' . $this->image->extension();
         $this->image->storeAs('products', $imageName);
         $product->image = $imageName;
 
-        if ($this->images) {
-            # code...
-            $images_name = '';
-            foreach ($this->images as $key => $image) {
-                $imgName = $this->prod_name . $key . '.' . $image->extension();
-                $image->storeAs('products', $imgName);
-                $images_name = $images_name . ',' . $imgName;
-            }
-            $product->images = $images_name;
-        }
         $product->save();
 
-        session()->flash('message', 'Product created successfully!');
+        session()->flash('success', 'Product created successfully!');
         redirect()->to('admin/products');
     }
 

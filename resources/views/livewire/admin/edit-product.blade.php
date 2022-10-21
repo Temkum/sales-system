@@ -16,11 +16,11 @@
       @endif
       <div class="row center-item"">
         <div class="col-md-6">
-          <form enctype="multipart/form-data" wire:submit.prevent="addProduct">
+          <form enctype="multipart/form-data" wire:submit.prevent="updateProduct">
             <div class="mb-3">
               <label class="form-label" for="basic-default-fullname">Product Name</label>
-              <input type="text" class="form-control" id="basic-default-fullname" placeholder="Ex. Afritude"
-                wire:model='prod_name' wire:keyup="generateSlug">
+              <input type="text" class="form-control" placeholder="Ex. Afritude" wire:model='prod_name'
+                wire:keyup="generateSlug">
               @error('prod_name')
                 <p class="text-danger">{{ $message ?? '' }}</p>
               @enderror
@@ -34,9 +34,11 @@
             </div>
             <div class="mb-3">
               <label for="formFile" class="form-label">Image</label>
-              <input class="form-control" type="file" id="formFile" wire:model="image">
-              @if ($image)
-                <img src="{{ $image->temporaryUrl() }}" width="120" />
+              <input class="form-control" type="file" id="formFile" wire:model="new_image">
+              @if ($new_image)
+                <img src="{{ $new_image->temporaryUrl() }}" width="120" />
+              @else
+                <img src="{{ asset('assets/img/products') }}/{{ $image }}" width="120" />
               @endif
               @error('image')
                 <p class="text-danger">{{ $message ?? '' }}</p>
@@ -50,7 +52,7 @@
                 <p class="text-danger">{{ $message ?? '' }}</p>
               @enderror
             </div>
-            <button type="submit" class="btn btn-primary">Create</button>
+            <button type="submit" class="btn btn-primary">Update</button>
           </form>
         </div>
       </div>

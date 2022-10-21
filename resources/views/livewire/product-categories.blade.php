@@ -17,8 +17,8 @@
       </div>
     </div>
     <div class="card-body">
-      <div class="table-responsive">
-        <table class="table order-table">
+      <div class="">
+        <table class="table order-table table-responsive">
           <thead>
             <tr>
               <th>#</th>
@@ -43,7 +43,8 @@
                   <td>{{ $product->short_desc }}</td>
                   <td>
                     <div class="d-flex">
-                      <a class="me-4 btn btn-sm btn-outline-primary" href="#">
+                      <a class="me-4 btn btn-sm btn-outline-primary"
+                        href="{{ route('edit-product', ['product_slug' => $product->slug]) }}">
                         Edit</a>
                       <button class="btn btn-sm btn-outline-danger" role="button">Delete</button>
                     </div>
