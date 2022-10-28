@@ -19,12 +19,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(10);
-        $roles = Role::all();
-
         if (Gate::denies('logged-in')) {
+
             return view('auth.login');
         }
+
+        $users = User::paginate(10);
+        $roles = Role::all();
 
         if (Gate::allows('is-admin')) {
             # code...
