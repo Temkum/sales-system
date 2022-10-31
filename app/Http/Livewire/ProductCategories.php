@@ -32,6 +32,6 @@ class ProductCategories extends Component
 
         $this->resetPage();
 
-        return view('livewire.product-categories', ['products' => $products])->extends('base');
+        return view('livewire.admin.product-categories', ['products' => $products])->extends('base');
     }
 }

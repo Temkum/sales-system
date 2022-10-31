@@ -1,7 +1,6 @@
 <div>
   @include('admin.components.breadcrumb')
 
-  <!-- Basic Bootstrap Table -->
   <div class="card">
     <div class="card-header d-flex justify-content-between mb-4">
       <h5 class="md sm">
@@ -14,7 +13,7 @@
       @if (Session::has('message'))
         <div class="alert alert-success" role="alert">{{ Session::get('message') }}</div>
       @endif
-      <div class="row center-item"">
+      <div class="row center-item">
         <div class="col-md-6">
           <form enctype="multipart/form-data" wire:submit.prevent="updateProduct">
             <div class="mb-3">

@@ -17,13 +17,14 @@ class Order extends Model
         'phone',
         'price',
         'advance',
+        'items',
         'due_date',
         'quantity',
         'balance',
         'description'
     ];
 
-    public function productCategory()
+    public function products()
     {
         return $this->hasMany(ProductCategory::class);
     }

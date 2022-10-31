@@ -1,15 +1,18 @@
 <?php
 
 use App\Http\Livewire\Orders;
+use App\Http\Livewire\Admin\AddOrder;
+use App\Http\Livewire\Admin\Contacts;
+use App\Http\Livewire\Admin\NewOrder;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Livewire\AddOrderComponent;
+use App\Http\Livewire\Admin\EditProduct;
+use App\Http\Livewire\ProductCategories;
+use App\Http\Livewire\AddProductCategory;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\AdminDashboardController;
-use App\Http\Livewire\AddOrderComponent;
-use App\Http\Livewire\AddProductCategory;
-use App\Http\Livewire\Admin\EditProduct;
-use App\Http\Livewire\ProductCategories;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,12 +33,11 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
-    // Route::get('/admin/orders', [OrderController::class, 'index'])->name('orders');
-    // Route::get('/admin/add-order', [OrderController::class, 'create'])->name('add-order');
+    Route::post('/admin/orders/add', [OrderController::class, 'store'])->name('store-order');
 
     Route::get('/admin/orders', Orders::class)->name('orders');
-    Route::get('/admin/add-order', AddOrderComponent::class)->name('add-order');
-    Route::post('/admin/orders/add', [OrderController::class, 'store'])->name('store-order');
+    // Route::get('/admin/add-order', AddOrder::class)->name('add-order');
+    Route::get('/admin/add-order', NewOrder::class)->name('add-order');
 
     Route::get('search', [OrderController::class, 'search'])->name('search');
     Route::get('date-search', [OrderController::class, 'dateSearch'])->name('date-search');
@@ -50,7 +52,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/admin/products', ProductCategories::class)->name('product-categories');
     Route::get('/admin/products/add', AddProductCategory::class)->name('add-product');
-    Route::get('/admin/product/{product_slug}', EditProduct::class)->name('edit-product');
+    Route::get('/admin/product/{product_code}', EditProduct::class)->name('edit-product');
+
+    Route::get('/admin/contacts', Contacts::class)->name('contacts');
 });
 
 // user

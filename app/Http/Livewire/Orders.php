@@ -13,6 +13,6 @@ class Orders extends Component
 
         $orders = Order::paginate($page_number);
 
-        return view('livewire.orders', ['orders' => $orders])->extends('base');
+        return view('livewire.admin.orders', ['orders' => $orders])->extends('base');
     }
 }

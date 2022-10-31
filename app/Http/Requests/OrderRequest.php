@@ -32,6 +32,7 @@ class OrderRequest extends FormRequest
             'advance' => 'required|numeric|min:1000',
             'due_date' => 'required',
             'balance' => 'required',
+            'items' => 'required',
             'description' => 'required|min:30',
         ];
     }

@@ -11,13 +11,13 @@ class AddProductCategory extends Component
 {
     use WithFileUploads;
 
-    public $prod_name, $slug, $price, $short_desc, $image, $images;
+    public $prod_name, $product_code, $price, $short_desc, $image, $images;
 
     public function generateSlug()
     {
         $rand_num = rand(5000, 9000);
-        $this->slug = Str::slug($this->prod_name, '-');
-        $this->slug = $this->slug . $rand_num;
+        $this->product_code = Str::product_code($this->prod_name, '-');
+        $this->product_code = $this->product_code . $rand_num;
     }
 
     public function addProduct()
@@ -25,7 +25,7 @@ class AddProductCategory extends Component
         // validate input
         $this->validate([
             'prod_name' => 'required',
-            'slug' => 'required|unique:product_categories',
+            'product_code' => 'required|unique:product_categories',
             'price' => 'required|numeric',
             'short_desc' => 'required',
             'image' => 'required|mimes:png,jpg,jpeg|max:5000'
@@ -33,7 +33,7 @@ class AddProductCategory extends Component
 
         $product = new ProductCategory();
         $product->prod_name = $this->prod_name;
-        $product->slug = $this->slug;
+        $product->product_code = $this->product_code;
         $product->price = $this->price;
         $product->short_desc = $this->short_desc;
 
@@ -50,6 +50,6 @@ class AddProductCategory extends Component
 
     public function render()
     {
-        return view('livewire.add-product-category')->extends('base');
+        return view('livewire.admin.add-product-category')->extends('base');
     }
 }

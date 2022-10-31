@@ -2,18 +2,16 @@
 
 namespace App\Models;
 
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Hash;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
-
-    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.
@@ -45,15 +43,15 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    /*  public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = Hash::make($password);
+    } */
+
     public function roles()
     {
         # code...
         return $this->belongsToMany('App\Models\Role');
-    }
-
-    public function setPasswordAttribute($password)
-    {
-        $this->attributes['password'] = Hash::make($password);
     }
 
     /**
@@ -64,6 +62,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function hasAnyRole($role)
     {
+        # code...
         return null !== $this->roles()->where('name', $role)->first();
     }
 
@@ -75,6 +74,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function hasAnyRoles($role)
     {
+        # code...
         return null !== $this->roles()->whereIn('name', $role)->first();
     }
 }

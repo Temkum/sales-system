@@ -19,6 +19,7 @@ class CreateOrdersTable extends Migration
             $table->string('phone');
             $table->string('address');
             $table->bigInteger('price');
+            $table->text('items');
             $table->integer('quantity');
             $table->bigInteger('advance');
             $table->date('due_date');

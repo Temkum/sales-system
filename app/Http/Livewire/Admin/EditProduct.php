@@ -11,14 +11,14 @@ class EditProduct extends Component
 {
     use WithFileUploads;
 
-    public $prod_name, $slug, $price, $short_desc, $image, $images, $new_image, $product_id;
+    public $prod_name, $product_code, $price, $short_desc, $image, $images, $new_image, $product_id;
 
-    public function mount($product_slug)
+    public function mount($product_code)
     {
-        $product = ProductCategory::where('slug', $product_slug)->first();
+        $product = ProductCategory::where('product_code', $product_code)->first();
 
         $this->prod_name = $product->prod_name;
-        $this->slug = $product->slug;
+        $this->product_code = $product->product_code;
         $this->price = $product->price;
         $this->image = $product->image;
         $this->short_desc = $product->short_desc;
@@ -29,15 +29,15 @@ class EditProduct extends Component
     public function generateSlug()
     {
         $rand_num = rand(5000, 9000);
-        $this->slug = Str::slug($this->prod_name, '-');
-        $this->slug = $this->slug . $rand_num;
+        $this->product_code = Str::product_code($this->prod_name, '-');
+        $this->product_code = $this->product_code . $rand_num;
     }
 
     public function updateProduct()
     {
         $this->validate([
             'prod_name' => 'required',
-            'slug' => 'required',
+            'product_code' => 'required',
             'price' => 'required|numeric',
             'short_desc' => 'required',
             'product_id' => 'required',
@@ -51,7 +51,7 @@ class EditProduct extends Component
 
         $product = ProductCategory::find($this->product_id);
         $product->prod_name = $this->prod_name;
-        $product->slug = $this->slug;
+        $product->product_code = $this->product_code;
         $product->short_desc = $this->short_desc;
         $product->price = $this->price;
 

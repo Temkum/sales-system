@@ -1,0 +1,132 @@
+<?php
+
+namespace App\Http\Livewire\Admin;
+
+use App\Models\Cart;
+use Livewire\Component;
+use App\Models\ProductCategory;
+
+class NewOrder extends Component
+{
+  public $name, $phone, $address, $quantity, $due_date, $balance, $advance, $status, $description;
+  public $price;
+  public $prod_qty;
+  public $product_code;
+  public $items = [];
+
+  public $products =  [];
+  public $prod_items = [''];
+  public $msg = '';
+  public $prod_in_cart;
+
+  public function mount()
+  {
+    $this->products = ProductCategory::all();
+    $this->prod_in_cart = Cart::all();
+
+    // dd($this->products);
+  }
+
+  public function increaseQty($prod_id)
+  {
+    $cart_product = Cart::find($prod_id);
+    $cart_product->increment('product_qty', 1);
+
+    $update_price = $cart_product->product_qty * $cart_product->product->price;
+
+    $cart_product->update(['product_price' => $update_price]);
+    $this->mount();
+  }
+
+  public function decreaseQty($prod_id)
+  {
+    $cart_product = Cart::find($prod_id);
+
+    if ($cart_product->product_qty <= 1) {
+      // return session()->back()->with('info', $cart_product->product->product_name . "'s quantity can't be less than 1. Increase the quantity or remove items from cart!");
+      return $msg = ($cart_product->product->product_name . "'s quantity can't be less than 1. Increase the quantity or remove items from cart!");
+    }
+
+    $cart_product->decrement('product_qty', 1);
+    $update_price = $cart_product->product_qty * $cart_product->product->price;
+
+    $cart_product->update(['product_price' => $update_price]);
+    $this->mount();
+  }
+
+  public function insertToOrderSummary()
+  {
+    $product = ProductCategory::where('id', $this->product_code)->first();
+
+    // show prod if available
+    if (!$product) {
+      return $this->msg = 'Product not found!';
+    }
+
+    $num_of_prods = Cart::where('product_id', $product->id)->count();
+
+    if ($num_of_prods > 0) {
+      return $this->msg = $product->prod_name . ' already added. Please increase the product quantity!';
+    } else {
+      $add_to_cart = new Cart();
+      $add_to_cart->user_id = auth()->user()->id;
+      $add_to_cart->product_id = $product->id;
+      $add_to_cart->product_price = $product->price;
+      $add_to_cart->product_qty = 1;
+      $add_to_cart->save();
+
+      $this->prod_in_cart->prepend($add_to_cart);
+
+      // clear input fields
+      $this->product_code = '';
+
+      return $this->msg = 'Product added successfully!';
+    }
+  }
+
+  public function removeItem($prod_id)
+  {
+    $remove_prod = Cart::find($prod_id);
+    $remove_prod->delete();
+
+    $this->msg = 'Product removed!';
+
+    $this->prod_in_cart = $this->prod_in_cart->except($prod_id);
+  }
+
+  /*  public function addSale()
+  {
+    $this->validate([
+      'name' => 'required',
+      'phone' => 'required',
+      'address' => 'required',
+      'price' => 'required|numeric',
+      'items' => 'required',
+      'quantity' => 'required',
+      'advance' => 'required|numeric',
+      'balance' => 'required',
+      'due_date' => 'required',
+      'description' => 'required',
+    ]);
+
+    $sale = new Order();
+    $sale->name = $this->name;
+    $sale->phone = $this->phone;
+    $sale->address = $this->address;
+    $sale->price = $this->price;
+    $sale->quantity = $this->quantity;
+    $sale->advance = $this->advance;
+    $sale->balance = $this->price - $this->advance;
+    $sale->due_date = $this->due_date;
+    $sale->description = $this->description;
+    $sale->items = $this->items;
+    $sale->save();
+
+    session()->flash('success', 'Sale order added successfully!');
+  } */
+
+  public function render()
+  {
+    return view('livewire.admin.order-form')->extends('base');
+  }
+}
