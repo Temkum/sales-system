@@ -16,9 +16,11 @@ class AddProductCategory extends Component
     public function generateSlug()
     {
         $rand_num = rand(5000, 9000);
-        $this->product_code = Str::product_code($this->prod_name, '-');
+        $this->product_code = Str::slug($this->prod_name, '-');
         $this->product_code = $this->product_code . $rand_num;
     }
+
+    
 
     public function addProduct()
     {

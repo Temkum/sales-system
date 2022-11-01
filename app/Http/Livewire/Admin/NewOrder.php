@@ -3,12 +3,14 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Cart;
+use App\Models\Order;
 use Livewire\Component;
 use App\Models\ProductCategory;
 
 class NewOrder extends Component
 {
-  public $name, $phone, $address, $quantity, $due_date, $balance, $advance, $status, $description;
+  public $name, $phone, $address, $quantity, $due_date, $status, $description;
+  public $balance, $advance;
   public $price;
   public $prod_qty;
   public $product_code;
@@ -18,6 +20,7 @@ class NewOrder extends Component
   public $prod_items = [''];
   public $msg = '';
   public $prod_in_cart;
+  public $prod_name;
 
   public function mount()
   {
@@ -56,6 +59,7 @@ class NewOrder extends Component
 
   public function insertToOrderSummary()
   {
+    // $product = ProductCategory::where('id', $this->product_code)->first();
     $product = ProductCategory::where('id', $this->product_code)->first();
 
     // show prod if available
@@ -75,7 +79,7 @@ class NewOrder extends Component
       $add_to_cart->product_qty = 1;
       $add_to_cart->save();
 
-      $this->prod_in_cart->prepend($add_to_cart);
+      $this->prod_in_cart->push($add_to_cart);
 
       // clear input fields
       $this->product_code = '';
@@ -94,16 +98,30 @@ class NewOrder extends Component
     $this->prod_in_cart = $this->prod_in_cart->except($prod_id);
   }
 
-  /*  public function addSale()
+  public function updated($fields)
+  {
+    $this->validateOnly($fields, [
+      'name' => 'required',
+      'phone' => 'required',
+      'address' => 'required',
+      'price' => 'required',
+      // 'quantity' => 'required',
+      'advance' => 'required',
+      'balance' => 'required',
+      'due_date' => 'required',
+      'description' => 'required',
+    ]);
+  }
+
+  public function addSale()
   {
     $this->validate([
       'name' => 'required',
       'phone' => 'required',
       'address' => 'required',
-      'price' => 'required|numeric',
-      'items' => 'required',
-      'quantity' => 'required',
-      'advance' => 'required|numeric',
+      'price' => 'required',
+      // 'quantity' => 'required',
+      'advance' => 'required',
       'balance' => 'required',
       'due_date' => 'required',
       'description' => 'required',
@@ -114,19 +132,27 @@ class NewOrder extends Component
     $sale->phone = $this->phone;
     $sale->address = $this->address;
     $sale->price = $this->price;
-    $sale->quantity = $this->quantity;
+    $sale->quantity = 1;
     $sale->advance = $this->advance;
     $sale->balance = $this->price - $this->advance;
     $sale->due_date = $this->due_date;
     $sale->description = $this->description;
-    $sale->items = $this->items;
+    $sale->status = 'processing';
+    $sale->items = $this->prod_in_cart;
+    // dd($this->prod_in_cart);
     $sale->save();
 
     session()->flash('success', 'Sale order added successfully!');
-  } */
+    redirect()->to('admin/orders');
+  }
 
   public function render()
   {
+    if ($this->advance != '') {
+      $total_amt = $this->prod_in_cart->sum('product_price');
+      $this->balance = $total_amt;
+    }
+
     return view('livewire.admin.order-form')->extends('base');
   }
 }
