@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Orders;
+use App\Http\Livewire\Admin\Orders;
 use App\Http\Livewire\Admin\AddOrder;
 use App\Http\Livewire\Admin\Contacts;
 use App\Http\Livewire\Admin\NewOrder;

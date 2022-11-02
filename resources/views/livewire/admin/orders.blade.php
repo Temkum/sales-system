@@ -1,39 +1,44 @@
 <div>
-    @include('admin.components.breadcrumb')
+    {{-- @include('admin.components.breadcrumb') --}}
 
     <div class="card">
         <div class="card-header d-flex justify-content-between mb-4">
             <h5 class="md sm">
-                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                    data-bs-target="#newOrderModal">
-                    <i class="bx bx-plus"></i> New Order
-                </button>
+                <form>
+                    <select class="form-select" name="sorting" id="" wire:model="sorting">
+                        <option>Sort sale items</option>
+                        <option value="due">Due</option>
+                        <option value="processing">Processing</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </form>
             </h5>
             {{-- search --}}
             <div class="search-box">
-                <form action="" method="GET">
+                <form>
                     <input type="text" id="search" placeholder="Search item..." class="form-control"
-                        name="search" />
+                        wire:model="search" name="search" />
                 </form>
             </div>
             {{-- date filter --}}
-            <form action="{{ route('date-search') }}" method="GET">
+            <form>
                 <div class="range-box row mb-3">
                     <div class="col-md-6 col-lg-6">
                         <label for="start_date">Start date</label>
-                        <input type="date" name="start_date" class="form-control">
+                        <input type="date" name="start_date" class="form-control" wire:model="start_date">
                     </div>
                     <div class="col-md-6 col-lg-6">
                         <label for="end_date">End date</label>
-                        <input type="date" name="end_date" class="form-control">
+                        <input type="date" name="end_date" class="form-control" wire:model="end_date">
                     </div>
                 </div>
-                <button class="btn btn-secondary" type="submit">Filter</button>
+                {{-- <button class="btn btn-secondary" type="submit">Filter</button> --}}
             </form>
         </div>
         <div class="card-body">
-            <div class="table-responsive">
-                <table class="table order-table">
+            <div class="">
+                <table class="table order-table table-responsive">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -58,13 +63,13 @@
                                     <td>{{ $order->advance }} Fcfa</td>
                                     <td>
                                         @if ($order->status == 'completed')
-                                            <span class="badge bg-label-success me-1">{{ $order->status }}</span>
+                                            <span class="badge bg-success me-1">{{ $order->status }}</span>
                                         @elseif($order->status == 'cancelled')
-                                            <span class="badge bg-label-primary me-1">{{ $order->status }}</span>
+                                            <span class="badge bg-warning me-1">{{ $order->status }}</span>
                                         @elseif($order->status == 'due')
-                                            <span class="badge bg-label-danger me-1">{{ $order->status }}</span>
+                                            <span class="badge bg-danger me-1">{{ $order->status }}</span>
                                         @else
-                                            <span class="badge bg-warning">Processing</span>
+                                            <span class="badge bg-label-primary">Processing</span>
                                         @endif
                                     </td>
                                     <td>

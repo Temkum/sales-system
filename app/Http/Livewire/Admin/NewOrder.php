@@ -26,8 +26,6 @@ class NewOrder extends Component
   {
     $this->products = ProductCategory::all();
     $this->prod_in_cart = Cart::all();
-
-    // dd($this->products);
   }
 
   public function increaseQty($prod_id)
@@ -132,7 +130,7 @@ class NewOrder extends Component
     $sale->phone = $this->phone;
     $sale->address = $this->address;
     $sale->price = $this->price;
-    $sale->quantity = 1;
+    $sale->quantity = $this->prod_in_cart->sum('product_qty');
     $sale->advance = $this->advance;
     $sale->balance = $this->price - $this->advance;
     $sale->due_date = $this->due_date;
@@ -141,6 +139,11 @@ class NewOrder extends Component
     $sale->items = $this->prod_in_cart;
     // dd($this->prod_in_cart);
     $sale->save();
+
+    // clear items
+    foreach ($this->prod_in_cart as $item) {
+      $this->removeItem($item->id);
+    }
 
     session()->flash('success', 'Sale order added successfully!');
     redirect()->to('admin/orders');
@@ -152,6 +155,8 @@ class NewOrder extends Component
       $total_amt = $this->prod_in_cart->sum('product_price');
       $this->balance = $total_amt;
     }
+
+    $this->prod_in_cart = Cart::all();
 
     return view('livewire.admin.order-form')->extends('base');
   }
