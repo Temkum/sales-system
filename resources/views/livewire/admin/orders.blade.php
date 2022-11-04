@@ -3,17 +3,15 @@
 
     <div class="card">
         <div class="card-header d-flex justify-content-between mb-4">
-            <h5 class="md sm">
-                <form>
-                    <select class="form-select" name="sorting" id="" wire:model="sorting">
-                        <option>Sort sale items</option>
-                        <option value="due">Due</option>
-                        <option value="processing">Processing</option>
-                        <option value="completed">Completed</option>
-                        <option value="cancelled">Cancelled</option>
-                    </select>
-                </form>
-            </h5>
+            {{-- <h5 class="md sm">
+                <select class="form-select" name="sort_by" wire:model="sort_by">
+                    <option value="default">Sort sale items</option>
+                    <option value="due">Due</option>
+                    <option value="completed">Completed</option>
+                    <option value="processing">Processing</option>
+                    <option value="cancelled">Cancelled</option>
+                </select>
+            </h5> --}}
             {{-- search --}}
             <div class="search-box">
                 <form>
