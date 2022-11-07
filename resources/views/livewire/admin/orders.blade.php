@@ -13,6 +13,7 @@
                 </select>
             </h5> --}}
             {{-- search --}}
+
             <div class="search-box">
                 <form>
                     <input type="text" id="search" placeholder="Search item..." class="form-control"
@@ -35,8 +36,8 @@
             </form>
         </div>
         <div class="card-body">
-            <div class="">
-                <table class="table order-table table-responsive">
+            <div class="table-responsive">
+                <table class="table order-table">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -70,21 +71,22 @@
                                             <span class="badge bg-label-primary">Processing</span>
                                         @endif
                                     </td>
-                                    <td>
-                                        {{-- <div class="dropdown"> --}}
-                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                            data-bs-toggle="dropdown">
-                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                        </button>
-                                        <div class="dropdown-menu action-btns">
-                                            <a class="dropdown-item text-primary" href="javascript:void(0);"><i
-                                                    class="bx bx-edit-alt me-1 "></i>
-                                                Edit</a>
-                                            <a class="dropdown-item text-danger" href="javascript:void(0);"><i
-                                                    class="bx bx-trash me-1 "></i>
-                                                Delete</a>
-                                        </div>
-                                        {{-- </div> --}}
+                                    <td class="btn-group">
+                                        {{-- <a class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
+                                            data-bs-target="#orderDetails"
+                                            href="{{ route('order-details', ['order_id' => $order->id]) }}">
+                                            View
+                                        </a> --}}
+                                        <a class="btn btn-sm btn-outline-secondary"
+                                            href="{{ route('order-details', ['order_id' => $order->id]) }}">
+                                            View
+                                        </a>
+                                        <a href="#" class="btn btn-sm btn-outline-primary">
+                                            Edit
+                                        </a>
+                                        <button class="btn btn-sm btn-outline-danger" role="button"
+                                            onclick="confirm('Sure you want to delete this product?') || event.stopImmediatePropagation()"
+                                            wire:click.prevent="">Delete</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -113,7 +115,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    {{-- @include('livewire.admin.order-form') --}}
+
                 </div>
             </div>
         </div>

@@ -13,6 +13,7 @@ use App\Http\Livewire\AddProductCategory;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Livewire\Admin\OrderDetails;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +39,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin/orders', Orders::class)->name('orders');
     // Route::get('/admin/add-order', AddOrder::class)->name('add-order');
     Route::get('/admin/add-order', NewOrder::class)->name('add-order');
-    // Route::post('/admin/sale/add', [NewOrder::class, 'addSale'])->name('store-sale');
+    Route::get('/admin/orders/{order_id}', OrderDetails::class)->name('order-details');
 
     Route::get('search', [OrderController::class, 'search'])->name('search');
     Route::get('date-search', [OrderController::class, 'dateSearch'])->name('date-search');

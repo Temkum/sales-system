@@ -277,7 +277,6 @@
             </div>
             <!-- Content wrapper -->
         </div>
-        <!-- / Layout page -->
     </div>
 
     <!-- Overlay -->
@@ -290,6 +289,7 @@
         !request()->route()->named('login') &&
         !request()->route()->named('password.request') &&
         !request()->route()->named('password.reset') &&
+        !request()->route()->named('order-details') &&
         !request()->route()->named('add-user'))
         <div class="buy-now" id="new_order">
             <a href="{{ route('add-order') }}" class="btn btn-danger btn-buy-now">Add New Order</a>
