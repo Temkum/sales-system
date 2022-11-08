@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Admin;
 use App\Models\Order;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
 
 class Orders extends Component
 {
@@ -13,6 +14,8 @@ class Orders extends Component
     public $start_date = '';
     public $end_date = '';
     public $page_number;
+
+    public $msg = '';
 
     use WithPagination;
 
@@ -25,6 +28,31 @@ class Orders extends Component
     public function updatedSearch()
     {
         $this->resetPage();
+    }
+
+    public function updateSaleStatus($sale_id, $status)
+    {
+        $sale = Order::find($sale_id);
+        $sale->status = $status;
+
+        if ($status == 'completed') {
+            $sale->date_delivered = DB::raw('CURRENT_DATE');
+        } elseif ($status == 'cancelled') {
+            $sale->date_cancelled = DB::raw('CURRENT_DATE');
+        }
+        $sale->save();
+
+        // dd($status);
+
+        return $this->msg = 'Status updated successfully!';
+    }
+
+    public function deleteSale($id)
+    {
+        $sale = Order::find($id);
+        $sale->delete();
+
+        $this->msg = 'Deleted successfully!';
     }
 
     public function render()

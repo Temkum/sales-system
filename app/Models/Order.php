@@ -21,6 +21,7 @@ class Order extends Model
         'due_date',
         'quantity',
         'balance',
+        'status',
         'description'
     ];
 

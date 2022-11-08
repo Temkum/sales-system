@@ -47,6 +47,7 @@
                             <th>Advance Paid</th>
                             <th>Status</th>
                             <th>Actions</th>
+                            <th>Update status</th>
                         </tr>
                     </thead>
                     <tbody class="allOrders">
@@ -85,8 +86,41 @@
                                             Edit
                                         </a>
                                         <button class="btn btn-sm btn-outline-danger" role="button"
-                                            onclick="confirm('Sure you want to delete this product?') || event.stopImmediatePropagation()"
-                                            wire:click.prevent="">Delete</button>
+                                            onclick="confirm('Sure you want to delete this record?') || event.stopImmediatePropagation()"
+                                            wire:click.prevent="deleteSale({{ $order->id }})">Delete</button>
+                                    </td>
+                                    <td>
+                                        {{-- <form wire:submit.prevent="updateSaleStatus">
+                                            <select id="smallSelect" class="form-select form-select-sm"
+                                                wire:model='status'>
+                                                <option>{{ ucfirst($order->status) }}</option>
+                                                <option value="processing">Pending</option>
+                                                <option value="completed">Completed</option>
+                                                <option value="due">Due</option>
+                                                <option value="cancelled">Cancelled</option>
+                                            </select>
+                                        </form> --}}
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-secondary dropdown-toggle" type="button"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                Status
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#"
+                                                        wire:click.prevent="updateSaleStatus({{ $order->id }}, 'completed')">Completed</a>
+                                                </li>
+                                                <li><a class="dropdown-item" href="#"
+                                                        wire:click.prevent="updateSaleStatus({{ $order->id }}, 'due')">Due</a>
+                                                </li>
+                                                <li><a class="dropdown-item" href="#"
+                                                        wire:click.prevent="updateSaleStatus({{ $order->id }}, 'processing')">Pending</a>
+                                                </li>
+                                                <li><a class="dropdown-item" href="#"
+                                                        wire:click.prevent="updateSaleStatus({{ $order->id }}, 'cancelled')">Cancelled</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
                                     </td>
                                 </tr>
                             @endforeach
