@@ -38,7 +38,7 @@
                                 <tr>
                                     <td>{{ ++$key }}</td>
                                     <td>{{ $product->prod_name }}</td>
-                                    <td><strong>{{ $product->price }} </strong></td>
+                                    <td><strong>{{ number_format($product->price, 2) }} </strong></td>
                                     <td><img src="{{ asset('assets/img/products') }}/{{ $product->image }}"
                                             alt="{{ $product->prod_name }}" width="60"></td>
                                     <td>{{ $product->short_desc }}</td>

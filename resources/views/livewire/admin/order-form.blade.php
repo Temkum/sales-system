@@ -150,7 +150,7 @@
                             @if ($advance > $price && $price != 0)
                                 <h6 class="mb-2 badge bg-warning fs-10">Amount exceeds agreed price</h6>
                             @elseif($advance)
-                                <h3 class="mb-2">{{ $advance }}</h3>
+                                <h3 class="mb-2">{{ number_format($advance, 2) }}</h3>
                             @else
                                 <h3 class="mb-2 fs-20">0.00</h3>
                             @endif
@@ -160,11 +160,12 @@
                             @if ($advance == $price && $price)
                                 <small class="mb-2 badge bg-info">Fully Paid</small>
                             @elseif($advance > $price)
-                                <small class="mb-2 badge bg-secondary">{{ $advance - $price }}</small>
+                                <small
+                                    class="mb-2 badge bg-secondary">{{ number_format($advance - $price, 2) }}</small>
                             @elseif($price == 0)
                                 <h6 class="mb-2">0.00</h6>
                             @else
-                                <h4 class="mb-2">{{ intval($price) - intval($advance) }}</h4>
+                                <h4 class="mb-2">{{ number_format(intval($price) - intval($advance), 2) }}</h4>
                             @endif
 
                             @if ($advance > $price)
@@ -218,7 +219,7 @@
                                             </div>
                                             <div class="user-progress d-flex align-items-center gap-1">
                                                 <h6 class="mb-0">
-                                                    {{ $item->product_qty * $item->product->price }}
+                                                    {{ number_format($item->product_qty * $item->product->price, 2) }}
                                                 </h6>
                                                 {{-- <span class="text-muted">XAF</span> --}}
                                             </div>
@@ -233,7 +234,8 @@
                             <div class="col-md-6">
                                 <div class="user-progress d-flex align-items-center gap-1">
                                     @if ($this->prod_in_cart)
-                                        <h2 class="mb-0">{{ $this->prod_in_cart->sum('product_price') }}</h2>
+                                        <h2 class="mb-0">
+                                            {{ number_format($this->prod_in_cart->sum('product_price'), 2) }}</h2>
                                     @endif
                                     <span class="text-muted">XAF</span>
                                 </div>

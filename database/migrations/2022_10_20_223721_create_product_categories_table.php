@@ -18,7 +18,7 @@ class CreateProductCategoriesTable extends Migration
             $table->string('prod_name');
             $table->string('product_code')->unique();
             $table->string('short_desc')->nullable();
-            $table->decimal('price');
+            $table->integer('price');
             $table->string('image')->nullable();
             $table->timestamps();
         });

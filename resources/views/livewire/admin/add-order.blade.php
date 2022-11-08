@@ -151,7 +151,7 @@
                             @if ($advance > $price && $price != 0)
                                 <h6 class="mb-2 badge bg-warning fs-10">Advance exceeds agreed price</h6>
                             @elseif($advance)
-                                <h3 class="mb-2">{{ $advance }}</h3>
+                                <h3 class="mb-2">{{ number_format($advance, 2) }}</h3>
                             @else
                                 <h3 class="mb-2 fs-20">0.00</h3>
                             @endif
@@ -165,7 +165,7 @@
                             @elseif($price == 0)
                                 <h6 class="mb-2">0.00</h6>
                             @else
-                                <h4 class="mb-2">{{ intval($price - $advance) }}</h4>
+                                <h4 class="mb-2">{{ number_format(intval($price - $advance), 2) }}</h4>
                             @endif
                             <small class="text-danger fw-semibold">Balance due</small>
                         </div>
@@ -194,7 +194,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="user-progress d-flex align-items-center gap-1">
-                                    <h2 class="mb-0">{{ $price ?? '0.00' }}</h2>
+                                    <h2 class="mb-0">{{ number_format($price, 2) ?? '0.00' }}</h2>
                                     <span class="text-muted">XAF</span>
                                 </div>
                                 <span>Total</span>

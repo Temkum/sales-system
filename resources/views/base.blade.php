@@ -359,7 +359,10 @@
         })
     </script>
 
+    @yield('script')
+
     @livewireScripts
+
 </body>
 
 </html>
