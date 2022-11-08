@@ -5,7 +5,7 @@
     <div class="card">
         <div class="card-header d-flex justify-content-between mb-4">
             <h5 class="md sm">
-                <a type="button" class="btn btn-outline-success" href="{{ route('add-product') }}">
+                <a type="button" class="btn btn-sm btn-outline-success" href="{{ route('add-product') }}">
                     <i class="bx bx-plus"></i> New
                 </a>
             </h5>
@@ -39,19 +39,27 @@
                                     <td>{{ ++$key }}</td>
                                     <td>{{ $product->prod_name }}</td>
                                     <td><strong>{{ number_format($product->price, 2) }} </strong></td>
-                                    <td><img src="{{ asset('assets/img/products') }}/{{ $product->image }}"
-                                            alt="{{ $product->prod_name }}" width="60"></td>
+                                    <td>
+                                        <div class="flex-shrink-0 me-3">
+                                            <img class="rounded"
+                                                src="{{ asset('assets/img/products') }}/{{ $product->image }}"
+                                                alt="{{ $product->prod_name }}" width="60">
+                                        </div>
+                                    </td>
                                     <td>{{ $product->short_desc }}</td>
                                     <td>
-                                        <div class="d-flex">
-                                            <a class="me-4 btn btn-sm btn-outline-primary"
+                                        <div class="btn-group">
+                                            <a class="btn btn-sm btn-outline-primary"
                                                 href="{{ route('edit-product', ['product_code' => $product->product_code]) }}">
-                                                Edit</a>
+                                                Modify
+                                            </a>
+                                            {{-- <a class="me-4 btn btn-sm btn-outline-primary"
+                                                href="{{ route('edit-product', ['product_code' => $product->product_code]) }}">
+                                                Edit</a> --}}
                                             <button class="btn btn-sm btn-outline-danger" role="button"
                                                 onclick="confirm('Sure you want to delete this product?') || event.stopImmediatePropagation()"
                                                 wire:click.prevent="deleteProduct({{ $product->id }})">Delete</button>
                                         </div>
-
                                     </td>
                                 </tr>
                             @endforeach
@@ -69,6 +77,6 @@
                 {{ $products->links() }}
             </nav>
         </div>
-
     </div>
+</div>
 </div>

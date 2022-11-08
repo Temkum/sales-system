@@ -65,7 +65,7 @@
                                         @if ($order->status == 'completed')
                                             <span class="badge bg-success me-1">{{ $order->status }}</span>
                                         @elseif($order->status == 'cancelled')
-                                            <span class="badge bg-warning me-1">{{ $order->status }}</span>
+                                            <span class="badge bg-secondary me-1">{{ $order->status }}</span>
                                         @elseif($order->status == 'due')
                                             <span class="badge bg-danger me-1">{{ $order->status }}</span>
                                         @else
@@ -73,11 +73,6 @@
                                         @endif
                                     </td>
                                     <td class="btn-group">
-                                        {{-- <a class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
-                                            data-bs-target="#orderDetails"
-                                            href="{{ route('order-details', ['order_id' => $order->id]) }}">
-                                            View
-                                        </a> --}}
                                         <a class="btn btn-sm btn-outline-secondary"
                                             href="{{ route('order-details', ['order_id' => $order->id]) }}">
                                             View
@@ -90,16 +85,6 @@
                                             wire:click.prevent="deleteSale({{ $order->id }})">Delete</button>
                                     </td>
                                     <td>
-                                        {{-- <form wire:submit.prevent="updateSaleStatus">
-                                            <select id="smallSelect" class="form-select form-select-sm"
-                                                wire:model='status'>
-                                                <option>{{ ucfirst($order->status) }}</option>
-                                                <option value="processing">Pending</option>
-                                                <option value="completed">Completed</option>
-                                                <option value="due">Due</option>
-                                                <option value="cancelled">Cancelled</option>
-                                            </select>
-                                        </form> --}}
                                         <div class="dropdown">
                                             <button class="btn btn-sm btn-secondary dropdown-toggle" type="button"
                                                 data-bs-toggle="dropdown" aria-expanded="false">

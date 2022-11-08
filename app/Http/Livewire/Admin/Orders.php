@@ -42,8 +42,6 @@ class Orders extends Component
         }
         $sale->save();
 
-        // dd($status);
-
         return $this->msg = 'Status updated successfully!';
     }
 

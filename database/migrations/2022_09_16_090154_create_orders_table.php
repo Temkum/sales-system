@@ -26,6 +26,8 @@ class CreateOrdersTable extends Migration
             $table->integer('balance');
             $table->enum('status', ['processing', 'completed', 'due', 'cancelled']);
             $table->text('description');
+            $table->date('date_delivered')->nullable();
+            $table->date('date_cancelled')->nullable();
             $table->timestamps();
         });
     }
