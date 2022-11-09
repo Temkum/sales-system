@@ -48,6 +48,10 @@
     font-size: 5px;
 }
 
+.font-sm {
+    font-size: .5em;
+}
+
 .gap-3 {
     gap: 3rem !important;
 }

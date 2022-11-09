@@ -57,6 +57,8 @@ class Orders extends Component
     {
         $page_number = 13;
 
+        $orders = Order::orderBy('created_at', 'DESC')->paginate($this->page_number);
+
         /*    if ($this->sorting == 'processing') {
             $orders = Order::where('name', 'LIKE', '%' . $this->search . '%')->orderBy('due', 'DESC')->paginate($page_number);
         } elseif ($this->sorting == 'due') {
@@ -72,7 +74,7 @@ class Orders extends Component
             ->orWhere('advance', 'LIKE', '%' . $this->search . '%')
             ->orWhere('balance', 'LIKE', '%' . $this->search . '%')
             ->orWhere('status', 'LIKE', '%' . $this->search . '%')
-            ->orWhere('address', 'LIKE', '%' . $this->search . '%')->paginate($this->page_number);
+            ->orWhere('address', 'LIKE', '%' . $this->search . '%')->orderBy('created_at', 'DESC')->paginate($this->page_number);
 
         if (($this->start_date && $this->end_date) && $this->start_date) {
             $orders = Order::where('created_at', '>=', $this->start_date)
