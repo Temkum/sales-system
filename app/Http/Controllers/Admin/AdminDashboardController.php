@@ -17,14 +17,14 @@ class AdminDashboardController extends Controller
         $roles = Role::all();
 
         $sales = Order::orderBy('created_at', 'DESC')->get()->take(10);
-        $total_ordered = Order::where('advance', 'advance')->count();
+        $transactions = Order::count();
         $total_revenue = Order::sum('advance');
 
         $weekly_sales = Order::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get()->sum('advance');
         $montly_sales = Order::whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->get()->sum('advance');
         $today_sales = Order::where('created_at', '>=', Carbon::today())->get()->sum('advance');
 
-        // dd($today_sales);
+        // dd($transactions);
 
         return view(
             'admin.dashboard',
@@ -32,7 +32,7 @@ class AdminDashboardController extends Controller
                 'users' => $users,
                 'roles' => $roles,
                 'sales' => $sales,
-                'total_ordered' => $total_ordered,
+                'transactions' => $transactions,
                 'total_revenue' => $total_revenue,
                 'today_sales' => $today_sales,
                 'weekly_sales' => $weekly_sales,

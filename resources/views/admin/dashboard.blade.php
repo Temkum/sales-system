@@ -26,62 +26,8 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-lg-4 col-md-4 order-1">
                 <div class="row">
-                    {{-- total sales --}}
-                    <div class="col-12 mb-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
-                                    <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
-                                        <div class="card-title">
-                                            <h5 class="text-nowrap mb-2">Total Sales</h5>
-                                            <span class="badge bg-label-warning rounded-pill">Year
-                                                {{ date('Y') }}</span>
-                                        </div>
-                                        <div class="mt-sm-auto">
-                                            <small class="text-success text-nowrap fw-semibold"><i
-                                                    class="bx bx-chevron-up"></i> 68.2%</small>
-                                            <h3 class="mb-0">{{ number_format($total_revenue) }}
-                                                <span class="font-sm">FCFA</span>
-                                            </h3>
-                                        </div>
-                                    </div>
-                                    {{-- <div id="profileReportChart" class="w-10"></div> --}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {{-- montly sales --}}
-                    <div class="col-lg-6 col-md-12 col-6 mb-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="card-title d-flex align-items-start justify-content-between">
-                                    <div class="avatar flex-shrink-0">
-                                        <img src="{{ asset('assets/img/icons/unicons/wallet-info.png') }}" alt="Credit Card"
-                                            class="rounded" />
-                                    </div>
-                                    <div class="dropdown">
-                                        <button class="btn p-0" type="button" id="cardOpt6" data-bs-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
-                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
-                                            <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                                            <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span>Montly Sales</span>
-                                <h3 class="card-title text-nowrap mb-1">{{ number_format($monthly_sales) }}
-                                    <span class="font-sm">FCFA</span>
-                                </h3>
-                                <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.42%</small>
-                            </div>
-                        </div>
-                    </div>
-                    {{-- weekly --}}
                     <div class="col-lg-6 col-md-12 col-6 mb-4">
                         <div class="card">
                             <div class="card-body">
@@ -109,21 +55,20 @@
                             </div>
                         </div>
                     </div>
-                    {{-- today --}}
-                    <div class="col-6 mb-4">
+                    <div class="col-lg-6 col-md-12 col-6 mb-4">
                         <div class="card">
                             <div class="card-body">
                                 <div class="card-title d-flex align-items-start justify-content-between">
                                     <div class="avatar flex-shrink-0">
-                                        <img src="../assets/img/icons/unicons/cc-primary.png" alt="Credit Card"
+                                        <img src="../assets/img/icons/unicons/wallet-info.png" alt="Credit Card"
                                             class="rounded" />
                                     </div>
                                     <div class="dropdown">
-                                        <button class="btn p-0" type="button" id="cardOpt1" data-bs-toggle="dropdown"
+                                        <button class="btn p-0" type="button" id="cardOpt6" data-bs-toggle="dropdown"
                                             aria-haspopup="true" aria-expanded="false">
                                             <i class="bx bx-dots-vertical-rounded"></i>
                                         </button>
-                                        <div class="dropdown-menu" aria-labelledby="cardOpt1">
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
                                             <a class="dropdown-item" href="javascript:void(0);">View More</a>
                                             <a class="dropdown-item" href="javascript:void(0);">Delete</a>
                                         </div>
@@ -131,16 +76,14 @@
                                 </div>
                                 <span class="fw-semibold d-block mb-1">Today Sales</span>
                                 <h3 class="card-title mb-2">{{ number_format($today_sales) }}
-                                    <span class="text-muted fs-5">FCFA</span>
+                                    <span class="font-sm">XAF</span>
                                 </h3>
                                 <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.14%</small>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
-
             <!-- Total Revenue -->
             <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
                 <div class="card">
@@ -189,6 +132,92 @@
                                         <small>2021</small>
                                         <h6 class="mb-0">$41.2k</h6>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/ Total Revenue -->
+            <div class="col-12 col-md-8 col-lg-4 order-3 order-md-2">
+                <div class="row">
+                    <div class="col-6 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-title d-flex align-items-start justify-content-between">
+                                    <div class="avatar flex-shrink-0">
+                                        <img src="{{ asset('assets/img/icons/unicons/paypal.png') }}" alt="Credit Card"
+                                            class="rounded" />
+                                    </div>
+                                    <div class="dropdown">
+                                        <button class="btn p-0" type="button" id="cardOpt4" data-bs-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt4">
+                                            <a class="dropdown-item" href="javascript:void(0);">View More</a>
+                                            <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="d-block mb-1">Monthly Sales</span>
+                                <h3 class="card-title mb-2">{{ number_format($monthly_sales) }}
+                                    <span class="font-sm">XAF</span>
+                                </h3>
+                                <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i>
+                                    -14.82%</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-title d-flex align-items-start justify-content-between">
+                                    <div class="avatar flex-shrink-0">
+                                        <img src="../assets/img/icons/unicons/cc-primary.png" alt="Credit Card"
+                                            class="rounded" />
+                                    </div>
+                                    <div class="dropdown">
+                                        <button class="btn p-0" type="button" id="cardOpt1" data-bs-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="cardOpt1">
+                                            <a class="dropdown-item" href="javascript:void(0);">View More</a>
+                                            <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="fw-semibold d-block mb-1">Transactions</span>
+                                <h3 class="card-title mb-2">{{ $transactions }} @if ($transactions >= 1000)
+                                        <span>k</span>
+                                    @endif
+                                </h3>
+                                <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.14%</small>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- </div>
+                    <div class="row"> -->
+                    <div class="col-12 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
+                                    <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
+                                        <div class="card-title">
+                                            <h5 class="text-nowrap mb-2">Total Sales</h5>
+                                            <span class="badge bg-label-warning rounded-pill">Year
+                                                {{ date('Y') }}</span>
+                                        </div>
+                                        <div class="mt-sm-auto">
+                                            <small class="text-success text-nowrap fw-semibold"><i
+                                                    class="bx bx-chevron-up"></i> 68.2%</small>
+                                            <h4 class="card-title mb-2">{{ number_format($total_revenue) }}
+                                                <span class="font-sm">XAF</span>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                    <div id="profileReportChart"></div>
                                 </div>
                             </div>
                         </div>
