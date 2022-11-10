@@ -9,8 +9,8 @@ use Livewire\Component;
 class AddOrder extends Component
 {
     public $name, $slug, $phone, $address, $quantity, $due_date, $balance, $status, $description;
-    public  $price;
-    public $advance;
+    public  $price, $advance = 0;
+
 
     /* 
     public $items = []; //templates
@@ -102,6 +102,7 @@ class AddOrder extends Component
     {
         $products = ProductCategory::all();
     }
+
     public function addSale()
     {
         $this->validate([
@@ -121,9 +122,9 @@ class AddOrder extends Component
         $sale->name = $this->name;
         $sale->phone = $this->phone;
         $sale->address = $this->address;
-        $sale->price = $this->price;
-        $sale->quantity = $this->quantity;
-        $sale->advance = $this->advance;
+        $sale->price = (int)$this->price;
+        $sale->quantity = (int)$this->quantity;
+        $sale->advance = (int)$this->advance;
         $sale->balance = $this->price - $this->advance;
         $sale->due_date = $this->due_date;
         $sale->description = $this->description;

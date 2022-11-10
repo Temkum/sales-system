@@ -147,7 +147,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3" style="position: relative;">
                         <div class="d-flex flex-column align-items-center gap-1">
-                            @if ($advance > $price && $price != 0)
+                            @if ((int) $advance > (int) $price && (int) $price != 0)
                                 <h6 class="mb-2 badge bg-warning fs-10">Amount exceeds agreed price</h6>
                             @elseif($advance)
                                 <h3 class="mb-2">{{ number_format($advance, 2) }}</h3>
@@ -157,18 +157,18 @@
                             <small class="text-success fw-semibold">Advance paid</small>
                         </div>
                         <div class="d-flex flex-column align-items-center gap-1">
-                            @if ($advance == $price && $price)
+                            @if ((int) $advance == (int) $price && (int) $price)
                                 <small class="mb-2 badge bg-info">Fully Paid</small>
-                            @elseif($advance > $price)
+                            @elseif((int) $advance > (int) $price)
                                 <small
-                                    class="mb-2 badge bg-secondary">{{ number_format($advance - $price, 2) }}</small>
-                            @elseif($price == 0)
+                                    class="mb-2 badge bg-secondary">{{ number_format((int) $advance - (int) $price, 2) }}</small>
+                            @elseif((int) $price == 0)
                                 <h6 class="mb-2">0.00</h6>
                             @else
                                 <h4 class="mb-2">{{ number_format(intval($price) - intval($advance), 2) }}</h4>
                             @endif
 
-                            @if ($advance > $price)
+                            @if ((int) $advance > (int) $price)
                                 <small class="text-info fw-semibold">Change</small>
                             @else
                                 <small class="text-danger fw-semibold">Balance due</small>
