@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Admin;
 use App\Models\Cart;
 use App\Models\Order;
 use Livewire\Component;
+use Illuminate\Support\Str;
 use App\Models\ProductCategory;
 
 class NewOrder extends Component
@@ -125,7 +126,12 @@ class NewOrder extends Component
       'description' => 'required',
     ]);
 
+    $ran_str = strtoupper(Str::random(1));
+    $ran_num = rand(4, 9999);
+    $sale_code = $ran_str . $ran_num;
+
     $sale = new Order();
+    $sale->sale_code = $sale_code;
     $sale->name = $this->name;
     $sale->phone = $this->phone;
     $sale->address = $this->address;

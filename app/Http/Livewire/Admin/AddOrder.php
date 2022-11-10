@@ -3,8 +3,9 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Order;
-use App\Models\ProductCategory;
 use Livewire\Component;
+use Illuminate\Support\Str;
+use App\Models\ProductCategory;
 
 class AddOrder extends Component
 {
@@ -119,6 +120,7 @@ class AddOrder extends Component
         ]);
 
         $sale = new Order();
+        // $sale->sale_code =
         $sale->name = $this->name;
         $sale->phone = $this->phone;
         $sale->address = $this->address;
@@ -130,13 +132,14 @@ class AddOrder extends Component
         $sale->description = $this->description;
         $sale->items = $this->items;
 
+        $sale_code = Str::random(2);
 
+        dd($sale_code);
         $sale->save();
     }
 
     public function render()
     {
-        // return view('livewire.admin.add-order')->extends('base');
         return view('livewire.admin.order-form')->extends('base');
     }
 }

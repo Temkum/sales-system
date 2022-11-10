@@ -15,6 +15,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->string('sale_code');
             $table->string('name');
             $table->string('phone');
             $table->string('address');
@@ -24,7 +25,7 @@ class CreateOrdersTable extends Migration
             $table->bigInteger('advance');
             $table->date('due_date');
             $table->integer('balance');
-            $table->enum('status', ['processing', 'completed', 'due', 'cancelled']);
+            $table->enum('status', ['pending', 'completed', 'due', 'cancelled'])->default('pending');
             $table->text('description');
             $table->date('date_delivered')->nullable();
             $table->date('date_cancelled')->nullable();

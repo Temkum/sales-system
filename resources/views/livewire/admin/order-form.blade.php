@@ -95,8 +95,10 @@
                         <div class="mb-3 row">
                             <label for="html5-number-input" class="col-md-2 col-form-label">Price</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="number" placeholder="180,000" wire:model="price"
-                                    name="price">
+                                <input class="form-control" type="number"
+                                    placeholder="{{ number_format($this->prod_in_cart->sum('product_price'), 2) }}"
+                                    wire:model="price" name="price"
+                                    value="{{ number_format($this->prod_in_cart->sum('product_price'), 2) }}">
                                 @error('price')
                                     <p class="text-danger">{{ $message ?? '' }}</p>
                                 @enderror
