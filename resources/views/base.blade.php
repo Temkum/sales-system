@@ -184,7 +184,7 @@
                       <ul class="dropdown-menu" style="">
                         @foreach (config('app.languages') as $lang_locale => $lang_name)
                           <li>
-                            <a href="{{ url()->current() }}?change_language={{ $lang_locale }}"
+                            <a href="{{ url()->current() }}?lang={{ $lang_locale }}"
                               class="dropdown-item d-flex align-items-center">{{ $lang_name }}</a>
                           </li>
                         @endforeach

@@ -93,8 +93,8 @@ return [
 
     'languages' => [
         'fr' => 'French',
-        'es' => 'Spanish',
         'en' => 'English',
+        'es' => 'Spanish',
     ],
 
     /*
