@@ -10,10 +10,10 @@
               <div class="card-body">
                 <h5 class="card-title text-primary">{{ __('Congratulations') }} {{ auth()->user()->name }}! 🎉</h5>
                 <p class="mb-4">
-                  You have done <span class="fw-bold">72%</span> more sales today. Check your sales.
+                  {{ __('You have done 72% more sales today. Check your sales.') }}
                 </p>
 
-                <a href="{{ route('orders') }}" class="btn btn-sm btn-outline-primary">View Sales</a>
+                <a href="{{ route('orders') }}" class="btn btn-sm btn-outline-primary">{{ __('View Sales') }}</a>
               </div>
             </div>
             <div class="col-sm-5 text-center text-sm-left">
@@ -41,12 +41,12 @@
                       <i class="bx bx-dots-vertical-rounded"></i>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt3">
-                      <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                      <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                      <a class="dropdown-item" href="javascript:void(0);">{{ __('View More') }}</a>
+                      <a class="dropdown-item" href="javascript:void(0);">{{ __('Delete') }}</a>
                     </div>
                   </div>
                 </div>
-                <span class="fw-semibold d-block mb-1">Weekly Sales</span>
+                <span class="fw-semibold d-block mb-1">{{ __('Weekly Sales') }}</span>
                 <h3 class="card-title mb-2">{{ number_format($weekly_sales) }}
                   <span class="font-sm">XAF</span>
                 </h3>
@@ -72,7 +72,7 @@
                     </div>
                   </div>
                 </div>
-                <span class="fw-semibold d-block mb-1">Today Sales</span>
+                <span class="fw-semibold d-block mb-1">{{ __('Today Sales') }}</span>
                 <h3 class="card-title mb-2">{{ number_format($today_sales) }}
                   <span class="font-sm">XAF</span>
                 </h3>
@@ -154,7 +154,7 @@
                     </div>
                   </div>
                 </div>
-                <span class="d-block mb-1">Monthly Sales</span>
+                <span class="d-block mb-1">{{ __('Monthly Sales') }}</span>
                 <h3 class="card-title mb-2">{{ number_format($monthly_sales) }}
                   <span class="font-sm">XAF</span>
                 </h3>
@@ -181,7 +181,7 @@
                     </div>
                   </div>
                 </div>
-                <span class="fw-semibold d-block mb-1">Transactions</span>
+                <span class="fw-semibold d-block mb-1">{{ __('Transactions') }}</span>
                 <h3 class="card-title mb-2">{{ $transactions }} @if ($transactions >= 1000)
                     <span>k</span>
                   @endif
@@ -191,15 +191,15 @@
             </div>
           </div>
           <!-- </div>
-                          <div class="row"> -->
+                                                <div class="row"> -->
           <div class="col-12 mb-4">
             <div class="card">
               <div class="card-body">
                 <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
                   <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
                     <div class="card-title">
-                      <h5 class="text-nowrap mb-2">Total Sales</h5>
-                      <span class="badge bg-label-warning rounded-pill">Year
+                      <h5 class="text-nowrap mb-2">{{ __('Total Sales') }}</h5>
+                      <span class="badge bg-label-warning rounded-pill">{{ __(' Year ') }}
                         {{ date('Y') }}</span>
                     </div>
                     <div class="mt-sm-auto">
