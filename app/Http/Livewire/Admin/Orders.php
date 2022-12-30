@@ -57,8 +57,6 @@ class Orders extends Component
     {
         $page_number = 13;
 
-        $orders = Order::orderBy('created_at', 'DESC')->paginate($this->page_number);
-
         /*    if ($this->sorting == 'processing') {
             $orders = Order::where('name', 'LIKE', '%' . $this->search . '%')->orderBy('due', 'DESC')->paginate($page_number);
         } elseif ($this->sorting == 'due') {

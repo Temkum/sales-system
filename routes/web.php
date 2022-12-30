@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\Admin\Orders;
+use Illuminate\Support\Facades\App;
 use App\Http\Livewire\Admin\AddOrder;
 use App\Http\Livewire\Admin\Contacts;
 use App\Http\Livewire\Admin\NewOrder;
@@ -10,10 +11,10 @@ use App\Http\Livewire\AddOrderComponent;
 use App\Http\Livewire\Admin\EditProduct;
 use App\Http\Livewire\ProductCategories;
 use App\Http\Livewire\AddProductCategory;
+use App\Http\Livewire\Admin\OrderDetails;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\AdminDashboardController;
-use App\Http\Livewire\Admin\OrderDetails;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +38,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/admin/orders/add', [OrderController::class, 'store'])->name('store-order');
 
     Route::get('/admin/orders', Orders::class)->name('orders');
-    // Route::get('/admin/add-order', AddOrder::class)->name('add-order');
     Route::get('/admin/add-order', NewOrder::class)->name('add-order');
     Route::get('/admin/orders/{order_id}', OrderDetails::class)->name('order-details');
 

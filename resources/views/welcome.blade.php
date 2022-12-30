@@ -50,13 +50,13 @@
       <nav class="p-3">
         <div class="nav-items">
           @auth
-            <a href="{{ route('admin.dashboard') }}" class="m-3">Dashboard</a>
+            <a href="{{ route('admin.dashboard') }}" class="m-3">{{ __('Dashboard') }}</a>
           @else
-            <a href="{{ route('login') }}" class="">Log in</a>
+            <a href="{{ route('login') }}" class="">{{ __('Log in') }}</a>
 
             @if (Route::has('register'))
               <a href="{{ route('register') }}"
-                class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
+                class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">{{ __('Register') }}</a>
             @endif
           @endauth
         </div>
@@ -66,7 +66,7 @@
     <div class="text-center">
       <div class="container">
         <marquee behavior="" direction="">
-          <h1>Welcome to pacho designs</h1>
+          <h1>{{ __('Welcome to Pacho Designs') }}</h1>
         </marquee>
       </div>
     </div>

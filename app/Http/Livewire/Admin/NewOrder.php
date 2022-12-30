@@ -143,7 +143,6 @@ class NewOrder extends Component
     $sale->description = $this->description;
     $sale->status = 'processing';
     $sale->items = $this->prod_in_cart;
-    // dd($this->prod_in_cart);
     $sale->save();
 
     // clear items
