@@ -47,10 +47,11 @@
   <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
       <!-- Menu -->
-      @if (!request()->route()->named('register') &&
-          !request()->route()->named('password.request') &&
-          !request()->route()->named('password.reset') &&
-          !request()->route()->named('login'))
+      @if (
+          !request()->route()->named('register') &&
+              !request()->route()->named('password.request') &&
+              !request()->route()->named('password.reset') &&
+              !request()->route()->named('login'))
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
             <a href="{{ route('admin.dashboard') }}" class="app-brand-link">
@@ -85,6 +86,12 @@
               <a href="{{ route('add-order') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-cart"></i>
                 <div>{{ __('Add Sale') }}</div>
+              </a>
+            </li>
+            <li class="menu-item {{ request()->route()->named('new-sale')? 'active': '' }}">
+              <a href="{{ route('new-sale') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-cart"></i>
+                <div>{{ __('New Sale') }}</div>
               </a>
             </li>
             {{-- product --}}
@@ -298,13 +305,14 @@
   </div>
 
   {{-- show add order btn except on these pages --}}
-  @if (!request()->route()->named('add-order') &&
-      !request()->route()->named('register') &&
-      !request()->route()->named('login') &&
-      !request()->route()->named('password.request') &&
-      !request()->route()->named('password.reset') &&
-      !request()->route()->named('order-details') &&
-      !request()->route()->named('add-user'))
+  @if (
+      !request()->route()->named('add-order') &&
+          !request()->route()->named('register') &&
+          !request()->route()->named('login') &&
+          !request()->route()->named('password.request') &&
+          !request()->route()->named('password.reset') &&
+          !request()->route()->named('order-details') &&
+          !request()->route()->named('add-user'))
     <div class="buy-now" id="new_order">
       <a href="{{ route('add-order') }}" class="btn btn-danger btn-buy-now">{{ __('Add New Order') }}</a>
     </div>
@@ -374,9 +382,7 @@
   </script>
 
   @yield('script')
-
   @livewireScripts
-
 </body>
 
 </html>
