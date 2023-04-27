@@ -25,7 +25,7 @@
                     <div class="col-lg-4 col-md-5">
                       <label for="item-name">{{ __('Item name') }}</label>
                       <input wire:model="item_name.0" class="form-control" type="text"
-                        placeholder="{{ __('Enter item name') }}" value="" name="item_name" required>
+                        placeholder="{{ __('Enter item name') }}" name="item_name" required>
                       @error('item_name')
                         <span class="text-danger error">{{ $message }}</span>
                       @enderror
@@ -49,7 +49,7 @@
                     <div class="col">
                       <span wire:click.prevent="addItem({{ $i }})"
                         class="btn-primary btn btn-sm
-                          add-btn">{{ __('Add') }}</span>
+                          add-btn">{{ __('Add more') }}</span>
                     </div>
                   </div>
                   @if ($msg)
@@ -59,7 +59,7 @@
                     <div class="row mt-3">
                       <div class="col-lg-4 col-md-5">
                         <input wire:model="item_name.{{ $value }}" class="form-control" type="text"
-                          placeholder="{{ __('Enter item name') }}" required>
+                          id="item_name" placeholder="{{ __('Enter item name') }}" required>
                         @error('item_name' . $value)
                           <span class="text-danger error">{{ $message }}</span>
                         @enderror
@@ -84,7 +84,7 @@
                       </div>
                     </div>
                   @endforeach
-                  <span class="btn btn-info btn-sm mt-2" wire:click.prevent="insertSaleItems()">Add items</span>
+                  <span class="btn btn-info btn-sm mt-2" wire:click.prevent="insertSaleItems()">Submit items</span>
                 </div>
               </div>
             </form>

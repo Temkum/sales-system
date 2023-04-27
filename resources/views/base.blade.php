@@ -312,9 +312,12 @@
           !request()->route()->named('password.request') &&
           !request()->route()->named('password.reset') &&
           !request()->route()->named('order-details') &&
-          !request()->route()->named('add-user'))
+          !request()->route()->named('add-user') &&
+          !request()->route()->named('new-sale'))
     <div class="buy-now" id="new_order">
-      <a href="{{ route('add-order') }}" class="btn btn-danger btn-buy-now">{{ __('Add New Order') }}</a>
+      <a href="{{ route('add-order') }}" class="btn btn-danger btn-buy-now">
+        <i class="plus"></i> {{ __('New Order') }}
+      </a>
     </div>
   @endif
 

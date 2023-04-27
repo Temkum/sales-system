@@ -24,6 +24,7 @@ class NewAddOrder extends Component
     public function mount()
     {
         $this->items_in_cart = CartItems::all();
+        // dd($this->items_in_cart->sum('item_qty'));
     }
 
     public function addItem()
@@ -43,6 +44,13 @@ class NewAddOrder extends Component
     public function removeItem($i)
     {
         unset($this->items[$i]);
+    }
+
+    public function removeFromCart($i, $itemId)
+    {
+        $remove_item = CartItems::find($itemId);
+        // dd($remove_item->delete($i));
+        // $remove_item->delete($i);
     }
 
     /*  public function removeItem($i)
@@ -162,7 +170,7 @@ class NewAddOrder extends Component
         $sale->phone = $this->phone;
         $sale->address = $this->address;
         $sale->price = $this->price;
-        $sale->quantity = $this->items_in_cart->sum('product_qty');
+        $sale->quantity = $this->items_in_cart->sum('item_qty');
         $sale->advance = $this->advance;
         $sale->balance = $this->price - $this->advance;
         $sale->due_date = $this->due_date;
@@ -187,8 +195,8 @@ class NewAddOrder extends Component
             $this->balance = $total_amt;
         }
 
-        $this->items_in_cart = CartItems::all();
+        $cart_items = $this->items_in_cart = CartItems::all();
 
-        return view('livewire.admin.new-order')->extends('base');
+        return view('livewire.admin.new-order', ['cart_items' => $cart_items])->extends('base');
     }
 }
