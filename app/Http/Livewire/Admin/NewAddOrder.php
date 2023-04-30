@@ -24,7 +24,6 @@ class NewAddOrder extends Component
     public function mount()
     {
         $this->items_in_cart = CartItems::all();
-        // dd($this->items_in_cart->sum('item_qty'));
     }
 
     public function addItem()
@@ -46,26 +45,15 @@ class NewAddOrder extends Component
         unset($this->items[$i]);
     }
 
-    public function removeFromCart($i, $itemId)
+    public function removeFromCart($id)
     {
-        $remove_item = CartItems::find($itemId);
-        // dd($remove_item->delete($i));
-        // $remove_item->delete($i);
+
+        $cart_item = CartItems::find($id);
+        $cart_item->delete();
+
+        $this->msg = 'Item removed!';
+        $this->items_in_cart = $this->items_in_cart->except($id);
     }
-
-    /*  public function removeItem($i)
-    {
-        $item_id = CartItems::find('item_id');
-        if ($item_id && $i || $i) {
-            $remove_item = CartItems::find($item_id);
-            $remove_item->delete();
-
-            unset($this->items[$i]);
-
-            $this->msg = 'Item removed!';
-            $this->items_in_cart = $this->items_in_cart->except($this->itemId);
-        }
-    } */
 
     public function increaseQty($prod_id)
     {
@@ -93,7 +81,7 @@ class NewAddOrder extends Component
         $this->mount();
     }
 
-    public function insertSaleItems()
+    public function addOrUpdateItem()
     {
         $this->validate([
             'item_name' => 'required',
@@ -113,6 +101,18 @@ class NewAddOrder extends Component
 
         if ($item_count > 0) {
             return $this->msg = $cart_item->item_name . ' is already added. Please increase the quantity or price!';
+        } else if ($this->itemId) {
+            $item = CartItems::find($this->itemId);
+            foreach ($this->item_name as $key => $value) {
+                CartItems::createOrUpdate(
+                    [
+                        'item_name' => $this->item_name[$key],
+                        'item_qty' => $this->item_qty[$key],
+                        'item_price' => $this->item_price[$key],
+                    ]
+                );
+            }
+            $this->msg = 'Items updated successfully!';
         } else {
             foreach ($this->item_name as $key => $value) {
                 CartItems::create(
@@ -125,8 +125,10 @@ class NewAddOrder extends Component
                     ]
                 );
             }
-            return $this->msg = 'Items added successfully!';
         }
+        $this->items_in_cart = CartItems::all();
+
+        return $this->msg = 'Items added successfully!';
     }
 
     public function updated($fields)
@@ -135,10 +137,9 @@ class NewAddOrder extends Component
             'name' => 'required',
             'phone' => 'required',
             'address' => 'required',
-            'price' => 'required',
-            // 'quantity' => 'required',
-            'advance' => 'required',
-            'balance' => 'required',
+            'price' => 'required|integer',
+            'advance' => 'required|integer',
+            'balance' => 'required|integer',
             'due_date' => 'required',
             'description' => 'required',
         ]);
@@ -146,10 +147,6 @@ class NewAddOrder extends Component
 
     public function addSale()
     {
-        if (!$this->items_in_cart) {
-            return $this->msg = 'Please add at least 1 item to continue!';
-        }
-
         $this->validate([
             'name' => 'required',
             'phone' => 'required',
@@ -163,13 +160,14 @@ class NewAddOrder extends Component
         ]);
 
         $sale_code = strtoupper(Str::random(1)) . rand(4, 9999);
+        $this->price = $this->items_in_cart->sum('item_price');
 
         $sale = new Order();
         $sale->sale_code = $sale_code;
         $sale->name = $this->name;
         $sale->phone = $this->phone;
         $sale->address = $this->address;
-        $sale->price = $this->price;
+        $sale->price = $this->items_in_cart->sum('item_price');
         $sale->quantity = $this->items_in_cart->sum('item_qty');
         $sale->advance = $this->advance;
         $sale->balance = $this->price - $this->advance;
@@ -195,8 +193,8 @@ class NewAddOrder extends Component
             $this->balance = $total_amt;
         }
 
-        $cart_items = $this->items_in_cart = CartItems::all();
+        $items_in_cart = CartItems::all();
 
-        return view('livewire.admin.new-order', ['cart_items' => $cart_items])->extends('base');
+        return view('livewire.admin.new-order')->extends('base');
     }
 }
