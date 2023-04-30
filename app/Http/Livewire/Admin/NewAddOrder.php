@@ -147,18 +147,6 @@ class NewAddOrder extends Component
 
     public function addSale()
     {
-        $this->validate([
-            'name' => 'required',
-            'phone' => 'required',
-            'address' => 'required',
-            'price' => 'required',
-            'quantity' => 'required',
-            'advance' => 'required',
-            'balance' => 'required',
-            'due_date' => 'required',
-            'description' => 'required',
-        ]);
-
         $sale_code = strtoupper(Str::random(1)) . rand(4, 9999);
         $this->price = $this->items_in_cart->sum('item_price');
 

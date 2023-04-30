@@ -25,8 +25,7 @@
                     <div class="col-lg-4 col-md-5">
                       <label for="item-name">{{ __('Item name') }}</label>
                       <input wire:model="item_name.0" class="form-control" type="text"
-                        placeholder="{{ __('Enter item name') }}" name="item_name" value="{{ old('item_name.0') }}"
-                        required>
+                        placeholder="{{ __('Enter item name') }}" name="item_name" required>
                       @error('item_name')
                         <span class="text-danger error">{{ $message }}</span>
                       @enderror
@@ -60,8 +59,7 @@
                     <div class="row mt-3">
                       <div class="col-lg-4 col-md-5">
                         <input wire:model="item_name.{{ $value }}" class="form-control" type="text"
-                          name="item_name" value="{{ old('item_name.' . $value) }}" id="item_name"
-                          placeholder="{{ __('Enter item name') }}" required>
+                          name="item_name" id="item_name" placeholder="{{ __('Enter item name') }}" required>
                         @error('item_name')
                           <span class="text-danger error">{{ $message }}</span>
                         @enderror
@@ -175,7 +173,7 @@
                 <label for="html5-number-input" class="col-md-2 col-form-label">{{ __('Advance Paid') }}</label>
                 <div class="col-md-10">
                   <input class="form-control" type="number" placeholder="0.00" wire:model="advance" maxlength="15"
-                    min="0" value="{{ old('advance') }}">
+                    min="0">
                   @error('advance')
                     <span class="text-danger error">{{ $message }}</span>
                   @enderror
