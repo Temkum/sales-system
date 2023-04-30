@@ -18,7 +18,6 @@ class NewOrder extends Component
   public $items = [];
 
   public $products =  [];
-  public $prod_items = [''];
   public $msg = '';
   public $prod_in_cart;
   public $prod_name;
@@ -58,18 +57,18 @@ class NewOrder extends Component
 
   public function insertToOrderSummary()
   {
-    // $product = ProductCategory::where('id', $this->product_code)->first();
     $product = ProductCategory::where('id', $this->product_code)->first();
 
-    // show prod if available
+    // check prod if available
     if (!$product) {
+
       return $this->msg = 'Product not found!';
     }
 
     $num_of_prods = Cart::where('product_id', $product->id)->count();
 
     if ($num_of_prods > 0) {
-      return $this->msg = $product->prod_name . ' already added. Please increase the product quantity!';
+      return $this->msg = $product->prod_name . 'is already added. Please increase the product quantity!';
     } else {
       $add_to_cart = new Cart();
       $add_to_cart->user_id = auth()->user()->id;

@@ -98,3 +98,11 @@
     margin-right: 2rem;
     font-size: .8em;
 }
+
+.item-qty {
+    width: 50%;
+}
+
+.add-btn {
+    margin-top: 1.5rem;
+}

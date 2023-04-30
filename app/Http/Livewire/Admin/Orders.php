@@ -66,12 +66,15 @@ class Orders extends Component
         } else {
             $sort_orders = Order::where('name', 'LIKE', '%' . $this->sort_by . '%')->paginate($this->page_number);
         }
-*/
+        */
+        
         $orders = Order::where('name', 'LIKE', '%' . $this->search . '%')
             ->orWhere('price', 'LIKE', '%' . $this->search . '%')
+            ->orWhere('sale_code', 'LIKE', '%' . $this->search . '%')
             ->orWhere('advance', 'LIKE', '%' . $this->search . '%')
             ->orWhere('balance', 'LIKE', '%' . $this->search . '%')
             ->orWhere('status', 'LIKE', '%' . $this->search . '%')
+            ->orWhere('phone', 'LIKE', '%' . $this->search . '%')
             ->orWhere('address', 'LIKE', '%' . $this->search . '%')->orderBy('created_at', 'DESC')->paginate($this->page_number);
 
         if (($this->start_date && $this->end_date) && $this->start_date) {
@@ -79,11 +82,6 @@ class Orders extends Component
                 ->where('created_at', '<=', $this->end_date)->paginate(10);
         }
 
-        return view(
-            'livewire.admin.orders',
-            [
-                'orders' => $orders,
-            ]
-        )->extends('base');
+        return view('livewire.admin.orders', ['orders' => $orders])->extends('base');
     }
 }

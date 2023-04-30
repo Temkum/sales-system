@@ -1,14 +1,12 @@
 <?php
 
 use App\Http\Livewire\Admin\Orders;
-use Illuminate\Support\Facades\App;
-use App\Http\Livewire\Admin\AddOrder;
 use App\Http\Livewire\Admin\Contacts;
 use App\Http\Livewire\Admin\NewOrder;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Livewire\AddOrderComponent;
 use App\Http\Livewire\Admin\EditProduct;
+use App\Http\Livewire\Admin\NewAddOrder;
 use App\Http\Livewire\ProductCategories;
 use App\Http\Livewire\AddProductCategory;
 use App\Http\Livewire\Admin\OrderDetails;
@@ -36,6 +34,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
     Route::post('/admin/orders/add', [OrderController::class, 'store'])->name('store-order');
+
+    Route::get('/admin/new-order', NewAddOrder::class)->name('new-sale');
 
     Route::get('/admin/orders', Orders::class)->name('orders');
     Route::get('/admin/add-order', NewOrder::class)->name('add-order');
