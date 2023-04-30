@@ -131,22 +131,25 @@ class NewAddOrder extends Component
         return $this->msg = 'Items added successfully!';
     }
 
+    protected $rules = [
+        'name' => 'required|min:6',
+        'phone' => 'required',
+        'address' => 'required',
+        'advance' => 'required|numeric',
+        'balance' => 'required|numeric',
+        'due_date' => 'required',
+        'description' => 'required',
+    ];
+
     public function updated($fields)
     {
-        $this->validateOnly($fields, [
-            'name' => 'required',
-            'phone' => 'required',
-            'address' => 'required',
-            'price' => 'required|integer',
-            'advance' => 'required|integer',
-            'balance' => 'required|integer',
-            'due_date' => 'required',
-            'description' => 'required',
-        ]);
+        $this->validateOnly($fields);
     }
 
     public function addSale()
     {
+        $this->validate();
+
         $sale_code = strtoupper(Str::random(1)) . rand(4, 9999);
         $this->price = $this->items_in_cart->sum('item_price');
 
