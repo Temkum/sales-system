@@ -22,6 +22,14 @@ class OrderDetails extends Component
         $order = Order::find($this->order_id);
         $items = json_decode($order->items);
 
+        // foreach ($items as $item) {
+        //     if (isset($item->product)) {
+        //         dd($item->product->prod_name);
+        //     } else {
+        //         dd('NO PRODUCT');
+        //     }
+        // }
+
         return view('livewire.admin.order-details', ['order' => $order, 'items' => $items])->extends('base');
     }
 }
