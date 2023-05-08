@@ -165,7 +165,7 @@
                 <div class="col-md-10">
                   <input class="form-control" type="number" aria-disabled="disabled"
                     placeholder="{{ number_format($this->items_in_cart->sum('item_price'), 2) ?? 0.0 }}"
-                    id="price" wire:model='price' value="{{ $this->items_in_cart->sum('item_price') }}"
+                    id="price" wire:model="price" value="{{ $this->items_in_cart->sum('item_price') }}"
                     disabled>
                 </div>
               </div>
@@ -211,7 +211,6 @@
       <div class="card mb-4">
         <div class="card-header d-flex justify-content-between align-items-center">
           <h6 class="mb-0 text-uppercase">{{ __('Order summary') }}</h6>
-          {{-- <small class="text-muted float-end">Click to add item</small> --}}
         </div>
         <div class="card-body">
           <div class="d-flex justify-content-between align-items-center mb-3" style="position: relative;">

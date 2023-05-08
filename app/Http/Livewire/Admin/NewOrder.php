@@ -96,45 +96,37 @@ class NewOrder extends Component
     $this->prod_in_cart = $this->prod_in_cart->except($prod_id);
   }
 
+  protected $rules = [
+    'name' => 'required',
+    'phone' => 'required',
+    'address' => 'required',
+    // 'price' => 'required',
+    'advance' => 'required',
+    'balance' => 'required',
+    'due_date' => 'required',
+    'description' => 'required',
+  ];
+
   public function updated($fields)
   {
-    $this->validateOnly($fields, [
-      'name' => 'required',
-      'phone' => 'required',
-      'address' => 'required',
-      'price' => 'required',
-      // 'quantity' => 'required',
-      'advance' => 'required',
-      'balance' => 'required',
-      'due_date' => 'required',
-      'description' => 'required',
-    ]);
+    $this->validateOnly($fields);
   }
 
   public function addSale()
   {
-    $this->validate([
-      'name' => 'required',
-      'phone' => 'required',
-      'address' => 'required',
-      'price' => 'required',
-      // 'quantity' => 'required',
-      'advance' => 'required',
-      'balance' => 'required',
-      'due_date' => 'required',
-      'description' => 'required',
-    ]);
+    $this->validate();
 
     $ran_str = strtoupper(Str::random(1));
     $ran_num = rand(4, 9999);
     $sale_code = $ran_str . $ran_num;
+    // $this->price = $this->prod_in_cart->sum('product_price');
 
     $sale = new Order();
     $sale->sale_code = $sale_code;
     $sale->name = $this->name;
     $sale->phone = $this->phone;
     $sale->address = $this->address;
-    $sale->price = $this->price;
+    $sale->price = $this->prod_in_cart->sum('product_price');
     $sale->quantity = $this->prod_in_cart->sum('product_qty');
     $sale->advance = $this->advance;
     $sale->balance = $this->price - $this->advance;
