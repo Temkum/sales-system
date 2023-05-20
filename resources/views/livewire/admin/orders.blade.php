@@ -16,24 +16,26 @@
 
       <div class="search-box">
         <form>
-          <input type="text" id="search" placeholder="Search item..." class="form-control" wire:model="search"
+          <input type="text" id="search" placeholder="Search item..." class="form-control w-75" wire:model="search"
             name="search" />
         </form>
       </div>
       {{-- date filter --}}
-      <form>
-        <div class="range-box row mb-3">
-          <div class="col-md-6 col-lg-6">
-            <label for="start_date">Start date</label>
-            <input type="date" name="start_date" class="form-control" wire:model="start_date">
+      <div class="date-filter">
+        <form>
+          <div class="range-box row mb-3">
+            <div class="col-md-6 col-lg-6">
+              <label for="start_date">Start date</label>
+              <input type="date" name="start_date" class="form-control" wire:model="start_date">
+            </div>
+            <div class="col-md-6 col-lg-6">
+              <label for="end_date">End date</label>
+              <input type="date" name="end_date" class="form-control" wire:model="end_date">
+            </div>
           </div>
-          <div class="col-md-6 col-lg-6">
-            <label for="end_date">End date</label>
-            <input type="date" name="end_date" class="form-control" wire:model="end_date">
-          </div>
-        </div>
-        {{-- <button class="btn btn-secondary" type="submit">Filter</button> --}}
-      </form>
+          {{-- <button class="btn btn-secondary" type="submit">Filter</button> --}}
+        </form>
+      </div>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -42,9 +44,9 @@
             <tr>
               <th>Code</th>
               <th>Client</th>
-              <th>Price</th>
+              <th>Price (Fcfa)</th>
               <th>Due Date</th>
-              <th>Advance Paid</th>
+              <th>Advance Paid (Fcfa)</th>
               <th>Status</th>
               <th>Actions</th>
               <th>Update status</th>
@@ -58,9 +60,9 @@
                 <tr>
                   <td>{{ $order->sale_code ?? '' }}</td>
                   <td>{{ $order->name }}</td>
-                  <td><strong>{{ $order->price }} Fcfa</strong></td>
-                  <td>{{ date('d-m-Y', strtotime($order->due_date)) }}</td>
-                  <td>{{ $order->advance }} Fcfa</td>
+                  <td><strong>{{ number_format($order->price) }}</strong></td>
+                  <td>{{ date('j F y', strtotime($order->due_date)) }}</td>
+                  <td>{{ number_format($order->advance) }}</td>
                   <td>
                     @if ($order->status == 'completed')
                       <span class="badge bg-success me-1">{{ $order->status }}</span>
