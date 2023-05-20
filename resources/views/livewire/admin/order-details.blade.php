@@ -4,7 +4,7 @@
       <div class="search-box">
         <a href="{{ route('orders') }}" class="btn btn-secondary btn-sm">
           <i class="bx bx-arrow-back"></i>
-          Back
+          {{ __('Back') }}
         </a>
       </div>
     </div>
@@ -35,7 +35,6 @@
             <p class="mb-0" style="color: #35558a;">Payment summary</p>
             <hr class="mt-2 mb-4"
               style="height: 0; background-color: transparent; opacity: .75; border-top: 2px dashed #9e9e9e;">
-
             @foreach ($items as $item)
               @if (isset($item->product) && $item->product->prod_name)
                 <p class="order-details d-flex" style="display: flex; justify-content: space-between;">
@@ -95,7 +94,7 @@
       </div>
     </div>
     <div class="card-footer text-center">
-      <div class="btn btn-primary btn-md" id="print_btn" onclick="event.preventDefault(); printReceiptContent()">
+      <div class="btn btn-primary btn-sm" id="print_btn" onclick="event.preventDefault(); printReceiptContent()">
         Print
       </div>
     </div>

@@ -4,10 +4,11 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\Order;
 use Livewire\Component;
+use LivewireUI\Modal\ModalComponent;
 
 class OrderDetails extends Component
 {
-    public $order_id;
+    public $order_id, $price, $advance, $quantity, $description, $due_date;
 
     public function mount($order_id)
     {
@@ -21,14 +22,6 @@ class OrderDetails extends Component
     {
         $order = Order::find($this->order_id);
         $items = json_decode($order->items);
-
-        // foreach ($items as $item) {
-        //     if (isset($item->product)) {
-        //         dd($item->product->prod_name);
-        //     } else {
-        //         dd('NO PRODUCT');
-        //     }
-        // }
 
         return view('livewire.admin.order-details', ['order' => $order, 'items' => $items])->extends('base');
     }

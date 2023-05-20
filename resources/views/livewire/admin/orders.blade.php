@@ -54,7 +54,7 @@
             <?php $index = 1; ?>
 
             @if (count($orders) >= 1)
-              @foreach ($orders as $key => $order)
+              @foreach ($orders as $order)
                 <tr>
                   <td>{{ $order->sale_code ?? '' }}</td>
                   <td>{{ $order->name }}</td>
@@ -77,8 +77,9 @@
                       href="{{ route('order-details', ['order_id' => $order->id]) }}">
                       View
                     </a>
-                    <a href="#" class="btn btn-sm btn-outline-primary">
-                      Edit
+                    <a class="btn btn-sm btn-outline-secondary"
+                      href="{{ route('update', ['order_id' => $order->id]) }}">
+                      edit
                     </a>
                     <button class="btn btn-sm btn-outline-danger" role="button"
                       onclick="confirm('Sure you want to delete this record?') || event.stopImmediatePropagation()"
@@ -105,7 +106,6 @@
                         </li>
                       </ul>
                     </div>
-
                   </td>
                 </tr>
               @endforeach
@@ -139,4 +139,3 @@
       </div>
     </div>
   </div>
-</div>
