@@ -19,4 +19,8 @@
 .search-box {
   width: 300px;
 }
+
+.fl-main-container .fl-flasher .fl-progress-bar {
+  display: none !important;
+}
 /*# sourceMappingURL=custom.css.map */

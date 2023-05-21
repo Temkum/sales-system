@@ -3,9 +3,9 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Order;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class EditOrder extends Component
 {
@@ -38,6 +38,7 @@ class EditOrder extends Component
 
         return view('livewire.admin.edit-order', ['order' => $order])->extends('base');
     }
+
     public function updateSaleStatus($sale_id, $status)
     {
         $sale = Order::find($sale_id);
@@ -50,7 +51,7 @@ class EditOrder extends Component
         }
         $sale->save();
 
-        return $this->msg = 'Status updated successfully!';
+        return flash()->options(['position' => 'bottom-center', 'time-out' => 2000])->addSuccess('Status updated successfully!');
     }
 
     public function update()
@@ -73,10 +74,9 @@ class EditOrder extends Component
         $sale_record->advance = $this->advance;
         $sale_record->description = $this->description;
         $sale_record->due_date = $this->due_date;
-        // dd($sale_record);
         $sale_record->save();
 
-        session()->flash('success', 'Record update successful!');
+        flash()->addSuccess('Record update successful');
         redirect()->to('admin/orders');
     }
 }

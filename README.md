@@ -398,3 +398,99 @@ class Users extends Component
                     <td>
     <button type="button" class="btn btn-primary btn
 ```
+
+=====================================
+To add Sweet Alert in Laravel Livewire, you can use the `akhaled/livewire-sweetalert` package. Follow these steps to integrate Sweet Alert with Laravel Livewire:
+
+1. Install the package using Composer:
+
+```
+composer require akhaled/livewire-sweetalert
+```
+
+2. Include the JavaScript for SweetAlert2 and LivewireSweetalert in your main layout file:
+
+```html
+...
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@livewireScripts
+@livewireSweetalertScripts
+</body>
+```
+
+3. Publish the configuration file:
+
+```
+php artisan vendor:publish --tag=livewire-sweetalert-config
+```
+
+Now you can use Sweet Alert in your Livewire components. There are three main types of alerts: Toast, Fire, and Confirm.
+
+**Toast:**
+
+To use a Toast alert, add the `Toast` trait to your component and call the `toast` method:
+
+```php
+use Akhaled\LivewireSweetalert\Toast;
+use Livewire\Component;
+
+class MyComponent extends Component
+{
+    use Toast;
+
+    public function save() {
+        $this->toast('Toast message', 'success', 5000);
+    }
+    ...
+}
+```
+
+**Fire:**
+
+To use a Fire alert (normal SweetAlert modal), add the `Fire` trait to your component and call the `fire` method:
+
+```php
+use Akhaled\LivewireSweetalert\Fire;
+use Livewire\Component;
+
+class MyComponent extends Component
+{
+    use Fire;
+
+    public function save() {
+        $options = [];
+        $this->fire('Error happened', 'error', 'please try again later', $options);
+    }
+    ...
+}
+```
+
+**Confirm:**
+
+To use a Confirm alert, add the `Confirm` trait to your component and call the `confirm` method. On confirmation, a `confirmed` event is emitted:
+
+```php
+use Akhaled\LivewireSweetalert\Confirm;
+use Livewire\Component;
+
+class MyComponent extends Component
+{
+    use Confirm;
+    protected $listeners = [
+        'confirmed' => 'onConfirmation'
+    ];
+
+    public function delete()
+    {
+        $options = [];
+        $this->confirm('Are you sure you want to delete', 'you can\'t revert that', $options);
+    }
+
+    public function onConfirmation()
+    {
+        dd('confirmed!');
+    }
+}
+```
+
+For more details and examples, refer to the [akhaled/livewire-sweetalert documentation](https://packagist.org/packages/akhaled/livewire-sweetalert).
