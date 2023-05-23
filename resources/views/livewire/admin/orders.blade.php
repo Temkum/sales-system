@@ -3,17 +3,6 @@
 
   <div class="card">
     <div class="card-header d-flex justify-content-between mb-4">
-      {{-- <h5 class="md sm">
-                <select class="form-select" name="sort_by" wire:model="sort_by">
-                    <option value="default">Sort sale items</option>
-                    <option value="due">Due</option>
-                    <option value="completed">Completed</option>
-                    <option value="processing">Processing</option>
-                    <option value="cancelled">Cancelled</option>
-                </select>
-            </h5> --}}
-      {{-- search --}}
-
       <div class="search-box">
         <form>
           <input type="text" id="search" placeholder="Search item..." class="form-control w-75" wire:model="search"
@@ -75,7 +64,7 @@
                     @endif
                   </td>
                   <td class="btn-group">
-                    <a class="btn btn-sm btn-outline-secondary"
+                    <a class="btn btn-sm btn-outline-primary"
                       href="{{ route('order-details', ['order_id' => $order->id]) }}">
                       View
                     </a>
@@ -84,8 +73,12 @@
                       edit
                     </a>
                     <button class="btn btn-sm btn-outline-danger" role="button"
+                      wire:click="confirmDelete({{ $order->id }})">Delete
+                    </button>
+                    {{-- <button class="btn btn-sm btn-outline-danger" role="button"
                       onclick="confirm('Sure you want to delete this record?') || event.stopImmediatePropagation()"
-                      wire:click.prevent="deleteSale({{ $order->id }})">Delete</button>
+                      wire:click.prevent="deleteSale({{ $order->id }})">Delete
+                    </button> --}}
                   </td>
                   <td>
                     <div class="dropdown">
@@ -127,17 +120,34 @@
       {{ $orders->links() }}
     </div>
   </div>
-  <!-- add order modal -->
-  <div class="modal fade" id="newOrderModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel4">New order</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
+</div>
 
-        </div>
-      </div>
-    </div>
-  </div>
+<script>
+  window.addEventListener('show-toast', event => {
+    toastr.info(event.detail.message);
+  })
+</script>
+
+<script>
+  window.addEventListener('swal-modal', event => {
+    swal({
+      title: event.detail.title,
+      text: event.detail.text,
+      icon: event.detail.type,
+    })
+  });
+
+  window.addEventListener('swal-confirm', event => {
+    swal({
+      title: event.detail.title,
+      text: event.detail.text,
+      icon: event.detail.type,
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        window.livewire.emit('delete', event.detail.id);
+      }
+    });
+  });
+</script>

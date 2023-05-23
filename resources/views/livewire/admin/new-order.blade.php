@@ -112,7 +112,7 @@
                                   <span type="button" class="btn btn-sm btn-outline-secondary">{{ __('edit') }}
                                   </span>
                                   <span type="button" class="btn btn-sm btn-outline-danger"
-                                    onclick="confirm('Sure you want to remove {{ $item->item_id }}?') || event.stopImmediatePropagation()"
+                                    onclick="confirm('Sure you want to remove {{ $item->item_name }}?') || event.stopImmediatePropagation()"
                                     wire:click.prevent="removeFromCart({{ $item->id }})">{{ __('Remove') }}
                                   </span>
                                 </div>

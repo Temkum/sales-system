@@ -1,6 +1,6 @@
 <div>
   <div class="card">
-    <div class="card-header d-flex justify-content-between mb-4">
+    <div class="card-header d-flex justify-content-between">
       <div class="search-box">
         <a href="{{ route('orders') }}" class="btn btn-secondary btn-sm">
           <i class="bx bx-arrow-back"></i>

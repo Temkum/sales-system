@@ -16,11 +16,16 @@ class Orders extends Component
     public Int $page_number;
     public $msg = '';
     public $updateMode = false;
-    public $sale_code, $edit_orderId, $price, $advance, $quantity, $description, $due_date, $name, $balance;
+    public $sale_code, $price, $advance, $quantity, $description, $due_date, $name, $balance;
 
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
+    protected $listeners = [
+        'delete' => 'deleteSale',
+        'sweetalertConfirmed',
+        'sweetalertDenied',
+    ];
 
     public function render()
     {
@@ -62,14 +67,28 @@ class Orders extends Component
         }
         $sale->save();
 
-        return flash()->options(['position' => 'bottom-center', 'time-out' => 2000])->addSuccess('Status updated successfully!');
+        return flash()->options(['position' => 'bottom-center', 'timeout' => 2000])->addSuccess('Status updated successfully!');
+    }
+
+    public function confirmDelete(int $id)
+    {
+        $this->dispatchBrowserEvent('swal-confirm', [
+            'type' => 'warning',
+            'title' => 'Are you sure?',
+            'text' => '',
+            'id' =>  $id
+        ]);
     }
 
     public function deleteSale($id)
     {
         $sale = Order::find($id);
-        $sale->delete();
 
-        flash()->addSuccess('Record deleted successfully!');
+        if ($sale) {
+            $sale->delete();
+            flash()->options(['position' => 'bottom-center', 'timeout' => 2000])->addSuccess('Record deleted successfully');
+        } else {
+            session()->flash('error', 'Record not found');
+        }
     }
 }

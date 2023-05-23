@@ -29,9 +29,12 @@
   <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}" />
   <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-auth.css') }}" />
   <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
-  <!-- Helpers -->
-  <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
+
   <script src="{{ asset('assets/js/config.js') }}"></script>
+  <script src="{{ asset('assets/js/custom.js') }}"></script>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/5.0.7/sweetalert2.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
   @livewireStyles
 </head>
@@ -317,7 +320,7 @@
   <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
 
   <script async defer src="https://buttons.github.io/buttons.js"></script>
-  <script src="{{ asset('assets/js/custom.js') }}"></script>
+  <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
 
   <script>
     $('body').on('keyup', '#search', function() {

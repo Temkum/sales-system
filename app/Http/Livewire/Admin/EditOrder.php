@@ -51,7 +51,7 @@ class EditOrder extends Component
         }
         $sale->save();
 
-        return flash()->options(['position' => 'bottom-center', 'time-out' => 2000])->addSuccess('Status updated successfully!');
+        return flash()->options(['position' => 'bottom-center', 'timeout' => 2000])->addSuccess('Status updated successfully!');
     }
 
     public function update()
@@ -67,6 +67,7 @@ class EditOrder extends Component
 
         $sale_record = Order::find($this->order_id);
         $sale_record->price = $this->price;
+        $sale_record->name = $this->name;
         $sale_record->address = $this->address;
         $sale_record->phone = $this->phone;
         $sale_record->balance = $this->price - $this->advance;

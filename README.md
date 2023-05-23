@@ -494,3 +494,108 @@ class MyComponent extends Component
 ```
 
 For more details and examples, refer to the [akhaled/livewire-sweetalert documentation](https://packagist.org/packages/akhaled/livewire-sweetalert).
+
+===========================================
+To delete a record from the database in Laravel Livewire with SweetAlert, follow the steps below:
+
+1. First, you need to include SweetAlert in your project. Add the following CDN links to the head section of your layout file.
+
+```html
+<link
+    href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/5.0.7/sweetalert2.min.css"
+    rel="stylesheet"
+/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+```
+
+2. Create a Livewire component for handling the delete operation. Run the following command to generate a new Livewire component:
+
+```
+php artisan make:livewire DeleteUser
+```
+
+3. In the `DeleteUser` component, add a `delete` method to handle the deletion of the user record. Here's an example:
+
+```php
+// app/Http/Livewire/DeleteUser.php
+namespace App\Http\Livewire;
+
+use Livewire\Component;
+use App\Models\User;
+
+class DeleteUser extends Component
+{
+    public $userId;
+
+    public function mount($userId)
+    {
+        $this->userId = $userId;
+    }
+
+    public function delete()
+    {
+        $user = User::find($this->userId);
+        if ($user) {
+            $user->delete();
+            session()->flash('success', 'User deleted successfully');
+        } else {
+            session()->flash('error', 'User not found');
+        }
+
+        return redirect()->route('users.index');
+    }
+
+    public function render()
+    {
+        return view('livewire.delete-user');
+    }
+}
+```
+
+4. Create a blade file for the `DeleteUser` component, and add a button to trigger the SweetAlert confirmation before deleting the user record:
+
+```html
+<!-- resources/views/livewire/delete-user.blade.php -->
+<button type="button" class="btn btn-danger" onclick="showAlert()">
+    Delete
+</button>
+
+<script>
+    function showAlert() {
+        swal({
+            title: "Are you sure you want to delete this user?",
+            text: "Once deleted, you will not be able to recover this user!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                Livewire.emit("delete");
+            }
+        });
+    }
+</script>
+```
+
+5. In the `DeleteUser` component, listen for the `delete` event and call the `delete` method when the event is emitted:
+
+```php
+// app/Http/Livewire/DeleteUser.php
+...
+protected $listeners = ['delete' => 'delete'];
+...
+```
+
+6. Include the `DeleteUser` component in the users list view where you want to show the delete button:
+
+```html
+@foreach($users as $user)
+<tr>
+    <td>{{ $user->name }}</td>
+    <td>{{ $user->email }}</td>
+    <td>@livewire('delete-user', ['userId' => $user->id])</td>
+</tr>
+@endforeach
+```
+
+Now, when you click the "Delete" button, a SweetAlert confirmation will pop up. If you confirm the deletion, the user record will be removed from the database using Livewire.
