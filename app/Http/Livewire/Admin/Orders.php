@@ -67,7 +67,10 @@ class Orders extends Component
         }
         $sale->save();
 
-        return flash()->options(['position' => 'bottom-center', 'timeout' => 2000])->addSuccess('Status updated successfully!');
+        return notyf()
+            ->position('x', 'center')
+            ->position('y', 'bottom')
+            ->duration(2000)->addSuccess('Status updated successfully!');
     }
 
     public function confirmDelete(int $id)
@@ -86,9 +89,13 @@ class Orders extends Component
 
         if ($sale) {
             $sale->delete();
-            flash()->options(['position' => 'bottom-center', 'timeout' => 2000])->addSuccess('Record deleted successfully');
+            notyf()
+                ->position('x', 'center')
+                ->position('y', 'top')
+                ->duration(2000)
+                ->addSuccess('Record deleted successfully');
         } else {
-            session()->flash('error', 'Record not found');
+            notyf()->position('x', 'right')->position('y', 'top')->addError('Record not found');
         }
     }
 }

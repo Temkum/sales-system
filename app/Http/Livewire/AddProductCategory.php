@@ -20,7 +20,7 @@ class AddProductCategory extends Component
         $this->product_code = $this->product_code . $rand_num;
     }
 
-    
+
 
     public function addProduct()
     {
@@ -46,7 +46,10 @@ class AddProductCategory extends Component
 
         $product->save();
 
-        session()->flash('success', 'Product created successfully!');
+        notyf()
+            ->position('x', 'center')
+            ->position('y', 'top')
+            ->addSuccess('Product created successfully!');
         redirect()->to('admin/products');
     }
 

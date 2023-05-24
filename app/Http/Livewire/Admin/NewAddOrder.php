@@ -60,7 +60,11 @@ class NewAddOrder extends Component
         $cart_item = CartItems::find($id);
         $cart_item->delete();
 
-        flash()->options(['position' => 'top-center', 'timeout' => 1000])->addSuccess('Item removed successfully');
+        notyf()
+            ->position('x', 'center')
+            ->position('y', 'top')
+            ->addSuccess('Item removed successfully');
+
         $this->items_in_cart = $this->items_in_cart->except($id);
     }
 
@@ -137,7 +141,9 @@ class NewAddOrder extends Component
         }
         $this->items_in_cart = CartItems::all();
 
-        return flash()->options(['position' => 'top-center', 'timeout' => 2000])->addSuccess('Items added successfully');
+        return notyf()
+            ->position('x', 'right')
+            ->position('y', 'top')->addSuccess('Items added successfully');
     }
 
     protected $rules = [
@@ -182,7 +188,10 @@ class NewAddOrder extends Component
             $item->delete();
         }
 
-        session()->flash('success', 'Record added successfully!');
+        notyf()
+            ->position('x', 'right')
+            ->position('y', 'top')
+            ->addSuccess('Record added successfully!');
         redirect()->to('admin/orders');
     }
 }

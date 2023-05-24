@@ -68,7 +68,11 @@ class EditProduct extends Component
         }
         $product->save();
 
-        session()->flash('success', 'Product update successful!');
+        notyf()
+            ->position('x', 'center')
+            ->position('y', 'top')
+            ->addSuccess('Product update successful!');
+
         redirect()->to('admin/products');
     }
 

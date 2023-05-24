@@ -51,7 +51,10 @@ class EditOrder extends Component
         }
         $sale->save();
 
-        return flash()->options(['position' => 'bottom-center', 'timeout' => 2000])->addSuccess('Status updated successfully!');
+        return notyf()
+            ->position('x', 'right')
+            ->position('y', 'top')
+            ->addSuccess('Status updated successfully!');
     }
 
     public function update()
@@ -77,7 +80,10 @@ class EditOrder extends Component
         $sale_record->due_date = $this->due_date;
         $sale_record->save();
 
-        flash()->addSuccess('Record update successful');
+        notyf()
+            ->position('x', 'right')
+            ->position('y', 'top')
+            ->addSuccess('Record update successful');
         redirect()->to('admin/orders');
     }
 }
