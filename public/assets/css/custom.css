@@ -23,4 +23,8 @@
 .fl-main-container .fl-flasher .fl-progress-bar {
   display: none !important;
 }
+
+.allOrders .badge {
+  font-size: 11px;
+}
 /*# sourceMappingURL=custom.css.map */
