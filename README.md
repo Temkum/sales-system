@@ -398,3 +398,204 @@ class Users extends Component
                     <td>
     <button type="button" class="btn btn-primary btn
 ```
+
+=====================================
+To add Sweet Alert in Laravel Livewire, you can use the `akhaled/livewire-sweetalert` package. Follow these steps to integrate Sweet Alert with Laravel Livewire:
+
+1. Install the package using Composer:
+
+```
+composer require akhaled/livewire-sweetalert
+```
+
+2. Include the JavaScript for SweetAlert2 and LivewireSweetalert in your main layout file:
+
+```html
+...
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@livewireScripts
+@livewireSweetalertScripts
+</body>
+```
+
+3. Publish the configuration file:
+
+```
+php artisan vendor:publish --tag=livewire-sweetalert-config
+```
+
+Now you can use Sweet Alert in your Livewire components. There are three main types of alerts: Toast, Fire, and Confirm.
+
+**Toast:**
+
+To use a Toast alert, add the `Toast` trait to your component and call the `toast` method:
+
+```php
+use Akhaled\LivewireSweetalert\Toast;
+use Livewire\Component;
+
+class MyComponent extends Component
+{
+    use Toast;
+
+    public function save() {
+        $this->toast('Toast message', 'success', 5000);
+    }
+    ...
+}
+```
+
+**Fire:**
+
+To use a Fire alert (normal SweetAlert modal), add the `Fire` trait to your component and call the `fire` method:
+
+```php
+use Akhaled\LivewireSweetalert\Fire;
+use Livewire\Component;
+
+class MyComponent extends Component
+{
+    use Fire;
+
+    public function save() {
+        $options = [];
+        $this->fire('Error happened', 'error', 'please try again later', $options);
+    }
+    ...
+}
+```
+
+**Confirm:**
+
+To use a Confirm alert, add the `Confirm` trait to your component and call the `confirm` method. On confirmation, a `confirmed` event is emitted:
+
+```php
+use Akhaled\LivewireSweetalert\Confirm;
+use Livewire\Component;
+
+class MyComponent extends Component
+{
+    use Confirm;
+    protected $listeners = [
+        'confirmed' => 'onConfirmation'
+    ];
+
+    public function delete()
+    {
+        $options = [];
+        $this->confirm('Are you sure you want to delete', 'you can\'t revert that', $options);
+    }
+
+    public function onConfirmation()
+    {
+        dd('confirmed!');
+    }
+}
+```
+
+For more details and examples, refer to the [akhaled/livewire-sweetalert documentation](https://packagist.org/packages/akhaled/livewire-sweetalert).
+
+===========================================
+To delete a record from the database in Laravel Livewire with SweetAlert, follow the steps below:
+
+1. First, you need to include SweetAlert in your project. Add the following CDN links to the head section of your layout file.
+
+```html
+<link
+    href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/5.0.7/sweetalert2.min.css"
+    rel="stylesheet"
+/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+```
+
+2. Create a Livewire component for handling the delete operation. Run the following command to generate a new Livewire component:
+
+```
+php artisan make:livewire DeleteUser
+```
+
+3. In the `DeleteUser` component, add a `delete` method to handle the deletion of the user record. Here's an example:
+
+```php
+// app/Http/Livewire/DeleteUser.php
+namespace App\Http\Livewire;
+
+use Livewire\Component;
+use App\Models\User;
+
+class DeleteUser extends Component
+{
+    public $userId;
+
+    public function mount($userId)
+    {
+        $this->userId = $userId;
+    }
+
+    public function delete()
+    {
+        $user = User::find($this->userId);
+        if ($user) {
+            $user->delete();
+            session()->flash('success', 'User deleted successfully');
+        } else {
+            session()->flash('error', 'User not found');
+        }
+
+        return redirect()->route('users.index');
+    }
+
+    public function render()
+    {
+        return view('livewire.delete-user');
+    }
+}
+```
+
+4. Create a blade file for the `DeleteUser` component, and add a button to trigger the SweetAlert confirmation before deleting the user record:
+
+```html
+<!-- resources/views/livewire/delete-user.blade.php -->
+<button type="button" class="btn btn-danger" onclick="showAlert()">
+    Delete
+</button>
+
+<script>
+    function showAlert() {
+        swal({
+            title: "Are you sure you want to delete this user?",
+            text: "Once deleted, you will not be able to recover this user!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                Livewire.emit("delete");
+            }
+        });
+    }
+</script>
+```
+
+5. In the `DeleteUser` component, listen for the `delete` event and call the `delete` method when the event is emitted:
+
+```php
+// app/Http/Livewire/DeleteUser.php
+...
+protected $listeners = ['delete' => 'delete'];
+...
+```
+
+6. Include the `DeleteUser` component in the users list view where you want to show the delete button:
+
+```html
+@foreach($users as $user)
+<tr>
+    <td>{{ $user->name }}</td>
+    <td>{{ $user->email }}</td>
+    <td>@livewire('delete-user', ['userId' => $user->id])</td>
+</tr>
+@endforeach
+```
+
+Now, when you click the "Delete" button, a SweetAlert confirmation will pop up. If you confirm the deletion, the user record will be removed from the database using Livewire.

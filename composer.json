@@ -13,6 +13,9 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.10",
+        "php-flasher/flasher-laravel": "^1.13",
+        "php-flasher/flasher-notyf-laravel": "^1.13",
+        "php-flasher/flasher-sweetalert-laravel": "^1.13",
         "wire-elements/modal": "^1.0"
     },
     "require-dev": {

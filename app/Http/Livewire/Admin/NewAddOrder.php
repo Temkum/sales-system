@@ -26,6 +26,16 @@ class NewAddOrder extends Component
         $this->items_in_cart = CartItems::all();
     }
 
+    public function render()
+    {
+        if ($this->advance != '') {
+            $total_amt = $this->items_in_cart->sum('item_price');
+            $this->balance = $total_amt;
+        }
+
+        return view('livewire.admin.new-order')->extends('base');
+    }
+
     public function addItem()
     {
         $i = $this->i + 1;
@@ -47,11 +57,14 @@ class NewAddOrder extends Component
 
     public function removeFromCart($id)
     {
-
         $cart_item = CartItems::find($id);
         $cart_item->delete();
 
-        $this->msg = 'Item removed!';
+        notyf()
+            ->position('x', 'center')
+            ->position('y', 'top')
+            ->addSuccess('Item removed successfully');
+
         $this->items_in_cart = $this->items_in_cart->except($id);
     }
 
@@ -71,7 +84,7 @@ class NewAddOrder extends Component
         $cart_product = CartItems::find($prod_id);
 
         if ($cart_product->product_qty <= 1) {
-            return $msg = ($cart_product->product->product_name . "'s quantity can't be less than 1. Increase the quantity or remove items from cart!");
+            return flash('warning', "$cart_product->product->prod_name quantity can't be less than 1. Increase the quantity or remove items from cart!");
         }
 
         $cart_product->decrement('product_qty', 1);
@@ -100,7 +113,7 @@ class NewAddOrder extends Component
             ->where('item_qty', $this->item_qty)->count();
 
         if ($item_count > 0) {
-            return $this->msg = $cart_item->item_name . ' is already added. Please increase the quantity or price!';
+            return session()->flash('info', "$cart_item->item_name is already added. Please increase the quantity or price!");
         } else if ($this->itemId) {
             $item = CartItems::find($this->itemId);
             foreach ($this->item_name as $key => $value) {
@@ -112,7 +125,7 @@ class NewAddOrder extends Component
                     ]
                 );
             }
-            $this->msg = 'Items updated successfully!';
+            flash('success', 'Item updated successfully');
         } else {
             foreach ($this->item_name as $key => $value) {
                 CartItems::create(
@@ -128,7 +141,9 @@ class NewAddOrder extends Component
         }
         $this->items_in_cart = CartItems::all();
 
-        return $this->msg = 'Items added successfully!';
+        return notyf()
+            ->position('x', 'right')
+            ->position('y', 'top')->addSuccess('Items added successfully');
     }
 
     protected $rules = [
@@ -173,19 +188,10 @@ class NewAddOrder extends Component
             $item->delete();
         }
 
-        session()->flash('success', 'Sale order added successfully!');
+        notyf()
+            ->position('x', 'right')
+            ->position('y', 'top')
+            ->addSuccess('Record added successfully!');
         redirect()->to('admin/orders');
-    }
-
-    public function render()
-    {
-        if ($this->advance != '') {
-            $total_amt = $this->items_in_cart->sum('item_price');
-            $this->balance = $total_amt;
-        }
-
-        $items_in_cart = CartItems::all();
-
-        return view('livewire.admin.new-order')->extends('base');
     }
 }
