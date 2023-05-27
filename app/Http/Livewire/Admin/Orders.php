@@ -16,11 +16,16 @@ class Orders extends Component
     public Int $page_number;
     public $msg = '';
     public $updateMode = false;
-    public $sale_code, $edit_orderId, $price, $advance, $quantity, $description, $due_date, $name, $balance;
+    public $sale_code, $price, $advance, $quantity, $description, $due_date, $name, $balance;
 
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
+    protected $listeners = [
+        'delete' => 'deleteSale',
+        'sweetalertConfirmed',
+        'sweetalertDenied',
+    ];
 
     public function render()
     {
@@ -45,68 +50,6 @@ class Orders extends Component
         return view('livewire.admin.orders', ['orders' => $orders])->extends('base');
     }
 
-    public function edit(int $id)
-    {
-        $this->updateMode = true;
-
-        $order = Order::findOrFail($id);
-
-        $this->edit_orderId = $order->id;
-        $this->name = $order->name;
-        $this->price = $order->price;
-        $this->advance = $order->advance;
-        $this->balance = $order->balance;
-        $this->quantity = $order->quantity;
-        $this->due_date = $order->due_date;
-        $this->description = $order->description;
-
-        $this->dispatchBrowserEvent('edit-order');
-    }
-
-    public function update()
-    {
-        $this->validate([
-            'name' => 'required',
-            'price' => 'required|numeric',
-            'quantity' => 'required|numeric',
-            'advance' => 'required|numeric',
-            'due_date' => 'required',
-            'description' => 'required',
-        ]);
-
-        $id  = $this->order_id;
-
-        $order = Order::find($id);
-
-        $order->name = $this->name;
-        $order->price = $this->price;
-        $order->quantity = $this->quantity;
-        $order->advance = $this->advance;
-        $order->description = $this->description;
-        $order->due_date = $this->due_date;
-        $order->save();
-
-        session()->flash('success', 'Record update successful!');
-        $this->resetInputFields();
-        $this->dispatchBrowserEvent('close-modal');
-    }
-
-    public function closeModal()
-    {
-        $this->updateMode = false;
-        $this->resetInputFields();
-    }
-
-    public function resetInputFields()
-    {
-        $this->name = '';
-        $this->price = '';
-        $this->quantity = '';
-        $this->advance = '';
-        $this->description = '';
-        $this->due_date = '';
-    }
-
     public function updatedSearch()
     {
         $this->resetPage();
@@ -124,14 +67,35 @@ class Orders extends Component
         }
         $sale->save();
 
-        return $this->msg = 'Status updated successfully!';
+        return notyf()
+            ->position('x', 'center')
+            ->position('y', 'bottom')
+            ->duration(2000)->addSuccess('Status updated successfully!');
+    }
+
+    public function confirmDelete(int $id)
+    {
+        $this->dispatchBrowserEvent('swal-confirm', [
+            'type' => 'warning',
+            'title' => 'Are you sure?',
+            'text' => '',
+            'id' =>  $id
+        ]);
     }
 
     public function deleteSale($id)
     {
         $sale = Order::find($id);
-        $sale->delete();
 
-        $this->msg = 'Deleted successfully!';
+        if ($sale) {
+            $sale->delete();
+            notyf()
+                ->position('x', 'center')
+                ->position('y', 'top')
+                ->duration(2000)
+                ->addSuccess('Record deleted successfully');
+        } else {
+            notyf()->position('x', 'right')->position('y', 'top')->addError('Record not found');
+        }
     }
 }

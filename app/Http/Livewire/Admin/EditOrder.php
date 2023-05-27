@@ -3,9 +3,9 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Order;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class EditOrder extends Component
 {
@@ -38,6 +38,7 @@ class EditOrder extends Component
 
         return view('livewire.admin.edit-order', ['order' => $order])->extends('base');
     }
+
     public function updateSaleStatus($sale_id, $status)
     {
         $sale = Order::find($sale_id);
@@ -50,7 +51,10 @@ class EditOrder extends Component
         }
         $sale->save();
 
-        return $this->msg = 'Status updated successfully!';
+        return notyf()
+            ->position('x', 'right')
+            ->position('y', 'top')
+            ->addSuccess('Status updated successfully!');
     }
 
     public function update()
@@ -66,6 +70,7 @@ class EditOrder extends Component
 
         $sale_record = Order::find($this->order_id);
         $sale_record->price = $this->price;
+        $sale_record->name = $this->name;
         $sale_record->address = $this->address;
         $sale_record->phone = $this->phone;
         $sale_record->balance = $this->price - $this->advance;
@@ -73,10 +78,12 @@ class EditOrder extends Component
         $sale_record->advance = $this->advance;
         $sale_record->description = $this->description;
         $sale_record->due_date = $this->due_date;
-        // dd($sale_record);
         $sale_record->save();
 
-        session()->flash('success', 'Record update successful!');
+        notyf()
+            ->position('x', 'right')
+            ->position('y', 'top')
+            ->addSuccess('Record update successful');
         redirect()->to('admin/orders');
     }
 }

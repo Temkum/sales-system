@@ -28,6 +28,18 @@ class NewOrder extends Component
     $this->prod_in_cart = Cart::all();
   }
 
+  public function render()
+  {
+    /*   if ($this->advance != '') {
+      $total_amt = $this->prod_in_cart->sum('product_price');
+      $this->balance = $total_amt;
+    }
+
+    $this->prod_in_cart = Cart::all(); */
+
+    return view('livewire.admin.order-form')->extends('base');
+  }
+
   public function increaseQty($prod_id)
   {
     $cart_product = Cart::find($prod_id);
@@ -44,8 +56,10 @@ class NewOrder extends Component
     $cart_product = Cart::find($prod_id);
 
     if ($cart_product->product_qty <= 1) {
-      // return session()->back()->with('info', $cart_product->product->product_name . "'s quantity can't be less than 1. Increase the quantity or remove items from cart!");
-      return $msg = ($cart_product->product->product_name . "'s quantity can't be less than 1. Increase the quantity or remove items from cart!");
+      return notyf()
+        ->position('x', 'center')
+        ->position('y', 'top')
+        ->addInfo("Items's quantity can't be less than 1. Increase the quantity or remove items");
     }
 
     $cart_product->decrement('product_qty', 1);
@@ -61,14 +75,19 @@ class NewOrder extends Component
 
     // check prod if available
     if (!$product) {
-
-      return $this->msg = 'Product not found!';
+      return notyf()
+        ->position('x', 'center')
+        ->position('y', 'top')
+        ->duration(2000)->addError('Product not found!');
     }
 
     $num_of_prods = Cart::where('product_id', $product->id)->count();
 
     if ($num_of_prods > 0) {
-      return $this->msg = $product->prod_name . 'is already added. Please increase the product quantity!';
+      return notyf()
+        ->position('x', 'center')
+        ->position('y', 'top')
+        ->addInfo("$product->prod_name is already added. Please increase the product quantity.");
     } else {
       $add_to_cart = new Cart();
       $add_to_cart->user_id = auth()->user()->id;
@@ -82,7 +101,10 @@ class NewOrder extends Component
       // clear input fields
       $this->product_code = '';
 
-      return $this->msg = 'Product added successfully!';
+      return notyf()
+        ->position('x', 'center')
+        ->position('y', 'top')
+        ->duration(2000)->addSuccess('Product added successfully!');
     }
   }
 
@@ -91,7 +113,10 @@ class NewOrder extends Component
     $remove_prod = Cart::find($prod_id);
     $remove_prod->delete();
 
-    $this->msg = 'Product removed!';
+    notyf()
+      ->position('x', 'center')
+      ->position('y', 'top')
+      ->duration(2000)->addSuccess('Item removed successfully');
 
     $this->prod_in_cart = $this->prod_in_cart->except($prod_id);
   }
@@ -119,7 +144,6 @@ class NewOrder extends Component
     $ran_str = strtoupper(Str::random(1));
     $ran_num = rand(4, 9999);
     $sale_code = $ran_str . $ran_num;
-    // $this->price = $this->prod_in_cart->sum('product_price');
 
     $sale = new Order();
     $sale->sale_code = $sale_code;
@@ -141,19 +165,7 @@ class NewOrder extends Component
       $this->removeItem($item->id);
     }
 
-    session()->flash('success', 'Sale order added successfully!');
+    notyf('success', 'Sale order added successfully!');
     redirect()->to('admin/orders');
-  }
-
-  public function render()
-  {
-    if ($this->advance != '') {
-      $total_amt = $this->prod_in_cart->sum('product_price');
-      $this->balance = $total_amt;
-    }
-
-    $this->prod_in_cart = Cart::all();
-
-    return view('livewire.admin.order-form')->extends('base');
   }
 }

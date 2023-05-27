@@ -112,7 +112,7 @@
                                   <span type="button" class="btn btn-sm btn-outline-secondary">{{ __('edit') }}
                                   </span>
                                   <span type="button" class="btn btn-sm btn-outline-danger"
-                                    onclick="confirm('Sure you want to remove {{ $item->item_id }}?') || event.stopImmediatePropagation()"
+                                    onclick="confirm('Sure you want to remove {{ $item->item_name }}?') || event.stopImmediatePropagation()"
                                     wire:click.prevent="removeFromCart({{ $item->id }})">{{ __('Remove') }}
                                   </span>
                                 </div>
@@ -144,7 +144,7 @@
                 <label for="html5-text-input" class="col-md-2 col-form-label">{{ __('Address') }}</label>
                 <div class="col-md-10">
                   <input class="form-control" type="address" placeholder="Sandpit, Buea" id="address"
-                    wire:model="address">
+                    wire:model="address" value="{{ old('address') }}">
                   @error('address')
                     <span class="text-danger error">{{ $message }}</span>
                   @enderror
@@ -154,7 +154,7 @@
                 <label for="html5-tel-input" class="col-md-2 col-form-label">{{ __('Phone') }}</label>
                 <div class="col-md-10">
                   <input class="form-control" type="telephone" placeholder="675 827 455" id="phone"
-                    wire:model="phone">
+                    wire:model="phone" value="{{ old('phone') }}">
                   @error('phone')
                     <span class="text-danger error">{{ $message }}</span>
                   @enderror
@@ -172,7 +172,7 @@
                 <label for="html5-number-input" class="col-md-2 col-form-label">{{ __('Advance Paid') }}</label>
                 <div class="col-md-10">
                   <input class="form-control" type="number" placeholder="0.00" wire:model="advance" maxlength="15"
-                    min="0">
+                    min="0" value="{{ old('advance') }}">
                   @error('advance')
                     <span class="text-danger error">{{ $message }}</span>
                   @enderror
@@ -183,7 +183,7 @@
                 <label for="html5-datetime-local-input" class="col-md-2 col-form-label">{{ __('Due Date') }}</label>
                 <div class="col-md-10">
                   <input class="form-control" type="datetime-local" placeholder="2023-06-18T12:30:00"
-                    id="html5-datetime-local-input" wire:model="due_date">
+                    id="html5-datetime-local-input" wire:model="due_date" value="{{ old('due_date') }}">
                   @error('due_date')
                     <span class="text-danger error">{{ $message }}</span>
                   @enderror
@@ -191,7 +191,7 @@
               </div>
               <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">{{ __('Description') }}</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" wire:model="description"></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" wire:model="description">{{ old('description') }}</textarea>
                 @error('description')
                   <span class="text-danger error">{{ $message }}</span>
                 @enderror
