@@ -27,8 +27,8 @@
       </div>
     </div>
     <div class="card-body">
-      <div class="table-responsive">
-        <table class="table order-table">
+      <div class="">
+        <table class="table order-table table-responsive">
           <thead>
             <tr>
               <th>Code</th>
