@@ -147,7 +147,7 @@ class NewAddOrder extends Component
     }
 
     protected $rules = [
-        'name' => 'required|min:6',
+        'name' => 'required|min:3',
         'phone' => 'required',
         'address' => 'required',
         'advance' => 'required|numeric',

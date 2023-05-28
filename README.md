@@ -599,3 +599,425 @@ protected $listeners = ['delete' => 'delete'];
 ```
 
 Now, when you click the "Delete" button, a SweetAlert confirmation will pop up. If you confirm the deletion, the user record will be removed from the database using Livewire.
+
+---
+
+To create a system that assigns tasks to users with a time limit and tracks each user's task in Laravel Livewire, you can follow these steps:
+
+1. **Create a new Laravel project** using Composer or Laravel Installer. Update the `.env` file with the application's name and URL. Configure the mail settings using Mailtrap for testing emails locally [Source 1](https://medium.com/@brice_hartmann/building-a-user-based-task-list-application-in-laravel-eff4a07e2688).
+
+2. **Create a Task model** with attributes like `title`, `is_complete`, and a relationship to the `User` model. Also, create a factory to generate random tasks and a seeder to create test data for tasks [Source 1](https://medium.com/@brice_hartmann/building-a-user-based-task-list-application-in-laravel-eff4a07e2688).
+
+3. **Create a User model** with a relationship to the `Task` model, and configure the necessary routes, controller, and policy for authentication and authorization [Source 1](https://medium.com/@brice_hartmann/building-a-user-based-task-list-application-in-laravel-eff4a07e2688).
+
+4. **Create a TaskPolicy** to handle authorization for tasks. Register the policy in `app/Providers/AuthServiceProvider.php` [Source 1](https://medium.com/@brice_hartmann/building-a-user-based-task-list-application-in-laravel-eff4a07e2688).
+
+5. **Implement a Task controller** that handles creating, updating, and deleting tasks. Add methods for assigning tasks to users and tracking the progress of tasks [Source 1](https://medium.com/@brice_hartmann/building-a-user-based-task-list-application-in-laravel-eff4a07e2688).
+
+6. **Create Livewire components** for displaying tasks and assigning tasks to users. Use Livewire's properties to store the current state of tasks and users [Source 1](https://medium.com/@brice_hartmann/building-a-user-based-task-list-application-in-laravel-eff4a07e2688).
+
+7. **Implement a timer** to track the time limit for each task. You can use JavaScript's `setTimeout` function to trigger an event when the time limit is reached. Listen for this event in your Livewire component and update the task's status accordingly.
+
+8. **Create views** for displaying tasks and assigning tasks to users. Use Blade templates and Livewire components to render the task list and progress [Source 1](https://medium.com/@brice_hartmann/building-a-user-based-task-list-application-in-laravel-eff4a07e2688).
+
+Here's an example of how you can create a Livewire component to display tasks and assign tasks to users:
+
+```php
+// app/Http/Livewire/TaskList.php
+namespace App\Http\Livewire;
+
+use Livewire\Component;
+use App\Models\Task;
+
+class TaskList extends Component
+{
+    public $tasks;
+    public $userId;
+
+    public function mount()
+    {
+        $this->tasks = Task::where('user_id', $this->userId)->get();
+    }
+
+    public function render()
+    {
+        return view('livewire.task-list');
+    }
+}
+```
+
+```html
+<!-- resources/views/livewire/task-list.blade.php -->
+<div>
+    @foreach ($tasks as $task)
+    <div>
+        <p>{{ $task->title }}</p>
+        <p>Status: {{ $task->is_complete ? 'Completed' : 'In Progress' }}</p>
+    </div>
+    @endforeach
+</div>
+```
+
+```php
+// app/Http/Livewire/TaskAssignment.php
+namespace App\Http\Livewire;
+
+use Livewire\Component;
+use App\Models\Task;
+
+class TaskAssignment extends Component
+{
+    public $taskId;
+
+    public function mount()
+    {
+        $this->task = Task::find($this->taskId);
+    }
+
+    public function render()
+    {
+        return view('livewire.task-assignment');
+    }
+}
+```
+
+```html
+<!-- resources/views/livewire/task-assignment.blade.php -->
+<div>
+    @if ($this->task)
+    <p>Task: {{ $this->task->title }}</p>
+    <p>Assign to: {{ $this->userId }}</p>
+    <button wire:click="assignTask">Assign Task</button>
+    @else
+    <p>No task available</p>
+    @endif
+</div>
+```
+
+```javascript
+// resources/js/tasks.js
+document.addEventListener("DOMContentLoaded", () => {
+    const assignButton = document.querySelector("#assign-task");
+    if (assignButton) {
+        assignButton.addEventListener("click", () => {
+            Livewire.emit("assignTask", { taskId: 1 });
+        });
+    }
+});
+```
+
+```php
+// app/Http/Controllers/TaskController.php
+public function assignTask(int $taskId, int $userId)
+{
+    $task = Task::find($taskId);
+    $task->user_id = $userId;
+    $task->save();
+}
+```
+
+This example demonstrates how to create a system that assigns tasks to users with a time limit and tracks each user's task using Laravel Live
+
+---
+
+To create a system that assigns jobs to users with a time limit and tracks each user's task in Laravel Livewire, you can follow these steps:
+
+1. **Create a Task model and migration**
+
+First, create a Task model and migration for storing tasks and user assignments. You can use the `php artisan make:model Task` command to generate the model and migration files.
+
+```php
+// app/Models/Task.php
+
+class Task extends Model
+{
+    protected $fillable = ['user_id', 'title', 'description', 'deadline'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+}
+```
+
+2. **Create a TaskPolicy**
+
+Create a TaskPolicy to handle authorization for task-related actions.
+
+```bash
+php artisan make:policy TaskPolicy --model=Task
+```
+
+3. **Define policies**
+
+In the `TaskPolicy`, define methods to handle task-related actions, such as creating, updating, and deleting tasks.
+
+```php
+// app/Policies/TaskPolicy.php
+
+public function create(User $user, Task $task)
+{
+    // Add your logic for task creation
+}
+
+public function update(User $user, Task $task)
+{
+    // Add your logic for task update
+}
+
+public function delete(User $user, Task $task)
+{
+    // Add your logic for task deletion
+}
+```
+
+4. **Register the TaskPolicy**
+
+Register the TaskPolicy in the `AuthServiceProvider` to associate it with the Task model.
+
+```php
+// app/Providers/AuthServiceProvider.php
+
+use App\Models\Task;
+use App\Policies\TaskPolicy;
+
+protected $policies = [
+    Task::class => TaskPolicy::class,
+];
+```
+
+5. **Create a TaskController**
+
+Create a TaskController to handle task-related actions, such as creating, updating, and deleting tasks.
+
+```bash
+php artisan make:controller TaskController
+```
+
+6. **Implement TaskController methods**
+
+In the `TaskController`, implement methods to handle task-related actions, using the TaskPolicy for authorization.
+
+```php
+// app/Http/Controllers/TaskController.php
+
+use App\Models\Task;
+use App\Policies\TaskPolicy;
+
+public function store(Request $request)
+{
+    $task = new Task($request->all());
+    $task->user_id = auth()->id();
+    $task->save();
+
+    return response()->json(['message' => 'Task created successfully']);
+}
+
+public function update(Task $task, Request $request)
+{
+    $task->update($request->all());
+
+    return response()->json(['message' => 'Task updated successfully']);
+}
+
+public function destroy(Task $task)
+{
+    $task->delete();
+
+    return response()->json(['message' => 'Task deleted successfully']);
+}
+```
+
+7. **Create Livewire components**
+
+Create Livewire components to handle tasks in the frontend.
+
+```bash
+php artisan make:livewire TaskComponent
+```
+
+8. **Implement the Livewire component**
+
+In the `TaskComponent`, implement the necessary logic for displaying tasks, updating deadlines, and deleting tasks.
+
+```php
+// resources/views/livewire/task-component.blade.php
+
+@extends('layouts.app')
+
+@section('content')
+    <!-- Add your task display logic here -->
+@endsection
+```
+
+9. **Create a route for the Livewire component**
+
+In `routes/web.php`, add a route for the Livewire component.
+
+```php
+// routes/web.php
+
+use App\Http\Controllers\TaskController;
+
+Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
+```
+
+10. **Track task status**
+
+In the `TaskComponent`, use Livewire's `wire:poll` directive to periodically check the status of each task and update the frontend accordingly.
+
+```php
+// resources/views/livewire/task-component.blade.php
+
+@wire:poll="2000"
+
+<!-- Add your task update logic here -->
+```
+
+11. **Configure queue rate limiting**
+
+To ensure that tasks are not processed too quickly, you can use Laravel's rate limiting feature to control the rate at which tasks are executed by the queue. Configure the rate limiting in the `boot` method of your `AppServiceProvider`.
+
+```php
+// app/Providers/AppServiceProvider.php
+
+public function boot()
+{
+    $this->forEach(function (Illuminate\Cache\RateLimiter\Limit $limit) {
+        $limit->perMinute(5); // Limit tasks to 5 per minute
+    });
+}
+```
+
+By following these steps, you can create a system that assigns tasks to users with a time limit and tracks each user's task in Laravel Livewire. The tasks can be created, updated, and deleted through the frontend, while the backend handles the task processing using Laravel's queued jobs. The system ensures that tasks are not processed too quickly by using rate limiting to control the rate at which tasks are executed by the queue.
+
+---
+
+To create a system where users can claim tasks with time limits using Laravel Livewire, you can follow these steps:
+
+1. Create a Livewire component for the task list and claiming:
+
+```bash
+php artisan make:livewire TaskList
+```
+
+This will create a new Livewire component called `TaskList`. You can modify the `TaskList` component to display the tasks and allow users to claim them.
+
+2. Modify the `TaskList` component to handle task claiming:
+
+In the `TaskList` component, you can use Livewire's properties and methods to handle the task claiming process. For example, you can create a property to store the claimed task and a method to claim a task when a user clicks on it.
+
+```php
+// TaskList.php
+class TaskList extends Component
+{
+    public $claimedTask;
+
+    public function claimTask($task)
+    {
+        $this->claimedTask = $task;
+    }
+
+    public function render()
+    {
+        return view('livewire.task-list');
+    }
+}
+```
+
+3. Update the `TaskList` view:
+
+In the `task-list.blade.php` file, you can loop through the tasks and display them along with a button to claim the task.
+
+```html
+<!-- task-list.blade.php -->
+@foreach ($tasks as $task)
+<div>
+    <h3>{{ $task->title }}</h3>
+    <p>{{ $task->description }}</p>
+    <button wire:click="claimTask({{ $task->id }})">Claim Task</button>
+</div>
+@endforeach
+```
+
+4. Add the TaskList component to your main view:
+
+In your main view, include the TaskList component to display the tasks.
+
+```html
+<!-- main.blade.php -->
+@extends('layouts.app') @section('content')
+<div class="container">
+    <livewire:task-list />
+</div>
+@endsection
+```
+
+5. Create a Livewire component for the task details:
+
+```bash
+php artisan make:livewire TaskDetails
+```
+
+6. Modify the `TaskDetails` component to handle task completion:
+
+In the `TaskDetails` component, create a property to store the completed task and a method to mark the task as completed.
+
+```php
+// TaskDetails.php
+class TaskDetails extends Component
+{
+    public $completedTask;
+
+    public function completeTask()
+    {
+        $this->completedTask = $this->completedTask;
+    }
+
+    public function render()
+    {
+        return view('livewire.task-details');
+    }
+}
+```
+
+7. Update the `TaskDetails` view:
+
+In the `task-details.blade.php` file, display the task details and a button to complete the task.
+
+```html
+<!-- task-details.blade.php -->
+<div>
+    <h3>{{ $completedTask->title }}</h3>
+    <p>{{ $completedTask->description }}</p>
+    <button wire:click="completeTask()">Complete Task</button>
+</div>
+```
+
+8. Add the TaskDetails component to your task claiming view:
+
+In the task claiming view, include the TaskDetails component to display the task details after claiming the task.
+
+```html
+<!-- task-claiming.blade.php -->
+@extends('layouts.app') @section('content')
+<div class="container">
+    @if ($claimedTask)
+    <livewire:task-details />
+    @endif
+</div>
+@endsection
+```
+
+9. Finally, include the TaskList component in your main view:
+
+```html
+<!-- main.blade.php -->
+@extends('layouts.app') @section('content')
+<div class="container">
+    <livewire:task-list />
+</div>
+@endsection
+```
+
+With these steps, you can create a system where users can claim tasks with time limits using Laravel Livewire. You can further customize this system by adding validation, notifications, and other features as needed.
