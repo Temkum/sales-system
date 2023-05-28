@@ -95,9 +95,8 @@
                 <label for="html5-number-input" class="col-md-2 col-form-label">Price</label>
                 <div class="col-md-10">
                   <input class="form-control" type="number"
-                    placeholder="{{ number_format($this->prod_in_cart->sum('product_price'), 2) ?? 0.0 }}"
-                    wire:model="price" name="price"
-                    value="{{ number_format($this->prod_in_cart->sum('product_price'), 2) }}" disabled>
+                    placeholder="{{ number_format($this->prod_in_cart->sum('product_price')) ?? 0.0 }}"
+                    wire:model="price" name="price" value="{{ $this->prod_in_cart->sum('product_price') }}" disabled>
                   @error('price')
                     <p class="text-danger">{{ $message ?? '' }}</p>
                   @enderror
@@ -116,7 +115,7 @@
               <div class="mb-3 row">
                 <label for="html5-number-input" class="col-md-2 col-form-label">{{ __('Advance Paid') }}</label>
                 <div class="col-md-10">
-                  <input class="form-control" type="number" placeholder="180,000" id="html5-number-input"
+                  <input class="form-control" type="number" placeholder="0.00" id="html5-number-input"
                     wire:model="advance" name="advance">
                   @error('advance')
                     <p class="text-danger">{{ $message ?? '' }}</p>
@@ -152,23 +151,24 @@
               @if ((int) $advance > $this->prod_in_cart->sum('product_price') && $this->prod_in_cart->sum('product_price') != 0)
                 <h6 class="mb-2 badge bg-warning fs-10">{{ __('Amount exceeds agreed price') }}</h6>
               @elseif($advance)
-                <h3 class="mb-2">{{ number_format($advance, 2) }}</h3>
+                <h3 class="mb-2">{{ number_format($advance) }}</h3>
                 <small class="text-success fw-semibold">{{ __('Advance paid') }}</small>
               @else
                 <h3 class="mb-2 fs-20">0.00</h3>
               @endif
             </div>
             <div class="d-flex flex-column align-items-center gap-1">
-              @if ((int) $advance == (int) $price && (int) $price)
+              @if ((int) $advance == $this->prod_in_cart->sum('product_price') && $this->prod_in_cart->sum('product_price'))
                 <small class="mb-2 badge bg-info">{{ __('Fully Paid') }}</small>
-              @elseif((int) $advance > (int) $price)
-                <small class="mb-2 badge bg-secondary">{{ number_format((int) $advance - (int) $price, 2) }}</small>
+              @elseif((int) $advance > $this->prod_in_cart->sum('product_price'))
+                <small
+                  class="mb-2 badge bg-secondary">{{ number_format((int) $advance - $this->prod_in_cart->sum('product_price')) }}</small>
                 <small class="text-info fw-semibold">{{ __('Change') }}</small>
-              @elseif((int) $price == 0)
+              @elseif($this->prod_in_cart->sum('product_price') == 0)
                 <h6 class="mb-2">0.00</h6>
               @else
                 <h4 class="mb-2">
-                  {{ number_format($item->product_qty * $item->product->price - intval($advance), 2) }}</h4>
+                  {{ number_format($this->prod_in_cart->sum('product_price') - intval($advance)) }}</h4>
                 <small class="text-danger fw-semibold">{{ __('Balance due') }}</small>
               @endif
             </div>
