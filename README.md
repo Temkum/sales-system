@@ -600,7 +600,7 @@ protected $listeners = ['delete' => 'delete'];
 
 Now, when you click the "Delete" button, a SweetAlert confirmation will pop up. If you confirm the deletion, the user record will be removed from the database using Livewire.
 
----
+<!-- CREATE A TASK CLAIM SYSTEM -->
 
 To create a system that assigns tasks to users with a time limit and tracks each user's task in Laravel Livewire, you can follow these steps:
 
@@ -718,7 +718,7 @@ public function assignTask(int $taskId, int $userId)
 
 This example demonstrates how to create a system that assigns tasks to users with a time limit and tracks each user's task using Laravel Live
 
----
+<!-- TASK SYSTEM -->
 
 To create a system that assigns jobs to users with a time limit and tracks each user's task in Laravel Livewire, you can follow these steps:
 
@@ -1021,3 +1021,930 @@ In the task claiming view, include the TaskDetails component to display the task
 ```
 
 With these steps, you can create a system where users can claim tasks with time limits using Laravel Livewire. You can further customize this system by adding validation, notifications, and other features as needed.
+
+<!-- TASK SYSTEM ALTERNATIVE  -->
+
+To create a system where users can claim tasks with time limits, extend deadlines, and receive notifications when tasks are nearing the deadline using Laravel Livewire, you can follow these steps:
+
+1. **Task and User Models**: Create the necessary models for tasks and users. You can use the Laravel artisan command to generate the models:
+
+    ```
+    php artisan make:model Task -m
+    php artisan make:model User -m
+    ```
+
+2. **Task Table**: Add the necessary columns to the task table, such as `user_id`, `title`, `description`, `deadline`, and `assigned_to`.
+
+3. **User Table**: Add a `tasks` table with columns like `id`, `user_id`, and `task_id`. This table will be used to store the relationship between users and tasks.
+
+4. **TaskController**: Create a TaskController with methods to handle task-related actions, such as claiming tasks, extending deadlines, and assigning tasks to users.
+
+5. **TaskLivewire Component**: Create a TaskLivewire component that will handle the frontend logic, such as displaying tasks and notifying users when tasks are nearing the deadline. You can refer to [Source 0](https://laravel.io/articles/adding-notifications-to-laravelio-with-livewire-alpinejs-and-tailwind-ui) for an example of how to create a Livewire component and send notifications using Laravel's native notification system.
+
+6. **Task Notifications**: To send notifications when tasks are nearing the deadline, you can use Laravel's native notification system. First, create a notification class that extends the `Notification` class and implement the necessary methods, such as `via`, `toDatabase`, and `toArray` or `toDatabase`. You can refer to the example in [Source 0](https://laravel.io/articles/adding-notifications-to-laravelio-with-livewire-alpinejs-and-tailwind-ui) for more details.
+
+7. **Scheduled Tasks**: To send notifications based on a specific date, you can create a Laravel command that checks for tasks with a deadline within a certain range, and sends notifications to the users accordingly. You can refer to the example in [Source 2](https://stackoverflow.com/questions/62859790/how-to-send-a-notification-based-on-a-date-in-laravel) for more details.
+
+8. **Task Scheduling**: To schedule the command to run at a specific time, you can use Laravel's task scheduling feature. You can refer to the Laravel documentation in [Source 14](https://laravel.com/docs/10.x/scheduling) for more details on how to schedule tasks.
+
+9. **Assigning and Unassigning Tasks**: To allow users to claim and unclaim tasks, you can create methods in the TaskController that update the `assigned_to` column in the tasks table accordingly.
+
+10. **Task Deadline Extension**: To extend the deadline of a task, you can create a method in the TaskController that updates the `deadline` column in the tasks table.
+
+By following these steps, you can create a system where users can claim tasks with time limits, extend deadlines, and receive notifications when tasks are nearing the deadline using Laravel Livewire.
+
+<!-- DESIGN FOR TASKS -->
+
+```html
+<link
+    rel="stylesheet"
+    type="text/css"
+    href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+/>
+<div class="container bootstrap snippets bootdey">
+    <div class="col-lg-6">
+        <div class="main-box clearfix">
+            <div class="tabs-wrapper tabs-no-header">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#tab-users" data-toggle="tab">Users</a>
+                    </li>
+                    <li class="">
+                        <a href="#tab-products" data-toggle="tab">Products</a>
+                    </li>
+                    <li class="">
+                        <a href="#tab-todo" data-toggle="tab">Todo</a>
+                    </li>
+                </ul>
+                <div class="tab-content tab-content-body clearfix">
+                    <div class="tab-pane fade active in" id="tab-users">
+                        <ul class="widget-users row">
+                            <li class="col-md-6">
+                                <div class="img">
+                                    <img
+                                        class="img-thumbnail"
+                                        src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                        alt=""
+                                    />
+                                </div>
+                                <div class="details">
+                                    <div class="name">
+                                        <a href="#">Scarlett Johansson</a>
+                                    </div>
+                                    <div class="time">
+                                        <i class="fa fa-clock-o"></i> Last
+                                        online: 5 minutes ago
+                                    </div>
+                                    <div class="type">
+                                        <span class="label label-danger"
+                                            >Admin</span
+                                        >
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="col-md-6">
+                                <div class="img">
+                                    <img
+                                        class="img-thumbnail"
+                                        src="https://bootdey.com/img/Content/avatar/avatar2.png"
+                                        alt=""
+                                    />
+                                </div>
+                                <div class="details">
+                                    <div class="name">
+                                        <a href="#">Mila Kunis</a>
+                                    </div>
+                                    <div class="time online">
+                                        <i class="fa fa-check-circle"></i>
+                                        Online
+                                    </div>
+                                    <div class="type">
+                                        <span class="label label-warning"
+                                            >Pending</span
+                                        >
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="col-md-6">
+                                <div class="img">
+                                    <img
+                                        class="img-thumbnail"
+                                        src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                                        alt=""
+                                    />
+                                </div>
+                                <div class="details">
+                                    <div class="name">
+                                        <a href="#">Ryan Gossling</a>
+                                    </div>
+                                    <div class="time online">
+                                        <i class="fa fa-check-circle"></i>
+                                        Online
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="col-md-6">
+                                <div class="img">
+                                    <img
+                                        class="img-thumbnail"
+                                        src="https://bootdey.com/img/Content/avatar/avatar4.png"
+                                        alt=""
+                                    />
+                                </div>
+                                <div class="details">
+                                    <div class="name">
+                                        <a href="#">Robert Downey Jr.</a>
+                                    </div>
+                                    <div class="time">
+                                        <i class="fa fa-clock-o"></i> Last
+                                        online: Thursday
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="col-md-6">
+                                <div class="img">
+                                    <img
+                                        class="img-thumbnail"
+                                        src="https://bootdey.com/img/Content/avatar/avatar5.png"
+                                        alt=""
+                                    />
+                                </div>
+                                <div class="details">
+                                    <div class="name">
+                                        <a href="#">Emma Watson</a>
+                                    </div>
+                                    <div class="time">
+                                        <i class="fa fa-clock-o"></i> Last
+                                        online: 1 week ago
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="col-md-6">
+                                <div class="img">
+                                    <img
+                                        class="img-thumbnail"
+                                        src="https://bootdey.com/img/Content/avatar/avatar6.png"
+                                        alt=""
+                                    />
+                                </div>
+                                <div class="details">
+                                    <div class="name">
+                                        <a href="#">George Clooney</a>
+                                    </div>
+                                    <div class="time">
+                                        <i class="fa fa-clock-o"></i> Last
+                                        online: 1 month ago
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="col-md-6">
+                                <div class="img">
+                                    <img
+                                        class="img-thumbnail"
+                                        src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                        alt=""
+                                    />
+                                </div>
+                                <div class="details">
+                                    <div class="name">
+                                        <a href="#">Mila Kunis</a>
+                                    </div>
+                                    <div class="time online">
+                                        <i class="fa fa-check-circle"></i>
+                                        Online
+                                    </div>
+                                    <div class="type">
+                                        <span class="label label-warning"
+                                            >Pending</span
+                                        >
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="col-md-6">
+                                <div class="img">
+                                    <img
+                                        class="img-thumbnail"
+                                        src="https://bootdey.com/img/Content/avatar/avatar2.png"
+                                        alt=""
+                                    />
+                                </div>
+                                <div class="details">
+                                    <div class="name">
+                                        <a href="#">Ryan Gossling</a>
+                                    </div>
+                                    <div class="time online">
+                                        <i class="fa fa-check-circle"></i>
+                                        Online
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <br />
+                        <a href="#" class="btn btn-success pull-right"
+                            >View all users</a
+                        >
+                    </div>
+                    <div class="tab-pane fade" id="tab-products">
+                        <ul class="widget-products">
+                            <li>
+                                <a href="#">
+                                    <span class="img">
+                                        <img
+                                            class="img-thumbnail"
+                                            src="https://www.bootdey.com/image/400x400/ADD8E6/000000"
+                                            alt=""
+                                        />
+                                    </span>
+                                    <span class="product clearfix">
+                                        <span class="name">
+                                            Product name 1
+                                        </span>
+                                        <span class="price">
+                                            <i class="fa fa-money"></i> $320,00
+                                        </span>
+                                        <span class="warranty">
+                                            <i class="fa fa-certificate"></i>
+                                            Warranty: 2 years
+                                        </span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="img">
+                                        <img
+                                            class="img-thumbnail"
+                                            src="https://www.bootdey.com/image/400x400/FFB6C1/000000"
+                                            alt=""
+                                        />
+                                    </span>
+                                    <span class="product clearfix">
+                                        <span class="name">
+                                            Product name 2
+                                        </span>
+                                        <span class="price">
+                                            <i class="fa fa-money"></i> $273,68
+                                        </span>
+                                        <span class="warranty">
+                                            <i class="fa fa-certificate"></i>
+                                            Warranty: 2 years
+                                        </span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="img">
+                                        <img
+                                            class="img-thumbnail"
+                                            src="https://www.bootdey.com/image/400x400/20B2AA/000000"
+                                            alt=""
+                                        />
+                                    </span>
+                                    <span class="product clearfix">
+                                        <span class="name">
+                                            Product name 3
+                                        </span>
+                                        <span class="price">
+                                            <i class="fa fa-money"></i> $447,29
+                                        </span>
+                                        <span class="warranty">
+                                            <i class="fa fa-certificate"></i>
+                                            Warranty: 4 years
+                                        </span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="img">
+                                        <img
+                                            class="img-thumbnail"
+                                            src="https://www.bootdey.com/image/400x400/BA55D3/000000"
+                                            alt=""
+                                        />
+                                    </span>
+                                    <span class="product clearfix">
+                                        <span class="name">
+                                            Product name 4
+                                        </span>
+                                        <span class="price">
+                                            <i class="fa fa-money"></i> $447,29
+                                        </span>
+                                        <span class="warranty">
+                                            <i class="fa fa-certificate"></i>
+                                            Warranty: 4 years
+                                        </span>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                        <br />
+                        <a href="#" class="btn btn-success pull-right"
+                            >View all users</a
+                        >
+                    </div>
+                    <div class="tab-pane fade" id="tab-todo">
+                        <ul class="widget-todo">
+                            <li class="clearfix">
+                                <div class="name">
+                                    <div class="checkbox-nice">
+                                        <input type="checkbox" id="todo-1" />
+                                        <label for="todo-1">
+                                            New products introduction
+                                            <span class="label label-danger"
+                                                >High Priority</span
+                                            >
+                                        </label>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="name">
+                                    <div class="checkbox-nice">
+                                        <input type="checkbox" id="todo-2" />
+                                        <label for="todo-2">
+                                            Checking the stock
+                                            <span class="label label-success"
+                                                >Low Priority</span
+                                            >
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="actions">
+                                    <a href="#" class="table-link">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <a href="#" class="table-link danger">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="name">
+                                    <div class="checkbox-nice">
+                                        <input
+                                            type="checkbox"
+                                            id="todo-3"
+                                            checked="checked"
+                                        />
+                                        <label for="todo-3">
+                                            Buying coffee
+                                            <span class="label label-warning"
+                                                >Medium Priority</span
+                                            >
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="actions">
+                                    <a href="#" class="table-link">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <a href="#" class="table-link danger">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="name">
+                                    <div class="checkbox-nice">
+                                        <input type="checkbox" id="todo-4" />
+                                        <label for="todo-4">
+                                            New marketing campaign
+                                            <span class="label label-success"
+                                                >Low Priority</span
+                                            >
+                                        </label>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="name">
+                                    <div class="checkbox-nice">
+                                        <input type="checkbox" id="todo-5" />
+                                        <label for="todo-5">
+                                            Calling Mom
+                                            <span class="label label-warning"
+                                                >Medium Priority</span
+                                            >
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="actions">
+                                    <a href="#" class="table-link badge">
+                                        <i class="fa fa-cog"></i>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="name">
+                                    <div class="checkbox-nice">
+                                        <input type="checkbox" id="todo-6" />
+                                        <label for="todo-6">
+                                            Ryan's birthday
+                                            <span class="label label-danger"
+                                                >High Priority</span
+                                            >
+                                        </label>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="name">
+                                    <div class="checkbox-nice">
+                                        <input type="checkbox" id="todo-7" />
+                                        <label for="todo-7">
+                                            Printing new flyer
+                                            <span class="label label-success"
+                                                >Low Priority</span
+                                            >
+                                        </label>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="name">
+                                    <div class="checkbox-nice">
+                                        <input type="checkbox" id="todo-8" />
+                                        <label for="todo-8">
+                                            Mila and Ryan wedding
+                                            <span class="label label-danger"
+                                                >High Priority</span
+                                            >
+                                        </label>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="name">
+                                    <div class="checkbox-nice">
+                                        <input type="checkbox" id="todo-9" />
+                                        <label for="todo-9">
+                                            Checking the stock
+                                            <span class="label label-success"
+                                                >Low Priority</span
+                                            >
+                                        </label>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+```css
+body {
+    background: #eee;
+}
+.widget-products li > a:after {
+    content: "\f138";
+    font-family: FontAwesome;
+    font-size: 0.875em;
+    font-style: normal;
+    font-weight: normal;
+    margin-top: 32px;
+    position: absolute;
+    right: 10px;
+    text-decoration: inherit;
+    top: 0;
+    color: #cccccc;
+    font-size: 1.3em;
+}
+.btn-success {
+    background-color: #2ecc71;
+    border-color: #27ae60;
+}
+.btn {
+    border: none;
+    padding: 6px 12px;
+    border-bottom: 4px solid;
+    -webkit-transition: border-color 0.1s ease-in-out 0s, background-color 0.1s
+            ease-in-out 0s;
+    transition: border-color 0.1s ease-in-out 0s, background-color 0.1s
+            ease-in-out 0s;
+    outline: none;
+}
+.checkbox-nice label {
+    padding-top: 3px;
+}
+label {
+    font-weight: 400;
+    font-size: 0.875em;
+}
+.checkbox-nice input[type="checkbox"] {
+    visibility: hidden;
+}
+.checkbox-nice {
+    position: relative;
+    padding-left: 15px;
+}
+.widget-todo .name {
+    float: left;
+}
+.widget-todo > li {
+    border-bottom: 1px solid #ebebeb;
+    padding: 10px 5px;
+}
+.widget-todo {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.widget-products li .product > .warranty > i {
+    color: #f1c40f;
+}
+.widget-products li .product > .warranty {
+    display: block;
+    text-decoration: none;
+    width: 50%;
+    float: left;
+    font-size: 0.875em;
+}
+.widget-products li .product > .price > i {
+    color: #2ecc71;
+}
+.widget-products li .product > .price {
+    display: block;
+    text-decoration: none;
+    width: 50%;
+    float: left;
+    font-size: 0.875em;
+}
+.widget-products li .product > .name {
+    display: block;
+    font-weight: 600;
+    padding-bottom: 7px;
+}
+.widget-products li .product {
+    display: block;
+    margin-left: 90px;
+    margin-top: 19px;
+}
+.widget-products li .img {
+    display: block;
+    float: left;
+    text-align: center;
+    width: 70px;
+    height: 68px;
+    overflow: hidden;
+    margin-top: 7px;
+}
+.widget-products li > a {
+    height: 88px;
+    display: block;
+    width: 100%;
+    color: #344644;
+    padding: 3px 10px;
+    position: relative;
+    -webkit-transition: border-color 0.1s ease-in-out 0s, background-color 0.1s
+            ease-in-out 0s;
+    transition: border-color 0.1s ease-in-out 0s, background-color 0.1s
+            ease-in-out 0s;
+}
+.widget-products li {
+    border-bottom: 1px solid #ebebeb;
+}
+.widget-products {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.widget-users li {
+    border-bottom: 1px solid #ebebeb;
+    padding: 15px 0;
+    height: 96px;
+}
+.label {
+    border-radius: 3px;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+.widget-users li > .details > .time {
+    color: #3498db;
+    font-size: 0.75em;
+    padding-bottom: 7px;
+}
+.widget-users li > .details > .name > a {
+    color: #344644;
+}
+.widget-users li > .details > .name {
+    font-weight: 600;
+}
+.widget-users li > .details {
+    margin-left: 60px;
+}
+.widget-users li > .img {
+    float: left;
+    margin-top: 8px;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+.widget-users {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.tabs-wrapper.tabs-no-header .tab-content {
+    padding: 0 20px 20px;
+}
+.nav-tabs > li > a {
+    border-radius: 0;
+    font-size: 1.125em;
+    font-weight: 300;
+    outline: none;
+    color: #555;
+    margin-right: 3px;
+}
+.nav > li {
+    float: left;
+}
+.tabs-wrapper .nav-tabs {
+    margin-bottom: 15px;
+}
+.nav-tabs {
+    background: #d0d8de;
+    border-color: transparent;
+    -moz-border-radius: 3px 3px 0 0;
+    -webkit-border-radius: 3px 3px 0 0;
+    border-radius: 3px 3px 0 0;
+}
+.main-box {
+    background: #ffffff;
+    -webkit-box-shadow: 1px 1px 2px 0 #cccccc;
+    -moz-box-shadow: 1px 1px 2px 0 #cccccc;
+    -o-box-shadow: 1px 1px 2px 0 #cccccc;
+    -ms-box-shadow: 1px 1px 2px 0 #cccccc;
+    box-shadow: 1px 1px 2px 0 #cccccc;
+    margin-bottom: 16px;
+    -webikt-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+```
+
+<!-- UPDATE DATA USING MODAL -->
+
+To update data in a database using a modal in Laravel Livewire, follow these steps:
+
+1. Create a Livewire component for handling the update operation. If you don't have one already, run the following command to create a new Livewire component:
+
+```bash
+php artisan make:livewire UpdateDataComponent
+```
+
+2. In the `UpdateDataComponent` class, add a property for storing the record's ID and any other properties needed for the fields you want to update. Also, define a method for updating the data in the database. Here's an example using the Eloquent ORM:
+
+```php
+// app/Http/Livewire/UpdateDataComponent.php
+namespace App\Http\Livewire;
+
+use Livewire\Component;
+use App\Models\YourModel;
+
+class UpdateDataComponent extends Component
+{
+    public $recordId;
+    public $field1;
+    public $field2;
+
+    public function updateData()
+    {
+        $record = YourModel::findOrFail($this->recordId);
+        $record->update([
+            'field1' => $this->field1,
+            'field2' => $this->field2,
+        ]);
+
+        // Emit an event to close the modal and refresh the parent component
+        $this->emit('dataUpdated');
+    }
+
+    public function mount($id)
+    {
+        $record = YourModel::findOrFail($id);
+        $this->recordId = $id;
+        $this->field1 = $record->field1;
+        $this->field2 = $record->field2;
+    }
+
+    public function render()
+    {
+        return view('livewire.update-data-component');
+    }
+}
+```
+
+3. In the `update-data-component.blade.php` file, create a Bootstrap modal with a form for updating the data:
+
+```html
+<!-- update-data-component.blade.php -->
+<div
+    class="modal fade"
+    id="updateModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="updateModalLabel"
+    aria-hidden="true"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateModalLabel">Update Data</h5>
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="field1">Field 1</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="field1"
+                            wire:model="field1"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label for="field2">Field 2</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="field2"
+                            wire:model="field2"
+                        />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-dismiss="modal"
+                >
+                    Close
+                </button>
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    wire:click="updateData"
+                >
+                    Save changes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+4. In the parent component where you list the records, add a button for each record to trigger the update modal. Include the Livewire component and pass the record's ID to it:
+
+```html
+<!-- parent-component.blade.php -->
+@foreach($records as $record)
+<tr>
+    <td>{{ $record->field1 }}</td>
+    <td>{{ $record->field2 }}</td>
+    <td>
+        <button
+            type="button"
+            class="btn btn-warning btn-sm edit"
+            data-toggle="modal"
+            data-target="#updateModal"
+            wire:click="$emit('mount', {{ $record->id }})"
+        >
+            Edit
+        </button>
+    </td>
+</tr>
+@endforeach @livewire('update-data-component')
+```
+
+5. In the parent component's class, add a listener for the `dataUpdated` event to refresh the data after the update:
+
+```php
+// app/Http/Livewire/ParentComponent.php
+protected $listeners = ['dataUpdated' => '$refresh'];
+```
+
+This setup will allow you to update data in the database using a modal in Laravel Livewire. When you click the "Edit" button, the update modal will open with the record's data pre-filled. After making changes and clicking "Save changes," the data will be updated in the database, and the parent component will refresh to show the updated data [Source 0](https://stackoverflow.com/questions/68622571/laravel-8-updating-data-using-modal), [Source 4](https://www.fundaofwebit.com/post/laravel-9-livewire-crud-using-bootstrap-modal)
+
+<!-- TASK CLAIM ALT -->
+
+To create a system where users can claim tasks with time limits, extend deadlines, and receive notifications when tasks are nearing the deadline using Laravel Livewire, you can follow these steps:
+
+1. Install Laravel and Livewire:
+
+    First, install Laravel using Composer:
+
+    ```
+    composer global require laravel/installer
+    ```
+
+    Then, create a new Laravel project:
+
+    ```
+    laravel new task-manager
+    ```
+
+    After that, install Livewire using Composer:
+
+    ```
+    composer require livewire/livewire
+    ```
+
+2. Create a Task model and migration:
+
+    Run the following command to create a Task model and its corresponding migration file:
+
+    ```
+    php artisan make:model Task -m
+    ```
+
+    Edit the migration file located in the `database/migrations` directory to define the task table structure. Include columns for task title, description, user_id (to associate the task with a user), deadline, and status.
+
+    ```
+    Schema::create('tasks', function (Blueprint $table) {
+        $table->id();
+        $table->unsignedBigInteger('user_id');
+        $table->string('title');
+        $table->text('description')->nullable();
+        $table->timestamp('deadline');
+        $table->string('status')->default('pending');
+        $table->timestamps();
+
+        $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+    });
+    ```
+
+    Run the migration:
+
+    ```
+    php artisan migrate
+    ```
+
+3. Create a Task Livewire component:
+
+    Run the following command to create a new Livewire component for managing tasks:
+
+    ```
+    php artisan make:livewire TaskComponent
+    ```
+
+    Edit the `TaskComponent` class located in the `app/Http/Livewire` directory. Implement methods for claiming tasks, extending deadlines, and checking for tasks nearing their deadline.
+
+4. Implement real-time updates and notifications:
+
+    Use Laravel's built-in event broadcasting system to send real-time updates to users when tasks are claimed, deadlines are extended, or tasks are nearing their deadline. You can use Laravel Echo and Pusher or Socket.IO for this purpose.
+
+    First, install the necessary dependencies:
+
+    ```
+    composer require pusher/pusher-php-server "~4.0"
+    npm install --save laravel-echo pusher-js
+    ```
+
+    Configure Laravel Echo in the `resources/js/bootstrap.js` file:
+
+    ```
+    import Echo from 'laravel-echo';
+
+    window.Pusher = require('pusher-js');
+
+    window.Echo = new Echo({
+        broadcaster: 'pusher',
+        key: process.env.MIX_PUSHER_APP_KEY,
+        cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+        forceTLS: true
+    });
+    ```
+
+    Next, create event classes for task-related events, such as `TaskClaimed`, `DeadlineExtended`, and `TaskNearingDeadline`. Use the `ShouldBroadcast` interface to enable broadcasting for these events.
+
+    Finally, listen for these events in your Livewire component and update the component's state accordingly. Use the `$listeners` property to define event listeners in your Livewire component.
+
+5. Display tasks and manage them using the Task Livewire component:
+
+    In your Blade template, render the Task Livewire component and display the list of tasks. Add features for claiming tasks, extending deadlines, and showing notifications for tasks nearing their deadline.
+
+    ```php
+    <div>
+        @foreach ($tasks as $task)
+            <!-- Display task information and controls for claiming tasks, extending deadlines, etc. -->
+        @endforeach
+    </div>
+    ```
+
+By following these steps, you can create a Laravel Livewire application that allows users to claim tasks with time limits, extend deadlines, and receive notifications when tasks are nearing their deadline.

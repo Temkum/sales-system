@@ -22,6 +22,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'task_id',
     ];
 
     /**
@@ -76,5 +77,16 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         # code...
         return null !== $this->roles()->whereIn('name', $role)->first();
+    }
+
+    /**
+     * The relationship to the user's tasks.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
     }
 }
