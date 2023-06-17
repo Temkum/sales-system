@@ -67,30 +67,44 @@
 
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
-            <li class="menu-item {{ request()->route()->named('admin.dashboard')? 'active': '' }}">
-              <a href="{{ route('admin.dashboard') }}" class="menu-link">
+            {{-- <li class="menu-item {{ request()->route()->named('user.dashboard')? 'active': '' }}">
+              <a href="{{ route('dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">{{ __('Dashboard') }}</div>
               </a>
             </li>
-            <li class="menu-item {{ request()->route()->named('orders')? 'active': '' }}">
-              <a href="{{ route('orders') }}" class="menu-link">
+            <li class="menu-item {{ request()->route()->named('tasks')? 'active': '' }}">
+              <a href="{{ route('tasks') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-money"></i>
-                <div>{{ __('Sales') }}</div>
+                <div>{{ __('Tasks') }}</div>
               </a>
-            </li>
-            <li class="menu-item {{ request()->route()->named('add-order')? 'active': '' }}">
-              <a href="{{ route('add-order') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-cart"></i>
-                <div>{{ __('Add Sale') }}</div>
-              </a>
-            </li>
-            <li class="menu-item {{ request()->route()->named('new-sale')? 'active': '' }}">
-              <a href="{{ route('new-sale') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-cart"></i>
-                <div>{{ __('New Sale') }}</div>
-              </a>
-            </li>
+            </li> --}}
+            @can('is-admin')
+              <li class="menu-item {{ request()->route()->named('admin.dashboard')? 'active': '' }}">
+                <a href="{{ route('admin.dashboard') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                  <div data-i18n="Analytics">{{ __('Dashboard') }}</div>
+                </a>
+              </li>
+              <li class="menu-item {{ request()->route()->named('orders')? 'active': '' }}">
+                <a href="{{ route('orders') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-money"></i>
+                  <div>{{ __('Sales') }}</div>
+                </a>
+              </li>
+              <li class="menu-item {{ request()->route()->named('add-order')? 'active': '' }}">
+                <a href="{{ route('add-order') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-cart"></i>
+                  <div>{{ __('Add Sale') }}</div>
+                </a>
+              </li>
+              <li class="menu-item {{ request()->route()->named('new-sale')? 'active': '' }}">
+                <a href="{{ route('new-sale') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-cart"></i>
+                  <div>{{ __('New Sale') }}</div>
+                </a>
+              </li>
+            @endcan
             {{-- product --}}
             <li class="menu-header small text-uppercase ">
               <span class="menu-header-text">{{ __('Product Categories') }}</span>
@@ -126,13 +140,13 @@
                   <div>{{ __('Users') }}</div>
                 </a>
               </li>
+              <li class="menu-item {{ request()->route()->named('add-user')? 'active': '' }}">
+                <a href="{{ route('add-user') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-user-plus"></i>
+                  <div data-i18n="Basic">{{ __('Add User') }}</div>
+                </a>
+              </li>
             @endcan
-            <li class="menu-item {{ request()->route()->named('add-user')? 'active': '' }}">
-              <a href="{{ route('add-user') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-user-plus"></i>
-                <div data-i18n="Basic">{{ __('Add User') }}</div>
-              </a>
-            </li>
             <!-- Misc -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
             <li class="menu-item">
@@ -236,10 +250,8 @@
                       <a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
 
-                        <span class="me-2
-                                                pwr-icon"><svg
-                            xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24"
-                            style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;">
+                        <span class="me-2 pwr-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20"
+                            height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;">
                             <path
                               d="M12 21c4.411 0 8-3.589 8-8 0-3.35-2.072-6.221-5-7.411v2.223A6 6 0 0 1 18 13c0 3.309-2.691 6-6 6s-6-2.691-6-6a5.999 5.999 0 0 1 3-5.188V5.589C6.072 6.779 4 9.65 4 13c0 4.411 3.589 8 8 8z">
                             </path>

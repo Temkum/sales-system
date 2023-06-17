@@ -14,6 +14,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Livewire\Admin\EditOrder;
+use App\Http\Livewire\TasksComponent;
+use App\Http\Livewire\User\UserDashboardComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +33,7 @@ Route::get('/', function () {
 });
 
 // admin routes
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'isAdmin'])->group(function () {
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
     Route::post('/admin/orders/add', [OrderController::class, 'store'])->name('store-order');
@@ -63,5 +65,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 // user
 Route::middleware(['auth'])->group(function () {
+    // Route::get('/user/dashboard', UserDashboardComponent::class)->name('user.dashboard');
     Route::get('/user/profile', [ProfileController::class, 'index'])->name('profile');
+    // Route::get('/user/tasks', TasksComponent::class)->name('tasks');
 });
