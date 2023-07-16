@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
   <!-- Styles -->
-
+  @vite('resources/js/app.js', 'vendor/courier/build')
   <style>
     body {
       font-family: 'Nunito', sans-serif;

@@ -46,10 +46,11 @@
                         <span class="text-danger error">{{ $message }}</span>
                       @enderror
                     </div>
-                    <div class="col">
+                    <div class="col-lg-2">
                       <span wire:click.prevent="addItem({{ $i }})"
                         class="btn-primary btn btn-sm
-                          add-btn">{{ __('Add more') }}</span>
+                          add-btn">{{ __('Add more') }}
+                      </span>
                     </div>
                   </div>
                   @if ($msg)
