@@ -28,7 +28,7 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 */
 
 Route::controller(HomeController::class)->group(function () {
-    Route::get('/', 'index');
+    Route::get('/', 'index')->name('home');
 });
 
 // admin routes
