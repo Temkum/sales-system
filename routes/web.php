@@ -29,6 +29,9 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index')->name('home');
+    Route::get('/shop', 'shop')->name('shop');
+    Route::get('/about', 'about')->name('about');
+    Route::get('/contact', 'contact')->name('contact');
 });
 
 // admin routes

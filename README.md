@@ -290,7 +290,7 @@ To get and update a particular record from the database in Laravel Livewire usin
 
 Here's an example implementation of the above steps:
 
-```
+```php
 // app/Http/Livewire/Users.php
 
 <?php
