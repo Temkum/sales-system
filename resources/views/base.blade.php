@@ -37,6 +37,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
   @livewireStyles
+
+  @vite('resources/js/app.js', 'vendor/courier/build')
 </head>
 
 <body>

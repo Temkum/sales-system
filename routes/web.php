@@ -4,6 +4,8 @@ use App\Http\Livewire\Admin\Orders;
 use App\Http\Livewire\Admin\Contacts;
 use App\Http\Livewire\Admin\NewOrder;
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\Admin\EditOrder;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\Admin\EditProduct;
 use App\Http\Livewire\Admin\NewAddOrder;
@@ -13,7 +15,6 @@ use App\Http\Livewire\Admin\OrderDetails;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\AdminDashboardController;
-use App\Http\Livewire\Admin\EditOrder;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,8 +27,11 @@ use App\Http\Livewire\Admin\EditOrder;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::controller(HomeController::class)->group(function () {
+    Route::get('/', 'index')->name('home');
+    Route::get('/shop', 'shop')->name('shop');
+    Route::get('/about', 'about')->name('about');
+    Route::get('/contact', 'contact')->name('contact');
 });
 
 // admin routes
