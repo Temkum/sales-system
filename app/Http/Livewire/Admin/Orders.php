@@ -3,9 +3,13 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Order;
+use App\Notifications\OrderTransaction;
+use Illuminate\Notifications\Messages\VonageMessage;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Twilio\Rest\Client;
 
 class Orders extends Component
@@ -80,20 +84,36 @@ class Orders extends Component
 
             // whatsapp
             try {
-                $sid = env("TWILIO_ACCOUNT_SID");
+                /* $sid = env("TWILIO_ACCOUNT_SID");
                 $token = env("TWILIO_AUTH_TOKEN");
                 $twilio = new Client($sid, $token);
 
                 $message = $twilio->messages
                     ->create(
-                        "whatsapp:+237675827455", // to
+                        "+237675827455", // to
                         [
-                            "from" => "whatsapp:+14155238886",
+                            "from" => env('TWILIO_FROM_NUMBER'),
                             "body" => "Hello there Super Dev!"
                         ]
-                    );
+                    ); */
+                /* $sid    = "AC92709586c4906001fd2abd4014d5af2e";
+                $token  = "3ed4e72e23279efd94dee8d8bca77305";
+                $twilio = new Client($sid, $token);
+
+                $message = $twilio->messages
+                    ->create(
+                        "+237675827455", // to
+                        [
+                            "from" => "+12177278323",
+                            "body" => "Your order has been completed. Please come by the shop to pick it up. Thanks for trusting us!"
+                        ]
+                    ); */
+
+                // vonage api
+                Notification::route('vonage', env('VONAGE_SMS_FROM'))
+                    ->notify(new OrderTransaction());
             } catch (\Throwable $th) {
-                return flash('Something went wrong. Could not send message!');
+                return noty()->progressBar(false)->addError('Something went wrong. </br> Could not send message!');
             }
         } elseif ($status == 'cancelled') {
             $sale->date_cancelled = DB::raw('CURRENT_DATE');

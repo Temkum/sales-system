@@ -7,6 +7,8 @@ use App\Models\Order;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use App\Models\ProductCategory;
+use App\Notifications\OrderTransaction;
+use Illuminate\Support\Facades\Notification;
 
 class NewOrder extends Component
 {
@@ -160,6 +162,9 @@ class NewOrder extends Component
     $sale->status = 'processing';
     $sale->items = $this->prod_in_cart;
     $sale->save();
+
+    Notification::route('vonage', config('app.admin_sms_number'))
+      ->notify(new OrderTransaction());
 
     // clear items
     foreach ($this->prod_in_cart as $item) {

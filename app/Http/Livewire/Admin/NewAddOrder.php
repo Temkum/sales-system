@@ -4,6 +4,8 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\CartItems;
 use App\Models\Order;
+use App\Notifications\OrderTransaction;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Twilio\Rest\Client;
@@ -203,6 +205,9 @@ class NewAddOrder extends Component
                     "body" => "Order placed successfully!"
                 )
             ); */
+
+        Notification::route('vonage', env('VONAGE_SMS_FROM'))
+            ->notify(new OrderTransaction());
 
         notyf()
             ->position('x', 'right')
