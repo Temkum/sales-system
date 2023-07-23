@@ -133,9 +133,19 @@
             <form wire:submit.prevent="addSale()">
               @csrf
               <div class="mb-3 row">
+                <label for="html5-text-input" class="col-md-2 col-form-label">{{ __('Sale Code') }}</label>
+                <div class="col-md-10">
+                  <input class="form-control" type="text" placeholder="A562" id="sale_code" wire:model="sale_code">
+                  @error('sale_code')
+                    <span class="text-danger error">{{ __($message) }}</span>
+                  @enderror
+                </div>
+              </div>
+              <div class="mb-3 row">
                 <label for="html5-text-input" class="col-md-2 col-form-label">{{ __("Client's name") }}</label>
                 <div class="col-md-10">
-                  <input class="form-control" type="text" placeholder="James Doe" id="name" wire:model="name">
+                  <input class="form-control" type="text" placeholder="James Doe" id="name"
+                    wire:model="name">
                   @error('name')
                     <span class="text-danger error">{{ __($message) }}</span>
                   @enderror

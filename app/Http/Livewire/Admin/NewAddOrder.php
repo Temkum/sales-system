@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 class NewAddOrder extends Component
 {
-    public $name, $phone, $address, $due_date, $status, $description, $prod_qty;
+    public $name, $phone, $address, $due_date, $status, $description, $prod_qty, $sale_code;
     public $balance, $advance, $price, $quantity = 0;
     public $product_code;
     public $items = [];
@@ -154,6 +154,7 @@ class NewAddOrder extends Component
         'balance' => 'required|numeric',
         'due_date' => 'required',
         'description' => 'required',
+        'description' => 'required|min:4',
     ];
 
     public function updated($fields)
@@ -165,11 +166,11 @@ class NewAddOrder extends Component
     {
         $this->validate();
 
-        $sale_code = strtoupper(Str::random(1)) . rand(4, 9999);
+        // $sale_code = strtoupper(Str::random(1)) . rand(4, 9999);
         $this->price = $this->items_in_cart->sum('item_price');
 
         $sale = new Order();
-        $sale->sale_code = $sale_code;
+        $sale->sale_code = $this->sale_code;
         $sale->name = $this->name;
         $sale->phone = $this->phone;
         $sale->address = $this->address;

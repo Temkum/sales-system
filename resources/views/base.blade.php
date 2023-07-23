@@ -81,12 +81,12 @@
                 <div>{{ __('Sales') }}</div>
               </a>
             </li>
-            <li class="menu-item {{ request()->route()->named('add-order')? 'active': '' }}">
+            {{-- <li class="menu-item {{ request()->route()->named('add-order')? 'active': '' }}">
               <a href="{{ route('add-order') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-cart"></i>
                 <div>{{ __('Add Sale') }}</div>
               </a>
-            </li>
+            </li> --}}
             <li class="menu-item {{ request()->route()->named('new-sale')? 'active': '' }}">
               <a href="{{ route('new-sale') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-cart"></i>

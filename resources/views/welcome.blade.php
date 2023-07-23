@@ -87,7 +87,7 @@
                   <ul>
                     <li><a href="#">My Account</a></li>
                     <li><a href="#">Testimonial</a></li>
-                    <li><a href="#">Log in</a></li>
+                    <li><a href="{{ route('login') }}">Log in</a></li>
                   </ul>
                 </div>
                 <div class="header-search">
@@ -1652,11 +1652,8 @@
               <div class="footer-widget">
                 <h3>My account</h3>
                 <ul class="footer-menu">
-                  <li><a href="#">Order Status</a></li>
-                  <li><a href="#">Register</a></li>
-                  <li><a href="#">Sign-up</a></li>
-                  <li><a href="#">My Wishlist</a></li>
-                  <li><a href="#">Payment Options</a></li>
+                  <li><a href="{{ route('login') }}">Admin Login</a></li>
+                  <li><a href="#">Worker Panel</a></li>
                 </ul>
               </div>
             </div>
