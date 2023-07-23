@@ -8,7 +8,7 @@ use App\Http\Livewire\Admin\EditOrder;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\Admin\EditProduct;
-use App\Http\Livewire\Admin\NewAddOrder;
+use App\Http\Livewire\Admin\NewRecord;
 use App\Http\Livewire\ProductCategories;
 use App\Http\Livewire\AddProductCategory;
 use App\Http\Livewire\Admin\OrderDetails;
@@ -40,7 +40,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
 
     Route::post('/orders/add', [OrderController::class, 'store'])->name('store-order');
 
-    Route::get('/new-order', NewAddOrder::class)->name('new-sale');
+    Route::get('/new-record', NewRecord::class)->name('add-record');
 
     Route::get('/orders', Orders::class)->name('orders');
     Route::get('/add-order', NewOrder::class)->name('add-order');
