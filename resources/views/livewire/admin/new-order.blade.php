@@ -23,7 +23,7 @@
                 <div class="col-md-10">
                   <div class="row">
                     <div class="col-lg-4 col-md-5">
-                      <label for="item-name">{{ __('Item name') }}</label>
+                      <label for="item-name">{{ __('Item names') }}</label>
                       <input wire:model="item_name.0" class="form-control" type="text"
                         placeholder="{{ __('Enter item name') }}" name="item_name" required>
                       @error('item_name')
