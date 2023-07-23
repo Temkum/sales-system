@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default"
-  data-assets-path="../assets/" data-template="vertical-menu-template-free">
+  data-template="vertical-menu-template-free">
 
 <head>
   <meta charset="utf-8" />
@@ -17,6 +17,7 @@
 
   <!-- Icons. Uncomment required icon fonts -->
   <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/boxicons.css') }}" />
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
   <!-- Core CSS -->
   <link rel="stylesheet" href="{{ asset('assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
@@ -35,6 +36,8 @@
 
   <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/5.0.7/sweetalert2.min.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
 
   @livewireStyles
 
@@ -81,14 +84,14 @@
                 <div>{{ __('Sales') }}</div>
               </a>
             </li>
-            <li class="menu-item {{ request()->route()->named('add-order')? 'active': '' }}">
+            {{-- <li class="menu-item {{ request()->route()->named('add-order')? 'active': '' }}">
               <a href="{{ route('add-order') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-cart"></i>
                 <div>{{ __('Add Sale') }}</div>
               </a>
-            </li>
-            <li class="menu-item {{ request()->route()->named('new-sale')? 'active': '' }}">
-              <a href="{{ route('new-sale') }}" class="menu-link">
+            </li> --}}
+            <li class="menu-item {{ request()->route()->named('add-record')? 'active': '' }}">
+              <a href="{{ route('add-record') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-cart"></i>
                 <div>{{ __('New Sale') }}</div>
               </a>
@@ -303,10 +306,10 @@
           !request()->route()->named('password.reset') &&
           !request()->route()->named('order-details') &&
           !request()->route()->named('add-user') &&
-          !request()->route()->named('new-sale'))
+          !request()->route()->named('add-record'))
     <div class="buy-now" id="new_order">
       <a href="{{ route('add-order') }}" class="btn btn-danger btn-buy-now">
-        <i class="plus"></i> {{ __('New Order') }}
+        <i class="bx bx-plus"></i>{{ __('New record') }}
       </a>
     </div>
   @endif
@@ -364,7 +367,6 @@
   @yield('script')
   @stack('scripts')
   @livewireScripts
-
 </body>
 
 </html>

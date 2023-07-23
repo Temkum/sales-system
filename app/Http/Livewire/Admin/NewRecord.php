@@ -7,9 +7,9 @@ use App\Models\Order;
 use Livewire\Component;
 use Illuminate\Support\Str;
 
-class NewAddOrder extends Component
+class NewRecord extends Component
 {
-    public $name, $phone, $address, $due_date, $status, $description, $prod_qty;
+    public $name, $phone, $address, $due_date, $status, $description, $prod_qty, $sale_code;
     public $balance, $advance, $price, $quantity = 0;
     public $product_code;
     public $items = [];
@@ -20,6 +20,12 @@ class NewAddOrder extends Component
     public $item_qty, $item_price;
     public $i = 1;
     public $itemId;
+
+    protected $listeners = [
+        'delete' => 'removeFromCart',
+        'sweetalertConfirmed',
+        'sweetalertDenied',
+    ];
 
     public function mount()
     {
@@ -33,7 +39,7 @@ class NewAddOrder extends Component
             $this->balance = $total_amt;
         }
 
-        return view('livewire.admin.new-order')->extends('base');
+        return view('livewire.admin.new-record')->extends('base');
     }
 
     public function addItem()
@@ -62,7 +68,7 @@ class NewAddOrder extends Component
 
         notyf()
             ->position('x', 'center')
-            ->position('y', 'top')
+            ->position('y', 'bottom')
             ->addSuccess('Item removed successfully');
 
         $this->items_in_cart = $this->items_in_cart->except($id);
@@ -127,23 +133,29 @@ class NewAddOrder extends Component
             }
             flash('success', 'Item updated successfully');
         } else {
-            foreach ($this->item_name as $key => $value) {
-                CartItems::create(
-                    [
-                        'user_id' => auth()->user()->id,
-                        'item_id' => Str::random(9),
-                        'item_name' => $this->item_name[$key],
-                        'item_qty' => $this->item_qty[$key],
-                        'item_price' => $this->item_price[$key],
-                    ]
-                );
+            try {
+                foreach ($this->item_name as $key => $value) {
+                    CartItems::create(
+                        [
+                            'user_id' => auth()->user()->id,
+                            'item_id' => Str::random(9),
+                            'item_name' => $this->item_name[$key],
+                            'item_qty' => $this->item_qty[$key],
+                            'item_price' => $this->item_price[$key],
+                        ]
+                    );
+                }
+                $this->resetInputFields();
+            } catch (\Throwable $th) {
+                return noty()->addError('Please check input fields and try again!');
             }
         }
+
         $this->items_in_cart = CartItems::all();
 
         return notyf()
-            ->position('x', 'right')
-            ->position('y', 'top')->addSuccess('Items added successfully');
+            ->position('x', 'center')
+            ->position('y', 'bottom')->addSuccess('Items added successfully');
     }
 
     protected $rules = [
@@ -154,6 +166,7 @@ class NewAddOrder extends Component
         'balance' => 'required|numeric',
         'due_date' => 'required',
         'description' => 'required',
+        'sale_code' => 'required|min:4',
     ];
 
     public function updated($fields)
@@ -165,7 +178,7 @@ class NewAddOrder extends Component
     {
         $this->validate();
 
-        $sale_code = strtoupper(Str::random(1)) . rand(4, 9999);
+        $sale_code = strtoupper($this->sale_code);
         $this->price = $this->items_in_cart->sum('item_price');
 
         $sale = new Order();
@@ -193,5 +206,15 @@ class NewAddOrder extends Component
             ->position('y', 'top')
             ->addSuccess('Record added successfully!');
         redirect()->to('admin/orders');
+    }
+
+    public function confirmDelete(int $id)
+    {
+        $this->dispatchBrowserEvent('swal-confirm', [
+            'type' => 'warning',
+            'title' => 'Are you sure?',
+            'text' => '',
+            'id' =>  $id
+        ]);
     }
 }
