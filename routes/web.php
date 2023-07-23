@@ -4,16 +4,17 @@ use App\Http\Livewire\Admin\Orders;
 use App\Http\Livewire\Admin\Contacts;
 use App\Http\Livewire\Admin\NewOrder;
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\Admin\EditOrder;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\Admin\EditProduct;
-use App\Http\Livewire\Admin\NewAddOrder;
+use App\Http\Livewire\Admin\NewRecord;
 use App\Http\Livewire\ProductCategories;
 use App\Http\Livewire\AddProductCategory;
 use App\Http\Livewire\Admin\OrderDetails;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\AdminDashboardController;
-use App\Http\Livewire\Admin\EditOrder;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,42 +27,45 @@ use App\Http\Livewire\Admin\EditOrder;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::controller(HomeController::class)->group(function () {
+    Route::get('/', 'index')->name('home');
+    Route::get('/shop', 'shop')->name('shop');
+    Route::get('/about', 'about')->name('about');
+    Route::get('/contact', 'contact')->name('contact');
 });
 
 // admin routes
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
-    Route::post('/admin/orders/add', [OrderController::class, 'store'])->name('store-order');
+    Route::post('/orders/add', [OrderController::class, 'store'])->name('store-order');
 
-    Route::get('/admin/new-order', NewAddOrder::class)->name('new-sale');
+    Route::get('/new-record', NewRecord::class)->name('add-record');
 
-    Route::get('/admin/orders', Orders::class)->name('orders');
-    Route::get('/admin/add-order', NewOrder::class)->name('add-order');
-    Route::get('/admin/orders/{order_id}', OrderDetails::class)->name('order-details');
-    Route::get('/admin/order/{order_id}', EditOrder::class)->name('update');
+    Route::get('/orders', Orders::class)->name('orders');
+    Route::get('/add-order', NewOrder::class)->name('add-order');
+    Route::get('/orders/{order_id}', OrderDetails::class)->name('order-details');
+    Route::get('/order/{order_id}', EditOrder::class)->name('update');
 
     Route::get('search', [OrderController::class, 'search'])->name('search');
     Route::get('date-search', [OrderController::class, 'dateSearch'])->name('date-search');
 
-    Route::get('/admin/users/', [UserController::class, 'index'])->name('users');
-    Route::get('/admin/add-user', [UserController::class, 'create'])->name('add-user');
-    Route::post('/admin/users/store', [UserController::class, 'store'])->name('save-user');
-    Route::get('/admin/user/edit/{id}', [UserController::class, 'edit'])->name('edit-user');
-    Route::patch('/admin/user/{id}', [UserController::class, 'update'])->name('update-user');
-    Route::delete('/admin/users/remove/{id}', [UserController::class, 'destroy'])->name('delete-user');
+    Route::get('/users/', [UserController::class, 'index'])->name('users');
+    Route::get('/add-user', [UserController::class, 'create'])->name('add-user');
+    Route::post('/users/store', [UserController::class, 'store'])->name('save-user');
+    Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('edit-user');
+    Route::patch('/user/{id}', [UserController::class, 'update'])->name('update-user');
+    Route::delete('/users/remove/{id}', [UserController::class, 'destroy'])->name('delete-user');
     Route::get('/user/profile', [ProfileController::class, 'index'])->name('profile');
 
-    Route::get('/admin/products', ProductCategories::class)->name('product-categories');
-    Route::get('/admin/products/add', AddProductCategory::class)->name('add-product');
-    Route::get('/admin/product/{product_code}', EditProduct::class)->name('edit-product');
+    Route::get('/products', ProductCategories::class)->name('product-categories');
+    Route::get('/products/add', AddProductCategory::class)->name('add-product');
+    Route::get('/product/{product_code}', EditProduct::class)->name('edit-product');
 
-    Route::get('/admin/contacts', Contacts::class)->name('contacts');
+    Route::get('/contacts', Contacts::class)->name('contacts');
 });
 
 // user
-Route::middleware(['auth'])->group(function () {
-    Route::get('/user/profile', [ProfileController::class, 'index'])->name('profile');
+Route::middleware(['auth'])->prefix('user')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 });

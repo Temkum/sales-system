@@ -166,7 +166,7 @@ class NewOrder extends Component
       $this->removeItem($item->id);
     }
 
-    notyf()->position('x', 'right')->position('y', 'top')->addSuccess('Sale order added successfully!');
+    notyf()->position('x', 'right')->position('y', 'top')->addSuccess('Sale added successfully!');
     redirect()->to('admin/orders');
   }
 }

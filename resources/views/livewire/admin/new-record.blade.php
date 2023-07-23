@@ -8,7 +8,7 @@
     <div class="col-lg-8 col-md-12">
       <div class="card mb-4">
         <div class="card-header d-flex justify-content-between align-items-center">
-          <h5 class="mb-0 text-uppercase">{{ __('Register Sale') }}</h5>
+          <h5 class="mb-0 text-uppercase">{{ __('Register new Sale') }}</h5>
         </div>
         @if (Session::has('message'))
           <div class="alert alert-success" role="alert">{{ Session::get('message') }}</div>
@@ -23,7 +23,7 @@
                 <div class="col-md-10">
                   <div class="row">
                     <div class="col-lg-4 col-md-5">
-                      <label for="item-name">{{ __('Item name') }}</label>
+                      <label for="item-name">{{ __('Item names') }}</label>
                       <input wire:model="item_name.0" class="form-control" type="text"
                         placeholder="{{ __('Enter item name') }}" name="item_name" required>
                       @error('item_name')
@@ -46,10 +46,11 @@
                         <span class="text-danger error">{{ $message }}</span>
                       @enderror
                     </div>
-                    <div class="col">
+                    <div class="col-lg-2">
                       <span wire:click.prevent="addItem({{ $i }})"
                         class="btn-primary btn btn-sm
-                          add-btn">{{ __('Add more') }}</span>
+                          add-btn">{{ __('Add more') }}
+                      </span>
                     </div>
                   </div>
                   @if ($msg)
@@ -80,12 +81,13 @@
                       </div>
                       <div class="col">
                         <span wire:click.prevent="removeItem({{ $key }})"
-                          class="btn-danger btn btn-sm mt-2">{{ __('Remove') }}</span>
+                          class="btn-danger btn btn-sm mt-2">{{ __('Remove') }}
+                        </span>
                       </div>
                     </div>
                   @endforeach
                   <span class="btn btn-info btn-sm mt-2"
-                    wire:click.prevent="addOrUpdateItem()">{{ __('Submit items') }}</span>
+                    wire:click.prevent="addOrUpdateItem()">{{ __('Add items') }}</span>
                   <div class="card mt-2">
                     <div class="table-responsive text-nowrap">
                       <table class="table">
@@ -109,12 +111,11 @@
                               <td>{{ $item->item_price }}</td>
                               <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                  <span type="button" class="btn btn-sm btn-outline-secondary">{{ __('edit') }}
-                                  </span>
-                                  <span type="button" class="btn btn-sm btn-outline-danger"
-                                    onclick="confirm('Sure you want to remove {{ $item->item_name }}?') || event.stopImmediatePropagation()"
-                                    wire:click.prevent="removeFromCart({{ $item->id }})">{{ __('Remove') }}
-                                  </span>
+                                  {{-- <span type="button" class="btn btn-sm btn-outline-secondary">{{ __('edit') }}
+                                  </span> --}}
+                                  <button type="button" class="btn btn-sm btn-outline-danger"
+                                    wire:click="confirmDelete({{ $item->id }})">{{ __('Remove') }}
+                                  </button>
                                 </div>
                               </td>
                             </tr>
@@ -132,9 +133,20 @@
             <form wire:submit.prevent="addSale()">
               @csrf
               <div class="mb-3 row">
+                <label for="html5-text-input" class="col-md-2 col-form-label">{{ __('Code') }}</label>
+                <div class="col-md-10">
+                  <input class="form-control" type="text" placeholder="Ex A562" id="sale_code"
+                    wire:model="sale_code">
+                  @error('sale_code')
+                    <span class="text-danger error">{{ __($message) }}</span>
+                  @enderror
+                </div>
+              </div>
+              <div class="mb-3 row">
                 <label for="html5-text-input" class="col-md-2 col-form-label">{{ __("Client's name") }}</label>
                 <div class="col-md-10">
-                  <input class="form-control" type="text" placeholder="James Doe" id="name" wire:model="name">
+                  <input class="form-control" type="text" placeholder="James Doe" id="name"
+                    wire:model="name">
                   @error('name')
                     <span class="text-danger error">{{ __($message) }}</span>
                   @enderror
@@ -308,3 +320,19 @@
     </div>
   </div>
 </div>
+
+<script>
+  window.addEventListener('swal-confirm', event => {
+    swal({
+      title: event.detail.title,
+      text: event.detail.text,
+      icon: event.detail.type,
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        window.livewire.emit('delete', event.detail.id);
+      }
+    });
+  });
+</script>
