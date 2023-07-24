@@ -8,8 +8,6 @@
 }
 
 .balance {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   padding: 0.4rem;
   border: 1px lightgray solid;
@@ -26,5 +24,4 @@
 
 .allOrders .badge {
   font-size: 11px;
-}
-/*# sourceMappingURL=custom.css.map */
+}/*# sourceMappingURL=custom.css.map */

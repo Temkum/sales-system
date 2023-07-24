@@ -40,6 +40,8 @@
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 
   @livewireStyles
+
+  @vite('resources/js/app.js', 'vendor/courier/build')
 </head>
 
 <body>
@@ -296,21 +298,20 @@
   </div>
 
   {{-- show add order btn except on these pages --}}
-  @if (
-      !request()->route()->named('add-order') &&
-          !request()->route()->named('register') &&
-          !request()->route()->named('login') &&
-          !request()->route()->named('password.request') &&
-          !request()->route()->named('password.reset') &&
-          !request()->route()->named('order-details') &&
-          !request()->route()->named('add-user') &&
-          !request()->route()->named('add-record'))
+  {{--  @if (!request()->route()->named('add-order') &&
+    !request()->route()->named('register') &&
+    !request()->route()->named('login') &&
+    !request()->route()->named('password.request') &&
+    !request()->route()->named('password.reset') &&
+    !request()->route()->named('order-details') &&
+    !request()->route()->named('add-user') &&
+    !request()->route()->named('add-record'))
     <div class="buy-now" id="new_order">
-      <a href="{{ route('add-order') }}" class="btn btn-danger btn-buy-now">
-        <i class="bx bx-plus"></i>{{ __('New record') }}
+      <a href="{{ route('new-sale') }}" class="btn btn-danger btn-buy-now">
+        <i class="plus"></i> {{ __('Register Order') }}
       </a>
     </div>
-  @endif
+  @endif --}}
 
   <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
   <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>

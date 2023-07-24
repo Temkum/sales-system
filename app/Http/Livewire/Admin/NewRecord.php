@@ -4,8 +4,11 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\CartItems;
 use App\Models\Order;
+use App\Notifications\OrderTransaction;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 use Illuminate\Support\Str;
+use Twilio\Rest\Client;
 
 class NewRecord extends Component
 {
@@ -200,6 +203,24 @@ class NewRecord extends Component
         foreach ($this->items_in_cart as $item) {
             $item->delete();
         }
+
+        // $twilio = new Client(config('services.twilio.account_sid'), config('services.twilio.auth_token'));
+
+        /* $sid    = "AC92709586c4906001fd2abd4014d5af2e";
+        $token  = "3ed4e72e23279efd94dee8d8bca77305";
+        $twilio = new Client($sid, $token);
+
+        $message = $twilio->messages
+            ->create(
+                "+237675827455", // to
+                array(
+                    "from" => "+12177278323",
+                    "body" => "Order placed successfully!"
+                )
+            ); */
+
+        Notification::route('vonage', env('VONAGE_SMS_FROM'))
+            ->notify(new OrderTransaction());
 
         notyf()
             ->position('x', 'right')
