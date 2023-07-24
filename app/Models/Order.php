@@ -30,4 +30,9 @@ class Order extends Model
     {
         return $this->hasMany(ProductCategory::class);
     }
+
+    public function routeNotificationForVonage($notification)
+    {
+        return $this->phone;
+    }
 }

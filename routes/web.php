@@ -43,7 +43,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::get('/new-record', NewRecord::class)->name('add-record');
 
     Route::get('/orders', Orders::class)->name('orders');
-    Route::get('/add-order', NewOrder::class)->name('add-order');
+    // Route::get('/add-order', NewOrder::class)->name('add-order');
     Route::get('/orders/{order_id}', OrderDetails::class)->name('order-details');
     Route::get('/order/{order_id}', EditOrder::class)->name('update');
 

@@ -149,6 +149,8 @@ return [
     |
     */
 
+    'admin_sms_number' => env('VONAGE_SMS_FROM'),
+
     'providers' => [
 
         /*
