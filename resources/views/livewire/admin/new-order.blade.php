@@ -197,7 +197,7 @@
                 @enderror
               </div>
               <div class="center-item">
-                <button type="submit" class="btn btn-dark btn-md w-50 text-uppercase">{{ __('Add Sale') }}
+                <button type="submit" class="btn btn-dark btn-md w-50 text-uppercase">{{ __('Add record') }}
                 </button>
               </div>
             </form>

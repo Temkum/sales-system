@@ -6,6 +6,7 @@ use App\Models\Order;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
+use Twilio\Rest\Client;
 
 class Orders extends Component
 {
@@ -62,6 +63,38 @@ class Orders extends Component
 
         if ($status == 'completed') {
             $sale->date_delivered = DB::raw('CURRENT_DATE');
+
+            // SMS
+            /* $sid    = "AC92709586c4906001fd2abd4014d5af2e";
+            $token  = "3ed4e72e23279efd94dee8d8bca77305";
+            $twilio = new Client($sid, $token);
+
+            $message = $twilio->messages
+                ->create(
+                    "+237675827455", // to
+                    [
+                        "from" => "+12177278323",
+                        "body" => "Your order has been completed. Please come by the shop to pick it up. Thanks for trusting us!"
+                    ]
+                ); */
+
+            // whatsapp
+            try {
+                $sid = env("TWILIO_ACCOUNT_SID");
+                $token = env("TWILIO_AUTH_TOKEN");
+                $twilio = new Client($sid, $token);
+
+                $message = $twilio->messages
+                    ->create(
+                        "whatsapp:+237675827455", // to
+                        [
+                            "from" => "whatsapp:+14155238886",
+                            "body" => "Hello there Super Dev!"
+                        ]
+                    );
+            } catch (\Throwable $th) {
+                return flash('Something went wrong. Could not send message!');
+            }
         } elseif ($status == 'cancelled') {
             $sale->date_cancelled = DB::raw('CURRENT_DATE');
         }
