@@ -73,7 +73,7 @@
                       edit
                     </a>
                     <button class="btn btn-sm btn-outline-danger" role="button"
-                      wire:click="confirmDelete({{ $order->id }})">Delete
+                      wire:click="confirmDelete({{ $order->id }})">{{ __('Delete') }}
                     </button>
                     {{-- <button class="btn btn-sm btn-outline-danger" role="button"
                       onclick="confirm('Sure you want to delete this record?') || event.stopImmediatePropagation()"
