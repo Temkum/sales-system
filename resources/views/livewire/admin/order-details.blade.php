@@ -8,10 +8,9 @@
         </a>
       </div>
     </div>
-    <div class="card-body" id="printData">
-      <div class="row d-flex justify-content-center align-items-center text-center"
-        style="display: flex; justify-content: center; align-items: center; ">
-        <div class="col-md-5 border br-5"
+    <div class="card-body">
+      <div class="row d-flex justify-content-evenly text-center h-30">
+        <div class="col-md-5 border br-5" id="printData"
           style="width: 500px; border: solid .8px gray; padding: 1rem; border-radius: 5px;">
           <div class="modal-body text-start text-black p-4">
             <div class="info-section d-flex justify-content-between"
@@ -90,6 +89,79 @@
               679947838</p>
             <p class="mb-0">Douala, Cameroon</p>
           </div>
+        </div>
+        <div class="col-md-5 measurements">
+          <table class="table table-sm table-responsive table-borderless border">
+            <thead>
+              <th>Haut</th>
+              <th>Bas</th>
+            </thead>
+            <tbody>
+              {{-- <th>Epaule</th>
+              <th>Taille</th>
+              <th>Dos</th>
+              <th>Bassin</th>
+              <th>Poitrine</th>
+              <th>Fesse</th>
+              <th>Cuisses</th>
+              <th>L. Taille</th>
+              <th>Longueur</th>
+              <th>L. Total</th>
+              <th>Fond</th>
+              <th>Braquette</th>
+              <th>L. Manche</th>
+              <th>Pied</th>
+              <th>T. Manche</th>
+              <th>Col</th>
+              <th>Nombre de poches</th> --}}
+              @if ($order->measurements)
+                <tr>
+                  <td>Epaule {{ $order->measurements['epaule'] }}</td>
+                  <td>Taille {{ $order->measurements['taille_b'] }}</td>
+                </tr>
+                <tr>
+                  <td>Dos {{ $order->measurements['dos'] }}</td>
+                  <td>Bassin {{ $order->measurements['bassin_b'] }}</td>
+                </tr>
+                <tr>
+                  <td>Poitrine {{ $order->measurements['poitrin'] }}</td>
+                  <td>Fesses {{ $order->measurements['fesse'] }}</td>
+                </tr>
+                <tr>
+                  <td>Taille {{ $order->measurements['taille_t'] }}</td>
+                  <td>Cuisses {{ $order->measurements['cuisses'] }}</td>
+                </tr>
+                <tr>
+                  <td>L. Taille {{ $order->measurements['taille_t'] }}</td>
+                  <td>Longueur {{ $order->measurements['longueur'] }}</td>
+                </tr>
+                <tr>
+                  <td>L. Total {{ $order->measurements['l_total'] }}</td>
+                  <td>Fond {{ $order->measurements['fond'] }}</td>
+                </tr>
+                <tr>
+                  <td>Bassin {{ $order->measurements['bassin_t'] }}</td>
+                  <td>Braquette {{ $order->measurements['braquette'] }}</td>
+                </tr>
+                <tr>
+                  <td>L. Manche {{ $order->measurements['l_manche'] }}</td>
+                  <td>Pied {{ $order->measurements['pied'] }}</td>
+                </tr>
+                <tr>
+                  <td>T. Manche {{ $order->measurements['t_manche'] }}</td>
+                  <td>Nombre de poches {{ $order->measurements['nb_poches_b'] }}</td>
+                </tr>
+                <tr>
+                  <td>Col {{ $order->measurements['col'] }}</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Nombre de poches {{ $order->measurements['nb_poches_t'] }}</td>
+                  <td></td>
+                </tr>
+              @endif
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

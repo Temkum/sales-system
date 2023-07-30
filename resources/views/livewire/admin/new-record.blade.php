@@ -1,14 +1,14 @@
 <div>
   <h4 class="fw-bold py-3 mb-4">
     <span class="text-muted fw-light"> <a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }} </a>/</span>
-    <span>{{ __('New Sale Item') }}</span>
+    <span>{{ __('New Record') }}</span>
   </h4>
 
   <div class="row">
     <div class="col-lg-8 col-md-12">
       <div class="card mb-4">
         <div class="card-header d-flex justify-content-between align-items-center">
-          <h5 class="mb-0 text-uppercase">{{ __('Register new Sale') }}</h5>
+          <h5 class="mb-0 text-uppercase">{{ __('Add new record') }}</h5>
         </div>
         @if (Session::has('message'))
           <div class="alert alert-success" role="alert">{{ Session::get('message') }}</div>
@@ -27,7 +27,7 @@
                       <input wire:model="item_name.0" class="form-control" type="text"
                         placeholder="{{ __('Enter item name') }}" name="item_name" required>
                       @error('item_name')
-                        <span class="text-danger error">{{ $message }}</span>
+                        <span class="text-danger error">{{ __($message) }}</span>
                       @enderror
                     </div>
                     <div class="col-lg-2 col-md-3">
@@ -90,7 +90,7 @@
                     wire:click.prevent="addOrUpdateItem()">{{ __('Add items') }}</span>
                   <div class="card mt-2">
                     <div class="table-responsive text-nowrap">
-                      <table class="table">
+                      <table class="table table-sm">
                         <thead>
                           @if ($items_in_cart->count() > 0)
                             {{-- <tr class="text-nowrap">
@@ -193,7 +193,7 @@
 
               <div class="mb-3 row">
                 <label for="html5-datetime-local-input" class="col-md-2 col-form-label">{{ __('Due Date') }}</label>
-                <div class="col-md-10">
+                <div class="col-md-10 col-sm-12">
                   <input class="form-control" type="datetime-local" placeholder="2023-06-18T12:30:00"
                     id="html5-datetime-local-input" wire:model="due_date" value="{{ old('due_date') }}">
                   @error('due_date')
@@ -201,9 +201,192 @@
                   @enderror
                 </div>
               </div>
+              <div class="mb-3 table-responsive">
+                <label for="html3-text-input" class="form-label">{{ __('Measurements') }}</label>
+                <table class="table table-sm table-borderless measurement-table">
+                  <thead>
+                    <th class="center-text">Haut</th>
+                    <th class="center-text">Bas</th>
+                  </thead>
+                  <tbody>
+                    <form>
+                      @csrf
+                      <tr>
+                        <td>
+                          <div class="input-group input-group-sm">
+                            <span class="input-group-text sm">{{ __('Epaule') }}</span>
+                            <input type="text" class="form-control form-control-sm" aria-label="Epaule"
+                              wire:model="data.epaule" />
+                            @error('epaule')
+                              <span class="text-danger error">{{ $message }}</span>
+                            @enderror
+                          </div>
+                        </td>
+                        <td>
+                          <div class="input-group input-group-sm">
+                            <span class="input-group-text sm">{{ __('Taille') }}</span>
+                            <input type="text" class="form-control form-control-sm" aria-label="Taille"
+                              wire:model="data.taille_b" />
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="input-group input-group-sm">
+                            <span class="input-group-text sm">{{ __('Dos') }}</span>
+                            <input type="text" class="form-control form-control-sm" aria-label="Dos"
+                              wire:model="data.dos" />
+                          </div>
+                        </td>
+                        <td>
+                          <div class="input-group input-group-sm">
+                            <span class="input-group-text sm">{{ __('Bassin') }}</span>
+                            <input type="text" class="form-control form-control-sm" aria-label="Bassin"
+                              wire:model="data.bassin_b" />
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="input-group input-group-sm">
+                            <span class="input-group-text sm">{{ __('Poitrin') }}</span>
+                            <input type="text" class="form-control form-control-sm" aria-label="Poitrin"
+                              wire:model="data.poitrin" />
+                          </div>
+                        </td>
+                        <td>
+                          <div class="input-group input-group-sm">
+                            <span class="input-group-text sm">{{ __('Fesse') }}</span>
+                            <input type="text" class="form-control form-control-sm" aria-label="Fesse"
+                              wire:model="data.fesse" />
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="input-group input-group-sm">
+                            <span class="input-group-text sm">{{ __('Taille') }}</span>
+                            <input type="text" class="form-control form-control-sm" aria-label="Taille"
+                              wire:model="data.taille_t" />
+                          </div>
+                        </td>
+                        <td>
+                          <div class="input-group input-group-sm">
+                            <span class="input-group-text sm">{{ __('Cuisses') }}</span>
+                            <input type="text" class="form-control form-control-sm" aria-label="Cuisses"
+                              wire:model="data.cuisses" />
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="input-group input-group-sm">
+                            <span class="input-group-text sm">{{ __('L. Taille') }}</span>
+                            <input type="text" class="form-control form-control-sm" aria-label="L. Total"
+                              wire:model="data.l_taille" />
+                          </div>
+                        </td>
+                        <td>
+                          <div class="input-group input-group-sm">
+                            <span class="input-group-text sm">{{ __('Longueur') }}</span>
+                            <input type="text" class="form-control form-control-sm" aria-label="Longueur"
+                              wire:model="data.longueur" />
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="input-group input-group-sm">
+                            <span class="input-group-text sm">{{ __('L. Total') }}</span>
+                            <input type="text" class="form-control form-control-sm" aria-label="L. Total"
+                              wire:model="data.l_total" />
+                          </div>
+                        </td>
+                        <td>
+                          <div class="input-group input-group-sm">
+                            <span class="input-group-text sm">{{ __('Fond') }}</span>
+                            <input type="text" class="form-control form-control-sm" aria-label="Fond"
+                              wire:model="data.fond" />
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="input-group input-group-sm">
+                            <span class="input-group-text sm">{{ __('Bassin') }}</span>
+                            <input type="text" class="form-control form-control-sm" aria-label="Bassin"
+                              wire:model="data.bassin_t" />
+                          </div>
+                        </td>
+                        <td>
+                          <div class="input-group input-group-sm">
+                            <span class="input-group-text sm">{{ __('Braquette') }}</span>
+                            <input type="text" class="form-control form-control-sm" aria-label="Braquette"
+                              wire:model="data.braquette" />
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="input-group input-group-sm">
+                            <span class="input-group-text sm">{{ __('L. Manche') }}</span>
+                            <input type="text" class="form-control form-control-sm" aria-label="L. Manche"
+                              wire:model="data.l_manche" />
+                          </div>
+                        </td>
+                        <td>
+                          <div class="input-group input-group-sm">
+                            <span class="input-group-text sm">{{ __('Pied') }}</span>
+                            <input type="text" class="form-control form-control-sm" aria-label="Pied"
+                              wire:model="data.pied" />
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="input-group input-group-sm">
+                            <span class="input-group-text sm">{{ __('T. Manche') }}</span>
+                            <input type="text" class="form-control form-control-sm" aria-label="T. Manche"
+                              wire:model="data.t_manche" />
+                          </div>
+                        </td>
+                        <td>
+                          <div class="input-group input-group-sm">
+                            <span class="input-group-text sm">{{ __('Nombre de poches') }}</span>
+                            <input type="text" class="form-control form-control-sm" aria-label="Nombre de poches"
+                              wire:model="data.nb_poches_b" />
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="input-group input-group-sm">
+                            <span class="input-group-text sm">{{ __('Col') }}</span>
+                            <input type="text" class="form-control form-control-sm" aria-label="Col"
+                              wire:model="data.col" />
+                          </div>
+                        </td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="input-group input-group-sm">
+                            <span class="input-group-text sm">{{ __('Nombre de poches') }}</span>
+                            <input type="text" class="form-control form-control-sm" aria-label="Nombre de poches"
+                              wire:model="data.nb_poches_t" />
+                          </div>
+                        </td>
+                        <td></td>
+                      </tr>
+                    </form>
+                  </tbody>
+                </table>
+              </div>
               <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">{{ __('Description') }}</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" wire:model="description">{{ old('description') }}</textarea>
+                <label for="exampleFormControlTextarea1"
+                  class="form-label">{{ __('Consigne particulier | Echantillion du tissus') }}</label>
+                <textarea class="form-control" id="" rows="3" wire:model="description"
+                  placeholder="Consigne particulier | Echantillion du tissus">{{ old('description') }}</textarea>
                 @error('description')
                   <span class="text-danger error">{{ $message }}</span>
                 @enderror

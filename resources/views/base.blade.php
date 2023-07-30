@@ -31,17 +31,12 @@
   <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-auth.css') }}" />
   <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
 
-  <script src="{{ asset('assets/js/config.js') }}"></script>
-  <script src="{{ asset('assets/js/custom.js') }}"></script>
-
   <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/5.0.7/sweetalert2.min.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 
   @livewireStyles
-
-  @vite('resources/js/app.js', 'vendor/courier/build')
 </head>
 
 <body>
@@ -298,7 +293,7 @@
   </div>
 
   {{-- show add order btn except on these pages --}}
-  {{--  @if (!request()->route()->named('add-order') &&
+  {{-- @if (!request()->route()->named('add-order') &&
     !request()->route()->named('register') &&
     !request()->route()->named('login') &&
     !request()->route()->named('password.request') &&
@@ -307,8 +302,8 @@
     !request()->route()->named('add-user') &&
     !request()->route()->named('add-record'))
     <div class="buy-now" id="new_order">
-      <a href="{{ route('new-sale') }}" class="btn btn-danger btn-buy-now">
-        <i class="plus"></i> {{ __('Register Order') }}
+      <a href="{{ route('add-order') }}" class="btn btn-danger btn-buy-now">
+        <i class="bx bx-plus"></i>{{ __('New record') }}
       </a>
     </div>
   @endif --}}
@@ -325,6 +320,9 @@
 
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
+
+  <script src="{{ asset('assets/js/config.js') }}"></script>
+  <script src="{{ asset('assets/js/custom.js') }}"></script>
 
   <script>
     $('body').on('keyup', '#search', function() {

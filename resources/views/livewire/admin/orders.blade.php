@@ -46,40 +46,42 @@
 
             @if (count($orders) >= 1)
               @foreach ($orders as $order)
-                <tr>
-                  <td>{{ $order->sale_code ?? '' }}</td>
-                  <td>{{ $order->name }}</td>
-                  <td><strong>{{ number_format($order->price) }}</strong></td>
-                  <td>{{ date('j F y', strtotime($order->due_date)) }}</td>
-                  <td>{{ number_format($order->advance) }}</td>
-                  <td>
-                    @if ($order->status == 'completed')
-                      <span class="badge bg-success me-1">{{ $order->status }}</span>
-                    @elseif($order->status == 'cancelled')
-                      <span class="badge bg-secondary me-1">{{ $order->status }}</span>
-                    @elseif($order->status == 'due')
-                      <span class="badge bg-danger me-1">{{ $order->status }}</span>
-                    @else
-                      <span class="badge bg-label-primary">Processing</span>
-                    @endif
-                  </td>
-                  <td class="btn-group">
-                    <a class="btn btn-sm btn-outline-primary"
-                      href="{{ route('order-details', ['order_id' => $order->id]) }}">
-                      View
-                    </a>
-                    <a class="btn btn-sm btn-outline-secondary"
-                      href="{{ route('update', ['order_id' => $order->id]) }}">
-                      edit
-                    </a>
-                    <button class="btn btn-sm btn-outline-danger" role="button"
-                      wire:click="confirmDelete({{ $order->id }})">{{ __('Delete') }}
-                    </button>
-                    {{-- <button class="btn btn-sm btn-outline-danger" role="button"
-                      onclick="confirm('Sure you want to delete this record?') || event.stopImmediatePropagation()"
-                      wire:click.prevent="deleteSale({{ $order->id }})">Delete
-                    </button> --}}
-                  </td>
+                <tr class="{{ $order->status == 'cancelled' ? 'disabled' : '' }}">
+                  <div>
+                    <td>{{ $order->sale_code ?? '' }}</td>
+                    <td>{{ $order->name }}</td>
+                    <td><strong>{{ number_format($order->price) }}</strong></td>
+                    <td>{{ date('j F y', strtotime($order->due_date)) }}</td>
+                    <td>{{ number_format($order->advance) }}</td>
+                    <td>
+                      @if ($order->status == 'completed')
+                        <span class="badge bg-success me-1">{{ $order->status }}</span>
+                      @elseif($order->status == 'cancelled')
+                        <span class="badge bg-secondary me-1">{{ $order->status }}</span>
+                      @elseif($order->status == 'due')
+                        <span class="badge bg-danger me-1">{{ $order->status }}</span>
+                      @else
+                        <span class="badge bg-label-primary">Processing</span>
+                      @endif
+                    </td>
+                    <td class="btn-group">
+                      <a class="btn btn-sm btn-outline-primary"
+                        href="{{ route('order-details', ['order_id' => $order->id]) }}">
+                        View
+                      </a>
+                      <a class="btn btn-sm btn-outline-secondary"
+                        href="{{ route('update', ['order_id' => $order->id]) }}">
+                        edit
+                      </a>
+                      <button class="btn btn-sm btn-outline-danger" role="button"
+                        wire:click="confirmDelete({{ $order->id }})">{{ __('Delete') }}
+                      </button>
+                      {{-- <button class="btn btn-sm btn-outline-danger" role="button"
+                    onclick="confirm('Sure you want to delete this record?') || event.stopImmediatePropagation()"
+                    wire:click.prevent="deleteSale({{ $order->id }})">Delete
+                  </button> --}}
+                    </td>
+                  </div>
                   <td>
                     <div class="dropdown">
                       <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
@@ -106,7 +108,7 @@
               @endforeach
             @else
               <tr>
-                <td colspan='7' class="text-center text-bold"> No orders available!</td>
+                <td colspan='7' class="text-center text-bold">{{ __('No records available!') }}</td>
               </tr>
             @endif
           </tbody>
