@@ -75,22 +75,22 @@ class Orders extends Component
         if ($status == 'completed') {
             $sale->date_delivered = DB::raw('CURRENT_DATE');
 
-            // SMS
-            /* $sid    = "AC92709586c4906001fd2abd4014d5af2e";
-            $token  = "3ed4e72e23279efd94dee8d8bca77305";
-            $twilio = new Client($sid, $token);
-
-            $message = $twilio->messages
-                ->create(
-                    "+237675827455", // to
-                    [
-                        "from" => "+12177278323",
-                        "body" => "Your order has been completed. Please come by the shop to pick it up. Thanks for trusting us!"
-                    ]
-                ); */
-
-            // whatsapp
             try {
+                // SMS
+                $sid    = "AC92709586c4906001fd2abd4014d5af2e";
+                $token  = "3ed4e72e23279efd94dee8d8bca77305";
+                $twilio = new Client($sid, $token);
+
+                /*  $message = $twilio->messages
+                    ->create(
+                        "+237679947838", // to
+                        [
+                            "from" => "+12177278323",
+                            "body" => "Your order has been completed. Please come by the shop to pick it up. Thanks for trusting us!"
+                        ]
+                    ); */
+
+                // whatsapp
                 /* $sid = env("TWILIO_ACCOUNT_SID");
                 $token = env("TWILIO_AUTH_TOKEN");
                 $twilio = new Client($sid, $token);
@@ -103,13 +103,14 @@ class Orders extends Component
                             "body" => "Hello there Super Dev!"
                         ]
                     ); */
+
                 /* $sid    = "AC92709586c4906001fd2abd4014d5af2e";
                 $token  = "3ed4e72e23279efd94dee8d8bca77305";
                 $twilio = new Client($sid, $token);
 
                 $message = $twilio->messages
                     ->create(
-                        "+237675827455", // to
+                        "+237679947838", // to
                         [
                             "from" => "+12177278323",
                             "body" => "Your order has been completed. Please come by the shop to pick it up. Thanks for trusting us!"
@@ -117,8 +118,8 @@ class Orders extends Component
                     ); */
 
                 // vonage api
-                Notification::route('vonage', env('VONAGE_SMS_FROM'))
-                    ->notify(new OrderTransaction());
+                /* Notification::route('vonage', env('VONAGE_SMS_FROM'))
+                    ->notify(new OrderTransaction()); */
             } catch (\Throwable $th) {
                 return noty()->progressBar(false)->addError('Something went wrong. </br> Could not send message!');
             }
