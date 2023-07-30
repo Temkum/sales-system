@@ -87,10 +87,7 @@
                   <ul>
                     <li><a href="#">My Account</a></li>
                     <li><a href="#">Testimonial</a></li>
-                    <<<<<<< HEAD <li><a href="#">Log in</a></li>
-                      =======
-                      <li><a href="{{ route('login') }}">Log in</a></li>
-                      >>>>>>> 84ed612fcb09c4bc9508a0c2abc58a2d1174efbb
+                    <li><a href="{{ route('login') }}">Log in</a></li>
                   </ul>
                 </div>
                 <div class="header-search">

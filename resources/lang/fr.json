@@ -6,7 +6,7 @@
     "Congratulations": "Félicitations :",
     "English" : "Anglaise",
     "French": "Français",
-    "You have done 72% more sales today. Check your sales.": "Vous avez fait 72% de ventes en plus aujourd'hui. Vérifiez vos ventes.",
+    "You have done 72% more sales today. Check your sales.": "Vous avez fait 72 % de ventes en plus aujourd'hui. Vérifiez vos ventes.",
     "View Sales": "Visualiser les ventes",
     "Sales" : "Ventes",
     "Add Sale": "Ajouter la vente",
@@ -25,6 +25,15 @@
     "Add New Order": "Ajouter une nouvelle vente",
     "View more":"En savoir plus",
     "Delete":"Supprimez",
-    "Year":"Année"
-
+    "Year":"Année",
+    "New Record":"Enregistrement",
+    "Add new record":"Enregistrer une nouvelle vente",
+    "The sale code must be at least 4 characters.": "Le code doit etre plus ou moins de 4 characters",
+    "Qty": "Qte",
+    "Price": "Prix",
+    "Remove": "Supprimez",
+    "Items": "Articles",
+    "Item names": "Nom de l'articles",
+    "Enter item name": "Saisir le nom de l'article",
+    "Enter item price": "Saisir le prix"
 }
