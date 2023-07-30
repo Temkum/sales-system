@@ -15,6 +15,7 @@ use App\Http\Livewire\Admin\OrderDetails;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Livewire\Admin\DeletedRecords;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,6 +64,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::get('/product/{product_code}', EditProduct::class)->name('edit-product');
 
     Route::get('/contacts', Contacts::class)->name('contacts');
+    Route::get('/deleted-records', DeletedRecords::class, 'deletedRecords')->name('deleted-records');
 });
 
 // user

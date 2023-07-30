@@ -17,6 +17,7 @@ class Orders extends Component
     public $msg = '';
     public $updateMode = false;
     public $sale_code, $price, $advance, $quantity, $description, $due_date, $name, $balance;
+    public $current_page = 1;
 
     use WithPagination;
 
@@ -30,6 +31,7 @@ class Orders extends Component
     public function render()
     {
         $this->page_number = 10;
+        $this->page = $this->current_page;
 
         $orders = Order::where('name', 'LIKE', '%' . $this->search . '%')
             ->orWhere('price', 'LIKE', '%' . $this->search . '%')
@@ -45,7 +47,7 @@ class Orders extends Component
                 ->where('created_at', '<=', $this->end_date)->paginate(10);
         }
 
-        $this->resetPage();
+        // $this->resetPage();
 
         return view('livewire.admin.orders', ['orders' => $orders])->extends('base');
     }
@@ -53,6 +55,11 @@ class Orders extends Component
     public function updatedSearch()
     {
         $this->resetPage();
+    }
+
+    public function updatingPage()
+    {
+        $this->current_page = $this->page;
     }
 
     public function updateSaleStatus($sale_id, $status)
@@ -97,5 +104,12 @@ class Orders extends Component
         } else {
             notyf()->position('x', 'right')->position('y', 'top')->addError('Record not found');
         }
+    }
+
+    public function deletedRecords()
+    {
+        $deleted_records = Order::onlyTrashed()->paginate(20);
+
+        return view('livewire.admin.deleted-records', ['deleted_records' => $deleted_records])->extends('base');
     }
 }

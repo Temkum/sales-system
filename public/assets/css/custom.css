@@ -8,8 +8,6 @@
 }
 
 .balance {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   padding: 0.4rem;
   border: 1px lightgray solid;
@@ -27,4 +25,27 @@
 .allOrders .badge {
   font-size: 11px;
 }
-/*# sourceMappingURL=custom.css.map */
+
+.center-text {
+  text-align: center;
+}
+
+.disabled {
+  opacity: 0.5;
+}
+
+div.disable-row {
+  background-color: #ddd;
+  color: #aaa;
+}
+
+@media screen and (max-width: 428px) {
+  .measurement-table {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 835px) {
+  .measurement-table {
+    width: 70%;
+  }
+}/*# sourceMappingURL=custom.css.map */

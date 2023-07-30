@@ -21,6 +21,9 @@ class NewRecord extends Component
     public $i = 1;
     public $itemId;
 
+    public $epaule, $taille_t, $taille_b, $dos, $bassin_t, $bassin_b, $poitrine, $fesse, $cuisses, $l_taille, $longueur, $l_total, $fond, $braquette, $l_manche, $pied, $t_manche, $col, $nb_poches_t, $nb_poches_b = '0';
+    public $data = [];
+
     protected $listeners = [
         'delete' => 'removeFromCart',
         'sweetalertConfirmed',
@@ -147,7 +150,7 @@ class NewRecord extends Component
                 }
                 $this->resetInputFields();
             } catch (\Throwable $th) {
-                return noty()->addError('Please check input fields and try again!');
+                return noty()->addError('Please check your items input fields and try again!');
             }
         }
 
@@ -194,6 +197,7 @@ class NewRecord extends Component
         $sale->description = $this->description;
         $sale->status = 'processing';
         $sale->items = $this->items_in_cart;
+        $sale->measurements = $this->data;
         $sale->save();
 
         // clear items in cart db
