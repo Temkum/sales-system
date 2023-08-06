@@ -361,6 +361,22 @@
                       <tr>
                         <td>
                           <div class="input-group input-group-sm">
+                            <span class="input-group-text sm">{{ __('CV') }}</span>
+                            <input type="text" class="form-control form-control-sm" aria-label="CV"
+                              wire:model="data.cv" />
+                          </div>
+                        </td>
+                        <td>
+                          <div class="input-group input-group-sm">
+                            <span class="input-group-text sm">{{ __('CD') }}</span>
+                            <input type="text" class="form-control form-control-sm" aria-label="CD"
+                              wire:model="data.cd" />
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="input-group input-group-sm">
                             <span class="input-group-text sm">{{ __('Col') }}</span>
                             <input type="text" class="form-control form-control-sm" aria-label="Col"
                               wire:model="data.col" />

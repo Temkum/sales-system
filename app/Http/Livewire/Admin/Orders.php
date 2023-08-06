@@ -117,7 +117,7 @@ class Orders extends Component
                         ]
                     ); */
 
-                // vonage api
+                // vonage api                
                 /* Notification::route('vonage', env('VONAGE_SMS_FROM'))
                     ->notify(new OrderTransaction()); */
             } catch (\Throwable $th) {
