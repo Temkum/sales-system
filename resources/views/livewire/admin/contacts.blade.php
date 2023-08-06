@@ -1,5 +1,8 @@
 <div>
-  @include('admin.components.breadcrumb')
+  <h4 class="fw-bold py-3 mb-4">
+    <span class="text-muted fw-light"> <a href="{{ route('admin.dashboard') }}">Dashboard </a>/</span>
+    <span>Contacts</span>
+  </h4>
 
   <div class="row">
     <div class="col-xl">
@@ -14,7 +17,7 @@
                 <div class="row">
                   <div class="col-md-3">
                     <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Enter Name" wire:model="name.0">
+                      <input type="name" class="form-control" placeholder="Enter Name" wire:model="name.0">
                       @error('name')
                         <span class="text-danger error">{{ $message }}</span>
                       @enderror
@@ -22,7 +25,7 @@
                   </div>
                   <div class="col-md-2">
                     <div class="form-group">
-                      <input type="phone" class="form-control" wire:model="phone.0" placeholder="Enter Phone">
+                      <input type="telephone" class="form-control" wire:model="phone.0" placeholder="Enter Phone">
                       @error('phone')
                         <span class="text-danger error">{{ $message }}</span>
                       @enderror
@@ -30,7 +33,7 @@
                   </div>
                   <div class="col-md-3">
                     <div class="form-group">
-                      <input type="text" class="form-control" wire:model="address.0" placeholder="Address">
+                      <input type="address" class="form-control" wire:model="address.0" placeholder="Address">
                       @error('address')
                         <span class="text-danger error">{{ $message }}</span>
                       @enderror

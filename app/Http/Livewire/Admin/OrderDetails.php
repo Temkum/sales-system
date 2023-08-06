@@ -4,10 +4,11 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\Order;
 use Livewire\Component;
+use LivewireUI\Modal\ModalComponent;
 
 class OrderDetails extends Component
 {
-    public $order_id;
+    public $order_id, $price, $advance, $quantity, $description, $due_date;
 
     public function mount($order_id)
     {

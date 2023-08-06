@@ -7,6 +7,8 @@ use App\Models\Order;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use App\Models\ProductCategory;
+use App\Notifications\OrderTransaction;
+use Illuminate\Support\Facades\Notification;
 
 class NewOrder extends Component
 {
@@ -18,7 +20,6 @@ class NewOrder extends Component
   public $items = [];
 
   public $products =  [];
-  public $prod_items = [''];
   public $msg = '';
   public $prod_in_cart;
   public $prod_name;
@@ -27,6 +28,18 @@ class NewOrder extends Component
   {
     $this->products = ProductCategory::all();
     $this->prod_in_cart = Cart::all();
+  }
+
+  public function render()
+  {
+    if ($this->advance != '') {
+      $total_amt = $this->prod_in_cart->sum('product_price');
+      $this->balance = $total_amt;
+    }
+
+    $this->prod_in_cart = Cart::all();
+
+    return view('livewire.admin.order-form')->extends('base');
   }
 
   public function increaseQty($prod_id)
@@ -43,10 +56,13 @@ class NewOrder extends Component
   public function decreaseQty($prod_id)
   {
     $cart_product = Cart::find($prod_id);
+    $break = '</br>';
 
     if ($cart_product->product_qty <= 1) {
-      // return session()->back()->with('info', $cart_product->product->product_name . "'s quantity can't be less than 1. Increase the quantity or remove items from cart!");
-      return $msg = ($cart_product->product->product_name . "'s quantity can't be less than 1. Increase the quantity or remove items from cart!");
+      return notyf()
+        ->position('x', 'center')
+        ->position('y', 'top')
+        ->addInfo("Quantity can't be less than 1. $break Increase the quantity or remove the item!");
     }
 
     $cart_product->decrement('product_qty', 1);
@@ -58,18 +74,23 @@ class NewOrder extends Component
 
   public function insertToOrderSummary()
   {
-    // $product = ProductCategory::where('id', $this->product_code)->first();
     $product = ProductCategory::where('id', $this->product_code)->first();
 
-    // show prod if available
+    // check prod if available
     if (!$product) {
-      return $this->msg = 'Product not found!';
+      return notyf()
+        ->position('x', 'center')
+        ->position('y', 'top')
+        ->duration(2000)->addError('Product not found!');
     }
 
     $num_of_prods = Cart::where('product_id', $product->id)->count();
 
     if ($num_of_prods > 0) {
-      return $this->msg = $product->prod_name . ' already added. Please increase the product quantity!';
+      return notyf()
+        ->position('x', 'center')
+        ->position('y', 'top')
+        ->addInfo("$product->prod_name is already added. Please increase the product quantity.");
     } else {
       $add_to_cart = new Cart();
       $add_to_cart->user_id = auth()->user()->id;
@@ -83,7 +104,10 @@ class NewOrder extends Component
       // clear input fields
       $this->product_code = '';
 
-      return $this->msg = 'Product added successfully!';
+      return notyf()
+        ->position('x', 'center')
+        ->position('y', 'top')
+        ->duration(2000)->addSuccess('Product added successfully!');
     }
   }
 
@@ -92,39 +116,33 @@ class NewOrder extends Component
     $remove_prod = Cart::find($prod_id);
     $remove_prod->delete();
 
-    $this->msg = 'Product removed!';
+    // notyf()
+    //   ->position('x', 'center')
+    //   ->position('y', 'top')
+    //   ->duration(2000)->addSuccess('Item removed successfully');
 
     $this->prod_in_cart = $this->prod_in_cart->except($prod_id);
   }
 
+  protected $rules = [
+    'name' => 'required',
+    'phone' => 'required',
+    'address' => 'required',
+    // 'price' => 'required',
+    'advance' => 'required',
+    'balance' => 'required',
+    'due_date' => 'required',
+    'description' => 'required',
+  ];
+
   public function updated($fields)
   {
-    $this->validateOnly($fields, [
-      'name' => 'required',
-      'phone' => 'required',
-      'address' => 'required',
-      'price' => 'required',
-      // 'quantity' => 'required',
-      'advance' => 'required',
-      'balance' => 'required',
-      'due_date' => 'required',
-      'description' => 'required',
-    ]);
+    $this->validateOnly($fields);
   }
 
   public function addSale()
   {
-    $this->validate([
-      'name' => 'required',
-      'phone' => 'required',
-      'address' => 'required',
-      'price' => 'required',
-      // 'quantity' => 'required',
-      'advance' => 'required',
-      'balance' => 'required',
-      'due_date' => 'required',
-      'description' => 'required',
-    ]);
+    $this->validate();
 
     $ran_str = strtoupper(Str::random(1));
     $ran_num = rand(4, 9999);
@@ -135,7 +153,7 @@ class NewOrder extends Component
     $sale->name = $this->name;
     $sale->phone = $this->phone;
     $sale->address = $this->address;
-    $sale->price = $this->price;
+    $sale->price = $this->prod_in_cart->sum('product_price');
     $sale->quantity = $this->prod_in_cart->sum('product_qty');
     $sale->advance = $this->advance;
     $sale->balance = $this->price - $this->advance;
@@ -145,24 +163,15 @@ class NewOrder extends Component
     $sale->items = $this->prod_in_cart;
     $sale->save();
 
+    Notification::route('vonage', config('app.admin_sms_number'))
+      ->notify(new OrderTransaction());
+
     // clear items
     foreach ($this->prod_in_cart as $item) {
       $this->removeItem($item->id);
     }
 
-    session()->flash('success', 'Sale order added successfully!');
+    notyf()->position('x', 'right')->position('y', 'top')->addSuccess('Sale added successfully!');
     redirect()->to('admin/orders');
-  }
-
-  public function render()
-  {
-    if ($this->advance != '') {
-      $total_amt = $this->prod_in_cart->sum('product_price');
-      $this->balance = $total_amt;
-    }
-
-    $this->prod_in_cart = Cart::all();
-
-    return view('livewire.admin.order-form')->extends('base');
   }
 }

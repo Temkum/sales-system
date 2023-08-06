@@ -69,7 +69,9 @@ class Contacts extends Component
         $this->inputs = [];
         $this->resetInputFields();
 
-        session()->flash('success', 'Contact added with success!');
+        notyf()->position('x', 'right')
+            ->position('y', 'top')
+            ->addSuccess('Contact added with success!');
     }
 
     public function render()

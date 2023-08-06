@@ -20,15 +20,17 @@ class ProductCategories extends Component
         }
         $product->delete();
 
-        session()->flash('success', 'Product deleted successfully!');
+        notyf()->position('x', 'right')->position('y', 'top')->addSuccess('Product deleted successfully!');
     }
 
     public function render()
     {
-
         $search = '%' . $this->search_item . '%';
 
-        $products = ProductCategory::where('prod_name', 'LIKE', $search)->orWhere('price', 'LIKE', $search)->orderBy('created_at', 'DESC')->paginate(10);
+        $products = ProductCategory::where('prod_name', 'LIKE', $search)
+            ->orWhere('price', 'LIKE', $search)
+            ->orderBy('created_at', 'DESC')
+            ->paginate(10);
 
         $this->resetPage();
 

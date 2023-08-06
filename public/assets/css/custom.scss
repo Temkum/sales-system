@@ -1,0 +1,60 @@
+.edit-modal-footer {
+    padding: 1rem 1.5rem 0rem 1rem
+}
+
+.edit-order-card {
+    border: 1px solid rgba(158, 151, 151, 0.637);
+    border-radius: 5px;
+}
+
+.balance {
+    display: flex;
+    padding: 0.4rem;
+    border: 1px lightgray solid;
+    border-radius: 4px;
+}
+
+.search-box {
+    width: 300px;
+}
+
+.fl-main-container {
+
+    .fl-flasher {
+
+        .fl-progress-bar {
+            display: none !important;
+        }
+    }
+}
+
+.allOrders {
+    .badge {
+        font-size: 11px;
+    }
+}
+
+.center-text {
+    text-align: center;
+}
+
+.disabled {
+    opacity: 0.5;
+}
+
+div.disable-row {
+    background-color: #ddd;
+    color: #aaa;
+}
+
+@media screen and (max-width:428px) {
+    .measurement-table {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width:835px) {
+    .measurement-table {
+        width: 70%;
+    }
+}

@@ -1,20 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default"
-  data-assets-path="../assets/" data-template="vertical-menu-template-free">
+  data-template="vertical-menu-template-free">
 
 <head>
   <meta charset="utf-8" />
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-
   <title>{{ __('Dashboard | Admin') }}</title>
-
   <meta name="description" content="" />
-
-  <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="#" />
-
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -23,6 +17,7 @@
 
   <!-- Icons. Uncomment required icon fonts -->
   <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/boxicons.css') }}" />
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
   <!-- Core CSS -->
   <link rel="stylesheet" href="{{ asset('assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
@@ -35,9 +30,11 @@
   <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}" />
   <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-auth.css') }}" />
   <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
-  <!-- Helpers -->
-  <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
-  <script src="{{ asset('assets/js/config.js') }}"></script>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/5.0.7/sweetalert2.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
 
   @livewireStyles
 </head>
@@ -47,10 +44,11 @@
   <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
       <!-- Menu -->
-      @if (!request()->route()->named('register') &&
-          !request()->route()->named('password.request') &&
-          !request()->route()->named('password.reset') &&
-          !request()->route()->named('login'))
+      @if (
+          !request()->route()->named('register') &&
+              !request()->route()->named('password.request') &&
+              !request()->route()->named('password.reset') &&
+              !request()->route()->named('login'))
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
             <a href="{{ route('admin.dashboard') }}" class="app-brand-link">
@@ -81,10 +79,16 @@
                 <div>{{ __('Sales') }}</div>
               </a>
             </li>
-            <li class="menu-item {{ request()->route()->named('add-order')? 'active': '' }}">
+            {{-- <li class="menu-item {{ request()->route()->named('add-order')? 'active': '' }}">
               <a href="{{ route('add-order') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-cart"></i>
                 <div>{{ __('Add Sale') }}</div>
+              </a>
+            </li> --}}
+            <li class="menu-item {{ request()->route()->named('add-record')? 'active': '' }}">
+              <a href="{{ route('add-record') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-cart"></i>
+                <div>{{ __('New Sale') }}</div>
               </a>
             </li>
             {{-- product --}}
@@ -149,7 +153,6 @@
         <!-- Layout container -->
         <div class="layout-page">
           <!-- Navbar -->
-
           <nav
             class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
             id="layout-navbar">
@@ -170,7 +173,6 @@
                   </form>
                 </div>
               </div>
-              <!-- /Search -->
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 {{-- language --}}
@@ -251,7 +253,6 @@
                     </li>
                   </ul>
                 </li>
-                <!--/ User -->
               </ul>
             </div>
           </nav>
@@ -272,10 +273,7 @@
               ©
               <script>
                 document.write(new Date().getFullYear());
-              </script>,
-              Bult with Laravel ❤️ by
-              <a href="https://kumjudetem.com" target="_blank" class="footer-link fw-bolder">Kum
-                Jude</a>
+              </script>
             </div>
             <div>
 
@@ -285,11 +283,8 @@
             </div>
           </div>
         </footer>
-        <!-- / Footer -->
-
         <div class="content-backdrop fade"></div>
       </div>
-      <!-- Content wrapper -->
     </div>
   </div>
 
@@ -298,41 +293,35 @@
   </div>
 
   {{-- show add order btn except on these pages --}}
-  @if (!request()->route()->named('add-order') &&
-      !request()->route()->named('register') &&
-      !request()->route()->named('login') &&
-      !request()->route()->named('password.request') &&
-      !request()->route()->named('password.reset') &&
-      !request()->route()->named('order-details') &&
-      !request()->route()->named('add-user'))
+  {{-- @if (!request()->route()->named('add-order') &&
+    !request()->route()->named('register') &&
+    !request()->route()->named('login') &&
+    !request()->route()->named('password.request') &&
+    !request()->route()->named('password.reset') &&
+    !request()->route()->named('order-details') &&
+    !request()->route()->named('add-user') &&
+    !request()->route()->named('add-record'))
     <div class="buy-now" id="new_order">
-      <a href="{{ route('add-order') }}" class="btn btn-danger btn-buy-now">{{ __('Add New Order') }}</a>
+      <a href="{{ route('add-order') }}" class="btn btn-danger btn-buy-now">
+        <i class="bx bx-plus"></i>{{ __('New record') }}
+      </a>
     </div>
-  @endif
+  @endif --}}
 
-  <!-- Core JS -->
-  <!-- build:js assets/vendor/js/core.js -->
   <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
   <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
   <script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
   <script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
 
   <script src="{{ asset('assets/vendor/js/menu.js') }}"></script>
-  <!-- endbuild -->
-
-  <!-- Vendors JS -->
   <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
-
-  <!-- Main JS -->
   <script src="{{ asset('assets/js/main.js') }}"></script>
-
-  <!-- Page JS -->
   <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
 
-  <!-- Place this tag in your head or just before your close body tag. -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
 
-  {{-- custom --}}
+  <script src="{{ asset('assets/js/config.js') }}"></script>
   <script src="{{ asset('assets/js/custom.js') }}"></script>
 
   <script>
@@ -362,7 +351,6 @@
         },
 
         success: function(data) {
-          // console.log(data)
           if (data) {
             $('#searchResults').html(data);
           } else {
@@ -374,9 +362,8 @@
   </script>
 
   @yield('script')
-
+  @stack('scripts')
   @livewireScripts
-
 </body>
 
 </html>

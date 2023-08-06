@@ -1,0 +1,73 @@
+[{
+    "id": 42,
+    "product_id": "4",
+    "product_qty": 1,
+    "product_price": 15000,
+    "user_id": 6,
+    "created_at": "2022-11-01T12:41:28.000000Z",
+    "updated_at": "2022-11-01T12:41:28.000000Z",
+    "product": {
+        "id": 4,
+        "prod_name": "Shirt",
+        "product_code": "shirt8199",
+        "short_desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis obcaecati consequatur soluta repudiandae quis et est dolores ab esse, laudantium harum excepturi ratione eum dolorum incidunt unde perferendis maiores ullam.",
+        "price": "15000.00",
+        "image": "S8275.jpg",
+        "created_at": "2022-11-01T02:06:59.000000Z",
+        "updated_at": "2022-11-01T02:06:59.000000Z"
+    }
+}, {
+    "id": 43,
+    "product_id": "2",
+    "product_qty": 1,
+    "product_price": 70000,
+    "user_id": 6,
+    "created_at": "2022-11-01T12:41:55.000000Z",
+    "updated_at": "2022-11-01T12:41:55.000000Z",
+    "product": {
+        "id": 2,
+        "prod_name": "wedding",
+        "product_code": "wedding7570",
+        "short_desc": "Ut sint voluptatem ",
+        "price": "70000.00",
+        "image": "S8854.jpg",
+        "created_at": "2022-10-29T01:41:05.000000Z",
+        "updated_at": "2022-10-31T16:58:03.000000Z"
+    }
+}, {
+    "id": 44,
+    "product_id": "3",
+    "product_qty": 1,
+    "product_price": 71000,
+    "user_id": 6,
+    "created_at": "2022-11-01T12:41:57.000000Z",
+    "updated_at": "2022-11-01T12:41:57.000000Z",
+    "product": {
+        "id": 3,
+        "prod_name": "brown suit",
+        "product_code": "brown-suit5186",
+        "short_desc": "Dolorum labore hic a",
+        "price": "71000.00",
+        "image": "b7275.jpg",
+        "created_at": "2022-10-30T12:23:15.000000Z",
+        "updated_at": "2022-10-30T12:23:15.000000Z"
+    }
+}, {
+    "id": 45,
+    "product_id": "1",
+    "product_qty": 1,
+    "product_price": 25000,
+    "user_id": 6,
+    "created_at": "2022-11-01T12:42:00.000000Z",
+    "updated_at": "2022-11-01T12:42:00.000000Z",
+    "product": {
+        "id": 1,
+        "prod_name": "Female suit",
+        "product_code": "female-suit5469",
+        "short_desc": "Enim amet est ut si",
+        "price": "25000.00",
+        "image": "G6625.jpg",
+        "created_at": "2022-10-29T01:40:06.000000Z",
+        "updated_at": "2022-10-31T15:58:57.000000Z"
+    }
+}]

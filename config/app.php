@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Pacho Design'),
 
     /*
     |--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', false),
+    'debug' => (bool) env('APP_DEBUG', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -148,6 +148,8 @@ return [
     | this array to grant expanded functionality to your applications.
     |
     */
+
+    'admin_sms_number' => env('VONAGE_SMS_FROM'),
 
     'providers' => [
 
