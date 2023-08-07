@@ -37,5 +37,9 @@
     "Enter item name": "Saisir le nom de l'article",
     "Enter item price": "Saisir le prix",
     "edit":"Modifier",
-    "View":"Details"
+    "View":"Details",
+    "New Sale": "Ajouter une nouvelle vente",
+    "Add items": "Ajouter des articles",
+    "Add more": "Ajoutez",
+    "Client's name": "Nom du client"
 }
