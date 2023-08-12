@@ -31,6 +31,9 @@
   <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-auth.css') }}" />
   <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
 
+  <script src="{{ asset('assets/js/config.js') }}"></script>
+  <script src="{{ asset('assets/js/custom.js') }}"></script>
+
   <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/5.0.7/sweetalert2.min.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
@@ -120,19 +123,25 @@
             </li>
 
             @can('is-admin')
+              <li class="menu-item {{ request()->route()->named('clients')? 'active': '' }}">
+                <a href="{{ route('clients') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-group"></i>
+                  <div>{{ __('Clients') }}</div>
+                </a>
+              </li>
               <li class="menu-item {{ request()->route()->named('users')? 'active': '' }}">
                 <a href="{{ route('users') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-group"></i>
                   <div>{{ __('Users') }}</div>
                 </a>
               </li>
+              <li class="menu-item {{ request()->route()->named('add-user')? 'active': '' }}">
+                <a href="{{ route('add-user') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-user-plus"></i>
+                  <div data-i18n="Basic">{{ __('Add User') }}</div>
+                </a>
+              </li>
             @endcan
-            <li class="menu-item {{ request()->route()->named('add-user')? 'active': '' }}">
-              <a href="{{ route('add-user') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-user-plus"></i>
-                <div data-i18n="Basic">{{ __('Add User') }}</div>
-              </a>
-            </li>
             <!-- Misc -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
             <li class="menu-item">
@@ -320,9 +329,6 @@
 
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
-
-  <script src="{{ asset('assets/js/config.js') }}"></script>
-  <script src="{{ asset('assets/js/custom.js') }}"></script>
 
   <script>
     $('body').on('keyup', '#search', function() {

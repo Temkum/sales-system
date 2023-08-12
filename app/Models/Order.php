@@ -17,10 +17,6 @@ class Order extends Model
     ];
 
     protected $fillable = [
-        'name',
-        'sale_code',
-        'address',
-        'phone',
         'price',
         'advance',
         'items',
@@ -40,5 +36,10 @@ class Order extends Model
     public function routeNotificationForVonage($notification)
     {
         return $this->phone;
+    }
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
     }
 }

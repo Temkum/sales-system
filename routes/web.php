@@ -1,21 +1,29 @@
 <?php
 
+use App\Http\Livewire\Admin\ShowOrders;
+use App\Http\Livewire\Admin\CreateOrder;
 use App\Http\Livewire\Admin\Orders;
+use App\Http\Livewire\Admin\Clients;
 use App\Http\Livewire\Admin\Contacts;
 use App\Http\Livewire\Admin\NewOrder;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Admin\EditOrder;
+use App\Http\Livewire\Admin\NewRecord;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\Admin\EditProduct;
-use App\Http\Livewire\Admin\NewRecord;
 use App\Http\Livewire\ProductCategories;
 use App\Http\Livewire\AddProductCategory;
 use App\Http\Livewire\Admin\OrderDetails;
 use App\Http\Controllers\ProfileController;
+use App\Http\Livewire\Admin\DeletedRecords;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\AdminDashboardController;
-use App\Http\Livewire\Admin\DeletedRecords;
+use App\Http\Livewire\Admin\AddClient;
+use App\Http\Livewire\Admin\Client;
+use App\Http\Livewire\Admin\ClientDetails;
+use App\Http\Livewire\Admin\EditClient;
+use App\Http\Livewire\CreateClient;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,8 +47,12 @@ Route::controller(HomeController::class)->group(function () {
 Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
-    Route::post('/orders/add', [OrderController::class, 'store'])->name('store-order');
+    Route::get('/clients', Clients::class)->name('clients');
+    Route::get('/clients/add', AddClient::class)->name('add-client');
+    Route::get('/clients/{client_id}', ClientDetails::class)->name('client-details');
+    Route::get('/client/edit/{client_id}', EditClient::class)->name('edit-client');
 
+    Route::post('/orders/add', [OrderController::class, 'store'])->name('store-order');
     Route::get('/new-record', NewRecord::class)->name('add-record');
 
     Route::get('/orders', Orders::class)->name('orders');

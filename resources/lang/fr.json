@@ -37,5 +37,13 @@
     "Enter item name": "Saisir le nom de l'article",
     "Enter item price": "Saisir le prix",
     "edit":"Modifier",
-    "View":"Details"
+    "View":"Details",
+    "New Sale": "Nouvelle Vente",
+    "New": "Nouvelle",
+    "Name": "Nom",
+    "Phone": "Tel",
+    "Address": "Addresse",
+    "Search item": "Reserche d'article",
+    "The code field is required.": "Vuiellez saisir le code.",
+    "The code has already been taken.": "Le code est deja dans le systeme"
 }

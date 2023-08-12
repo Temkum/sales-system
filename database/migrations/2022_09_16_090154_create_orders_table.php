@@ -15,10 +15,6 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('sale_code');
-            $table->string('name');
-            $table->string('phone');
-            $table->string('address');
             $table->bigInteger('price');
             $table->text('items');
             $table->integer('quantity');
@@ -32,6 +28,8 @@ class CreateOrdersTable extends Migration
             $table->date('date_cancelled')->nullable();
             $table->softDeletes();
             $table->timestamps();
+
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
         });
     }
 
