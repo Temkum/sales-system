@@ -10,7 +10,7 @@ class Measurements extends Component
 {
     public $epaule, $taille_t, $taille_b, $dos, $bassin_t, $bassin_b, $poitrine, $fesse, $cuisses, $l_taille, $longueur, $l_total, $fond, $braquette, $l_manche, $pied, $t_manche, $col, $nb_poches_t, $nb_poches_b, $cv, $cd;
 
-    public $client_id;
+    public $client_id = null;
 
     function mount()
     {
@@ -19,7 +19,8 @@ class Measurements extends Component
 
     public function render()
     {
-        return view('livewire.admin.measurements')->extends('base');
+        $clients = Client::all();
+        return view('livewire.admin.measurements', ['clients' => $clients])->extends('base');
     }
 
     function save()
@@ -76,9 +77,10 @@ class Measurements extends Component
             'cd' => $this->cd,
         ]);
 
+        $this->client_id = '';
         notyf()
             ->position('x', 'center')
             ->position('y', 'top')
-            ->addSuccess("Client's measurements added successfully!");
+            ->addSuccess("Measurements added successfully!");
     }
 }

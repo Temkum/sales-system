@@ -240,9 +240,9 @@
             </td>
             <td></td>
           </tr>
-          <tr>
+          <tr colspan="3">
             <td>
-              <button class="btn btn-success">{{ __('Add') }}</button>
+              <button type="submit" class="btn btn-success">{{ __('Add') }}</button>
             </td>
           </tr>
         </form>

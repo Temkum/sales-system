@@ -13,6 +13,19 @@
         <div class="card-body">
           <div class="row center-item justify-content-center">
             <div class="col-md-7 b-1 p-4">
+              <div class="form-group mb-3">
+                <label for="client">Client</label>
+                <select class="form-control mb-3" id="client" wire:model="client_id">
+                  <option value="">{{ __('Select Client') }}</option>
+                  @foreach ($clients as $client)
+                    <option value="{{ $client->id }}">{{ $client->name }}</option>
+                  @endforeach
+                </select>
+                <p for="client">{{ __('OR') }}</p>
+                <a href="{{ route('add-client') }}" class="btn btn-sm btn-primary">
+                  {{ __('Add new customer') }}
+                </a>
+              </div>
               @include('livewire.admin.measurement-form')
             </div>
           </div>

@@ -8,6 +8,9 @@
         <a type="button" class="btn btn-sm btn-outline-success" href="{{ route('add-client') }}">
           <i class="bx bx-plus"></i> {{ __('New') }}
         </a>
+        <a type="button" class="btn btn-sm btn-outline-success" href="{{ route('add-measurement') }}">
+          <i class="bx bx-plus"></i> {{ __('New measurement') }}
+        </a>
       </h5>
       {{-- search --}}
       <div class="search-box">

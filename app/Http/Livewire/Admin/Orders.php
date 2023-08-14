@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\Client as ModelsClient;
 use App\Models\Order;
 use App\Notifications\OrderTransaction;
 use Illuminate\Notifications\Messages\VonageMessage;
@@ -49,9 +50,10 @@ class Orders extends Component
                 ->where('created_at', '<=', $this->end_date)->paginate(10);
         }
 
-        // $this->resetPage();
-
-        return view('livewire.admin.orders', ['orders' => $orders])->extends('base');
+        return view(
+            'livewire.admin.orders',
+            ['orders' => $orders]
+        )->extends('base');
     }
 
     public function updatedSearch()
