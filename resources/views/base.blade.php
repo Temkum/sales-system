@@ -34,6 +34,9 @@
   <script src="{{ asset('assets/js/config.js') }}"></script>
   <script src="{{ asset('assets/js/custom.js') }}"></script>
 
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+
   <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/5.0.7/sweetalert2.min.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
@@ -327,6 +330,7 @@
   <script src="{{ asset('assets/js/main.js') }}"></script>
   <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
 
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
 

@@ -21,7 +21,7 @@ class Orders extends Component
     public Int $page_number;
     public $msg = '';
     public $updateMode = false;
-    public $sale_code, $price, $advance, $quantity, $description, $due_date, $name, $balance;
+    public $price, $advance, $quantity, $description, $due_date, $balance;
     public $current_page = 1;
 
     use WithPagination;
@@ -38,14 +38,11 @@ class Orders extends Component
         $this->page_number = 10;
         $this->page = $this->current_page;
 
-        $orders = Order::where('name', 'LIKE', '%' . $this->search . '%')
-            ->orWhere('price', 'LIKE', '%' . $this->search . '%')
-            ->orWhere('sale_code', 'LIKE', '%' . $this->search . '%')
+        $orders = Order::where('price', 'LIKE', '%' . $this->search . '%')
             ->orWhere('advance', 'LIKE', '%' . $this->search . '%')
             ->orWhere('balance', 'LIKE', '%' . $this->search . '%')
             ->orWhere('status', 'LIKE', '%' . $this->search . '%')
-            ->orWhere('phone', 'LIKE', '%' . $this->search . '%')
-            ->orWhere('address', 'LIKE', '%' . $this->search . '%')->orderBy('created_at', 'DESC')->paginate($this->page_number);
+            ->orderBy('created_at', 'DESC')->paginate($this->page_number);
 
         if (($this->start_date && $this->end_date) && $this->start_date) {
             $orders = Order::where('created_at', '>=', $this->start_date)

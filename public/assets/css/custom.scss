@@ -47,6 +47,11 @@ div.disable-row {
     color: #aaa;
 }
 
+.b-1 {
+    border: solid 1px rgba(134, 133, 133, 0.685);
+    border-radius: 5px;
+}
+
 @media screen and (max-width:428px) {
     .measurement-table {
         width: 100%;

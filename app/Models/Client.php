@@ -18,4 +18,9 @@ class Client extends Model
     {
         return $this->hasMany(Order::class);
     }
+
+    public function measurements()
+    {
+        return $this->hasMany(Measurement::class);
+    }
 }

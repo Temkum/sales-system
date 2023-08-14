@@ -23,6 +23,7 @@ use App\Http\Livewire\Admin\AddClient;
 use App\Http\Livewire\Admin\Client;
 use App\Http\Livewire\Admin\ClientDetails;
 use App\Http\Livewire\Admin\EditClient;
+use App\Http\Livewire\Admin\Measurements;
 use App\Http\Livewire\CreateClient;
 
 /*
@@ -51,6 +52,8 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::get('/clients/add', AddClient::class)->name('add-client');
     Route::get('/clients/{client_id}', ClientDetails::class)->name('client-details');
     Route::get('/client/edit/{client_id}', EditClient::class)->name('edit-client');
+
+    Route::get('/measure/add', Measurements::class)->name('add-measurement');
 
     Route::post('/orders/add', [OrderController::class, 'store'])->name('store-order');
     Route::get('/new-record', NewRecord::class)->name('add-record');

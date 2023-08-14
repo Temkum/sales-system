@@ -34,25 +34,24 @@
 
             @if (count($clients) >= 1)
               @foreach ($clients as $key => $client)
-                <a href="{{ route('client-details', ['client_id' => $client->id]) }}">
-                  <tr>
-                    <td>{{ $client->code }}</td>
-
-                    <td>{{ $client->name }}</td>
-                    <td>{{ $client->phone }}</td>
-                    <td>{{ $client->address }}</td>
-                    <td>
-                      <div class="btn-group">
-                        <a class="btn btn-sm btn-outline-primary"
-                          href="{{ route('edit-client', ['client_id' => $client->id]) }}">
-                          {{ __('edit') }}
-                        </a>
-                        <button class="btn btn-sm btn-outline-danger" role="button"
-                          wire:click.prevent="confirmDelete({{ $client->id }})">{{ __('Delete') }}</button>
-                      </div>
-                    </td>
-                  </tr>
-                </a>
+                <tr>
+                  <td>
+                    <a href="{{ route('client-details', ['client_id' => $client->id]) }}">{{ $client->code }}</a>
+                  </td>
+                  <td>{{ $client->name }}</td>
+                  <td>{{ $client->phone }}</td>
+                  <td>{{ $client->address }}</td>
+                  <td>
+                    <div class="btn-group">
+                      <a class="btn btn-sm btn-outline-primary"
+                        href="{{ route('edit-client', ['client_id' => $client->id]) }}">
+                        <i class="bx bx-pencil"></i>
+                      </a>
+                      <button class="btn btn-sm btn-outline-danger" role="button"
+                        wire:click.prevent="confirmDelete({{ $client->id }})"><i class="bx bx-trash"></i></button>
+                    </div>
+                  </td>
+                </tr>
               @endforeach
             @else
               <tr>
