@@ -7,7 +7,7 @@
     @foreach ($orders as $order)
       <div>
         <a href="{{ route('orders.show', ['order' => $order->id]) }}">
-          Order #{{ $order->id }}
+          Order #{{ $order->price }}
         </a>
       </div>
     @endforeach
