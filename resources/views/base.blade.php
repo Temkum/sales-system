@@ -85,12 +85,12 @@
                 <div>{{ __('Sales') }}</div>
               </a>
             </li>
-            {{-- <li class="menu-item {{ request()->route()->named('add-order')? 'active': '' }}">
-              <a href="{{ route('add-order') }}" class="menu-link">
+            <li class="menu-item {{ request()->route()->named('client-orders')? 'active': '' }}">
+              <a href="{{ route('client-orders') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-cart"></i>
-                <div>{{ __('Add Sale') }}</div>
+                <div>{{ __('Client orders') }}</div>
               </a>
-            </li> --}}
+            </li>
             <li class="menu-item {{ request()->route()->named('add-record')? 'active': '' }}">
               <a href="{{ route('add-record') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-cart"></i>
@@ -130,6 +130,12 @@
                 <a href="{{ route('clients') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-group"></i>
                   <div>{{ __('Clients') }}</div>
+                </a>
+              </li>
+              <li class="menu-item {{ request()->route()->named('add-measurements')? 'active': '' }}">
+                <a href="{{ route('clients') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-group"></i>
+                  <div>{{ __('Add measurements') }}</div>
                 </a>
               </li>
               <li class="menu-item {{ request()->route()->named('users')? 'active': '' }}">

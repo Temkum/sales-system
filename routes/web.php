@@ -1,30 +1,32 @@
 <?php
 
-use App\Http\Livewire\Admin\ShowOrders;
-use App\Http\Livewire\Admin\CreateOrder;
+use App\Http\Livewire\Admin\Client;
 use App\Http\Livewire\Admin\Orders;
+use App\Http\Livewire\CreateClient;
 use App\Http\Livewire\Admin\Clients;
 use App\Http\Livewire\Admin\Contacts;
 use App\Http\Livewire\Admin\NewOrder;
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\Admin\AddClient;
 use App\Http\Livewire\Admin\EditOrder;
 use App\Http\Livewire\Admin\NewRecord;
+use App\Http\Livewire\Admin\OrderList;
+use App\Http\Livewire\Admin\EditClient;
+use App\Http\Livewire\Admin\ShowOrders;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Livewire\Admin\CreateOrder;
 use App\Http\Livewire\Admin\EditProduct;
 use App\Http\Livewire\ProductCategories;
 use App\Http\Livewire\AddProductCategory;
+use App\Http\Livewire\Admin\Measurements;
 use App\Http\Livewire\Admin\OrderDetails;
+use App\Http\Livewire\Admin\ClientDetails;
 use App\Http\Controllers\ProfileController;
 use App\Http\Livewire\Admin\DeletedRecords;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\AdminDashboardController;
-use App\Http\Livewire\Admin\AddClient;
-use App\Http\Livewire\Admin\Client;
-use App\Http\Livewire\Admin\ClientDetails;
-use App\Http\Livewire\Admin\EditClient;
-use App\Http\Livewire\Admin\Measurements;
-use App\Http\Livewire\CreateClient;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +54,12 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::get('/clients/add', AddClient::class)->name('add-client');
     Route::get('/clients/{client_id}', ClientDetails::class)->name('client-details');
     Route::get('/client/edit/{client_id}', EditClient::class)->name('edit-client');
+    Route::get('/orders-clients', OrderList::class)->name('client-orders');
+
+    Route::get('/orders', OrderList::class)->name('orders');
+    Route::get('/orders/{order}', [OrdersController::class, 'show'])->name('orders.show');
+    Route::get('/clients/{client}/orders', [OrdersController::class, 'showClientOrders'])->name('clients.orders');
+
 
     Route::get('/measure/add', Measurements::class)->name('add-measurement');
 

@@ -24,7 +24,6 @@ class Order extends Model
         'quantity',
         'balance',
         'status',
-        'measurements',
         'description'
     ];
 
