@@ -53,11 +53,11 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::get('/clients', Clients::class)->name('clients');
     Route::get('/clients/add', AddClient::class)->name('add-client');
     Route::get('/clients/{client_id}', ClientDetails::class)->name('client-details');
-    Route::get('/client/edit/{client_id}', EditClient::class)->name('edit-client');
+    Route::get('/clients/edit/{client_id}', EditClient::class)->name('edit-client');
     Route::get('/orders-clients', OrderList::class)->name('client-orders');
 
     Route::get('/orders', OrderList::class)->name('orders');
-    Route::get('/orders/{order}', [OrdersController::class, 'show'])->name('orders.show');
+    Route::get('/orders/details/{order}', [OrdersController::class, 'show'])->name('orders.show');
     Route::get('/clients/{client}/orders', [OrdersController::class, 'showClientOrders'])->name('clients.orders');
 
 
