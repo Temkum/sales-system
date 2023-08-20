@@ -132,10 +132,10 @@
                   <div>{{ __('Clients') }}</div>
                 </a>
               </li>
-              <li class="menu-item {{ request()->route()->named('add-measurements')? 'active': '' }}">
-                <a href="{{ route('clients') }}" class="menu-link">
+              <li class="menu-item {{ request()->route()->named('measurements')? 'active': '' }}">
+                <a href="{{ route('measurements') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-group"></i>
-                  <div>{{ __('Add measurements') }}</div>
+                  <div>{{ __('Measurements') }}</div>
                 </a>
               </li>
               <li class="menu-item {{ request()->route()->named('users')? 'active': '' }}">
@@ -328,7 +328,6 @@
 
   <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
   <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
   <script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
 
@@ -339,6 +338,7 @@
 
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
   <script>
     $('body').on('keyup', '#search', function() {
@@ -375,6 +375,11 @@
         }
       })
     })
+  </script>
+  <script>
+    $(document).ready(function() {
+      $('#client').select2();
+    });
   </script>
 
   @yield('script')

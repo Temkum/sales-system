@@ -1,6 +1,6 @@
 <div>
   <div class="mb-3">
-    <label for="html3-text-input" class="form-label">{{ __('Add customer measurement') }}</label>
+    <label for="html3-text-input" class="form-label">{{ __('Measurements') }}</label>
     <table class="table table-sm table-borderless">
       <thead>
         <th class="center-text">Haut</th>

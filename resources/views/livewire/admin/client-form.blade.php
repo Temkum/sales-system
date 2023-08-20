@@ -28,5 +28,9 @@
       <p class="text-danger">{{ $message ?? '' }}</p>
     @enderror
   </div>
-  <button type="submit" class="btn btn-primary">Create</button>
+  @if ($client_id)
+    <button type="submit" class="btn btn-primary">Update</button>
+  @else
+    <button type="submit" class="btn btn-primary">Create</button>
+  @endif
 </form>

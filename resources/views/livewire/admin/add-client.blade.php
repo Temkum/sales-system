@@ -12,7 +12,7 @@
         </div>
         <div class="card-body">
           <div class="row center-item justify-content-center">
-            <div class="col-md-6 b-1 p-4">
+            <div class="col-md-6 p-4">
               @include('livewire.admin.client-form')
             </div>
           </div>

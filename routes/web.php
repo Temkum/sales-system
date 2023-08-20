@@ -27,6 +27,8 @@ use App\Http\Livewire\Admin\DeletedRecords;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Livewire\Admin\AddMeasurement;
+use App\Http\Livewire\Admin\ModifyOrder;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,14 +62,15 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::get('/orders/details/{order}', [OrdersController::class, 'show'])->name('orders.show');
     Route::get('/clients/{client}/orders', [OrdersController::class, 'showClientOrders'])->name('clients.orders');
 
-
-    Route::get('/measure/add', Measurements::class)->name('add-measurement');
+    Route::get('/measure/add', AddMeasurement::class)->name('add-measurement');
+    Route::get('/measurements', Measurements::class)->name('measurements');
 
     Route::post('/orders/add', [OrderController::class, 'store'])->name('store-order');
     Route::get('/new-record', NewRecord::class)->name('add-record');
+    // Route::get('/order/{order_id}', ModifyOrder::class)->name('modify-order');
 
     Route::get('/orders', Orders::class)->name('orders');
-    Route::get('/add-order', NewOrder::class)->name('add-order');
+    // Route::get('/add-order', NewOrder::class)->name('add-order');
     Route::get('/orders/{order_id}', OrderDetails::class)->name('order-details');
     Route::get('/order/{order_id}', EditOrder::class)->name('update');
 
