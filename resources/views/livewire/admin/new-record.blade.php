@@ -18,14 +18,15 @@
           <div class="mb-4 row">
             <label for="html5-text-input" class="col-md-2 col-form-label">{{ __('Client') }}</label>
             <div class="col-md-6 col-lg-7">
-              <select class="form-select mt-2 col-5 customized-select" id="client" wire:model="client_id">
+              <select class="form-select mt-2 col-5 customized-select @error('client_id') is-invalid @enderror"
+                id="client_id" wire:model="client_id">
                 <option value="">{{ __('Select Client') }}</option>
                 @foreach ($clients as $client)
                   <option value="{{ $client->id }}">{{ $client->name }}</option>
                 @endforeach
               </select>
               @error('client_id')
-                <span class="badge bg-danger">{{ __('The customer name is required') }}</span>
+                <span class="badge bg-danger">{{ __('The customer is required') }}</span>
               @enderror
             </div>
             <div class="col-md-3">
@@ -320,10 +321,10 @@
   });
 </script>
 
-@push('scripts')
+{{-- @push('scripts')
   <script>
     $(document).ready(function() {
       $('#client').select2();
     });
   </script>
-@endpush
+@endpush --}}

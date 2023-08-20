@@ -228,7 +228,7 @@ class NewRecord extends Component
             ->position('y', 'top')
             ->addSuccess('Record added successfully!');
 
-        redirect()->to('admin/orders');
+        redirect(route('client-orders'));
     }
 
     public function confirmDelete(int $id)

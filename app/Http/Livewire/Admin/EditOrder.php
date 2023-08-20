@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\Client;
 use App\Models\Order;
 use Livewire\Component;
 use Illuminate\Support\Str;
@@ -11,19 +12,18 @@ class EditOrder extends Component
 {
     public $msg = '';
     public $updateMode = true;
-    public $sale_code, $order_id, $price, $advance, $quantity, $description, $due_date, $name, $balance, $address, $phone;
+    public $order_id, $price, $advance, $quantity, $description, $due_date, $balance;
+    public $client_id;
+    public $clients;
 
     public function mount($order_id)
     {
         $this->order_id = $order_id;
         $order = Order::where('id', $order_id)->first();
 
-        if ($this->sale_code === null) {
-            $this->sale_code = strtoupper(Str::random(1)) . rand(4, 9999);
-        }
-        $this->name = $order->name;
-        $this->phone = $order->phone;
-        $this->address = $order->address;
+        $this->clients = Client::all();
+
+        $this->client_id = $order->client_id;
         $this->price = $order->price;
         $this->advance = $order->advance;
         $this->balance = $order->balance;
@@ -32,11 +32,11 @@ class EditOrder extends Component
         $this->description = $order->description;
     }
 
-    public function render()
+    public function render(Client $client)
     {
-        $order = Order::findOrFail($this->order_id);
+        $order = Order::find($this->order_id);
 
-        return view('livewire.admin.edit-order', ['order' => $order])->extends('base');
+        return view('livewire.admin.edit-order', ['order' => $order, 'client' => $client])->extends('base');
     }
 
     public function updateSaleStatus($sale_id, $status)
@@ -60,7 +60,7 @@ class EditOrder extends Component
     public function update()
     {
         $this->validate([
-            'name' => 'required',
+            'client_id' => 'required',
             'price' => 'required',
             'quantity' => 'required',
             'advance' => 'required|numeric',
@@ -69,10 +69,8 @@ class EditOrder extends Component
         ]);
 
         $sale_record = Order::find($this->order_id);
+        $sale_record->client_id = $this->client_id;
         $sale_record->price = $this->price;
-        $sale_record->name = $this->name;
-        $sale_record->address = $this->address;
-        $sale_record->phone = $this->phone;
         $sale_record->balance = $this->price - $this->advance;
         $sale_record->quantity = $this->quantity;
         $sale_record->advance = $this->advance;
@@ -84,6 +82,6 @@ class EditOrder extends Component
             ->position('x', 'right')
             ->position('y', 'top')
             ->addSuccess('Record update successful');
-        redirect()->to('admin/orders');
+        redirect()->to(route('client-orders'));
     }
 }

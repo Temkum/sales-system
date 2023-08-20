@@ -50,10 +50,9 @@ class Orders extends Component
                 ->where('created_at', '<=', $this->end_date)->paginate(10);
         }
 
-        return view(
-            'livewire.admin.orders',
-            ['orders' => $orders]
-        )->extends('base');
+        // $client = $order->client;
+
+        return view('livewire.admin.orders', ['orders' => $orders])->extends('base');
     }
 
     public function updatedSearch()

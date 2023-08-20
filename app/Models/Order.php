@@ -24,7 +24,8 @@ class Order extends Model
         'quantity',
         'balance',
         'status',
-        'description'
+        'description',
+        'client_id'
     ];
 
     public function products()
