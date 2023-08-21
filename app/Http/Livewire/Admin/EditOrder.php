@@ -82,6 +82,6 @@ class EditOrder extends Component
             ->position('x', 'right')
             ->position('y', 'top')
             ->addSuccess('Record update successful');
-        redirect()->to(route('client-orders'));
+        redirect()->to(route('orders'));
     }
 }

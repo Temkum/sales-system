@@ -24,6 +24,7 @@ class Orders extends Component
     public $updateMode = false;
     public $price, $advance, $quantity, $description, $due_date, $balance;
     public $current_page = 1;
+    public $client_id;
 
     use WithPagination;
 
@@ -36,21 +37,27 @@ class Orders extends Component
 
     public function render()
     {
-        $this->page_number = 10;
+        $this->page_number = 15;
         $this->page = $this->current_page;
 
-        $orders = Order::where('price', 'LIKE', '%' . $this->search . '%')
-            ->orWhere('advance', 'LIKE', '%' . $this->search . '%')
-            ->orWhere('balance', 'LIKE', '%' . $this->search . '%')
-            ->orWhere('status', 'LIKE', '%' . $this->search . '%')
-            ->orderBy('created_at', 'DESC')->paginate($this->page_number);
+        $orders = Order::query()
+            ->join('clients', 'orders.client_id', '=', 'clients.id')
+            ->where('orders.price', 'LIKE', '%' . $this->search . '%')
+            ->orWhere('orders.advance', 'LIKE', '%' . $this->search . '%')
+            ->orWhere('orders.balance', 'LIKE', '%' . $this->search . '%')
+            ->orWhere('orders.status', 'LIKE', '%' . $this->search . '%')
+            ->orWhere('clients.name', 'LIKE', '%' . $this->search . '%')
+            ->select('orders.*', 'clients.name as client_name')
+            ->orderBy('orders.created_at', 'DESC')->paginate($this->page_number);
+
+        if ($this->client_id) {
+            $orders->where("orders.client_id", $this->client_id);
+        }
 
         if (($this->start_date && $this->end_date) && $this->start_date) {
             $orders = Order::where('created_at', '>=', $this->start_date)
-                ->where('created_at', '<=', $this->end_date)->paginate(10);
+                ->where('created_at', '<=', $this->end_date)->paginate($this->page_number);
         }
-
-        // $client = $order->client;
 
         return view('livewire.admin.orders', ['orders' => $orders])->extends('base');
     }

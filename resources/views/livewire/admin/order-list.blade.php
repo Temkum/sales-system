@@ -36,12 +36,14 @@
                     @else
                       <span>No associated client</span>
                     @endif
-
                   </li>
                 @endforeach
               </ul>
             </div>
           </div>
+        </div>
+        <div class="card-footer">
+          {{ $orders->links() }}
         </div>
       </div>
     </div>
