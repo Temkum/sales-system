@@ -1,21 +1,34 @@
 <?php
 
+use App\Http\Livewire\Admin\Client;
 use App\Http\Livewire\Admin\Orders;
+use App\Http\Livewire\CreateClient;
+use App\Http\Livewire\Admin\Clients;
 use App\Http\Livewire\Admin\Contacts;
 use App\Http\Livewire\Admin\NewOrder;
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\Admin\AddClient;
 use App\Http\Livewire\Admin\EditOrder;
+use App\Http\Livewire\Admin\NewRecord;
+use App\Http\Livewire\Admin\OrderList;
+use App\Http\Livewire\Admin\EditClient;
+use App\Http\Livewire\Admin\ShowOrders;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Livewire\Admin\CreateOrder;
 use App\Http\Livewire\Admin\EditProduct;
-use App\Http\Livewire\Admin\NewRecord;
 use App\Http\Livewire\ProductCategories;
 use App\Http\Livewire\AddProductCategory;
+use App\Http\Livewire\Admin\Measurements;
 use App\Http\Livewire\Admin\OrderDetails;
+use App\Http\Livewire\Admin\ClientDetails;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Admin\OrderController;
-use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Livewire\Admin\DeletedRecords;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\OrdersController;
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Livewire\Admin\AddMeasurement;
+use App\Http\Livewire\Admin\ModifyOrder;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,12 +52,25 @@ Route::controller(HomeController::class)->group(function () {
 Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
-    Route::post('/orders/add', [OrderController::class, 'store'])->name('store-order');
+    Route::get('/clients', Clients::class)->name('clients');
+    Route::get('/clients/add', AddClient::class)->name('add-client');
+    Route::get('/clients/{client_id}', ClientDetails::class)->name('client-details');
+    Route::get('/clients/edit/{client_id}', EditClient::class)->name('edit-client');
+    Route::get('/orders-clients', OrderList::class)->name('client-orders');
 
+    Route::get('/orders', OrderList::class)->name('orders');
+    Route::get('/orders/details/{order}', [OrdersController::class, 'show'])->name('orders.show');
+    Route::get('/clients/{client}/orders', [OrdersController::class, 'showClientOrders'])->name('clients.orders');
+
+    Route::get('/measure/add', AddMeasurement::class)->name('add-measurement');
+    Route::get('/measurements', Measurements::class)->name('measurements');
+
+    Route::post('/orders/add', [OrderController::class, 'store'])->name('store-order');
     Route::get('/new-record', NewRecord::class)->name('add-record');
+    // Route::get('/order/{order_id}', ModifyOrder::class)->name('modify-order');
 
     Route::get('/orders', Orders::class)->name('orders');
-    Route::get('/add-order', NewOrder::class)->name('add-order');
+    // Route::get('/add-order', NewOrder::class)->name('add-order');
     Route::get('/orders/{order_id}', OrderDetails::class)->name('order-details');
     Route::get('/order/{order_id}', EditOrder::class)->name('update');
 

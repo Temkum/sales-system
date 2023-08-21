@@ -33,7 +33,7 @@ class UserController extends Controller
             return view('admin.users')->with('error', 'You do not have permission to access this page!');
         }
 
-        // return view('admin.users', ['users' => $users, 'roles' => Role::all()]);
+        return view('admin.users', ['users' => $users, 'roles' => Role::all()]);
     }
 
     /**
