@@ -3,7 +3,7 @@
 }
 
 .edit-order-card {
-    border: 1px solid rgba(158, 151, 151, 0.637);
+    // border: 1px solid rgba(158, 151, 151, 0.637);
     border-radius: 5px;
 }
 
@@ -45,6 +45,15 @@
 div.disable-row {
     background-color: #ddd;
     color: #aaa;
+}
+
+.b-1 {
+    border: solid 1px rgba(134, 133, 133, 0.685);
+    border-radius: 5px;
+}
+
+.order-details p {
+    font-weight: bold;
 }
 
 @media screen and (max-width:428px) {

@@ -35,5 +35,16 @@
     "Items": "Articles",
     "Item names": "Nom de l'articles",
     "Enter item name": "Saisir le nom de l'article",
-    "Enter item price": "Saisir le prix"
+    "Enter item price": "Saisir le prix",
+    "edit":"Modifier",
+    "View":"Details",
+    "New Sale": "Nouvelle Vente",
+    "New": "Nouvelle",
+    "Name": "Nom",
+    "Phone": "Tel",
+    "Address": "Addresse",
+    "Search item": "Reserche d'article",
+    "The code field is required.": "Vuiellez saisir le code.",
+    "The code has already been taken.": "Le code est deja dans le systeme",
+    "The customer name is required": "Le nom du client est obligatoire"
 }

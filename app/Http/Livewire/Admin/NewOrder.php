@@ -172,6 +172,6 @@ class NewOrder extends Component
     }
 
     notyf()->position('x', 'right')->position('y', 'top')->addSuccess('Sale added successfully!');
-    redirect()->to('admin/orders');
+    redirect()->to('admin/client-orders');
   }
 }

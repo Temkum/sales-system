@@ -31,6 +31,12 @@
   <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-auth.css') }}" />
   <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
 
+  <script src="{{ asset('assets/js/config.js') }}"></script>
+  <script src="{{ asset('assets/js/custom.js') }}"></script>
+
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+
   <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/5.0.7/sweetalert2.min.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
@@ -76,15 +82,15 @@
             <li class="menu-item {{ request()->route()->named('orders')? 'active': '' }}">
               <a href="{{ route('orders') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-money"></i>
-                <div>{{ __('Sales') }}</div>
+                <div>{{ __('Client orders') }}</div>
               </a>
             </li>
-            {{-- <li class="menu-item {{ request()->route()->named('add-order')? 'active': '' }}">
-              <a href="{{ route('add-order') }}" class="menu-link">
+            <li class="menu-item {{ request()->route()->named('client-orders')? 'active': '' }}">
+              <a href="{{ route('client-orders') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-cart"></i>
-                <div>{{ __('Add Sale') }}</div>
+                <div>{{ __('All orders') }}</div>
               </a>
-            </li> --}}
+            </li>
             <li class="menu-item {{ request()->route()->named('add-record')? 'active': '' }}">
               <a href="{{ route('add-record') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-cart"></i>
@@ -120,19 +126,31 @@
             </li>
 
             @can('is-admin')
+              <li class="menu-item {{ request()->route()->named('clients')? 'active': '' }}">
+                <a href="{{ route('clients') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-group"></i>
+                  <div>{{ __('Clients') }}</div>
+                </a>
+              </li>
+              <li class="menu-item {{ request()->route()->named('measurements')? 'active': '' }}">
+                <a href="{{ route('measurements') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-group"></i>
+                  <div>{{ __('Measurements') }}</div>
+                </a>
+              </li>
               <li class="menu-item {{ request()->route()->named('users')? 'active': '' }}">
                 <a href="{{ route('users') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-group"></i>
                   <div>{{ __('Users') }}</div>
                 </a>
               </li>
+              <li class="menu-item {{ request()->route()->named('add-user')? 'active': '' }}">
+                <a href="{{ route('add-user') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-user-plus"></i>
+                  <div data-i18n="Basic">{{ __('Add User') }}</div>
+                </a>
+              </li>
             @endcan
-            <li class="menu-item {{ request()->route()->named('add-user')? 'active': '' }}">
-              <a href="{{ route('add-user') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-user-plus"></i>
-                <div data-i18n="Basic">{{ __('Add User') }}</div>
-              </a>
-            </li>
             <!-- Misc -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
             <li class="menu-item">
@@ -320,9 +338,7 @@
 
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
-
-  <script src="{{ asset('assets/js/config.js') }}"></script>
-  <script src="{{ asset('assets/js/custom.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
   <script>
     $('body').on('keyup', '#search', function() {
@@ -359,6 +375,11 @@
         }
       })
     })
+  </script>
+  <script>
+    $(document).ready(function() {
+      $('#client').select2();
+    });
   </script>
 
   @yield('script')

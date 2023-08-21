@@ -1,54 +1,59 @@
 .edit-modal-footer {
-    padding: 1rem 1.5rem 0rem 1rem;
+  padding: 1rem 1.5rem 0rem 1rem;
 }
 
 .edit-order-card {
-    border: 1px solid rgba(158, 151, 151, 0.637);
-    border-radius: 5px;
+  border-radius: 5px;
 }
 
 .balance {
-    display: flex;
-    padding: 0.4rem;
-    border: 1px lightgray solid;
-    border-radius: 4px;
+  display: flex;
+  padding: 0.4rem;
+  border: 1px lightgray solid;
+  border-radius: 4px;
 }
 
 .search-box {
-    width: 300px;
+  width: 300px;
 }
 
 .fl-main-container .fl-flasher .fl-progress-bar {
-    display: none !important;
+  display: none !important;
 }
 
 .allOrders .badge {
-    font-size: 11px;
+  font-size: 11px;
 }
 
 .center-text {
-    text-align: center;
+  text-align: center;
 }
 
 .disabled {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 
 div.disable-row {
-    background-color: #ddd;
-    color: #aaa;
+  background-color: #ddd;
+  color: #aaa;
+}
+
+.b-1 {
+  border: solid 1px rgba(134, 133, 133, 0.685);
+  border-radius: 5px;
+}
+
+.order-details p {
+  font-weight: bold;
 }
 
 @media screen and (max-width: 428px) {
-    .measurement-table {
-        width: 100%;
-    }
+  .measurement-table {
+    width: 100%;
+  }
 }
-
 @media screen and (min-width: 835px) {
-    .measurement-table {
-        width: 70%;
-    }
-}
-
-/*# sourceMappingURL=custom.css.map */
+  .measurement-table {
+    width: 70%;
+  }
+}/*# sourceMappingURL=custom.css.map */
