@@ -15,7 +15,7 @@
             <div class="form-group">
               <label for="client">Client Filter:</label>
               <select class="form-select" id="client_id" wire:model="client_id">
-                <option value="">-- All Clients --</option>
+                <option value="">All Clients</option>
                 @foreach ($clients as $client)
                   <option value="{{ $client->id }}">{{ $client->name }}</option>
                 @endforeach
