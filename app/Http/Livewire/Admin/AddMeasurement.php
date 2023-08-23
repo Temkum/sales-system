@@ -3,16 +3,18 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Client;
+use App\Models\Measurement;
 use Livewire\Component;
 
 class AddMeasurement extends Component
 {
-    public $clients;
+    public $client_id;
+    public $epaule, $taille_t, $taille_b, $dos, $bassin_t, $bassin_b, $poitrine, $fesse, $cuisses, $l_taille, $longueur, $l_total, $fond, $braquette, $l_manche, $pied, $t_manche, $col, $nb_poches_t, $nb_poches_b, $cv, $cd;
 
     public function render()
     {
         $clients = Client::all();
-        return view('livewire.admin.add-measurement')->extends('base');
+        return view('livewire.admin.add-measurement', ['clients' => $clients])->extends('base');
     }
 
     function mount()
