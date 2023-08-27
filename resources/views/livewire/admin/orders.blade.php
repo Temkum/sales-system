@@ -102,28 +102,6 @@
                       </button>
                     </td>
                   </div>
-                  <td>
-                    <div class="dropdown">
-                      <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        {{ __('Status') }}
-                      </button>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#"
-                            wire:click.prevent="updateSaleStatus({{ $order->id }}, 'completed')">{{ __('Completed') }}</a>
-                        </li>
-                        <li><a class="dropdown-item" href="#"
-                            wire:click.prevent="updateSaleStatus({{ $order->id }}, 'due')">{{ __('Due') }}</a>
-                        </li>
-                        <li><a class="dropdown-item" href="#"
-                            wire:click.prevent="updateSaleStatus({{ $order->id }}, 'processing')">{{ __('Pending') }}</a>
-                        </li>
-                        <li><a class="dropdown-item" href="#"
-                            wire:click.prevent="updateSaleStatus({{ $order->id }}, 'cancelled')">{{ __('Cancelled') }}</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </td>
                 </tr>
               @endforeach
             @else
