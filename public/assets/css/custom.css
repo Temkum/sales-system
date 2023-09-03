@@ -56,6 +56,13 @@ div.disable-row {
   background-color: #f5f7fa;
 }
 
+.btn-reveal-trigger {
+  cursor: pointer;
+}
+.btn-reveal-trigger:hover {
+  color: rgb(81, 81, 236);
+}
+
 @media screen and (max-width: 428px) {
   .measurement-table {
     width: 100%;

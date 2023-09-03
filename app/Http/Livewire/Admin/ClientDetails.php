@@ -3,11 +3,13 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Client;
+use App\Models\Measurement;
 use Livewire\Component;
 
 class ClientDetails extends Component
 {
     public $name, $address, $phone, $code, $client_id;
+    public $selected_measurement = null;
 
     public function render()
     {
@@ -18,11 +20,16 @@ class ClientDetails extends Component
 
     function mount($client_id)
     {
-        $client = Client::findOrFail($client_id);
+        $client = Client::with('measurements')->find($client_id);
 
         $this->name = $client->name;
         $this->address = $client->address;
         $this->phone = $client->phone;
         $this->code = $client->code;
+    }
+
+    public function selectMeasurement($measurement_id)
+    {
+        $this->selected_measurement = Measurement::find($measurement_id);
     }
 }
