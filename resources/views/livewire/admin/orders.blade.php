@@ -102,7 +102,6 @@
                       </button>
                     </td>
                   </div>
-
                 </tr>
               @endforeach
             @else

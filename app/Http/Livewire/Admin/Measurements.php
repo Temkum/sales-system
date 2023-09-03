@@ -11,19 +11,15 @@ class Measurements extends Component
     public $epaule, $taille_t, $taille_b, $dos, $bassin_t, $bassin_b, $poitrine, $fesse, $cuisses, $l_taille, $longueur, $l_total, $fond, $braquette, $l_manche, $pied, $t_manche, $col, $nb_poches_t, $nb_poches_b, $cv, $cd;
 
     public $client_id = null;
-
-    function mount()
-    {
-        $clients = Client::all();
-    }
+    public $client_measurement_count;
 
     public function render()
     {
-        $clients = Client::all();
+        $clients = Client::withCount('measurements')->get();
         return view('livewire.admin.measurements', ['clients' => $clients])->extends('base');
     }
 
-    function save()
+    function store()
     {
         $this->validate([
             'client_id'    => 'required',
