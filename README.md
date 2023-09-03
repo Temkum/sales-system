@@ -1076,6 +1076,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
 With this code, when a client name is clicked, the associated orders list will be shown or hidden.
 
-Make sure to include the CSS and JavaScript code in your application's assets or layout file.
 
-Please note that this is a basic example, and you may need to customize the styles and behavior to match your specific requirements and design.
