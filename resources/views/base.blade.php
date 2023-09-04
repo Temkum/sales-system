@@ -40,8 +40,6 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/5.0.7/sweetalert2.min.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
-  @vite(['resources/css/app.css', 'resources/js/app.js'])
-
   @livewireStyles
 </head>
 
