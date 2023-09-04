@@ -85,7 +85,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('edit-user');
     Route::patch('/user/{id}', [UserController::class, 'update'])->name('update-user');
     Route::delete('/users/remove/{id}', [UserController::class, 'destroy'])->name('delete-user');
-    Route::get('/user/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::get('/user/profile', [ProfileController::class, 'index'])->name('admin-profile');
 
     Route::get('/products', ProductCategories::class)->name('product-categories');
     Route::get('/products/add', AddProductCategory::class)->name('add-product');
@@ -97,5 +97,5 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
 
 // user
 Route::middleware(['auth'])->prefix('user')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::get('/profile', [ProfileController::class, 'index'])->name('user.profile');
 });
