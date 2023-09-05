@@ -30,8 +30,6 @@
     <link rel="stylesheet" href="{{ asset('assets/home/css/responsive.css') }}">
     <!-- modernizr js -->
     <script src="js/modernizr-2.8.3.min.js"></script>
-
-    @vite('resources/js/app.js', 'vendor/courier/build')
   </head>
 
   <body>
