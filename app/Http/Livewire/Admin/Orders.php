@@ -79,54 +79,33 @@ class Orders extends Component
 
         if ($status == 'completed') {
             $sale->date_delivered = DB::raw('CURRENT_DATE');
+            /*
+            try {         
+            // vonage api               
+            /* Notification::route('vonage', env('VONAGE_SMS_FROM'))
+                    ->notify(new OrderTransaction()); 
+            } catch (\Throwable $th) {
+                return noty()->progressBar(false)->addError('Something went wrong. </br> Could not send message!');
+            }
+            */
+
+            $twilio = new Client(config('services.twilio.account_sid'), config('services.twilio.auth_token'));
 
             try {
-                // SMS
-                $sid    = "AC92709586c4906001fd2abd4014d5af2e";
-                $token  = "3ed4e72e23279efd94dee8d8bca77305";
-                $twilio = new Client($sid, $token);
-
-                /*  $message = $twilio->messages
-                    ->create(
-                        "+237679947838", // to
-                        [
-                            "from" => "+12177278323",
-                            "body" => "Your order has been completed. Please come by the shop to pick it up. Thanks for trusting us!"
-                        ]
-                    ); */
-
-                // whatsapp
-                /* $sid = env("TWILIO_ACCOUNT_SID");
-                $token = env("TWILIO_AUTH_TOKEN");
-                $twilio = new Client($sid, $token);
-
                 $message = $twilio->messages
                     ->create(
                         "+237675827455", // to
-                        [
-                            "from" => env('TWILIO_FROM_NUMBER'),
-                            "body" => "Hello there Super Dev!"
-                        ]
-                    ); */
-
-                /* $sid    = "AC92709586c4906001fd2abd4014d5af2e";
-                $token  = "3ed4e72e23279efd94dee8d8bca77305";
-                $twilio = new Client($sid, $token);
-
-                $message = $twilio->messages
-                    ->create(
-                        "+237679947838", // to
-                        [
+                        array(
                             "from" => "+12177278323",
-                            "body" => "Your order has been completed. Please come by the shop to pick it up. Thanks for trusting us!"
-                        ]
-                    ); */
-
-                // vonage api               
-                /* Notification::route('vonage', env('VONAGE_SMS_FROM'))
-                    ->notify(new OrderTransaction()); */
+                            "body" => "Your order has been completed. Please drop by the shop to pick it up. Thanks for trusting us!"
+                        )
+                    );
             } catch (\Throwable $th) {
-                return noty()->progressBar(false)->addError('Something went wrong. </br> Could not send message!');
+                notyf()
+                    ->position('x', 'left')
+                    ->position('y', 'center')
+                    ->addInfo('Something went wrong. </br> Could not send message!');
+                throw $th;
             }
         } elseif ($status == 'cancelled') {
             $sale->date_cancelled = DB::raw('CURRENT_DATE');
@@ -165,6 +144,11 @@ class Orders extends Component
         }
     }
 
+    /**
+     * Retrieves the deleted records from the database.
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
     public function deletedRecords()
     {
         $deleted_records = Order::onlyTrashed()->paginate(20);

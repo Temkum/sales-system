@@ -182,6 +182,11 @@ class NewRecord extends Component
         $this->validateOnly($fields);
     }
 
+    /**
+     * Adds a sale to the database and sends an SMS notification.
+     *
+     * @throws \Throwable if there was an error sending the SMS
+     */
     public function addSale()
     {
         $this->validate();
@@ -205,23 +210,24 @@ class NewRecord extends Component
             $item->delete();
         }
 
-        // $twilio = new Client(config('services.twilio.account_sid'), config('services.twilio.auth_token'));
+        $twilio = new Client(config('services.twilio.account_sid'), config('services.twilio.auth_token'));
 
-        /* $sid    = "AC92709586c4906001fd2abd4014d5af2e";
-        $token  = "3ed4e72e23279efd94dee8d8bca77305";
-        $twilio = new Client($sid, $token);
-
-        $message = $twilio->messages
-            ->create(
-                "+237675827455", // to
-                array(
-                    "from" => "+12177278323",
-                    "body" => "Order placed successfully!"
-                )
-            ); */
-
-        // Notification::route('vonage', env('VONAGE_SMS_FROM'))
-        //     ->notify(new OrderTransaction());
+        try {
+            $message = $twilio->messages
+                ->create(
+                    "+237675827455", // to
+                    array(
+                        "from" => "+12177278323",
+                        "body" => "Order placed successfully!"
+                    )
+                );
+        } catch (\Throwable $th) {
+            notyf()
+                ->position('x', 'left')
+                ->position('y', 'center')
+                ->addInfo('Sorry, could not send SMS!');
+            throw $th;
+        }
 
         notyf()
             ->position('x', 'right')
@@ -231,7 +237,14 @@ class NewRecord extends Component
         redirect(route('client-orders'));
     }
 
-    public function confirmDelete(int $id)
+    /**
+     * Confirm deletion of a record.
+     *
+     * @param int $id The ID of the record to be deleted.
+     * @throws Some_Exception_Class Exception thrown if there is an error confirming deletion.
+     * @return void
+     */
+    public function confirmDelete(int $id): void
     {
         $this->dispatchBrowserEvent('swal-confirm', [
             'type' => 'warning',

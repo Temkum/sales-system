@@ -39,6 +39,14 @@ class EditOrder extends Component
         return view('livewire.admin.edit-order', ['order' => $order, 'client' => $client])->extends('base');
     }
 
+    /**
+     * Updates the sale status of an order.
+     *
+     * @param int $sale_id The ID of the sale/order.
+     * @param string $status The new status of the sale/order.
+     * @throws Exception if the sale/order is not found.
+     * @return Notyf The Notyf instance with the success message.
+     */
     public function updateSaleStatus($sale_id, $status)
     {
         $sale = Order::find($sale_id);
