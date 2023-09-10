@@ -49,5 +49,7 @@
     "The customer name is required": "Le nom du client est obligatoire",
     "Your order has been completed. Please drop by the shop to pick it up. Thanks for trusting us! Call +237 650-858-532 for more information.": "Votre commande a été traitée avec succès. Veuillez passer à la boutique pour la récupérer. Merci de nous faire confiance ! Pour plus d'informations, appelez le +237 650-858-532.",
     "Something went wrong. </br> Could not send message!": "Désolé, une erreur est survenue. </br> Impossible d'envoyer le message !",
-    "Status updated successfully!": "Statut mis à jour avec succès !"
+    "Status updated successfully!": "Statut mis à jour avec succès !",
+    "Order placed successfully!": "Commande passée avec succès !",
+    "Fully paid": "Entièrement payé"
 }
