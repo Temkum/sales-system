@@ -90,24 +90,25 @@ class Orders extends Component
             */
 
             $twilio = new Client(config('services.twilio.account_sid'), config('services.twilio.auth_token'));
+            $msg_body = __("Your order has been completed. Please drop by the shop to pick it up. Thanks for trusting us! Call +237 650-858-532 for more information.");
 
             try {
-                /* $message = $twilio->messages
+                $message = $twilio->messages
                     ->create(
                         "+237675827455", // to
                         array(
                             "from" => "+12177278323",
-                            "body" => "Your order has been completed. Please drop by the shop to pick it up. Thanks for trusting us!"
+                            "body" => $msg_body
                         )
-                    ); */
+                    );
 
                 // whatsapp msg
-                $message = $twilio->messages
+                $whatsap_message = $twilio->messages
                     ->create(
                         "whatsapp:+23775827455", // to
                         array(
                             "from" => "whatsapp:+14155238886",
-                            "body" => __("Your order has been completed. Please drop by the shop to pick it up. Thanks for trusting us! Call 1-800-555-5555 for more information.")
+                            "body" => $msg_body
                         )
                     );
             } catch (\Throwable $th) {
