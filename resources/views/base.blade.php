@@ -70,12 +70,12 @@
                 <div>{{ __('Client orders') }}</div>
               </a>
             </li>
-            <li class="menu-item {{ request()->route()->named('client-orders')? 'active': '' }}">
+            {{-- <li class="menu-item {{ request()->route()->named('client-orders')? 'active': '' }}">
               <a href="{{ route('client-orders') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-cart"></i>
                 <div>{{ __('All orders') }}</div>
               </a>
-            </li>
+            </li> --}}
             <li class="menu-item {{ request()->route()->named('add-record')? 'active': '' }}">
               <a href="{{ route('add-record') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-cart"></i>

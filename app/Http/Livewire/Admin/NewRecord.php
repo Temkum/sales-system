@@ -211,6 +211,7 @@ class NewRecord extends Component
         }
 
         $twilio = new Client(config('services.twilio.account_sid'), config('services.twilio.auth_token'));
+        $msg_body = __("Order placed successfully!");
 
         try {
             $message = $twilio->messages
@@ -218,14 +219,23 @@ class NewRecord extends Component
                     "+237675827455", // to
                     array(
                         "from" => "+12177278323",
-                        "body" => "Order placed successfully!"
+                        "body" => $msg_body
+                    )
+                );
+
+            $whatsap = $twilio->messages
+                ->create(
+                    "+237675827455", // to
+                    array(
+                        "from" => "+12177278323",
+                        "body" => $msg_body
                     )
                 );
         } catch (\Throwable $th) {
             notyf()
                 ->position('x', 'left')
                 ->position('y', 'center')
-                ->addInfo('Sorry, could not send SMS!');
+                ->addInfo('Something went wrong. </br> Could not send message!');
             throw $th;
         }
 

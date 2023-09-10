@@ -6,7 +6,7 @@
     "Congratulations": "Félicitations :",
     "English" : "Anglaise",
     "French": "Français",
-    "You have done 72% more sales today. Check your sales.": "Vous avez fait 72 % de ventes en plus aujourd'hui. Vérifiez vos ventes.",
+    "You have done 72% more sales today. Check your sales.": "Vous avez réalisé 72 % de ventes en plus aujourd'hui. Vérifiez vos ventes.",
     "View Sales": "Visualiser les ventes",
     "Sales" : "Ventes",
     "Add Sale": "Ajouter la vente",
@@ -46,5 +46,10 @@
     "Search item": "Reserche d'article",
     "The code field is required.": "Vuiellez saisir le code.",
     "The code has already been taken.": "Le code est deja dans le systeme",
-    "The customer name is required": "Le nom du client est obligatoire"
+    "The customer name is required": "Le nom du client est obligatoire",
+    "Your order has been completed. Please drop by the shop to pick it up. Thanks for trusting us! Call +237 650-858-532 for more information.": "Votre commande a été traitée avec succès. Veuillez passer à la boutique pour la récupérer. Merci de nous faire confiance ! Pour plus d'informations, appelez le +237 650-858-532.",
+    "Something went wrong. </br> Could not send message!": "Désolé, une erreur est survenue. </br> Impossible d'envoyer le message !",
+    "Status updated successfully!": "Statut mis à jour avec succès !",
+    "Order placed successfully!": "Commande passée avec succès !",
+    "Fully paid": "Entièrement payé"
 }

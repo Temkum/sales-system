@@ -5,8 +5,8 @@
     <div class="card-header d-flex justify-content-between mb-4">
       <div class="search-box">
         <form>
-          <input type="text" id="search" placeholder="Search item..." class="form-control w-75" wire:model="search"
-            name="search" />
+          <input type="text" id="search" placeholder="{{ __('Search item...') }}" class="form-control w-75"
+            wire:model="search" name="search" />
         </form>
       </div>
       {{-- date filter --}}
@@ -65,7 +65,7 @@
                         <span class="badge bg-label-primary">{{ __('Processing') }}</span>
                       @endif
                     </td>
-                    <td>{{ $order->balance ?? 'Fully Paid' }}</td>
+                    <td>{{ $order->balance == 0 ? __('Fully paid') : $order->balance }}</td>
                     <td>
                       <div class="dropdown">
                         <button class="btn btn-sm btn-secondary dropdown-toggle" type="button"
