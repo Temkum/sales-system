@@ -61,25 +61,25 @@
 
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
-            <li class="menu-item {{ request()->route()->named('admin.dashboard')? 'active': '' }}">
+            <li class="menu-item {{ request()->route()->named('admin.dashboard') ? 'active' : '' }}">
               <a href="{{ route('admin.dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">{{ __('Dashboard') }}</div>
               </a>
             </li>
-            <li class="menu-item {{ request()->route()->named('add-record')? 'active': '' }}">
+            <li class="menu-item {{ request()->route()->named('add-record') ? 'active' : '' }}">
               <a href="{{ route('add-record') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-cart"></i>
                 <div>{{ __('New Sale') }}</div>
               </a>
             </li>
-            <li class="menu-item {{ request()->route()->named('orders')? 'active': '' }}">
+            <li class="menu-item {{ request()->route()->named('orders') ? 'active' : '' }}">
               <a href="{{ route('orders') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-money"></i>
                 <div>{{ __('Client orders') }}</div>
               </a>
             </li>
-            <li class="menu-item {{ request()->route()->named('client-orders')? 'active': '' }}">
+            <li class="menu-item {{ request()->route()->named('client-orders') ? 'active' : '' }}">
               <a href="{{ route('client-orders') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-euro"></i>
                 <div>{{ __('All orders') }}</div>
@@ -89,20 +89,20 @@
             <li class="menu-header small text-uppercase ">
               <span class="menu-header-text">{{ __('Product categories') }}</span>
             </li>
-            <li class="menu-item {{ request()->route()->named('purchase_orders')? 'active': '' }}">
+            <li class="menu-item {{ request()->route()->named('purchase_orders') ? 'active' : '' }}">
               <a href="{{ route('purchase_orders') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-barcode"></i>
 
                 <div>{{ __('Purchase orders') }}</div>
               </a>
             </li>
-            <li class="menu-item {{ request()->route()->named('product-categories')? 'active': '' }}">
+            <li class="menu-item {{ request()->route()->named('product-categories') ? 'active' : '' }}">
               <a href="{{ route('product-categories') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-category"></i>
                 <div>{{ __('Products') }}</div>
               </a>
             </li>
-            <li class="menu-item {{ request()->route()->named('add-product')? 'active': '' }}">
+            <li class="menu-item {{ request()->route()->named('add-product') ? 'active' : '' }}">
               <a href="{{ route('add-product') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-duplicate"></i>
                 <div>{{ __('Add Product') }}</div>
@@ -113,26 +113,26 @@
               <li class="menu-header small text-uppercase ">
                 <span class="menu-header-text">{{ __('Clients') }}</span>
               </li>
-              <li class="menu-item {{ request()->route()->named('clients')? 'active': '' }}">
+              <li class="menu-item {{ request()->route()->named('clients') ? 'active' : '' }}">
                 <a href="{{ route('clients') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-group"></i>
                   <div>{{ __('Clients') }}</div>
                 </a>
               </li>
-              <li class="menu-item {{ request()->route()->named('add-client')? 'active': '' }}">
+              <li class="menu-item {{ request()->route()->named('add-client') ? 'active' : '' }}">
                 <a href="{{ route('add-client') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bxs-user-plus"></i>
                   <div>{{ __('Add client') }}</div>
                 </a>
               </li>
               <li class="menu-item
-                    {{ request()->route()->named('measurements')? 'active': '' }}">
+                    {{ request()->route()->named('measurements') ? 'active' : '' }}">
                 <a href="{{ route('measurements') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-ruler"></i>
                   <div>{{ __('Measurements') }}</div>
                 </a>
               </li>
-              <li class="menu-item {{ request()->route()->named('repairs.index')? 'active': '' }}">
+              <li class="menu-item {{ request()->route()->named('repairs.index') ? 'active' : '' }}">
                 <a href="{{ route('repairs.index') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-cog"></i>
                   <div>{{ __('Repairs') }}</div>
@@ -146,13 +146,13 @@
             </li>
 
             @can('is-admin')
-              <li class="menu-item {{ request()->route()->named('users')? 'active': '' }}">
+              <li class="menu-item {{ request()->route()->named('users') ? 'active' : '' }}">
                 <a href="{{ route('users') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-group"></i>
                   <div>{{ __('Users') }}</div>
                 </a>
               </li>
-              <li class="menu-item {{ request()->route()->named('add-user')? 'active': '' }}">
+              <li class="menu-item {{ request()->route()->named('add-user') ? 'active' : '' }}">
                 <a href="{{ route('add-user') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-user-plus"></i>
                   <div data-i18n="Basic">{{ __('Add User') }}</div>
@@ -160,7 +160,7 @@
               </li>
             @endcan
 
-            <li class="menu-item {{ request()->route()->named('user.profile')? 'active': '' }}">
+            <li class="menu-item {{ request()->route()->named('user.profile') ? 'active' : '' }}">
               <a href="{{ route('user.profile') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user-circle"></i>
                 <div>{{ __('Profile') }}</div>
@@ -384,14 +384,7 @@
   </div>
 
   {{-- show add order btn except on these pages --}}
-  {{-- @if (!request()->route()->named('add-order') &&
-    !request()->route()->named('register') &&
-    !request()->route()->named('login') &&
-    !request()->route()->named('password.request') &&
-    !request()->route()->named('password.reset') &&
-    !request()->route()->named('order-details') &&
-    !request()->route()->named('add-user') &&
-    !request()->route()->named('add-record'))
+  {{-- @if (!request()->route()->named('add-order') && !request()->route()->named('register') && !request()->route()->named('login') && !request()->route()->named('password.request') && !request()->route()->named('password.reset') && !request()->route()->named('order-details') && !request()->route()->named('add-user') && !request()->route()->named('add-record'))
     <div class="buy-now" id="new_order">
       <a href="{{ route('add-order') }}" class="btn btn-danger btn-buy-now">
         <i class="bx bx-plus"></i>{{ __('New record') }}
