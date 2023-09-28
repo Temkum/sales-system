@@ -5,8 +5,8 @@
     <div class="card-header d-flex justify-content-between mb-4">
       <div class="search-box">
         <form>
-          <input type="text" id="search" placeholder="Search item..." class="form-control w-75" wire:model="search"
-            name="search" />
+          <input type="text" id="search" placeholder="{{ __('Search item...') }}" class="form-control w-75"
+            wire:model="search" name="search" />
         </form>
       </div>
       {{-- date filter --}}
@@ -37,8 +37,9 @@
               <th>{{ __('Due Date') }}</th>
               <th>{{ __('Advance Paid ') }}(Fcfa)</th>
               <th>{{ __('Status') }}</th>
-              <th>{{ __('Actions') }}</th>
+              <th>{{ __('Balance') }}</th>
               <th>{{ __('Update status') }}</th>
+              <th>{{ __('Actions') }}</th>
             </tr>
           </thead>
           <tbody class="allOrders">
@@ -48,8 +49,8 @@
               @foreach ($orders as $order)
                 <tr class="{{ $order->status == 'cancelled' ? 'disabled' : '' }}">
                   <div>
-                    <td>{{ $order->sale_code ?? '' }}</td>
-                    <td>{{ $order->name }}</td>
+                    <td>{{ $order->client->code ?? '' }}</td>
+                    <td>{{ $order->client->name ?? '' }}</td>
                     <td><strong>{{ number_format($order->price) }}</strong></td>
                     <td>{{ date('j F y', strtotime($order->due_date)) }}</td>
                     <td>{{ number_format($order->advance) }}</td>
@@ -63,6 +64,29 @@
                       @else
                         <span class="badge bg-label-primary">{{ __('Processing') }}</span>
                       @endif
+                    </td>
+                    <td>{{ $order->balance == 0 ? __('Fully paid') : $order->balance }}</td>
+                    <td>
+                      <div class="dropdown">
+                        <button class="btn btn-sm btn-secondary dropdown-toggle" type="button"
+                          data-bs-toggle="dropdown" aria-expanded="false">
+                          {{ __('Status') }}
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="#"
+                              wire:click.prevent="updateSaleStatus({{ $order->id }}, 'completed')">{{ __('Completed') }}</a>
+                          </li>
+                          <li><a class="dropdown-item" href="#"
+                              wire:click.prevent="updateSaleStatus({{ $order->id }}, 'due')">{{ __('Due') }}</a>
+                          </li>
+                          <li><a class="dropdown-item" href="#"
+                              wire:click.prevent="updateSaleStatus({{ $order->id }}, 'processing')">{{ __('Pending') }}</a>
+                          </li>
+                          <li><a class="dropdown-item" href="#"
+                              wire:click.prevent="updateSaleStatus({{ $order->id }}, 'cancelled')">{{ __('Cancelled') }}</a>
+                          </li>
+                        </ul>
+                      </div>
                     </td>
                     <td class="btn-group">
                       <a class="btn btn-sm btn-outline-primary"
@@ -78,28 +102,6 @@
                       </button>
                     </td>
                   </div>
-                  <td>
-                    <div class="dropdown">
-                      <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        {{ __('Status') }}
-                      </button>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#"
-                            wire:click.prevent="updateSaleStatus({{ $order->id }}, 'completed')">{{ __('Completed') }}</a>
-                        </li>
-                        <li><a class="dropdown-item" href="#"
-                            wire:click.prevent="updateSaleStatus({{ $order->id }}, 'due')">{{ __('Due') }}</a>
-                        </li>
-                        <li><a class="dropdown-item" href="#"
-                            wire:click.prevent="updateSaleStatus({{ $order->id }}, 'processing')">{{ __('Pending') }}</a>
-                        </li>
-                        <li><a class="dropdown-item" href="#"
-                            wire:click.prevent="updateSaleStatus({{ $order->id }}, 'cancelled')">{{ __('Cancelled') }}</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </td>
                 </tr>
               @endforeach
             @else

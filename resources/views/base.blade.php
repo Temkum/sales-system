@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default"
+<html lang="en" class="light-style layout-menu-fixed" data-theme="theme-default"
   data-template="vertical-menu-template-free">
 
 <head>
   <meta charset="utf-8" />
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-  <title>{{ __('Dashboard | Admin') }}</title>
+  <title>{{ __('Pacho Design') }}</title>
   <meta name="description" content="" />
   <link rel="icon" type="image/x-icon" href="#" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -14,29 +14,22 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
     rel="stylesheet" />
-
-  <!-- Icons. Uncomment required icon fonts -->
   <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/boxicons.css') }}" />
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
-  <!-- Core CSS -->
   <link rel="stylesheet" href="{{ asset('assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
   <link rel="stylesheet" href="{{ asset('assets/vendor/css/theme-default.css') }}"
     class="template-customizer-theme-css" />
   <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
-
-  <!-- Vendors CSS -->
   <link rel="stylesheet" href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
   <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}" />
-  <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-auth.css') }}" />
-  <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
-
+  <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
+  <script src="{{ asset('assets/js/config.js') }}"></script>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/5.0.7/sweetalert2.min.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-
-  @vite(['resources/css/app.css', 'resources/js/app.js'])
+  <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
 
   @livewireStyles
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body>
@@ -76,13 +69,13 @@
             <li class="menu-item {{ request()->route()->named('orders')? 'active': '' }}">
               <a href="{{ route('orders') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-money"></i>
-                <div>{{ __('Sales') }}</div>
+                <div>{{ __('Client orders') }}</div>
               </a>
             </li>
-            {{-- <li class="menu-item {{ request()->route()->named('add-order')? 'active': '' }}">
-              <a href="{{ route('add-order') }}" class="menu-link">
+            {{-- <li class="menu-item {{ request()->route()->named('client-orders')? 'active': '' }}">
+              <a href="{{ route('client-orders') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-cart"></i>
-                <div>{{ __('Add Sale') }}</div>
+                <div>{{ __('All orders') }}</div>
               </a>
             </li> --}}
             <li class="menu-item {{ request()->route()->named('add-record')? 'active': '' }}">
@@ -112,27 +105,39 @@
             <li class="menu-header small text-uppercase ">
               <span class="menu-header-text">{{ __('Account') }}</span>
             </li>
-            <li class="menu-item {{ request()->route()->named('profile')? 'active': '' }}">
-              <a href="{{ route('profile') }}" class="menu-link">
+            <li class="menu-item {{ request()->route()->named('user.profile')? 'active': '' }}">
+              <a href="{{ route('user.profile') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user-circle"></i>
                 <div>{{ __('Profile') }}</div>
               </a>
             </li>
 
             @can('is-admin')
+              <li class="menu-item {{ request()->route()->named('clients')? 'active': '' }}">
+                <a href="{{ route('clients') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-group"></i>
+                  <div>{{ __('Clients') }}</div>
+                </a>
+              </li>
+              <li class="menu-item {{ request()->route()->named('measurements')? 'active': '' }}">
+                <a href="{{ route('measurements') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-group"></i>
+                  <div>{{ __('Measurements') }}</div>
+                </a>
+              </li>
               <li class="menu-item {{ request()->route()->named('users')? 'active': '' }}">
                 <a href="{{ route('users') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-group"></i>
                   <div>{{ __('Users') }}</div>
                 </a>
               </li>
+              <li class="menu-item {{ request()->route()->named('add-user')? 'active': '' }}">
+                <a href="{{ route('add-user') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-user-plus"></i>
+                  <div data-i18n="Basic">{{ __('Add User') }}</div>
+                </a>
+              </li>
             @endcan
-            <li class="menu-item {{ request()->route()->named('add-user')? 'active': '' }}">
-              <a href="{{ route('add-user') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-user-plus"></i>
-                <div data-i18n="Basic">{{ __('Add User') }}</div>
-              </a>
-            </li>
             <!-- Misc -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
             <li class="menu-item">
@@ -224,7 +229,7 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="{{ route('profile') }}">
+                      <a class="dropdown-item" href="{{ route('user.profile') }}">
                         <i class="bx bx-user-detail me-2"></i>
                         <span class="align-middle">{{ __('My Profile') }}</span>
                       </a>
@@ -236,15 +241,15 @@
                       <a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
 
-                        <span class="me-2
-                                                pwr-icon"><svg
-                            xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24"
+                        <span class="me-2 pwr-icon">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24"
                             style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;">
                             <path
                               d="M12 21c4.411 0 8-3.589 8-8 0-3.35-2.072-6.221-5-7.411v2.223A6 6 0 0 1 18 13c0 3.309-2.691 6-6 6s-6-2.691-6-6a5.999 5.999 0 0 1 3-5.188V5.589C6.072 6.779 4 9.65 4 13c0 4.411 3.589 8 8 8z">
                             </path>
                             <path d="M11 2h2v10h-2z"></path>
-                          </svg></span>
+                          </svg>
+                        </span>
                         <span class="align-middle">{{ __('Log Out') }}</span>
                       </a>
                       <form action="{{ route('logout') }}" method="POST" id="logout-form">
@@ -312,17 +317,12 @@
   <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
   <script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
   <script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
-
   <script src="{{ asset('assets/vendor/js/menu.js') }}"></script>
   <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
   <script src="{{ asset('assets/js/main.js') }}"></script>
   <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
-
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
   <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
-
-  <script src="{{ asset('assets/js/config.js') }}"></script>
-  <script src="{{ asset('assets/js/custom.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
   <script>
     $('body').on('keyup', '#search', function() {
@@ -359,6 +359,11 @@
         }
       })
     })
+  </script>
+  <script>
+    $(document).ready(function() {
+      $('#client').select2();
+    });
   </script>
 
   @yield('script')

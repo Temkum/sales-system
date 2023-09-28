@@ -31,7 +31,7 @@
     <!-- modernizr js -->
     <script src="js/modernizr-2.8.3.min.js"></script>
 
-    @vite('resources/js/app.js', 'vendor/courier/build')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
   </head>
 
   <body>

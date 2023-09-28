@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\CartItems;
+use App\Models\Client as ModelsClient;
 use App\Models\Order;
 use App\Notifications\OrderTransaction;
 use Illuminate\Support\Facades\Notification;
@@ -12,9 +13,8 @@ use Twilio\Rest\Client;
 
 class NewRecord extends Component
 {
-    public $name, $phone, $address, $due_date, $status, $description, $prod_qty, $sale_code;
+    public $due_date, $status, $description, $prod_qty;
     public $balance, $advance, $price, $quantity = 0;
-    public $product_code;
     public $items = [];
     public $msg = '';
     public $items_in_cart;
@@ -24,8 +24,9 @@ class NewRecord extends Component
     public $i = 1;
     public $itemId;
 
-    public $epaule, $taille_t, $taille_b, $dos, $bassin_t, $bassin_b, $poitrine, $fesse, $cuisses, $l_taille, $longueur, $l_total, $fond, $braquette, $l_manche, $pied, $t_manche, $col, $nb_poches_t, $nb_poches_b = '0';
-    public $data = [];
+    public $clients;
+    public $client_id;
+    public $search;
 
     protected $listeners = [
         'delete' => 'removeFromCart',
@@ -36,6 +37,7 @@ class NewRecord extends Component
     public function mount()
     {
         $this->items_in_cart = CartItems::all();
+        $this->clients = ModelsClient::all();
     }
 
     public function render()
@@ -45,7 +47,10 @@ class NewRecord extends Component
             $this->balance = $total_amt;
         }
 
-        return view('livewire.admin.new-record')->extends('base');
+        $clients = ModelsClient::where('name', 'like', '%' . $this->search . '%')
+            ->orWhere('code', 'LIKE', '%' . $this->search . '%')->get();
+
+        return view('livewire.admin.new-record', ['clients' => $clients])->extends('base');
     }
 
     public function addItem()
@@ -165,14 +170,11 @@ class NewRecord extends Component
     }
 
     protected $rules = [
-        'name' => 'required|min:3',
-        'phone' => 'required',
-        'address' => 'required',
+        'client_id' => 'required',
         'advance' => 'required|numeric',
         'balance' => 'required|numeric',
         'due_date' => 'required',
         'description' => 'required',
-        'sale_code' => 'required|min:4',
     ];
 
     public function updated($fields)
@@ -180,18 +182,19 @@ class NewRecord extends Component
         $this->validateOnly($fields);
     }
 
+    /**
+     * Adds a sale to the database and sends an SMS notification.
+     *
+     * @throws \Throwable if there was an error sending the SMS
+     */
     public function addSale()
     {
         $this->validate();
 
-        $sale_code = strtoupper($this->sale_code);
         $this->price = $this->items_in_cart->sum('item_price');
 
         $sale = new Order();
-        $sale->sale_code = $sale_code;
-        $sale->name = $this->name;
-        $sale->phone = $this->phone;
-        $sale->address = $this->address;
+        $sale->client_id = $this->client_id;
         $sale->price = $this->items_in_cart->sum('item_price');
         $sale->quantity = $this->items_in_cart->sum('item_qty');
         $sale->advance = $this->advance;
@@ -200,7 +203,6 @@ class NewRecord extends Component
         $sale->description = $this->description;
         $sale->status = 'processing';
         $sale->items = $this->items_in_cart;
-        $sale->measurements = $this->data;
         $sale->save();
 
         // clear items in cart db
@@ -208,32 +210,51 @@ class NewRecord extends Component
             $item->delete();
         }
 
-        // $twilio = new Client(config('services.twilio.account_sid'), config('services.twilio.auth_token'));
+        $twilio = new Client(config('services.twilio.account_sid'), config('services.twilio.auth_token'));
+        $msg_body = __("Order placed successfully!");
 
-        /* $sid    = "AC92709586c4906001fd2abd4014d5af2e";
-        $token  = "3ed4e72e23279efd94dee8d8bca77305";
-        $twilio = new Client($sid, $token);
+        try {
+            $message = $twilio->messages
+                ->create(
+                    "+237675827455", // to
+                    array(
+                        "from" => "+12177278323",
+                        "body" => $msg_body
+                    )
+                );
 
-        $message = $twilio->messages
-            ->create(
-                "+237675827455", // to
-                array(
-                    "from" => "+12177278323",
-                    "body" => "Order placed successfully!"
-                )
-            ); */
-
-        Notification::route('vonage', env('VONAGE_SMS_FROM'))
-            ->notify(new OrderTransaction());
+            $whatsap = $twilio->messages
+                ->create(
+                    "+237675827455", // to
+                    array(
+                        "from" => "+12177278323",
+                        "body" => $msg_body
+                    )
+                );
+        } catch (\Throwable $th) {
+            notyf()
+                ->position('x', 'left')
+                ->position('y', 'center')
+                ->addInfo('Something went wrong. </br> Could not send message!');
+            throw $th;
+        }
 
         notyf()
             ->position('x', 'right')
             ->position('y', 'top')
             ->addSuccess('Record added successfully!');
-        redirect()->to('admin/orders');
+
+        redirect(route('client-orders'));
     }
 
-    public function confirmDelete(int $id)
+    /**
+     * Confirm deletion of a record.
+     *
+     * @param int $id The ID of the record to be deleted.
+     * @throws Some_Exception_Class Exception thrown if there is an error confirming deletion.
+     * @return void
+     */
+    public function confirmDelete(int $id): void
     {
         $this->dispatchBrowserEvent('swal-confirm', [
             'type' => 'warning',

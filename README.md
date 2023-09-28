@@ -1021,3 +1021,59 @@ In the task claiming view, include the TaskDetails component to display the task
 ```
 
 With these steps, you can create a system where users can claim tasks with time limits using Laravel Livewire. You can further customize this system by adding validation, notifications, and other features as needed.
+
+<!-- Group orders by client -->
+
+Certainly! To create a UI where the orders are grouped under each client and can be shown or hidden when clicked, you can use JavaScript and CSS to toggle the visibility of the orders.
+
+Here's an example of how you can modify the code to achieve this:
+
+1. Update the view file `livewire.admin.order-list.blade.php` to include the necessary HTML structure and classes:
+
+```html
+@foreach ($clientsWithOrders as $client)
+<div class="client">
+    <h2 class="client-name">{{ $client->name }}</h2>
+    <ul class="orders-list">
+        @foreach ($client->orders as $order)
+        <li class="order">
+            {{ $order->order_number }} - {{ $order->description }}
+        </li>
+        @endforeach
+    </ul>
+</div>
+@endforeach
+```
+
+2. Add CSS styles to hide the orders by default and style the client name as a clickable element:
+
+```css
+.client .orders-list {
+    display: none;
+}
+
+.client-name {
+    cursor: pointer;
+    text-decoration: underline;
+}
+```
+
+3. Add JavaScript code to toggle the visibility of the orders when the client name is clicked:
+
+```javascript
+document.addEventListener("DOMContentLoaded", function () {
+    const clientNames = document.querySelectorAll(".client-name");
+
+    clientNames.forEach(function (clientName) {
+        clientName.addEventListener("click", function () {
+            const ordersList = this.nextElementSibling;
+            ordersList.style.display =
+                ordersList.style.display === "none" ? "block" : "none";
+        });
+    });
+});
+```
+
+With this code, when a client name is clicked, the associated orders list will be shown or hidden.
+
+

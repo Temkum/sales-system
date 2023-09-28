@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\Client as ModelsClient;
 use App\Models\Order;
 use App\Notifications\OrderTransaction;
 use Illuminate\Notifications\Messages\VonageMessage;
@@ -21,8 +22,9 @@ class Orders extends Component
     public Int $page_number;
     public $msg = '';
     public $updateMode = false;
-    public $sale_code, $price, $advance, $quantity, $description, $due_date, $name, $balance;
+    public $price, $advance, $quantity, $description, $due_date, $balance;
     public $current_page = 1;
+    public $client_id;
 
     use WithPagination;
 
@@ -35,24 +37,27 @@ class Orders extends Component
 
     public function render()
     {
-        $this->page_number = 10;
+        $this->page_number = 15;
         $this->page = $this->current_page;
 
-        $orders = Order::where('name', 'LIKE', '%' . $this->search . '%')
-            ->orWhere('price', 'LIKE', '%' . $this->search . '%')
-            ->orWhere('sale_code', 'LIKE', '%' . $this->search . '%')
-            ->orWhere('advance', 'LIKE', '%' . $this->search . '%')
-            ->orWhere('balance', 'LIKE', '%' . $this->search . '%')
-            ->orWhere('status', 'LIKE', '%' . $this->search . '%')
-            ->orWhere('phone', 'LIKE', '%' . $this->search . '%')
-            ->orWhere('address', 'LIKE', '%' . $this->search . '%')->orderBy('created_at', 'DESC')->paginate($this->page_number);
+        $orders = Order::query()
+            ->join('clients', 'orders.client_id', '=', 'clients.id')
+            ->where('orders.price', 'LIKE', '%' . $this->search . '%')
+            ->orWhere('orders.advance', 'LIKE', '%' . $this->search . '%')
+            ->orWhere('orders.balance', 'LIKE', '%' . $this->search . '%')
+            ->orWhere('orders.status', 'LIKE', '%' . $this->search . '%')
+            ->orWhere('clients.name', 'LIKE', '%' . $this->search . '%')
+            ->select('orders.*', 'clients.name as client_name')
+            ->orderBy('orders.created_at', 'DESC')->paginate($this->page_number);
+
+        if ($this->client_id) {
+            $orders->where("orders.client_id", $this->client_id);
+        }
 
         if (($this->start_date && $this->end_date) && $this->start_date) {
             $orders = Order::where('created_at', '>=', $this->start_date)
-                ->where('created_at', '<=', $this->end_date)->paginate(10);
+                ->where('created_at', '<=', $this->end_date)->paginate($this->page_number);
         }
-
-        // $this->resetPage();
 
         return view('livewire.admin.orders', ['orders' => $orders])->extends('base');
     }
@@ -74,54 +79,41 @@ class Orders extends Component
 
         if ($status == 'completed') {
             $sale->date_delivered = DB::raw('CURRENT_DATE');
+            /*
+            try {         
+            // vonage api               
+            /* Notification::route('vonage', env('VONAGE_SMS_FROM'))
+                    ->notify(new OrderTransaction()); 
+            } catch (\Throwable $th) {
+                return noty()->progressBar(false)->addError('Something went wrong. </br> Could not send message!');
+            }
+            */
+
+            $twilio = new Client(config('services.twilio.account_sid'), config('services.twilio.auth_token'));
+            $msg_body = __("Your order has been completed. Please drop by the shop to pick it up. Thanks for trusting us! Call +237 650-858-532 for more information.");
 
             try {
-                // SMS
-                $sid    = "AC92709586c4906001fd2abd4014d5af2e";
-                $token  = "3ed4e72e23279efd94dee8d8bca77305";
-                $twilio = new Client($sid, $token);
-
-                /*  $message = $twilio->messages
-                    ->create(
-                        "+237679947838", // to
-                        [
-                            "from" => "+12177278323",
-                            "body" => "Your order has been completed. Please come by the shop to pick it up. Thanks for trusting us!"
-                        ]
-                    ); */
-
-                // whatsapp
-                /* $sid = env("TWILIO_ACCOUNT_SID");
-                $token = env("TWILIO_AUTH_TOKEN");
-                $twilio = new Client($sid, $token);
-
                 $message = $twilio->messages
                     ->create(
                         "+237675827455", // to
-                        [
-                            "from" => env('TWILIO_FROM_NUMBER'),
-                            "body" => "Hello there Super Dev!"
-                        ]
-                    ); */
-
-                /* $sid    = "AC92709586c4906001fd2abd4014d5af2e";
-                $token  = "3ed4e72e23279efd94dee8d8bca77305";
-                $twilio = new Client($sid, $token);
-
-                $message = $twilio->messages
-                    ->create(
-                        "+237679947838", // to
-                        [
+                        array(
                             "from" => "+12177278323",
-                            "body" => "Your order has been completed. Please come by the shop to pick it up. Thanks for trusting us!"
-                        ]
-                    ); */
+                            "body" => $msg_body
+                        )
+                    );
 
-                // vonage api                
-                /* Notification::route('vonage', env('VONAGE_SMS_FROM'))
-                    ->notify(new OrderTransaction()); */
+                // whatsapp msg
+                $whatsap_message = $twilio->messages
+                    ->create(
+                        "whatsapp:+23775827455", // to
+                        array(
+                            "from" => "whatsapp:+14155238886",
+                            "body" => $msg_body
+                        )
+                    );
             } catch (\Throwable $th) {
-                return noty()->progressBar(false)->addError('Something went wrong. </br> Could not send message!');
+                noty()->progressBar(false)->addError('Something went wrong. </br> Could not send message!');
+                throw $th;
             }
         } elseif ($status == 'cancelled') {
             $sale->date_cancelled = DB::raw('CURRENT_DATE');
@@ -160,6 +152,11 @@ class Orders extends Component
         }
     }
 
+    /**
+     * Retrieves the deleted records from the database.
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
     public function deletedRecords()
     {
         $deleted_records = Order::onlyTrashed()->paginate(20);

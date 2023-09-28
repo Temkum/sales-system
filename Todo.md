@@ -13,3 +13,7 @@ script:{
 
 }
 ```
+
+https://www.phind.com/agent?cache=cll1gbxrj002ekz08uicp6kob
+
+https://www.phind.com/agent?cache=cllc5o4700098la08idac35oj
