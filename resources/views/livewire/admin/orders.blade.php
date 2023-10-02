@@ -5,7 +5,7 @@
     <div class="card-header d-flex justify-content-between mb-4">
       <div class="search-box">
         <form>
-          <input type="text" id="search" placeholder="{{ __('Search item...') }}" class="form-control w-75"
+          <input type="text" id="search" placeholder="{{ __('Search item') }}" class="form-control w-75"
             wire:model="search" name="search" />
         </form>
       </div>
@@ -56,11 +56,11 @@
                     <td>{{ number_format($order->advance) }}</td>
                     <td>
                       @if ($order->status == 'completed')
-                        <span class="badge bg-success me-1">{{ $order->status }}</span>
+                        <span class="badge bg-success me-1">{{ __('Completed') }}</span>
                       @elseif($order->status == 'cancelled')
-                        <span class="badge bg-secondary me-1">{{ $order->status }}</span>
+                        <span class="badge bg-secondary me-1">{{ __('Cancelled') }}</span>
                       @elseif($order->status == 'due')
-                        <span class="badge bg-danger me-1">{{ $order->status }}</span>
+                        <span class="badge bg-danger me-1">{{ __('Due') }}</span>
                       @else
                         <span class="badge bg-label-primary">{{ __('Processing') }}</span>
                       @endif
@@ -68,7 +68,7 @@
                     <td>{{ $order->balance == 0 ? __('Fully paid') : $order->balance }}</td>
                     <td>
                       <div class="dropdown">
-                        <button class="btn btn-sm btn-secondary dropdown-toggle" type="button"
+                        <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button"
                           data-bs-toggle="dropdown" aria-expanded="false">
                           {{ __('Status') }}
                         </button>
@@ -88,18 +88,21 @@
                         </ul>
                       </div>
                     </td>
-                    <td class="btn-group">
-                      <a class="btn btn-sm btn-outline-primary"
-                        href="{{ route('order-details', ['order_id' => $order->id]) }}">
-                        {{ __('View') }}
-                      </a>
-                      <a class="btn btn-sm btn-outline-secondary"
-                        href="{{ route('update', ['order_id' => $order->id]) }}">
-                        {{ __('edit') }}
-                      </a>
-                      <button class="btn btn-sm btn-outline-danger" role="button"
-                        wire:click="confirmDelete({{ $order->id }})">{{ __('Delete') }}
-                      </button>
+                    <td>
+                      <div class="btn-group">
+                        <a class="btn btn-sm btn-outline-primary"
+                          href="{{ route('order-details', ['order_id' => $order->id]) }}">
+                          {{ __('View') }}
+                        </a>
+                        <a class="btn btn-sm btn-outline-secondary"
+                          href="{{ route('update', ['order_id' => $order->id]) }}">
+                          {{ __('edit') }}
+                        </a>
+                        <button class="btn btn-sm btn-outline-danger" role="button"
+                          wire:click="confirmDelete({{ $order->id }})">{{ __('Delete') }}
+                        </button>
+
+                      </div>
                     </td>
                   </div>
                 </tr>
