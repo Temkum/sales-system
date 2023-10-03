@@ -6,7 +6,7 @@ import laravel from "laravel-vite-plugin";
 export default defineConfig({
     plugins: [
         laravel({
-            refresh: ["resources/views/**", "app/**"],
+            refresh: ["resources/views/**", "app/**", "resources/**"],
             input: ["resources/css/app.css", "resources/js/app.js"],
         }),
     ],
