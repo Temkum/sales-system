@@ -34,8 +34,8 @@
               <th>{{ __('Code') }}</th>
               <th>{{ __('Client') }}</th>
               <th>{{ __('Price') }} (Fcfa)</th>
-              <th>{{ __('Due Date') }}</th>
-              <th>{{ __('Advance Paid ') }}(Fcfa)</th>
+              <th>{{ __('Due date') }}</th>
+              <th>{{ __('Advance paid') }}(Fcfa)</th>
               <th>{{ __('Status') }}</th>
               <th>{{ __('Balance') }}</th>
               <th>{{ __('Update status') }}</th>

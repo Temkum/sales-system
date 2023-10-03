@@ -28,8 +28,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
   <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
 
-  @livewireStyles
   @vite(['resources/css/app.css', 'resources/js/app.js'])
+  @livewireStyles
 </head>
 
 <body>
@@ -86,7 +86,7 @@
             </li>
             {{-- product --}}
             <li class="menu-header small text-uppercase ">
-              <span class="menu-header-text">{{ __('Product Categories') }}</span>
+              <span class="menu-header-text">{{ __('Product categories') }}</span>
             </li>
             <li class="menu-item {{ request()->route()->named('product-categories')? 'active': '' }}">
               <a href="{{ route('product-categories') }}" class="menu-link">
@@ -139,17 +139,17 @@
               </li>
             @endcan
             <!-- Misc -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ __('Misc') }}</span></li>
             <li class="menu-item">
               <a href="#" target="_blank" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-support"></i>
-                <div data-i18n="Support">Support</div>
+                <div data-i18n="Support">{{ __('Support') }}</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="#" target="_blank" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-file"></i>
-                <div data-i18n="Documentation">Documentation</div>
+                <div data-i18n="Documentation">{{ __('Documentation') }}</div>
               </a>
             </li>
           </ul>

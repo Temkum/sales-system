@@ -16,32 +16,30 @@
             </a>
           </div>
           {{-- <h4 class="mb-2 text-center">Welcome Back!</h4> --}}
-          <p class="mb-4 text-center">Please sign-in to access your account</p>
+          <p class="mb-4 text-center">{{ __('Please sign-in to access your account') }}</p>
 
           <form id="formAuthentication" class="mb-3" action="{{ route('login') }}" method="POST">
             @csrf
             <div class="mb-3">
-              <label for="email" class="form-label ">Email
-                or Username</label>
+              <label for="email" class="form-label ">{{ __('Email') }}</label>
               <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
-                name="email" placeholder="Enter your email or username" autofocus value="{{ old('email') }}"
+                name="email" placeholder="{{ __('Enter your email') }}" autofocus value="{{ old('email') }}"
                 aria-describedby="email" />
               @error('email')
                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
               @enderror
             </div>
             <div class="mb-3 form-password-toggle">
-              <div class="d-flex justify-content-between">
-                <label class="form-label" for="password">Password</label>
-
-              </div>
-              <div class="input-group input-group-merge">
-                <input type="password" id="password" class="form-control @error('password') is-invalid @enderror"
-                  name="password" placeholder="......." aria-describedby="password" />
-                @error('password')
-                  <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                @enderror
-                <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+              <div class="mb-3 form-password-toggle">
+                <label class="form-label" for="password">{{ __('Password') }}</label>
+                <div class="input-group input-group-merge">
+                  <input type="password" id="password" class="form-control @error('password') is-invalid @enderror"
+                    name="password" placeholder="*******" aria-describedby="password" />
+                  <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                  @error('password')
+                    <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                  @enderror
+                </div>
               </div>
             </div>
             <div class="mb-4">
