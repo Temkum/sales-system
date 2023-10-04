@@ -12,10 +12,10 @@
               {{-- <span class="app-brand-logo demo">
                 <img src="" alt="pacho logo">
               </span> --}}
-              <span class="app-brand-text demo text-body fw-bolder">pacho design</span>
+              <span class="app-brand-text demo text-body fw-bolder mb-4">pacho design</span>
             </a>
           </div>
-          {{-- <h4 class="mb-2 text-center">Welcome Back!</h4> --}}
+          <h4 class="mb-2 text-center">{{ __('Welcome back') }}</h4>
           <p class="mb-4 text-center">{{ __('Please sign-in to access your account') }}</p>
 
           <form id="formAuthentication" class="mb-3" action="{{ route('login') }}" method="POST">
@@ -46,10 +46,10 @@
               <div class="form-check d-flex justify-content-between">
                 <div>
                   <input class="form-check-input" type="checkbox" id="remember-me" />
-                  <label class="form-check-label" for="remember-me"> {{ __('Remember Me') }} </label>
+                  <label class="form-check-label" for="remember-me"> {{ __('Remember me') }} </label>
                 </div>
                 <a href="{{ route('password.request') }}">
-                  <small>{{ __('Forgot Password?') }}</small>
+                  <small>{{ __('Forgot password?') }}</small>
                 </a>
               </div>
             </div>

@@ -20,7 +20,7 @@
             <div class="col-md-6 col-lg-7">
               <select class="form-select mt-2 col-5 customized-select @error('client_id') is-invalid @enderror"
                 id="client_id" wire:model="client_id">
-                <option value="">{{ __('Select Client') }}</option>
+                <option value="">{{ __('Select client') }}</option>
                 @foreach ($clients as $client)
                   <option value="{{ $client->id }}">{{ $client->name }}</option>
                 @endforeach
@@ -32,7 +32,7 @@
             <div class="col-md-3">
               <a href="{{ route('add-client') }}" class="btn btn-success btn-sm">
                 <i class="bx bx-plus"></i>
-                {{ __('New') }}
+                {{ __('New client') }}
               </a>
             </div>
           </div>
@@ -163,7 +163,7 @@
                 </div>
               </div>
               <div class="mb-3 row">
-                <label for="html5-number-input" class="col-md-2 col-form-label">{{ __('Advance Paid') }}</label>
+                <label for="html5-number-input" class="col-md-2 col-form-label">{{ __('Advance paid') }}</label>
                 <div class="col-md-10">
                   <input class="form-control" type="number" placeholder="0.00" wire:model="advance" maxlength="15"
                     min="0" value="{{ old('advance') }}">
@@ -174,7 +174,7 @@
               </div>
 
               <div class="mb-3 row">
-                <label for="html5-datetime-local-input" class="col-md-2 col-form-label">{{ __('Due Date') }}</label>
+                <label for="html5-datetime-local-input" class="col-md-2 col-form-label">{{ __('Due date') }}</label>
                 <div class="col-md-10 col-sm-12">
                   <input class="form-control" type="datetime-local" placeholder="2023-06-18T12:30:00"
                     id="html5-datetime-local-input" wire:model="due_date" value="{{ old('due_date') }}">

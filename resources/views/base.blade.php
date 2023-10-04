@@ -85,7 +85,7 @@
               </a>
             </li>
             {{-- product --}}
-            <li class="menu-header small text-uppercase ">
+            {{-- <li class="menu-header small text-uppercase ">
               <span class="menu-header-text">{{ __('Product categories') }}</span>
             </li>
             <li class="menu-item {{ request()->route()->named('product-categories')? 'active': '' }}">
@@ -99,17 +99,11 @@
                 <i class="menu-icon tf-icons bx bx-duplicate"></i>
                 <div>{{ __('Add Product') }}</div>
               </a>
-            </li>
+            </li> --}}
 
             {{-- account --}}
             <li class="menu-header small text-uppercase ">
               <span class="menu-header-text">{{ __('Account') }}</span>
-            </li>
-            <li class="menu-item {{ request()->route()->named('user.profile')? 'active': '' }}">
-              <a href="{{ route('user.profile') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-user-circle"></i>
-                <div>{{ __('Profile') }}</div>
-              </a>
             </li>
 
             @can('is-admin')
@@ -138,6 +132,13 @@
                 </a>
               </li>
             @endcan
+
+            <li class="menu-item {{ request()->route()->named('user.profile')? 'active': '' }}">
+              <a href="{{ route('user.profile') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-user-circle"></i>
+                <div>{{ __('Profile') }}</div>
+              </a>
+            </li>
             <!-- Misc -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ __('Misc') }}</span></li>
             <li class="menu-item">

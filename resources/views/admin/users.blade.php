@@ -7,13 +7,13 @@
     <div class="card-header d-flex justify-content-between mb-4">
       <h5 class="">
         <a href="{{ route('add-user') }}" class="btn btn-sm btn-success">
-          <i class="bx bx-plus"></i>Create
+          <i class="bx bx-plus"></i>{{ __('Create') }}
         </a>
       </h5>
       {{-- search --}}
       <div class="search-box">
         <form action="" method="GET">
-          <input type="text" id="search" placeholder="Search item..." class="form-control" name="search" />
+          <input type="text" id="search" placeholder="{{ __('Search item') }}" class="form-control" name="search" />
         </form>
       </div>
     </div>
@@ -23,12 +23,12 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Date added</th>
+              <th>{{ __('Name') }}</th>
+              <th>{{ __('Email') }}</th>
+              <th>{{ __('Date added') }}</th>
               {{-- <th>Role</th> --}}
               {{-- <th>Status</th> --}}
-              <th>Actions</th>
+              <th>{{ __('Actions') }}</th>
             </tr>
           </thead>
           <tbody class="allOrders">
@@ -54,9 +54,9 @@
                   <td>
                     <div class="d-flex">
                       <a class="me-4 btn btn-sm btn-outline-primary" href="{{ route('edit-user', $user->id) }}">
-                        Edit</a>
+                        {{ __('Edit') }}</a>
                       <button class="btn btn-sm btn-outline-danger" role="button"
-                        onclick="event.preventDefault(); document.getElementById('delete-user-form-{{ $user->id }}').submit(); return confirm('Are you sure?')">Delete</button>
+                        onclick="event.preventDefault(); document.getElementById('delete-user-form-{{ $user->id }}').submit(); return confirm('Are you sure?')">{{ __('Delete') }}</button>
                       <form action="{{ route('delete-user', $user->id) }}" method="POST" class="hidden"
                         id="delete-user-form-{{ $user->id }}">
                         @csrf
@@ -69,7 +69,7 @@
               @endforeach
             @else
               <tr>
-                <td colspan='7' class="text-center text-bold"> No users available!</td>
+                <td colspan='7' class="text-center text-bold"> {{ __('No users available') }}</td>
               </tr>
             @endif
           </tbody>
@@ -89,7 +89,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel4">Modify user</h5>
+          <h5 class="modal-title" id="exampleModalLabel4">{{ __('Modify user') }}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -112,7 +112,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel4">New user</h5>
+          <h5 class="modal-title" id="exampleModalLabel4">{{ __('New user') }}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">

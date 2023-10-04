@@ -58,7 +58,7 @@
               @endforeach
             @else
               <tr>
-                <td colspan='7' class="text-center text-bold">No clients available!</td>
+                <td colspan='7' class="text-center text-bold">{{ __('No clients available') }}</td>
               </tr>
             @endif
           </tbody>
