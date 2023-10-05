@@ -58,7 +58,7 @@
                       <input wire:model="item_qty.0" class="form-control" type="number" min="0"
                         placeholder="{{ __('Qty') }}" name="item_qty" required>
                       @error('item_qty')
-                        <span class="text-danger error">{{ $message }}</span>
+                        <span class="text-danger error">{{ __($message) }}</span>
                       @enderror
                     </div>
                     <div class="col-lg-4 col-md-5">
@@ -92,21 +92,21 @@
                         <input wire:model="item_name.{{ $value }}" class="form-control" type="text"
                           name="item_name" id="item_name" placeholder="{{ __('Enter item name') }}" required>
                         @error('item_name')
-                          <span class="text-danger error">{{ $message }}</span>
+                          <span class="text-danger error">{{ __($message) }}</span>
                         @enderror
                       </div>
                       <div class="col-lg-2 col-md-3">
                         <input wire:model="item_qty.{{ $value }}" class="form-control" type="number"
                           min="0" placeholder="{{ __('Qty') }}" required>
                         @error('item_qty')
-                          <span class="text-danger error">{{ $message }}</span>
+                          <span class="text-danger error">{{ __($message) }}</span>
                         @enderror
                       </div>
                       <div class="col-lg-4 col-md-5">
                         <input wire:model="item_price.{{ $value }}" class="form-control" type="number"
                           placeholder="{{ __('Enter item price') }}" required>
                         @error('item_price')
-                          <span class="text-danger error">{{ $message }}</span>
+                          <span class="text-danger error">{{ __($message) }}</span>
                         @enderror
                       </div>
                       <div class="col">
@@ -176,7 +176,7 @@
                   <input class="form-control" type="number" placeholder="0.00" wire:model="advance" maxlength="15"
                     min="0" value="{{ old('advance') }}">
                   @error('advance')
-                    <span class="text-danger error">{{ $message }}</span>
+                    <span class="text-danger error">{{ __($message) }}</span>
                   @enderror
                 </div>
               </div>
@@ -187,7 +187,7 @@
                   <input class="form-control" type="datetime-local" placeholder="2023-06-18T12:30:00"
                     id="html5-datetime-local-input" wire:model="due_date" value="{{ old('due_date') }}">
                   @error('due_date')
-                    <span class="text-danger error">{{ $message }}</span>
+                    <span class="text-danger error">{{ __($message) }}</span>
                   @enderror
                 </div>
               </div>
@@ -197,7 +197,7 @@
                 <textarea class="form-control" id="" rows="3" wire:model="description"
                   placeholder="Consigne particulier | Echantillion du tissus">{{ old('description') }}</textarea>
                 @error('description')
-                  <span class="text-danger error">{{ $message }}</span>
+                  <span class="text-danger error">{{ __($message) }}</span>
                 @enderror
               </div>
               <div class="center-item">

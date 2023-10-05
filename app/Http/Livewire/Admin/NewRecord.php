@@ -80,7 +80,7 @@ class NewRecord extends Component
         notyf()
             ->position('x', 'center')
             ->position('y', 'bottom')
-            ->addSuccess('Item removed successfully');
+            ->addSuccess(__('Item removed successfully'));
 
         $this->items_in_cart = $this->items_in_cart->except($id);
     }
@@ -101,7 +101,7 @@ class NewRecord extends Component
         $cart_product = CartItems::find($prod_id);
 
         if ($cart_product->product_qty <= 1) {
-            return flash('warning', "$cart_product->product->prod_name quantity can't be less than 1. Increase the quantity or remove items from cart!");
+            return flash('warning', __("$cart_product->product->prod_name quantity can't be less than 1. Increase the quantity or remove items from cart!"));
         }
 
         $cart_product->decrement('product_qty', 1);
@@ -130,7 +130,7 @@ class NewRecord extends Component
             ->where('item_qty', $this->item_qty)->count();
 
         if ($item_count > 0) {
-            return session()->flash('info', "$cart_item->item_name is already added. Please increase the quantity or price!");
+            return session()->flash('info', __("$cart_item->item_name is already added. Please increase the quantity or price!"));
         } else if ($this->itemId) {
             $item = CartItems::find($this->itemId);
             foreach ($this->item_name as $key => $value) {
@@ -142,7 +142,7 @@ class NewRecord extends Component
                     ]
                 );
             }
-            flash('success', 'Item updated successfully');
+            flash('success', __('Item updated successfully'));
         } else {
             try {
                 foreach ($this->item_name as $key => $value) {
@@ -158,7 +158,7 @@ class NewRecord extends Component
                 }
                 $this->resetInputFields();
             } catch (\Throwable $th) {
-                return noty()->addError('Please check your items input fields and try again!');
+                return noty()->addError(__('Please check your items input fields and try again!'));
             }
         }
 
@@ -166,7 +166,7 @@ class NewRecord extends Component
 
         return notyf()
             ->position('x', 'center')
-            ->position('y', 'bottom')->addSuccess('Items added successfully');
+            ->position('y', 'bottom')->addSuccess(__('Items added successfully'));
     }
 
     protected $rules = [
@@ -235,14 +235,14 @@ class NewRecord extends Component
             notyf()
                 ->position('x', 'left')
                 ->position('y', 'center')
-                ->addInfo('Something went wrong. </br> Could not send message!');
+                ->addInfo(__('Something went wrong. </br> Could not send message!'));
             throw $th;
         }
 
         notyf()
             ->position('x', 'right')
             ->position('y', 'top')
-            ->addSuccess('Record added successfully!');
+            ->addSuccess(__('Order placed successfully!'));
 
         redirect(route('client-orders'));
     }
@@ -258,7 +258,7 @@ class NewRecord extends Component
     {
         $this->dispatchBrowserEvent('swal-confirm', [
             'type' => 'warning',
-            'title' => 'Are you sure?',
+            'title' => __('Are you sure?'),
             'text' => '',
             'id' =>  $id
         ]);
