@@ -30,7 +30,7 @@
               @enderror
             </div>
             <div class="col-md-3">
-              <a href="{{ route('add-client') }}" class="btn btn-success btn-sm">
+              <a href="{{ route('add-client') }}" class="btn btn-primary btn-sm">
                 <i class="bx bx-plus"></i>
                 {{ __('New client') }}
               </a>
@@ -62,17 +62,25 @@
                       @enderror
                     </div>
                     <div class="col-lg-4 col-md-5">
-                      <label for="item-name">{{ __('Price') }}</label>
-                      <input wire:model="item_price.0" class="form-control" type="number"
-                        placeholder="{{ __('Enter item price') }}" name="item_price" required>
-                      @error('item_price')
-                        <span class="text-danger error">{{ $message }}</span>
-                      @enderror
+                      <div class="row">
+                        <div class="col-lg-10">
+                          <label for="item-name">{{ __('Price') }}</label>
+                          <input wire:model="item_price.0" class="form-control" type="number"
+                            placeholder="{{ __('Enter item price') }}" name="item_price" required>
+                          @error('item_price')
+                            <span class="text-danger error">{{ $message }}</span>
+                          @enderror
+                        </div>
+                        <div class="col-lg-2 mt-4">
+                          <button wire:click.prevent="addItem({{ $i }})"
+                            class="btn-primary btn btn-sm add-btn">
+                            {{ __('Add more') }}
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                    <div class="col-lg-2">
-                      <span wire:click.prevent="addItem({{ $i }})" class="btn-primary btn btn-sm add-btn">
-                        {{ __('Add more') }}
-                      </span>
+                    <div class="col-lg-2 col-md-2">
+
                     </div>
                   </div>
                   @if ($msg)
@@ -108,7 +116,7 @@
                       </div>
                     </div>
                   @endforeach
-                  <span class="btn btn-info btn-sm mt-2"
+                  <span class="btn btn-secondary btn-sm mt-2"
                     wire:click.prevent="addOrUpdateItem()">{{ __('Add items') }}</span>
                   <div class="card mt-2">
                     <div class="table-responsive text-nowrap">

@@ -90,6 +90,7 @@
     "Update status": "Mettre à jour le statut",
     "Actions": "Actions",
     "Balance": "Solde",
+    "Balance due": "Somme restee",
     "Status": "Statut",
     "Details": "Details",
     "Order summary": "Résumé de la commande",
@@ -146,5 +147,11 @@
     "Select client": "Sélectionnez le client",
     "New measurement": "Nouvelle mesure",
     "No clients available": "Aucun client disponible",
-    "Client measurements": "Mesures du client"
+    "Client measurements": "Mesures du client",
+    "Amount exceeds agreed price": "",
+    "Change": "",
+    "Growth": "",
+    "The item name field is required.": "",
+    "The item qty field is required": "",
+    "The item price field is required": ""
 }
