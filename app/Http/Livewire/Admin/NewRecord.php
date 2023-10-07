@@ -223,14 +223,14 @@ class NewRecord extends Component
                     )
                 );
 
-            $whatsap = $twilio->messages
-                ->create(
-                    "+237675827455", // to
-                    array(
-                        "from" => "+12177278323",
-                        "body" => $msg_body
-                    )
-                );
+            // $whatsap = $twilio->messages
+            //     ->create(
+            //         "+237675827455", // to
+            //         array(
+            //             "from" => "+12177278323",
+            //             "body" => $msg_body
+            //         )
+            //     );
         } catch (\Throwable $th) {
             notyf()
                 ->position('x', 'left')

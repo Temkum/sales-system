@@ -112,7 +112,7 @@ class Orders extends Component
                         )
                     );
             } catch (\Throwable $th) {
-                noty()->progressBar(false)->addError('Something went wrong. </br> Could not send message!');
+                noty()->progressBar(false)->addError(__('Something went wrong. </br> Could not send message!'));
                 throw $th;
             }
         } elseif ($status == 'cancelled') {
@@ -123,14 +123,14 @@ class Orders extends Component
         return notyf()
             ->position('x', 'center')
             ->position('y', 'bottom')
-            ->duration(2000)->addSuccess('Status updated successfully!');
+            ->duration(2000)->addSuccess(__('Status updated successfully!'));
     }
 
     public function confirmDelete(int $id)
     {
         $this->dispatchBrowserEvent('swal-confirm', [
             'type' => 'warning',
-            'title' => 'Are you sure?',
+            'title' => __('Are you sure?'),
             'text' => '',
             'id' =>  $id
         ]);
@@ -146,9 +146,9 @@ class Orders extends Component
                 ->position('x', 'center')
                 ->position('y', 'top')
                 ->duration(2000)
-                ->addSuccess('Record deleted successfully');
+                ->addSuccess(__('Record deleted successfully'));
         } else {
-            notyf()->position('x', 'right')->position('y', 'top')->addError('Record not found');
+            notyf()->position('x', 'right')->position('y', 'top')->addError(__('Record not found'));
         }
     }
 

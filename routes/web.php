@@ -30,6 +30,7 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Livewire\Admin\AddMeasurement;
 use App\Http\Livewire\Admin\EditMeasurements;
 use App\Http\Livewire\Admin\ModifyOrder;
+use App\Http\Livewire\Admin\OrderReminder;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,6 +94,8 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
 
     Route::get('/contacts', Contacts::class)->name('contacts');
     Route::get('/deleted-records', DeletedRecords::class, 'deletedRecords')->name('deleted-records');
+
+    Route::get('/reminder', OrderReminder::class)->name('order-reminder');
 });
 
 // user

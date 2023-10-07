@@ -11,7 +11,9 @@ class OrderReminder extends Component
 
     public function render()
     {
-        return view('livewire.admin.order-reminder');
+        flash(__("Order reminder has been enabled!"));
+
+        return view('livewire.admin.order-reminder')->extends('base');
     }
 
     function showReminder($order)
