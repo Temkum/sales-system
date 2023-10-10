@@ -115,8 +115,6 @@ class Orders extends Component
                 noty()->progressBar(false)->addError(__('Something went wrong. </br> Could not send message!'));
                 throw $th;
             }
-        } elseif ($status == 'cancelled') {
-            $sale->date_cancelled = DB::raw('CURRENT_DATE');
         }
         $sale->save();
 
