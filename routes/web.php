@@ -96,6 +96,9 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::get('/deleted-records', DeletedRecords::class, 'deletedRecords')->name('deleted-records');
 
     Route::get('/reminder', OrderReminder::class)->name('order-reminder');
+
+    Route::get('/notify', [Orders::class, 'notify']);
+    Route::get('/markread/{id}', [Orders::class, 'markAsRead'])->name('mark-as-read');
 });
 
 // user

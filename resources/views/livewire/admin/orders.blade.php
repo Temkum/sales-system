@@ -9,6 +9,9 @@
             wire:model="search" name="search" />
         </form>
       </div>
+      <a href="">
+        Notifications <span class="badge bg-primary">{{ Auth::user()->unreadNotifications->count() }}</span>
+      </a>
       {{-- date filter --}}
       <div class="date-filter">
         <form>
@@ -25,9 +28,36 @@
           {{-- <button class="btn btn-secondary" type="submit">Filter</button> --}}
         </form>
       </div>
+
+      {{-- <div class="h-20" style="height: 200px; overflow: auto">
+        <ul>
+          @foreach ($notifications as $notification)
+            <li>
+              Order #{{ $notification['order_id'] }} is due on {{ $notification['due_date'] }}
+              <button onclick="markAsRead('{{ $notification['id'] }}')" class="btn btn-info">Mark as read</button>
+            </li>
+          @endforeach
+        </ul>
+      </div> --}}
+
     </div>
     <div class="card-body">
       <div class="">
+        @if (Auth::user()->unreadNotifications->count() > 0)
+          <div class="h-20" style="height: 200px; overflow: auto">
+            <ul>
+              @foreach ($notifications as $notification)
+                <li>
+                  <a href="{{ $notification->data['action_url'] ?? '' }}">{{ $notification->data['message'] }}</a>
+                  <button wire:click.prevent="markAsRead('{{ $notification['id'] }}')"
+                    class="btn btn-sm btn-primary">{{ __('Mark as read') }}</button>
+                  {{-- <a href="{{ route('mark-as-read', $notification['id']) }}" class="btn btn-primary">Mark as read</a> --}}
+                </li>
+              @endforeach
+
+            </ul>
+          </div>
+        @endif
         <table class="table order-table table-responsive">
           <thead>
             <tr>

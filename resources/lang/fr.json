@@ -176,5 +176,8 @@
     "Something went wrong. <br> Could not send message!": "Désolé, une erreur est survenue. </br> Impossible d'envoyer le message !",
     "Record deleted successfully": "Enregistrement supprimé avec succès",
     "Are you sure?": "Etes-vous sûr ?",
-    "Quantity can't be less than 1. Increase the quantity or remove the item!": "La quantité ne peut pas être moins de 1. Augmentez la quantité ou supprimez l'article !"
+    "Quantity can't be less than 1. Increase the quantity or remove the item!": "La quantité ne peut pas être moins de 1. Augmentez la quantité ou supprimez l'article !",
+    "Mark as read": "",
+    "The due date for your order is approaching.": "",
+    "You have orders expiring soon! Please check your notifications": ""
 }
