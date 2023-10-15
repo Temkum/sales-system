@@ -222,12 +222,12 @@
                     </li>
                     <li class="dropdown-notifications-list scrollable-container">
                       <ul class="list-group list-group-flush">
-                        @foreach ($notifications as $notification)
+                        @foreach ($notifications->take(6) as $notification)
                           <li class="list-group-item list-group-item-action dropdown-notifications-item">
                             <div class="d-flex">
                               <div class="flex-shrink-0 me-3">
                                 <div class="avatar">
-                                  <img src="{{ asset('assets/img/avatars/1.png') }}" alt
+                                  <img src="{{ asset('assets/img/avatars/avatar.jpg') }}" alt="user-avatar"
                                     class="w-px-40 h-auto rounded-circle">
                                 </div>
                               </div>
@@ -251,9 +251,10 @@
                         @endforeach
                       </ul>
                     </li>
-                    <li class="dropdown-menu-footer border-top p-3">
-                      <button class="btn btn-primary text-uppercase w-100">view all notifications</button>
-                    </li>
+                    {{-- <li class="dropdown-menu-footer border-top p-3">
+                      <button
+                        class="btn btn-primary text-uppercase w-100 view-all-notifications">{{ __('view all notifications') }}</button>
+                    </li> --}}
                   </ul>
                 </li>
                 <!-- User -->

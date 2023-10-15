@@ -50,7 +50,7 @@ class Orders extends Component
                 ->position('y', 'top')
                 ->addError(__('You have orders expiring soon! Please check your notifications'));
         }
-        // $this->notify();
+        $this->orderNotify();
     }
 
     public function render()
@@ -203,18 +203,34 @@ class Orders extends Component
         return back();
     }
 
-    public function notify()
+    /*  public function orderNotify()
     {
         $orders = Order::where('status', '!=', 'completed')
             ->where(function ($query) {
                 $query->where('status', 'due')
-                    ->orWhereDate('due_date', '>=', now());
+                    ->orWhereDate('due_date', '>=', now()->addDays(3));
             })->get();
 
         foreach ($orders as $order) {
             auth()->user()->notify(new OrderDueDateReminder($order));
         }
+    }
+ */
+    public function orderNotify()
+    {
+        $orders = Order::where('status', '!=', 'completed')
+            ->where(function ($query) {
+                $query->where('status', 'due')
+                    ->orWhereDate('due_date', '>=', now()->addDays(3));
+            })->whereNotExists(function ($query) {
+                $query->select(DB::raw(1))
+                    ->from('notifications')
+                    ->whereRaw('JSON_EXTRACT(data, "$.order_id") = orders.id')
+                    ->where('notifications.type', 'App\Notifications\OrderDueDateReminder');
+            })->get();
 
-        return redirect(route('orders'));
+        foreach ($orders as $order) {
+            auth()->user()->notify(new OrderDueDateReminder($order));
+        }
     }
 }
