@@ -1,4 +1,4 @@
-@extends('base')
+@extends('auth.auth-base')
 
 @section('content')
   <div class="authentication-wrapper authentication-basic container-p-y">

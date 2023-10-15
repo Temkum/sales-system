@@ -182,12 +182,13 @@
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 {{-- language --}}
-                <li class="nav-item lh-1 me-3">
+                <li class="nav-item lh-1 me-1">
                   <div class="btn-group" id="dropdown-icon-demo">
                     @if (count(config('app.languages')) > 1)
                       <button type="button" class="btn btn-sm dropdown-toggle" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        <img src="{{ asset('assets/icons/united-states.png') }}" alt="ENG" width="25px">
+                        <i class="bx bx-globe bx-sm"></i>
+                        {{-- <img src="{{ asset('assets/icons/france.png') }}" alt="ENG" width="25px"> --}}
                       </button>
                       <ul class="dropdown-menu" style="">
                         @foreach (config('app.languages') as $lang_locale => $lang_name)
