@@ -73,6 +73,12 @@ div.disable-row {
     }
 }
 
+.dropdown-notifications {
+    .dropdown-menu {
+        width: 350px;
+    }
+}
+
 @media screen and (max-width:428px) {
     .measurement-table {
         width: 100%;

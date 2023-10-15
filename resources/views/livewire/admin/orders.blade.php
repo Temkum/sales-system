@@ -9,9 +9,6 @@
             wire:model="search" name="search" />
         </form>
       </div>
-      <a href="">
-        Notifications <span class="badge bg-primary">{{ Auth::user()->unreadNotifications->count() }}</span>
-      </a>
       {{-- date filter --}}
       <div class="date-filter">
         <form>
@@ -43,7 +40,7 @@
     </div>
     <div class="card-body">
       <div class="">
-        @if (Auth::user()->unreadNotifications->count() > 0)
+        {{-- @if (Auth::user()->unreadNotifications->count() > 0)
           <div class="h-20" style="height: 200px; overflow: auto">
             <ul>
               @foreach ($notifications as $notification)
@@ -51,13 +48,12 @@
                   <a href="{{ $notification->data['action_url'] ?? '' }}">{{ $notification->data['message'] }}</a>
                   <button wire:click.prevent="markAsRead('{{ $notification['id'] }}')"
                     class="btn btn-sm btn-primary">{{ __('Mark as read') }}</button>
-                  {{-- <a href="{{ route('mark-as-read', $notification['id']) }}" class="btn btn-primary">Mark as read</a> --}}
+                  <a href="{{ route('mark-as-read', $notification['id']) }}" class="btn btn-primary">Mark as read</a>
                 </li>
               @endforeach
-
             </ul>
           </div>
-        @endif
+        @endif --}}
         <table class="table order-table table-responsive">
           <thead>
             <tr>

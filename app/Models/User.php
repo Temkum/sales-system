@@ -78,9 +78,4 @@ class User extends Authenticatable implements MustVerifyEmail
         # code...
         return null !== $this->roles()->whereIn('name', $role)->first();
     }
-
-    public function sendDueDateNotification()
-    {
-        $this->notify(new OrderDueDateReminder($this));
-    }
 }

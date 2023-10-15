@@ -45,7 +45,10 @@ class Orders extends Component
         $this->notifications = Auth::user()->unreadNotifications;
 
         if ($this->notifications->count() > 0) {
-            notyf()->position('x', 'right')->position('y', 'top')->addError(__('You have orders expiring soon! Please check your notifications'));
+            notyf()
+                ->position('x', 'center')
+                ->position('y', 'top')
+                ->addError(__('You have orders expiring soon! Please check your notifications'));
         }
         // $this->notify();
     }
@@ -187,14 +190,6 @@ class Orders extends Component
      * @return Illuminate\Http\RedirectResponse The redirect response.
      */
 
-    /* public function markAsRead($id)
-    {
-        if ($id) {
-            auth()->user()->unreadNotifications->where('id', $id)->markAsRead();
-        }
-        return back();
-    } */
-
     public function markAsRead($id)
     {
         if ($id) {
@@ -207,21 +202,6 @@ class Orders extends Component
 
         return back();
     }
-
-    /* public function notify()
-    {
-        $orders = Order::where('status', '!=', 'completed')
-            ->orWhere('status', 'due')
-            ->orWhereDate('due_date', '>=', now())->get();
-
-            $orders = Order::where('status', '!=', 'completed')
-            ->where(function ($query) {
-                $query->where('status', 'due')
-                    ->orWhereDate('due_date', '>=', now());
-            })->get();
-
-        auth()->user()->notify(new OrderDueDateReminder($orders));
-    } */
 
     public function notify()
     {
