@@ -241,7 +241,7 @@ class NewRecord extends Component
 
         notyf()
             ->position('x', 'right')
-            ->position('y', 'top')
+            ->position('y', 'bottom')
             ->addSuccess(__('Order placed successfully!'));
 
         redirect(route('client-orders'));

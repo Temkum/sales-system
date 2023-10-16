@@ -229,7 +229,7 @@
             </div>
             <div class="d-flex flex-column align-items-center gap-1">
               @if ((int) $advance == $this->items_in_cart->sum('item_price') && $this->items_in_cart->sum('item_price'))
-                <small class="mb-2 badge bg-info">{{ __('Fully Paid') }}</small>
+                <small class="mb-2 badge bg-info">{{ __('Fully paid') }}</small>
               @elseif((int) $advance > $this->items_in_cart->sum('item_price'))
                 <small
                   class="mb-2 badge bg-secondary">{{ number_format((int) $advance - $this->items_in_cart->sum('item_price')) }}
