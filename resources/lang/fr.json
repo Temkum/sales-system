@@ -180,5 +180,8 @@
     "Mark as read": "Marquer comme lu",
     "The due date for this order is approaching.": "La date limite de cette commande approche.",
     "You have orders expiring soon! Please check your notifications": "Vous avez des commandes qui expirent bientôt ! Veuillez vérifier vos notifications.",
-    "Notifications": "Notifications"
+    "Notifications": "Notifications",
+    "Update sale record": "Mettre à jour l'enregistrement de la vente",
+    "Update": "Mettre à jour",
+    "Record updated successfully!": "Enregistrement mis à jour avec succès !"
 }

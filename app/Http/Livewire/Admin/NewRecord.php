@@ -211,15 +211,14 @@ class NewRecord extends Component
         }
 
         $twilio = new Client(config('services.twilio.account_sid'), config('services.twilio.auth_token'));
-        $msg_body = __("Order placed successfully!");
 
-        try {
+        /* try {
             $message = $twilio->messages
                 ->create(
                     "+237675827455", // to
                     array(
                         "from" => "+12177278323",
-                        "body" => $msg_body
+                        "body" => __("Order placed successfully!")
                     )
                 );
 
@@ -237,7 +236,7 @@ class NewRecord extends Component
                 ->position('y', 'center')
                 ->addInfo(__('Something went wrong. </br> Could not send message!'));
             throw $th;
-        }
+        } */
 
         notyf()
             ->position('x', 'right')

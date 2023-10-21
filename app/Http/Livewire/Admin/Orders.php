@@ -140,8 +140,6 @@ class Orders extends Component
         $sale->save();
 
         return notyf()
-            ->position('x', 'center')
-            ->position('y', 'bottom')
             ->duration(2000)->addSuccess(__('Status updated successfully!'));
     }
 
@@ -162,8 +160,6 @@ class Orders extends Component
         if ($sale) {
             $sale->delete();
             notyf()
-                ->position('x', 'center')
-                ->position('y', 'top')
                 ->duration(2000)
                 ->addSuccess(__('Record deleted successfully'));
         } else {
