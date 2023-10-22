@@ -27,6 +27,8 @@ use App\Http\Livewire\Admin\DeletedRecords;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\PurchaseOrderController;
+use App\Http\Controllers\PurchaseOrderItemController;
 use App\Http\Livewire\Admin\AddMeasurement;
 use App\Http\Livewire\Admin\EditMeasurements;
 use App\Http\Livewire\Admin\ModifyOrder;
@@ -93,6 +95,10 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
 
     Route::get('/contacts', Contacts::class)->name('contacts');
     Route::get('/deleted-records', DeletedRecords::class, 'deletedRecords')->name('deleted-records');
+
+    Route::resource('purchase_orders', PurchaseOrderController::class)->name('index', 'purchase_orders');
+    Route::post('purchase_orders/{purchase_order}/items', [PurchaseOrderItemController::class, 'store'])->name('purchase_orders.items.store');
+    Route::delete('purchase_order_items/{purchase_order_item}', [PurchaseOrderItemController::class, 'destroy'])->name('purchase_order_items.destroy');
 });
 
 // user
