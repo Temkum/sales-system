@@ -94,5 +94,17 @@
     "Pending": "En attente",
     "Cancelled": "Annuler",
     "No records available!": "Aucun enregistrement disponible !",
-    "Back": "Retour"
+    "Back": "Retour",
+    "Create purchase order": "Créer une commande de vente",
+    "Supplier": "Fournisseur",
+    "Notes": "Notes",
+    "Order Date": "Date de commande",
+    "Purchase Order": "Commande de vente",
+    "Purchase Orders": "Commandes de vente",
+    "Order date": "Date de commande",
+    "Order number": "Numéro de commande",
+    "Order Number": "Numéro de commande",
+    "Create": "Créer",
+    "Edit purchase order": "Modifier la commande de vente",
+    "Update": "Mettre à jour"
 }

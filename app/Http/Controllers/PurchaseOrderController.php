@@ -46,8 +46,10 @@ class PurchaseOrderController extends Controller
 
         $purchaseOrder = PurchaseOrder::create($request->all());
 
-        return redirect()->route('purchase_orders.show', $purchaseOrder)
-            ->with('success', 'Purchase order created successfully.');
+        // return redirect()->route('purchase_orders.show', $purchaseOrder)
+        //     ->with('success', 'Purchase order created successfully.');
+        notyf()->addSuccess(__('Purchase order created successfully.'));
+        return redirect()->route('purchase_orders');
     }
 
     /**
