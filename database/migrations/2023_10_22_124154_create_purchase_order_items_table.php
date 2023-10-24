@@ -15,10 +15,11 @@ return new class extends Migration
     {
         Schema::create('purchase_order_items', function (Blueprint $table) {
             $table->id();
-            $table->string('order_number')->unique();
-            $table->string('supplier');
-            $table->date('order_date');
-            $table->text('notes')->nullable();
+            $table->unsignedBigInteger('purchase_order_id');
+            $table->string('product');
+            $table->integer('quantity');
+            $table->decimal('price', 8, 2);
+            $table->foreign('purchase_order_id')->references('id')->on('purchase_orders')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

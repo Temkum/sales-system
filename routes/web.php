@@ -97,8 +97,12 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::get('/deleted-records', DeletedRecords::class, 'deletedRecords')->name('deleted-records');
 
     Route::resource('purchase_orders', PurchaseOrderController::class)->name('index', 'purchase_orders');
+    Route::delete('purchase_orders/{purchase_order}', [PurchaseOrderController::class, 'destroy'])->name('purchase_orders.destroy');
+
     Route::post('purchase_orders/{purchase_order}/items', [PurchaseOrderItemController::class, 'store'])->name('purchase_orders.items.store');
-    Route::delete('purchase_order_items/{purchase_order_item}', [PurchaseOrderItemController::class, 'destroy'])->name('purchase_order_items.destroy');
+    Route::get('/purchase_orders/{purchase_order}/items/{id}/edit', [PurchaseOrderItemController::class, 'edit'])->name('purchase_order_items.edit');
+    Route::put('/purchase_orders/{purchase_order}/items/{id}', [PurchaseOrderItemController::class, 'update'])->name('purchase_orders.items.update');
+    Route::delete('/purchase_orders/{purchase_order}/items/{id}', [PurchaseOrderItemController::class, 'destroy'])->name('purchase_orders.items.destroy');
 });
 
 // user

@@ -58,9 +58,9 @@ class PurchaseOrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(PurchaseOrder $purchaseOrder)
+    public function show(PurchaseOrder $purchaseOrder, PurchaseOrderItem $item)
     {
-        return view('admin.purchase_orders.show', compact('purchaseOrder'));
+        return view('admin.purchase_orders.show', compact('purchaseOrder', 'item'));
     }
 
     /**
