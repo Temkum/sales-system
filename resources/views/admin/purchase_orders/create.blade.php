@@ -59,18 +59,14 @@
             <label for="notes" class="form-label">{{ __('Notes') }}</label>
             <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
           </div>
-          <button type="submit" class="btn btn-primary">{{ __('Create') }}</button>
-        </form>
+          <hr>
 
-        <h2 class="mt-3">{{ __('Purchase order items') }}</h2>
-        <div id="purchase_order_items">
-
-          <div class="row mb-3 purchase_order_item">
-            <form action="{{ route('purchase_orders.items.store') }}" method="POST">
-              @csrf
+          <h4 class="mt-3">{{ __('Purchase order items') }}</h4>
+          <div id="purchase_order_items">
+            <div class="row mb-3 purchase_order_item">
               <div class="col-md-4">
-                <label for="item_name_1" class="form-label">Item Name</label>
-                <input type="text" class="form-control" id="item_name_1" name="item_name[]" required>
+                <label for="product_1" class="form-label">Item Name</label>
+                <input type="text" class="form-control" id="product_1" name="product[]" required>
               </div>
               <div class="col-md-2">
                 <label for="quantity_1" class="form-label">Quantity</label>
@@ -85,11 +81,14 @@
                   {{ __('Add another item') }}
                 </button>
               </div>
-            </form>
-          </div>
-        </div>
+              <div class="d-flex justify-content-center mt-4">
+              </div>
+            </div>
 
-        <button type="submit" class="btn btn-success">{{ __('Create') }}</button>
+          </div>
+          <div class="card-footer">
+            <button type="submit" class="btn btn-success">{{ __('Create') }}</button>
+          </div>
         </form>
       </div>
     </div>
@@ -104,8 +103,8 @@
       newItem.className = 'row mb-3 purchase_order_item';
       newItem.innerHTML = `
                 <div class="col-md-5">
-                    <label for="item_name_${itemId}" class="form-label">Item Name</label>
-                    <input type="text" class="form-control" id="item_name_${itemId}" name="item_name[]" required>
+                    <label for="product_${itemId}" class="form-label">Item Name</label>
+                    <input type="text" class="form-control" id="product_${itemId}" name="product[]" required>
                 </div>
                 <div class="col-md-2">
                     <label for="quantity_${itemId}" class="form-label">Quantity</label>

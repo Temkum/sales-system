@@ -44,7 +44,24 @@ class PurchaseOrderController extends Controller
             'notes' => 'nullable',
         ]);
 
+        $data = $request->validate([
+            'product' => 'required|array',
+            'product.*' => 'required|string',
+            'quantity' => 'required|array',
+            'quantity.*' => 'required|integer|min:1',
+            'price' => 'required|array',
+            'price.*' => 'required|numeric|min:0',
+        ]);
+
         $purchaseOrder = PurchaseOrder::create($request->all());
+
+        foreach ($data['product'] as $index => $itemName) {
+            $purchaseOrder->items()->create([
+                'product' => $itemName,
+                'quantity' => $data['quantity'][$index],
+                'price' => $data['price'][$index],
+            ]);
+        }
 
         // return redirect()->route('purchase_orders.show', $purchaseOrder)
         //     ->with('success', 'Purchase order created successfully.');
