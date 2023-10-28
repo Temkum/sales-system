@@ -103,6 +103,22 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::get('/purchase_orders/{purchase_order}/items/{id}/edit', [PurchaseOrderItemController::class, 'edit'])->name('purchase_order_items.edit');
     Route::put('/purchase_orders/{purchase_order}/items/{id}', [PurchaseOrderItemController::class, 'update'])->name('purchase_orders.items.update');
     Route::delete('/purchase_orders/{purchase_order}/items/{id}', [PurchaseOrderItemController::class, 'destroy'])->name('purchase_orders.items.destroy');
+
+    /* Route::get('/purchase-orders', [PurchaseOrderController::class, 'index'])->name('purchase-orders.index');
+    Route::get('/purchase-orders/create', [PurchaseOrderController::class, 'create'])->name('purchase-orders.create');
+    Route::post('/purchase-orders', [PurchaseOrderController::class, 'store'])->name('purchase-orders.store');
+    Route::get('/purchase-orders/{purchaseOrder}', [PurchaseOrderController::class, 'show'])->name('purchase-orders.show');
+    Route::get('/purchase-orders/{purchaseOrder}/edit', [PurchaseOrderController::class, 'edit'])->name('purchase-orders.edit');
+    Route::put('/purchase-orders/{purchaseOrder}', [PurchaseOrderController::class, 'update'])->name('purchase-orders.update');
+    Route::delete('/purchase-orders/{purchaseOrder}', [PurchaseOrderController::class, 'destroy'])->name('purchase-orders.destroy');
+
+    Route::get('/purchase-orders/{purchaseOrder}/items', [PurchaseOrderItemController::class, 'index'])->name('order-items.index');
+    Route::get('/purchase-orders/{purchaseOrder}/items/create', [PurchaseOrderItemController::class, 'create'])->name('order-items.create');
+    Route::post('/purchase-orders/{purchaseOrder}/items', [PurchaseOrderItemController::class, 'store'])->name('order-items.store');
+    Route::get('/purchase-orders/{purchaseOrder}/items/{orderItem}', [PurchaseOrderItemController::class, 'show'])->name('order-items.show');
+    Route::get('/purchase-orders/{purchaseOrder}/items/{orderItem}/edit', [PurchaseOrderItemController::class, 'edit'])->name('order-items.edit');
+    Route::put('/purchase-orders/{purchaseOrder}/items/{orderItem}', [PurchaseOrderItemController::class, 'update'])->name('order-items.update');
+    Route::delete('/purchase-orders/{purchaseOrder}/items/{orderItem}', [PurchaseOrderItemController::class, 'destroy'])->name('order-items.destroy'); */
 });
 
 // user

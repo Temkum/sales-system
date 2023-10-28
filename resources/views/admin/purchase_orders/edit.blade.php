@@ -1,40 +1,3 @@
-{{-- @extends('base')
-
-@section('content')
-  <div class="container-fluid">
-    <h2>{{ __('Edit purchase order') }}</h2>
-    <div class="card col-md-7">
-      <div class="card-header"></div>
-      <div class="card-body">
-        <form action="{{ route('purchase_orders.update', $purchaseOrder) }}" method="POST">
-          @csrf
-          @method('PUT')
-          <div class="mb-3">
-            <label for="order_number" class="form-label">{{ __('Order Number') }}</label>
-            <input type="text" class="form-control" id="order_number" name="order_number"
-              value="{{ $purchaseOrder->order_number }}" required>
-          </div>
-          <div class="mb-3">
-            <label for="supplier" class="form-label">{{ __('Supplier') }}</label>
-            <input type="text" class="form-control" id="supplier" name="supplier"
-              value="{{ $purchaseOrder->supplier }}" required>
-          </div>
-          <div class="mb-3">
-            <label for="order_date" class="form-label">{{ __('Order Date') }}</label>
-            <input type="date" class="form-control" id="order_date" name="order_date"
-              value="{{ $purchaseOrder->order_date }}" required>
-          </div>
-          <div class="mb-3">
-            <label for="notes" class="form-label">{{ __('Notes') }}</label>
-            <textarea class="form-control" id="notes" name="notes" rows="3">{{ $purchaseOrder->notes }}</textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>
-        </form>
-      </div>
-    </div>
-  </div>
-@endsection --}}
-
 @extends('base')
 
 @section('content')
@@ -62,29 +25,29 @@
         <label for="notes" class="form-label">Notes</label>
         <textarea class="form-control" id="notes" name="notes" rows="3">{{ $purchaseOrder->notes }}</textarea>
       </div>
-      <h2>Purchase Order Items</h2>
+      <h2>{{ __('Items') }}</h2>
       <div id="purchase_order_items">
         @foreach ($purchaseOrder->items as $item)
           <div class="row mb-3 purchase_order_item">
             <div class="col-md-4">
-              <label for="item_name_{{ $item->id }}" class="form-label">Item Name</label>
+              <label for="item_name_{{ $item->id }}" class="form-label">{{ __('Item Name') }}</label>
               <input type="text" class="form-control" id="item_name_{{ $item->id }}" name="item_name[]"
                 value="{{ $item->name }}" required>
             </div>
             <div class="col-md-4">
-              <label for="quantity_{{ $item->id }}" class="form-label">Quantity</label>
+              <label for="quantity_{{ $item->id }}" class="form-label">{{ __('Quantity') }}</label>
               <input type="number" class="form-control" id="quantity_{{ $item->id }}" name="quantity[]"
                 value="{{ $item->quantity }}" required>
             </div>
             <div class="col-md-4">
-              <label for="price_{{ $item->id }}" class="form-label">Price</label>
+              <label for="price_{{ $item->id }}" class="form-label">{{ __('Price') }}</label>
               <input type="number" class="form-control" id="price_{{ $item->id }}" name="price[]"
                 value="{{ $item->price }}" required>
             </div>
           </div>
         @endforeach
       </div>
-      <button type="button" class="btn btn-primary mb-3" onclick="addPurchaseOrderItem()">Add Item</button>
+      <button type="button" class="btn btn-primary mb-3" onclick="addPurchaseOrderItem()">{{ __('Add item') }}</button>
       <button type="submit" class="btn btn-primary">Update</button>
     </form>
   </div>
@@ -98,15 +61,15 @@
       newItem.className = 'row mb-3 purchase_order_item';
       newItem.innerHTML = `
                 <div class="col-md-4">
-                    <label for="item_name_${itemId}" class="form-label">Item Name</label>
+                    <label for="item_name_${itemId}" class="form-label">{{ __('Item Name') }}</label>
                     <input type="text" class="form-control" id="item_name_${itemId}" name="item_name[]" required>
                 </div>
                 <div class="col-md-4">
-                    <label for="quantity_${itemId}" class="form-label">Quantity</label>
+                    <label for="quantity_${itemId}" class="form-label">{{ __('Quantity') }}</label>
                     <input type="number" class="form-control" id="quantity_${itemId}" name="quantity[]" required>
                 </div>
                 <div class="col-md-4">
-                    <label for="price_${itemId}" class="form-label">Price</label>
+                    <label for="price_${itemId}" class="form-label">{{ __('Price') }}</label>
                     <input type="number" class="form-control" id="price_${itemId}" name="price[]" required>
                 </div>
             `;

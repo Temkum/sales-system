@@ -77,7 +77,10 @@ class PurchaseOrderController extends Controller
      */
     public function show(PurchaseOrder $purchaseOrder, PurchaseOrderItem $item)
     {
-        return view('admin.purchase_orders.show', compact('purchaseOrder', 'item'));
+        $purchaseOrder->load('items');
+        $grouped_items = $purchaseOrder->items->groupBy('purchase_order_id');
+
+        return view('admin.purchase_orders.show', compact('purchaseOrder', 'item', 'grouped_items'));
     }
 
     /**
@@ -124,7 +127,8 @@ class PurchaseOrderController extends Controller
         $purchaseOrder = $purchaseOrderItem->purchaseOrder;
         $purchaseOrderItem->delete();
 
-        return redirect()->route('purchase_orders', $purchaseOrder)
-            ->with('success', 'Purchase order item deleted successfully.');
+        notyf()->addSuccess(__('Purchase order item deleted successfully.'));
+
+        return redirect()->route('purchase_orders', $purchaseOrder);
     }
 }

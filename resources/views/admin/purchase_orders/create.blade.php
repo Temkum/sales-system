@@ -37,7 +37,7 @@
   <div class="container">
     <div class="card col-md-7">
       <div class="card-header d-flex justify-content-between">
-        <h3>{{ __('Create purchase order') }}</h3>
+        <h3 class="mb-0">{{ __('Create purchase order') }}</h3>
         <a href="{{ route('purchase_orders') }}" class="btn btn-secondary btn-sm">{{ __('Back') }}</a>
       </div>
       <div class="card-body">
