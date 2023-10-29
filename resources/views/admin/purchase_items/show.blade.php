@@ -6,12 +6,12 @@
     <div class="card">
       <div class="card-header"></div>
       <div class="card-body">
-        <p><strong>{{ __('Order number') }}:</strong> {{ $purchaseOrder->order_number }}</p>
-        <p><strong>{{ __('Supplier') }}:</strong> {{ $purchaseOrder->supplier }}</p>
-        <p><strong>{{ __('Order date') }}:</strong> {{ $purchaseOrder->order_date }}</p>
-        <p><strong>{{ __('Notes') }}:</strong> {{ $purchaseOrder->notes }}</p>
-        <a href="{{ route('purchase_orders.edit', $purchaseOrder) }}" class="btn btn-secondary">{{ __('Edit') }}</a>
-        {{-- <form action="{{ route('purchase_orders.destroy', $purchaseOrder) }}" method="POST" class="d-inline"> --}}
+        <p><strong>{{ __('Order number') }}:</strong> {{ $purchase_order->order_number }}</p>
+        <p><strong>{{ __('Supplier') }}:</strong> {{ $purchase_order->supplier }}</p>
+        <p><strong>{{ __('Order date') }}:</strong> {{ $purchase_order->order_date }}</p>
+        <p><strong>{{ __('Notes') }}:</strong> {{ $purchase_order->notes }}</p>
+        <a href="{{ route('purchase_orders.edit', $purchase_order) }}" class="btn btn-secondary">{{ __('Edit') }}</a>
+        {{-- <form action="{{ route('purchase_orders.destroy', $purchase_order) }}" method="POST" class="d-inline"> --}}
         <form action="" method="POST" class="d-inline">
           @csrf
           @method('DELETE')

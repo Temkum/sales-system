@@ -16,7 +16,7 @@ class PurchaseOrderItem extends Model
         'price',
     ];
 
-    public function purchaseOrder()
+    public function purchase_order()
     {
         return $this->belongsTo(PurchaseOrder::class);
     }

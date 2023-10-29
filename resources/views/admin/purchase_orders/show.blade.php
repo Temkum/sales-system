@@ -10,10 +10,10 @@
         </div>
       </div>
       <div class="card-body">
-        <p><strong>{{ __('Order Number') }}:</strong> {{ $purchaseOrder->order_number }}</p>
-        <p><strong>{{ __('Supplier') }}:</strong> {{ $purchaseOrder->supplier }}</p>
-        <p><strong>{{ __('Order Date') }}:</strong> {{ $purchaseOrder->order_date }}</p>
-        <p><strong>{{ __('Notes') }}:</strong> {{ $purchaseOrder->notes }}</p>
+        <p><strong>{{ __('Order Number') }}:</strong> {{ $purchase_order->order_number }}</p>
+        <p><strong>{{ __('Supplier') }}:</strong> {{ $purchase_order->supplier }}</p>
+        <p><strong>{{ __('Order Date') }}:</strong> {{ $purchase_order->order_date }}</p>
+        <p><strong>{{ __('Notes') }}:</strong> {{ $purchase_order->notes }}</p>
       </div>
     </div>
 
@@ -44,8 +44,8 @@
                     <td>
                       <a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                         data-item-id="{{ $item->id }}" data-bs-target="#editItemModal">{{ __('Edit') }}</a>
-                      <form action="{{ route('purchase_orders.items.destroy', [$purchaseOrder, $item]) }}" method="POST"
-                        class="d-inline">
+                      <form action="{{ route('purchase_orders.items.destroy', [$purchase_order, $item]) }}"
+                        method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm"

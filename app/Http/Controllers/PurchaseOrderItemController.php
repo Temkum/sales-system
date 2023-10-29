@@ -34,7 +34,7 @@ class PurchaseOrderItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, PurchaseOrder $purchaseOrder)
+    public function store(Request $request, PurchaseOrder $purchase_order)
     {
         $data = $request->validate([
             'item_name' => 'required|array',
@@ -46,14 +46,14 @@ class PurchaseOrderItemController extends Controller
         ]);
 
         foreach ($data['item_name'] as $index => $itemName) {
-            $purchaseOrder->items()->create([
+            $purchase_order->items()->create([
                 'name' => $itemName,
                 'quantity' => $data['quantity'][$index],
                 'price' => $data['price'][$index],
             ]);
         }
         notyf()->addSuccess(__('Purchase order items added successfully.'));
-        return redirect()->route('purchase_orders.show', $purchaseOrder);
+        return redirect()->route('purchase_orders.show', $purchase_order);
     }
 
     /**
@@ -85,17 +85,22 @@ class PurchaseOrderItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PurchaseOrder $purchaseOrder, PurchaseOrderItem $purchaseOrderItem)
+    public function update(Request $request, PurchaseOrder $purchase_order, PurchaseOrderItem $purchaseOrderItem)
     {
         $data = $request->validate([
-            'item_name' => 'required|string',
-            'quantity' => 'required|integer|min:1',
-            'price' => 'required|numeric|min:0',
+            'product' => 'required|array',
+            'product.*' => 'required|string',
+            'quantity' => 'required|array',
+            'quantity.*' => 'required|integer|min:1',
+            'price' => 'required|array',
+            'price.*' => 'required|numeric|min:0',
         ]);
 
-        $purchaseOrderItem->update($data);
 
-        return redirect()->route('purchase_orders.show', $purchaseOrder)->with('success', 'Purchase order item updated successfully.');
+        $purchaseOrderItem->update($data);
+        notyf()->addSuccess(__('Purchase order item updated successfully.'));
+
+        return redirect()->route('purchase_orders.show', $purchase_order);
     }
 
     /**
@@ -104,10 +109,10 @@ class PurchaseOrderItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PurchaseOrder $purchaseOrder, PurchaseOrderItem $purchaseOrderItem)
+    public function destroy(PurchaseOrder $purchase_order, PurchaseOrderItem $purchaseOrderItem)
     {
         $purchaseOrderItem->delete();
 
-        return redirect()->route('purchase_orders.show', $purchaseOrder)->with('success', 'Purchase order item deleted successfully.');
+        return redirect()->route('purchase_orders.show', $purchase_order)->with('success', 'Purchase order item deleted successfully.');
     }
 }

@@ -25,18 +25,18 @@
             </tr>
           </thead>
           <tbody>
-            @foreach ($purchaseOrders as $purchaseOrder)
+            @foreach ($purchase_orders as $purchase_order)
               <tr>
-                <td>{{ $purchaseOrder->order_number }}</td>
-                <td>{{ $purchaseOrder->supplier }}</td>
-                <td>{{ $purchaseOrder->notes }}</td>
-                <td>{{ $purchaseOrder->order_date }}</td>
+                <td>{{ $purchase_order->order_number }}</td>
+                <td>{{ $purchase_order->supplier }}</td>
+                <td>{{ $purchase_order->notes }}</td>
+                <td>{{ $purchase_order->order_date }}</td>
                 <td>
-                  <a href="{{ route('purchase_orders.show', $purchaseOrder) }}"
+                  <a href="{{ route('purchase_orders.show', $purchase_order) }}"
                     class="btn btn-primary btn-sm">{{ __('View') }}</a>
-                  <a href="{{ route('purchase_orders.edit', $purchaseOrder) }}"
+                  <a href="{{ route('purchase_orders.edit', $purchase_order) }}"
                     class="btn btn-secondary btn-sm">{{ __('Edit') }}</a>
-                  <form action="{{ route('purchase_orders.destroy', $purchaseOrder) }}" method="POST" class="d-inline">
+                  <form action="{{ route('purchase_orders.destroy', $purchase_order) }}" method="POST" class="d-inline">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger btn-sm"
