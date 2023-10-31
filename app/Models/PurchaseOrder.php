@@ -11,7 +11,7 @@ class PurchaseOrder extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'order_number',
+        'phone_number',
         'supplier',
         'order_date',
         'notes',

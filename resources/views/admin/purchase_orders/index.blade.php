@@ -17,8 +17,8 @@
         <table class="table table-sm">
           <thead>
             <tr>
-              <th>{{ __('Order number') }}</th>
               <th>{{ __('Supplier') }}</th>
+              <th>{{ __('Phone number') }}</th>
               <th>{{ __('Notes') }}</th>
               <th>{{ __('Order Date') }}</th>
               <th>{{ __('Actions') }}</th>
@@ -27,8 +27,8 @@
           <tbody>
             @foreach ($purchase_orders as $purchase_order)
               <tr>
-                <td>{{ $purchase_order->order_number }}</td>
                 <td>{{ $purchase_order->supplier }}</td>
+                <td>{{ $purchase_order->phone_number }}</td>
                 <td>{{ $purchase_order->notes }}</td>
                 <td>{{ $purchase_order->order_date }}</td>
                 <td>

@@ -44,12 +44,12 @@
         <form action="{{ route('purchase_orders.store') }}" method="POST">
           @csrf
           <div class="mb-3">
-            <label for="order_number" class="form-label">{{ __('Order number') }}</label>
-            <input type="text" class="form-control" id="order_number" name="order_number" required>
-          </div>
-          <div class="mb-3">
             <label for="supplier" class="form-label">{{ __('Supplier') }}</label>
             <input type="text" class="form-control" id="supplier" name="supplier" required>
+          </div>
+          <div class="mb-3">
+            <label for="order_number" class="form-label">{{ __('Phone number') }}</label>
+            <input type="text" class="form-control" id="phone_number" name="phone_number" required>
           </div>
           <div class="mb-3">
             <label for="order_date" class="form-label">{{ __('Order Date') }}</label>

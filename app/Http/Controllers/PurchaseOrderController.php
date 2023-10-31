@@ -38,7 +38,7 @@ class PurchaseOrderController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'order_number' => 'required|unique:purchase_orders',
+            'phone_number' => 'required|integer|min:10',
             'supplier' => 'required',
             'order_date' => 'required|date',
             'notes' => 'nullable',
@@ -100,10 +100,10 @@ class PurchaseOrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PurchaseOrder $purchase_order)
+    /* public function update(Request $request, PurchaseOrder $purchase_order)
     {
         $request->validate([
-            'order_number' => 'required|unique:purchase_orders,order_number,' . $purchase_order->id,
+            'phone_number' => 'required|integer|min:9' . $purchase_order->id,
             'supplier' => 'required',
             'order_date' => 'required|date',
             'notes' => 'nullable',
@@ -118,15 +118,74 @@ class PurchaseOrderController extends Controller
             'price.*' => 'required|numeric|min:0',
         ]);
 
-        $purchase_order->update($request->all());
+        // Delete existing items
+        $purchase_order->items()->delete();
 
-        foreach ($items_data['product'] as $index => $itemName) {
-            dd('Update success');
-            $purchase_order->items()->create([
-                'product' => $itemName,
-                'quantity' => $items_data['quantity'][$index],
-                'price' => $items_data['price'][$index],
-            ]);
+        if (isset($items_data['product'])) {
+            foreach ($items_data['product'] as $index => $itemName) {
+                if ($itemName && isset($items_data['quantity'][$index]) && isset($items_data['price'][$index])) {
+                    $purchase_order->items()->create([
+                        'product' => $itemName,
+                        'quantity' => $items_data['quantity'][$index],
+                        'price' => $items_data['price'][$index],
+                    ]);
+                }
+            }
+        }
+
+        $purchase_order->update($request->except('product', 'quantity', 'price'));
+
+        notyf()->addSuccess(__('Purchase order updated successfully.'));
+
+        return redirect()->route('purchase_orders.show', $purchase_order);
+    } */
+
+    public function update(Request $request, PurchaseOrder $purchase_order)
+    {
+        $validatedData = $request->validate([
+            'supplier' => 'required',
+            'phone_number' => 'required',
+            'order_date' => 'required',
+            'notes' => 'nullable',
+            'product.*' => 'required',
+            'quantity.*' => 'required',
+            'price.*' => 'required',
+        ]);
+
+        $purchase_order->update([
+            'supplier' => $validatedData['supplier'],
+            'phone_number' => $validatedData['phone_number'],
+            'order_date' => $validatedData['order_date'],
+            'notes' => $validatedData['notes'],
+        ]);
+
+        // if (isset($purchase_order->items) && count($purchase_order->items) > 0) {
+        //     foreach ($validatedData['product'] as $index => $product) {
+        //         $item = $purchase_order->items()->where('id', $request->input('item_id')[$index])->first();
+
+        //         if ($item) {
+        //             $item->update([
+        //                 'product' => $product,
+        //                 'quantity' => $validatedData['quantity'][$index],
+        //                 'price' => $validatedData['price'][$index],
+        //             ]);
+        //         }
+        //     }
+        // }
+
+        // Delete existing items
+        $purchase_order->items()->delete();
+
+        if (isset($items_data['product'])) {
+            foreach ($items_data['product'] as $index => $itemName) {
+                if ($itemName && isset($items_data['quantity'][$index]) && isset($items_data['price'][$index])) {
+                    $purchase_order->items()->create([
+                        'product' => $itemName,
+                        'quantity' => $items_data['quantity'][$index],
+                        'price' => $items_data['price'][$index],
+                    ]);
+                }
+            }
         }
 
         notyf()->addSuccess(__('Purchase order updated successfully.'));

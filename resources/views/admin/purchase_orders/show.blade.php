@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="card-body">
-        <p><strong>{{ __('Order Number') }}:</strong> {{ $purchase_order->order_number }}</p>
+        <p><strong>{{ __('Phone Number') }}:</strong> {{ $purchase_order->phone_number }}</p>
         <p><strong>{{ __('Supplier') }}:</strong> {{ $purchase_order->supplier }}</p>
         <p><strong>{{ __('Order Date') }}:</strong> {{ $purchase_order->order_date }}</p>
         <p><strong>{{ __('Notes') }}:</strong> {{ $purchase_order->notes }}</p>

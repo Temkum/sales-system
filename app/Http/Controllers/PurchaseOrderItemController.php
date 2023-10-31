@@ -96,7 +96,6 @@ class PurchaseOrderItemController extends Controller
             'price.*' => 'required|numeric|min:0',
         ]);
 
-
         $purchaseOrderItem->update($data);
         notyf()->addSuccess(__('Purchase order item updated successfully.'));
 
