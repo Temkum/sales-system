@@ -102,7 +102,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::post('purchase_orders/{purchase_order}/items', [PurchaseOrderItemController::class, 'store'])->name('purchase_orders.items.store');
     Route::get('/purchase_orders/{purchase_order}/items/{id}/edit', [PurchaseOrderItemController::class, 'edit'])->name('purchase_order_items.edit');
     Route::put('/purchase_orders/{purchase_order}/items/{id}', [PurchaseOrderItemController::class, 'update'])->name('purchase_orders.items.update');
-    Route::delete('/purchase_orders/{purchase_order}/items/{id}', [PurchaseOrderItemController::class, 'destroy'])->name('purchase_orders.items.destroy');
+    Route::delete('/purchase_orders/{purchase_order}/items/{purchase_order_item}', [PurchaseOrderItemController::class, 'destroy'])->name('purchase_orders.items.destroy');
 
     /* Route::get('/purchase-orders', [PurchaseOrderController::class, 'index'])->name('purchase-orders.index');
     Route::get('/purchase-orders/create', [PurchaseOrderController::class, 'create'])->name('purchase-orders.create');

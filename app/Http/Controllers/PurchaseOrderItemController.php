@@ -108,10 +108,12 @@ class PurchaseOrderItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PurchaseOrder $purchase_order, PurchaseOrderItem $purchaseOrderItem)
+    public function destroy(PurchaseOrder $purchase_order, PurchaseOrderItem $purchase_order_item)
     {
-        $purchaseOrderItem->delete();
+        $purchase_order_item->delete();
 
-        return redirect()->route('purchase_orders.show', $purchase_order)->with('success', 'Purchase order item deleted successfully.');
+        notyf()->addSuccess(__('Purchase order item deleted successfully.'));
+
+        return redirect()->route('purchase_orders.show', $purchase_order);
     }
 }
