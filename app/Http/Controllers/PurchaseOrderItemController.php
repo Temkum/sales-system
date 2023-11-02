@@ -36,23 +36,25 @@ class PurchaseOrderItemController extends Controller
      */
     public function store(Request $request, PurchaseOrder $purchase_order)
     {
+        // dd($request->all());
         $data = $request->validate([
-            'item_name' => 'required|array',
-            'item_name.*' => 'required|string',
+            'product' => 'required|array',
+            'product.*' => 'required|string',
             'quantity' => 'required|array',
             'quantity.*' => 'required|integer|min:1',
             'price' => 'required|array',
             'price.*' => 'required|numeric|min:0',
         ]);
 
-        foreach ($data['item_name'] as $index => $itemName) {
+        foreach ($data['product'] as $index => $itemName) {
             $purchase_order->items()->create([
-                'name' => $itemName,
+                'product' => $itemName,
                 'quantity' => $data['quantity'][$index],
                 'price' => $data['price'][$index],
             ]);
         }
         notyf()->addSuccess(__('Purchase order items added successfully.'));
+
         return redirect()->route('purchase_orders.show', $purchase_order);
     }
 
@@ -85,8 +87,9 @@ class PurchaseOrderItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PurchaseOrder $purchase_order, PurchaseOrderItem $purchaseOrderItem)
+    public function update(Request $request, PurchaseOrder $purchase_order)
     {
+        // dd($request->all());
         $data = $request->validate([
             'product' => 'required|array',
             'product.*' => 'required|string',
@@ -95,9 +98,32 @@ class PurchaseOrderItemController extends Controller
             'price' => 'required|array',
             'price.*' => 'required|numeric|min:0',
         ]);
+        dd($data);
 
-        $purchaseOrderItem->update($data);
-        notyf()->addSuccess(__('Purchase order item updated successfully.'));
+        // Get the IDs of the existing purchase order items
+        $existing_item_Ids = $purchase_order->items->pluck('id')->toArray();
+
+        // Loop through the submitted data
+        foreach ($data['product'] as $index => $itemName) {
+            // Check if the submitted item already exists
+            if (isset($existing_item_Ids[$index])) {
+                $item = PurchaseOrderItem::find($existing_item_Ids[$index]);
+                $item->update([
+                    'product' => $itemName,
+                    'quantity' => $data['quantity'][$index],
+                    'price' => $data['price'][$index],
+                ]);
+            } else {
+                // If the item doesn't exist, create a new one
+                $purchase_order->items()->create([
+                    'product' => $itemName,
+                    'quantity' => $data['quantity'][$index],
+                    'price' => $data['price'][$index],
+                ]);
+            }
+        }
+
+        notyf()->addSuccess(__('Purchase order items updated successfully.'));
 
         return redirect()->route('purchase_orders.show', $purchase_order);
     }

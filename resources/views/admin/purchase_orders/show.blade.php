@@ -69,30 +69,31 @@
           <h5 class="modal-title" id="modalCenterTitle">{{ __('Edit Item') }}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-          <form action="">
-
+        <form action="{{ route('purchase_orders.items.update', [$purchase_order, $item]) }}" method="POST">
+          <div class="modal-body">
+            @csrf
+            @method('PUT')
             <div class="row">
               <div class="col mb-3">
-                <label for="nameWithTitle" class="form-label">{{ __('Item name') }}</label>
-                <input type="text" id="nameWithTitle" class="form-control">
+                <label for="productWithTitle" class="form-label">{{ __('Item name') }}</label>
+                <input type="text" id="product" value="{{ $item->product }}" class="form-control" name="product">
               </div>
             </div>
             <div class="row g-2">
               <div class="col mb-0">
-                <label for="emailWithTitle" class="form-label">{{ __('Quantity') }}</label>
-                <input type="text" id="quantity" class="form-control">
+                <label for="quantityWithTitle" class="form-label">{{ __('Quantity') }}</label>
+                <input type="number" id="quantity" value="{{ $item->quantity }}" class="form-control" name="quantity">
               </div>
               <div class="col mb-0">
                 <label for="priceWithTitle" class="form-label">{{ __('Price') }}</label>
-                <input type="date" id="price" class="form-control">
+                <input type="number" value="{{ $item->price }}" id="price" class="form-control" name="price">
               </div>
             </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
-          <button type="button" class="btn btn-primary">{{ __('Update') }}</button>
-        </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
+            <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>
+          </div>
         </form>
       </div>
     </div>
@@ -107,7 +108,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form method="PUT">
+          <form method="POST" action="{{ route('purchase_orders.items.store', $purchase_order) }}">
             @csrf
             <div class="row">
               <div class="col mb-3">
@@ -118,11 +119,11 @@
             <div class="row g-2">
               <div class="col mb-0">
                 <label for="Quantity" class="form-label">{{ __('Quantity') }}</label>
-                <input type="text" id="quantity" class="form-control" id="quantity_1" name="quantity[]" required>
+                <input type="number" id="quantity" class="form-control" id="quantity_1" name="quantity[]" required>
               </div>
               <div class="col mb-0">
                 <label for="priceWithTitle" class="form-label">{{ __('Price') }}</label>
-                <input type="date" id="price" class="form-control" id="price_1" name="price[]" required>
+                <input type="number" id="price" class="form-control" id="price_1" name="price[]" required>
               </div>
             </div>
         </div>
@@ -138,11 +139,11 @@
   <script>
     $(document).ready(function() {
       // Handle Edit Item modal opening
-      $('.edit-item').on('click', function() {
+      $('.edit-item form').on('click', function() {
         var itemId = $(this).data('item-id');
         // Retrieve item details using AJAX based on the item ID and populatethe edit item modal with the retrieved data.
         // Example AJAX request:
-        /*
+
         $.ajax({
           url: '/items/' + itemId,
           type: 'GET',
@@ -153,14 +154,11 @@
             // Handle error if item details retrieval fails
           }
         });
-        */
       });
 
       // Handle Add Item form submission
       $('#addItemModal form').on('submit', function(e) {
         e.preventDefault();
-        alert('Add item');
-        console.log('add')
         // Retrieve form data and submit using AJAX
         // Example AJAX request:
 
@@ -174,7 +172,6 @@
           },
           error: function() {
             // Handle error if item creation fails
-
           }
         });
 
@@ -185,7 +182,6 @@
         e.preventDefault();
         // Retrieve form data and submit using AJAX
         // Example AJAX request:
-        /*
         $.ajax({
           url: '/items/' + itemId,
           type: 'PUT',
@@ -197,7 +193,6 @@
             // Handle error if item update fails
           }
         });
-        */
       });
     });
   </script>
