@@ -21,7 +21,12 @@
       <div class="card-header">
         <div class="d-flex justify-content-between">
           <h4 class="mb-0">{{ __('Items') }}</h4>
-          <div data-bs-target="#addItemModal" data-bs-toggle="modal" class="btn btn-success btn-sm">{{ __('Add item') }}
+          <div class="btns">
+            <a href="{{ route('purchase_orders.edit', $purchase_order) }}"
+              class="btn btn-primary btn-sm">{{ __('Edit') }}</a>
+            <div data-bs-target="#addItemModal" data-bs-toggle="modal" class="btn btn-success btn-sm">
+              {{ __('Add item') }}
+            </div>
           </div>
         </div>
       </div>
@@ -34,7 +39,7 @@
                   <th>{{ __('Item name') }}</th>
                   <th>{{ __('Quantity') }}</th>
                   <th>{{ __('Price') }}</th>
-                  <th>{{ __('Actions') }}</th>
+                  <th></th>
                 </thead>
                 <tbody>
                   @foreach ($grouped_item as $item)
@@ -43,8 +48,6 @@
                       <td>{{ $item->quantity }}</td>
                       <td>{{ $item->price }}</td>
                       <td>
-                        <a href="{{ route('purchase_orders.edit', $purchase_order) }}"
-                          class="btn btn-primary btn-sm">{{ __('Edit') }}</a>
                         <form action="{{ route('purchase_orders.items.destroy', [$purchase_order, $item]) }}"
                           method="POST" class="d-inline">
                           @csrf
