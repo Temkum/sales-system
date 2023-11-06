@@ -5,7 +5,7 @@
     <div class="card mb-3 col-md-7">
       <div class="card-header">
         <div class="d-flex justify-content-between">
-          <h2 class="mb-0">{{ __('Purchase order details') }}</h2>
+          <h3 class="mb-0">{{ __('Purchase order details') }}</h3>
           <a href="{{ route('purchase_orders') }}" class="btn btn-secondary">{{ __('Back') }}</a>
         </div>
       </div>

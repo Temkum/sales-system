@@ -2,7 +2,7 @@
 
 @section('content')
   <div class="container">
-    <h1>{{ __('Purchase Orders') }}</h1>
+    <h3>{{ __('Purchase Orders') }}</h3>
 
     @if (session('success'))
       <div class="alert alert-success mb-3">
@@ -11,7 +11,7 @@
     @endif
     <div class="card">
       <div class="card-header">
-        <a href="{{ route('purchase_orders.create') }}" class="btn btn-primary mb-3">{{ __('Create purchase order') }}</a>
+        <a href="{{ route('purchase_orders.create') }}" class="btn btn-success mb-3">{{ __('Create purchase order') }}</a>
       </div>
       <div class="card-body table-responsive">
         <table class="table table-sm">
