@@ -55,7 +55,8 @@ class PurchaseOrderItemController extends Controller
         }
         notyf()->addSuccess(__('Purchase order items added successfully.'));
 
-        return redirect()->route('purchase_orders.show', $purchase_order);
+        // return redirect()->route('purchase_orders.show', $purchase_order);
+        return redirect()->back();
     }
 
     /**
@@ -98,7 +99,7 @@ class PurchaseOrderItemController extends Controller
             'price' => 'required|array',
             'price.*' => 'required|numeric|min:0',
         ]);
-        dd($data);
+        // dd($data);
 
         // Get the IDs of the existing purchase order items
         $existing_item_Ids = $purchase_order->items->pluck('id')->toArray();

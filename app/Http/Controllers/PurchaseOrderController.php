@@ -159,22 +159,45 @@ class PurchaseOrderController extends Controller
             'notes' => $validatedData['notes'],
         ]);
 
-        // if (isset($purchase_order->items) && count($purchase_order->items) > 0) {
-        //     foreach ($validatedData['product'] as $index => $product) {
-        //         $item = $purchase_order->items()->where('id', $request->input('item_id')[$index])->first();
+        /*  if (isset($purchase_order->items) && count($purchase_order->items) > 0) {
+            foreach ($validatedData['product'] as $index => $product) {
+                $item = $purchase_order->items()->where('id', $request->input('item_id')[$index])->first();
 
-        //         if ($item) {
-        //             $item->update([
-        //                 'product' => $product,
-        //                 'quantity' => $validatedData['quantity'][$index],
-        //                 'price' => $validatedData['price'][$index],
-        //             ]);
-        //         }
-        //     }
-        // }
+                if ($item) {
+                    $item->update([
+                        'product' => $product,
+                        'quantity' => $validatedData['quantity'][$index],
+                        'price' => $validatedData['price'][$index],
+                    ]);
+                }
+            }
+        }
+        */
+
+        $item_ids = $purchase_order->items->pluck('id')->toArray();
+
+        // Loop through the submitted data
+        foreach ($validatedData['product'] as $index => $itemName) {
+            // Check if the submitted item already exists
+            if (isset($item_ids[$index])) {
+                $item = PurchaseOrderItem::find($item_ids[$index]);
+                $item->update([
+                    'product' => $itemName,
+                    'quantity' => $validatedData['quantity'][$index],
+                    'price' => $validatedData['price'][$index],
+                ]);
+            } else {
+                // If the item doesn't exist, create a new one
+                $purchase_order->items()->create([
+                    'product' => $itemName,
+                    'quantity' => $validatedData['quantity'][$index],
+                    'price' => $validatedData['price'][$index],
+                ]);
+            }
+        }
 
         // Delete existing items
-        $purchase_order->items()->delete();
+        /* $purchase_order->items()->delete();
 
         if (isset($items_data['product'])) {
             foreach ($items_data['product'] as $index => $itemName) {
@@ -186,7 +209,7 @@ class PurchaseOrderController extends Controller
                     ]);
                 }
             }
-        }
+        } */
 
         notyf()->addSuccess(__('Purchase order updated successfully.'));
 

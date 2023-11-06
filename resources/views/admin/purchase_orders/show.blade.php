@@ -28,32 +28,39 @@
       <div class="card-body">
         <div class="table-responsive">
           <table class="border-top m-0 table">
-            @foreach ($grouped_items as $grouped_item)
-              <thead>
-                <th>{{ __('Item name') }}</th>
-                <th>{{ __('Quantity') }}</th>
-                <th>{{ __('Price') }}</th>
-                <th>{{ __('Actions') }}</th>
-              </thead>
-              <tbody>
-                @foreach ($grouped_item as $item)
-                  <tr>
-                    <td>{{ $item->product }}</td>
-                    <td>{{ $item->quantity }}</td>
-                    <td>{{ $item->price }}</td>
-                    <td>
-                      <a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                        data-item-id="{{ $item->id }}" data-bs-target="#editItemModal">{{ __('Edit') }}</a>
-                      <form action="{{ route('purchase_orders.items.destroy', [$purchase_order, $item]) }}"
-                        method="POST" class="d-inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm"
-                          onclick="return confirm('Are you sure you want to delete this purchase order item?')">{{ __('Delete') }}</button>
-                      </form>
-                  </tr>
-                @endforeach
-            @endforeach
+            @if ($grouped_items->count() > 0)
+              @foreach ($grouped_items as $grouped_item)
+                <thead>
+                  <th>{{ __('Item name') }}</th>
+                  <th>{{ __('Quantity') }}</th>
+                  <th>{{ __('Price') }}</th>
+                  <th>{{ __('Actions') }}</th>
+                </thead>
+                <tbody>
+                  @foreach ($grouped_item as $item)
+                    <tr>
+                      <td>{{ $item->product }}</td>
+                      <td>{{ $item->quantity }}</td>
+                      <td>{{ $item->price }}</td>
+                      <td>
+                        <a href="{{ route('purchase_orders.edit', $purchase_order) }}"
+                          class="btn btn-primary btn-sm">{{ __('Edit') }}</a>
+                        <form action="{{ route('purchase_orders.items.destroy', [$purchase_order, $item]) }}"
+                          method="POST" class="d-inline">
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit" class="btn btn-danger btn-sm"
+                            onclick="return confirm('Are you sure you want to delete this purchase order item?')">{{ __('Delete') }}</button>
+                        </form>
+                      </td>
+                    </tr>
+                  @endforeach
+              @endforeach
+            @else
+              <tr>
+                <td>{{ __('No items added yet') }}</td>
+              </tr>
+            @endif
             </tbody>
           </table>
         </div>
@@ -62,14 +69,14 @@
   </div>
 
   <!-- edit Modal -->
-  <div class="modal fade" id="editItemModal" tabindex="-1" style="display: none;" aria-hidden="true">
+  {{-- <div class="modal fade" id="editItemModal" tabindex="-1" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="modalCenterTitle">{{ __('Edit Item') }}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form action="{{ route('purchase_orders.items.update', [$purchase_order, $item]) }}" method="POST">
+        <form action="{{ route('update-item', [$purchase_order, $item]) }}" method="POST">
           <div class="modal-body">
             @csrf
             @method('PUT')
@@ -97,7 +104,7 @@
         </form>
       </div>
     </div>
-  </div>
+  </div> --}}
 
   <!-- add Modal -->
   <div class="modal fade" id="addItemModal" tabindex="-1" style="display: none;" aria-hidden="true">
