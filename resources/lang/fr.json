@@ -183,5 +183,9 @@
     "Notifications": "Notifications",
     "Update sale record": "Mettre à jour l'enregistrement de la vente",
     "Update": "Mettre à jour",
-    "Record updated successfully!": "Enregistrement mis à jour avec succès !"
+    "Record updated successfully!": "Enregistrement mis à jour avec succès !",
+    "Modify order": "",
+    "Order details": "",
+    "Order for": "",
+    "Order date": ""
 }

@@ -1,5 +1,10 @@
 <div>
-  @include('admin.components.breadcrumb')
+  {{-- @include('admin.components.breadcrumb') --}}
+
+  <h4 class="fw-bold py-3 mb-4">
+    <span class="text-muted fw-light"> <a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }} </a>/</span>
+    <span>{{ __('Clients') }}</span>
+  </h4>
 
   <!-- Basic Bootstrap Table -->
   <div class="card">
