@@ -130,7 +130,7 @@ class Orders extends Component
     {
         $this->dispatchBrowserEvent('swal-confirm', [
             'type' => 'warning',
-            'title' => 'Are you sure?',
+            'title' => __('Are you sure?'),
             'text' => '',
             'id' =>  $id
         ]);
