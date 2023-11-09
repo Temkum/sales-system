@@ -76,7 +76,10 @@
                 <tr class="{{ $order->status == 'cancelled' ? 'disabled' : '' }}">
                   <div>
                     <td>{{ $order->client->code ?? '' }}</td>
-                    <td>{{ $order->client->name ?? '' }}</td>
+                    <td>
+                      <a href="{{ route('client-details', $order->client->id) }}">{{ $order->client->name ?? '' }}</a>
+                    </td>
+                    {{-- <td>{{ $order->client->name ?? '' }}</td> --}}
                     <td><strong>{{ number_format($order->price) }}</strong></td>
                     <td>{{ date('j F y', strtotime($order->due_date)) }}</td>
                     <td>{{ number_format($order->advance) }}</td>

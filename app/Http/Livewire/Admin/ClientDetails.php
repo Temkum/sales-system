@@ -4,18 +4,31 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\Client;
 use App\Models\Measurement;
+use App\Models\Order;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ClientDetails extends Component
 {
     public $name, $address, $phone, $code, $client_id;
     public $selected_measurement = null;
 
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
+
     public function render()
     {
         $client = Client::findOrFail($this->client_id);
 
-        return view('livewire.admin.client-details', ['client' => $client])->extends('base');
+        $orders_query = Order::query();
+
+        if ($this->client_id) {
+            $orders_query->where('client_id', $this->client_id);
+        }
+
+        $orders = $orders_query->with('client')->orderBy('created_at', 'DESC')->paginate(10);
+
+        return view('livewire.admin.client-details', ['client' => $client, 'orders' => $orders])->extends('base');
     }
 
     function mount($client_id)
