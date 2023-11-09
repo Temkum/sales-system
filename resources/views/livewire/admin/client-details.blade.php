@@ -120,19 +120,18 @@
                     <td>{{ $order->created_at->diffForHumans() }}</td>
                     <td>
                       @if ($order->status == 'completed')
-                        <span class="mb-0 w-px-100 text-success">{{ __('Completed') }}</span>
+                        <span class="badge bg-label-success me-1">{{ __('Completed') }}</span>
                       @elseif($order->status == 'cancelled')
-                        <span class="bg-label-secondary mb-0 w-px-100 text-secondary">{{ __('Cancelled') }}</span>
+                        <span class="badge bg-label-secondary me-1">{{ __('Cancelled') }}</span>
                       @elseif($order->status == 'due')
                         <span class="mb-0 w-px-100 text-danger">
                           <i class="bx bxs-circle fs-tiny me-2"></i>{{ __('Due') }}</span>
                       @else
-                        <span class="mb-0 w-px-100 text-primary bg-label-primary">{{ __('Processing') }}</span>
+                        <span class="badge bg-label-primary me-1">{{ __('Processing') }}</span>
                       @endif
                     </td>
                     <td>{{ $order->advance }}</td>
-                    {{-- <td>{{ date(now()->isoFormat('d F Y'), strtotime($order->due_date)) }}</td> --}}
-                    <td>{{ now()->isoFormat('dddd, D MMMM YYYY') }}</td>
+                    <td>{{ \Carbon\Carbon::parse($order->due_date)->isoFormat('D MMMM YYYY') }}</td>
                     <td></td>
                   </tr>
                 @endforeach
