@@ -22,11 +22,15 @@ class ClientDetails extends Component
 
         $orders_query = Order::query();
 
+        $measurement_query = Measurement::query();
+
+
+
         if ($this->client_id) {
             $orders_query->where('client_id', $this->client_id);
         }
 
-        $orders = $orders_query->with('client')->orderBy('created_at', 'DESC')->paginate(10);
+        $orders = $orders_query->with('client')->orderBy('created_at', 'DESC')->paginate(8);
 
         return view('livewire.admin.client-details', ['client' => $client, 'orders' => $orders])->extends('base');
     }
