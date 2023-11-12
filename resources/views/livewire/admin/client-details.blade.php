@@ -39,10 +39,10 @@
                 <h5 class="mb-0">{{ $orders->sum('advance') }}</h5>
                 <span>{{ __('Spent') }}</span>
               </div>
-              <div class="avatar">
+              <div class="avatar p-3">
                 <div class="avatar-initial rounded bg-label-primary">
                   {{-- <i class="bx bx-dollar bx-sm"></i> --}}
-                  <span>FCFA</span>
+                  <span class="">FCFA</span>
                 </div>
               </div>
 
@@ -55,14 +55,6 @@
               <li class="mb-3">
                 <span class="fw-medium me-2">{{ __('Name') }}:</span>
                 <span>{{ $client->name }}</span>
-              </li>
-              {{-- <li class="mb-3">
-                  <span class="fw-medium me-2">Email:</span>
-                  <span></span>
-                </li> --}}
-              <li class="mb-3">
-                <span class="fw-medium me-2">{{ __('Status') }}:</span>
-                <span class="badge bg-label-success">{{ __('Active') }}</span>
               </li>
               <li class="mb-3">
                 <span class="fw-medium me-2">{{ __('Contact') }}:</span>
@@ -142,7 +134,7 @@
       </div>
 
       <div class="row">
-        <div class="col-md-7 col-lg-12 mb-4">
+        <div class="col-md-5 col-lg-7 mb-4">
           <div class="card h-100">
             <div class="card-body">
               <div class="card-info">
@@ -169,7 +161,7 @@
                             <td class="measurement btn-reveal-trigger" data-bs-toggle="offcanvas"
                               wire:click="selectMeasurement({{ $measurement->id }})"
                               data-bs-target="#{{ $measurement->id }}">
-                              Measurement #{{ $measurement->id }}
+                              {{ __('Measurement') }} #{{ $measurement->id }}
                               {{-- <span class="btn btn-primary btn-sm ms-4" data-bs-toggle="offcanvas"
                                 wire:click="selectMeasurement({{ $measurement->id }})"
                                 data-bs-target="#offcanvasBackdrop">
@@ -252,20 +244,6 @@
                   </div>
                   </tbody>
                   </table>
-                  <div class="row align-items-center justify-content-between py-2 pe-0 fs--1">
-                    <div class="col-auto d-flex">
-                      <p class="mb-0 d-none d-sm-block me-3 fw-semi-bold text-900" data-list-info="data-list-info">
-                      </p><a class="fw-semi-bold" href="#!" data-list-view="*">View all<span
-                          class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a><a
-                        class="fw-semi-bold d-none" href="#!" data-list-view="less">View Less<span
-                          class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a>
-                    </div>
-                    <div class="col-auto d-flex"><button class="page-link" data-list-pagination="prev"><span
-                          class="fas fa-chevron-left"></span></button>
-                      <ul class="mb-0 pagination"></ul><button class="page-link pe-0"
-                        data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>

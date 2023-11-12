@@ -22,10 +22,6 @@ class ClientDetails extends Component
 
         $orders_query = Order::query();
 
-        $measurement_query = Measurement::query();
-
-
-
         if ($this->client_id) {
             $orders_query->where('client_id', $this->client_id);
         }

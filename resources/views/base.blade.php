@@ -101,12 +101,11 @@
               </a>
             </li> --}}
 
-            {{-- account --}}
-            <li class="menu-header small text-uppercase ">
-              <span class="menu-header-text">{{ __('Account') }}</span>
-            </li>
-
+            {{-- Client --}}
             @can('is-admin')
+              <li class="menu-header small text-uppercase ">
+                <span class="menu-header-text">{{ __('Clients') }}</span>
+              </li>
               <li class="menu-item {{ request()->route()->named('clients')? 'active': '' }}">
                 <a href="{{ route('clients') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-group"></i>
@@ -119,6 +118,20 @@
                   <div>{{ __('Measurements') }}</div>
                 </a>
               </li>
+              <li class="menu-item {{ request()->route()->named('repairs.index')? 'active': '' }}">
+                <a href="{{ route('repairs.index') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-group"></i>
+                  <div>{{ __('Repairs') }}</div>
+                </a>
+              </li>
+            @endcan
+
+            {{-- account --}}
+            <li class="menu-header small text-uppercase ">
+              <span class="menu-header-text">{{ __('Account') }}</span>
+            </li>
+
+            @can('is-admin')
               <li class="menu-item {{ request()->route()->named('users')? 'active': '' }}">
                 <a href="{{ route('users') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-group"></i>
