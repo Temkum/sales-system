@@ -15,7 +15,8 @@
         <div class="card-body">
           <div class="customer-avatar-section">
             <div class="d-flex align-items-center flex-column">
-              <img class="img-fluid rounded my-3" src="images/12.png" height="110" width="110" alt="User avatar">
+              <img class="img-fluid rounded my-3" src="{{ asset('assets/img/avatars/user-avatar.png') }}" height="110"
+                width="110" alt="User avatar">
               <div class="customer-info text-center">
                 <h4 class="mb-1">{{ $client->name }}</h4>
                 <small>{{ $client->code }}</small>
@@ -35,17 +36,16 @@
               </div>
             </div>
             <div class="d-flex align-items-center gap-2">
+              <div class="avatar p-3">
+                <div class="avatar-initial rounded bg-label-primary">
+                  {{-- <i class="bx bx-dollar bx-sm"></i> --}}
+                  <span class="">XAF</span>
+                </div>
+              </div>
               <div>
                 <h5 class="mb-0">{{ $orders->sum('advance') }}</h5>
                 <span>{{ __('Spent') }}</span>
               </div>
-              <div class="avatar p-3">
-                <div class="avatar-initial rounded bg-label-primary">
-                  {{-- <i class="bx bx-dollar bx-sm"></i> --}}
-                  <span class="">FCFA</span>
-                </div>
-              </div>
-
             </div>
           </div>
 
@@ -157,11 +157,10 @@
                       <tbody>
                         @foreach ($client->measurements as $measurement)
                           <tr class="hover-actions-trigger position-static">
-                            <td class="measurement">#</td>
                             <td class="measurement btn-reveal-trigger" data-bs-toggle="offcanvas"
                               wire:click="selectMeasurement({{ $measurement->id }})"
                               data-bs-target="#{{ $measurement->id }}">
-                              {{ __('Measurement') }} #{{ $measurement->id }}
+                              {{ $measurement->title ?? '#' . $measurement->id }}
                               {{-- <span class="btn btn-primary btn-sm ms-4" data-bs-toggle="offcanvas"
                                 wire:click="selectMeasurement({{ $measurement->id }})"
                                 data-bs-target="#offcanvasBackdrop">

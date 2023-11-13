@@ -10,8 +10,8 @@
   <div class="card">
     <div class="card-header d-flex justify-content-between mb-4">
       <h5 class="md sm">
-        <a type="button" class="btn btn-sm btn-outline-success" href="{{ route('add-client') }}">
-          <i class="bx bx-plus"></i> {{ __('New') }}
+        <a type="button" class="btn btn-sm btn-outline-success me-3" href="{{ route('add-client') }}">
+          <i class="bx bx-plus"></i> {{ __('New client') }}
         </a>
         <a type="button" class="btn btn-sm btn-outline-success" href="{{ route('add-measurement') }}">
           <i class="bx bx-plus"></i> {{ __('New measurement') }}
