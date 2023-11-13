@@ -4,11 +4,10 @@
   {{-- @include('admin.components.breadcrumb') --}}
 
   <div class="row center-item">
-    {{-- <div class="col-lg-10 col-xl-12"> --}}
     <div class="col-lg-5">
       <div class="card mb-4">
         <div class="card-header text-center mb-3">
-          <h5 class="mb-0 text-uppercase">{{ __('New repairs') }}</h5>
+          <h5 class="mb-0 text-uppercase">{{ __('Update repairs') }}</h5>
         </div>
         <div class="card-body">
           <div class="center-item">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Repair;
 use Illuminate\Http\Request;
+use Livewire\WithPagination;
 
 class RepairController extends Controller
 {
@@ -12,9 +13,23 @@ class RepairController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    use WithPagination;
+
+    public Int $page_number;
+    public $current_page;
+    public $search;
+
     public function index()
     {
         $repairs = Repair::all();
+
+        $this->page_number = 15;
+        $this->page = $this->current_page;
+
+        $repairs = Repair::where('name', 'LIKE', '%' . $this->search . '%')
+            ->orWhere('phone_number', 'LIKE', '%' . $this->search . '%')
+            ->orderBy('created_at', 'DESC')->paginate($this->page_number);
 
         return view('admin.repairs.index', ['repairs' => $repairs]);
     }
@@ -41,6 +56,8 @@ class RepairController extends Controller
         $repair->name = $request->name;
         $repair->phone_number = $request->phone_number;
         $repair->save();
+
+        notyf()->addSuccess("Added successfully!");
 
         return redirect()->route('repairs.index');
     }
@@ -85,6 +102,8 @@ class RepairController extends Controller
         $repair->phone_number = $request->phone_number;
         $repair->save();
 
+        notyf()->addSuccess("Updated successfully!");
+
         return redirect()->route('repairs.index');
     }
 
@@ -98,6 +117,8 @@ class RepairController extends Controller
     {
         $repair = Repair::findOrFail($id);
         $repair->delete();
+
+        notyf()->addSuccess("Deleted successfully!");
 
         return redirect()->route('repairs.index');
     }

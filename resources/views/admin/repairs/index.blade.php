@@ -1,43 +1,91 @@
 @extends('base')
 
 @section('content')
-  {{-- @include('admin.components.breadcrumb') --}}
+  <div>
+    {{-- @include('admin.components.breadcrumb') --}}
 
-  <div class="row">
-    <div class="col-lg-10">
-      <div class="card mb-4">
-        <div class="card-header text-center mb-3">
-          <h5 class="mb-0 text-uppercase">{{ __('Repairs') }}</h5>
-          <a href="{{ route('repairs.create') }}" class="btn btn-primary">{{ __('Add repair') }}</a>
+    <h4 class="fw-bold py-3 mb-4">
+      <span class="text-muted fw-light"> <a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }} </a>/</span>
+      <span>{{ __('Repairs') }}</span>
+    </h4>
+    <div class="card">
+      <div class="card-header d-flex justify-content-between mb-4">
+        <h5 class="md sm">
+          <a type="button" class="btn btn-sm btn-outline-success" href="{{ route('repairs.create') }}">
+            <i class="bx bx-plus"></i> {{ __('New repair') }}
+          </a>
+        </h5>
+        {{-- search --}}
+        <div class="search-box">
+          <form action="" method="GET">
+            <input type="text" id="search" placeholder="{{ __('Search') }}..." class="form-control"
+              name="search" />
+          </form>
         </div>
-        <div class="card-body">
-          <table class="table">
+      </div>
+      <div class="card-body">
+        <div class="">
+          <table class="table table-responsive table-sm">
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Phone Number</th>
-                <th>Actions</th>
+                <th>{{ __('Name') }}</th>
+                <th>{{ __('Phone') }}</th>
+                <th>{{ __('Actions') }}</th>
               </tr>
             </thead>
-            <tbody>
-              @foreach ($repairs as $repair)
+            <tbody class="allclients">
+              <?php $index = 1; ?>
+
+              @if (count($repairs) >= 1)
+                @foreach ($repairs as $repair)
+                  <tr>
+                    <td>{{ $repair->name }}</td>
+                    <td>{{ $repair->phone_number }}</td>
+                    <td>
+                      <a class="btn btn-sm btn-outline-primary mr-3" href="{{ route('repairs.edit', $repair) }}">
+                        <i class="bx bx-pencil"></i>
+                      </a>
+                      <form method="POST" action="{{ route('repairs.destroy', $repair) }}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-outline-danger ml-3""><i
+                            class="bx bx-trash"></i></button>
+                      </form>
+                    </td>
+                  </tr>
+                @endforeach
+              @else
                 <tr>
-                  <td>{{ $repair->name }}</td>
-                  <td>{{ $repair->phone_number }}</td>
-                  <td>
-                    <a href="{{ route('repairs.edit', $repair) }}" class="btn btn-primary">Edit</a>
-                    <form method="POST" action="{{ route('repairs.destroy', $repair) }}">
-                      @csrf
-                      @method('DELETE')
-                      <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                  </td>
+                  <td colspan='7' class="text-center text-bold">{{ __('No repairs available') }}</td>
                 </tr>
-              @endforeach
+              @endif
             </tbody>
           </table>
         </div>
       </div>
+      <div class="card-footer">
+        <nav aria-label="Page navigation">
+          {{ $repairs->links() }}
+        </nav>
+      </div>
     </div>
   </div>
+  </div>
+
+  <script>
+    window.addEventListener('swal-confirm', event => {
+      swal({
+        title: event.detail.title,
+        text: event.detail.text,
+        icon: event.detail.type,
+        buttons: true,
+        dangerMode: true,
+      }).then((willDelete) => {
+        if (willDelete) {
+          window.livewire.emit('delete', event.detail.id);
+        }
+      });
+    });
+  </script>
+
 @endsection
