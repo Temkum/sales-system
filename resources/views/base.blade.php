@@ -88,6 +88,12 @@
             <li class="menu-header small text-uppercase ">
               <span class="menu-header-text">{{ __('Product Categories') }}</span>
             </li>
+            <li class="menu-item {{ request()->route()->named('purchase_orders')? 'active': '' }}">
+              <a href="{{ route('purchase_orders') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-category"></i>
+                <div>{{ __('Purchase orders') }}</div>
+              </a>
+            </li>
             <li class="menu-item {{ request()->route()->named('product-categories')? 'active': '' }}">
               <a href="{{ route('product-categories') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-category"></i>
