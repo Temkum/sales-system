@@ -188,5 +188,14 @@
     "Order details": "",
     "Order for": "",
     "Order date": "",
-    "Orders": "Commandes"
+    "Orders": "Commandes",
+    "The code must be at least 4 characters.": "Le code doit comporter au moins 4 caractères.",
+    "The code must not be greater than 8 characters.": "Le code ne doit pas dépasser 8 caractères.",
+    "The code must contain both alphabetic and numeric characters." : "Le code doit contenir à la fois des caractères alphabétiques et numériques.",
+    "The name field is required.": "Le nom est obligatoire.",
+    "The address field is required.": "L'adresse est obligatoire.",
+    "The phone field is required.": "Le numéro de telephone est obligatoire.",
+    "All orders": "Tous les commands",
+    "Client added successfully!": "Client ajouté avec succès !",
+    "Client updated successfully!": "Client mis à jour avec succès !"
 }

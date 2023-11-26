@@ -26,17 +26,18 @@ class AddClient extends Component
         return view('livewire.admin.add-client')->extends('base');
     }
 
-
-
     public function addClient()
     {
         $this->validate([
             'name' => 'required',
             'address' => 'required',
             'phone' => 'required',
-            'code' => 'required|unique:clients|min:4',
+            'code' => 'required|unique:clients|min:4|max:8|regex:/^(?=.*[a-zA-Z])(?=.*\d).{1,}$/',
+        ], [
+            'code.regex' => 'The code must contain both alphabetic and numeric characters.',
         ]);
 
+        $code = strtoupper($this->code);
 
         if ($this->client_id) {
             $client = Client::find($this->client_id);
@@ -45,12 +46,9 @@ class AddClient extends Component
                 'name' => $this->name,
                 'address' => $this->address,
                 'phone' => $this->phone,
-                'code' => $this->code
+                'code' => $code
             ]);
-            notyf()
-                ->position('x', 'center')
-                ->position('y', 'top')
-                ->addSuccess("Client updated successfully!");
+            notyf()->addSuccess(__("Client updated successfully!"));
         } else {
             Client::create([
                 'name' => $this->name,
@@ -58,10 +56,7 @@ class AddClient extends Component
                 'phone' => $this->phone,
                 'code' => $this->code,
             ]);
-            notyf()
-                ->position('x', 'center')
-                ->position('y', 'top')
-                ->addSuccess("Client added successfully!");
+            notyf()->addSuccess(__("Client added successfully!"));
 
             $this->reset(['name', 'address', 'phone', 'code']);
         }

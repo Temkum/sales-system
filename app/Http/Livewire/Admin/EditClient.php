@@ -28,19 +28,23 @@ class EditClient extends Component
 
     function update()
     {
-        $this->validate(['name' => 'required', 'address' => 'required', 'code' => 'required|min:4', 'phone' => 'required']);
+        $this->validate([
+            'name' => 'required',
+            'address' => 'required',
+            'phone' => 'required',
+            'code' => 'required|unique:clients,code,' . $this->client_id . '|min:4|max:8|regex:/^(?=.*[a-zA-Z])(?=.*\d).{1,}$/',
+        ], [
+            'code.regex' => 'The code must contain both alphabetic and numeric characters.',
+        ]);
 
         $client = Client::find($this->client_id);
-        $client->code = $this->code;
+        $client->code = strtoupper($this->code);
         $client->name = $this->name;
         $client->address = $this->address;
         $client->phone = $this->phone;
         $client->save();
 
-        notyf()
-            ->position('x', 'center')
-            ->position('y', 'top')
-            ->addSuccess("Client updated successfully!");
+        notyf()->addSuccess(__("Client updated successfully!"));
 
         redirect()->to(route('clients'));
     }
