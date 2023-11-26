@@ -86,7 +86,7 @@
               </a>
             </li>
             {{-- product --}}
-            {{-- <li class="menu-header small text-uppercase ">
+            <li class="menu-header small text-uppercase ">
               <span class="menu-header-text">{{ __('Product categories') }}</span>
             </li>
             <li class="menu-item {{ request()->route()->named('purchase_orders')? 'active': '' }}">
@@ -106,8 +106,7 @@
                 <i class="menu-icon tf-icons bx bx-duplicate"></i>
                 <div>{{ __('Add Product') }}</div>
               </a>
-            </li> --}}
-
+            </li>
             {{-- Client --}}
             @can('is-admin')
               <li class="menu-header small text-uppercase ">
@@ -160,7 +159,8 @@
               </a>
             </li>
             <!-- Misc -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ __('Misc') }}</span></li>
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ __('Misc') }}</span>
+            </li>
             <li class="menu-item">
               <a href="#" target="_blank" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-support"></i>
