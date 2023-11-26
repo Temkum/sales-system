@@ -40,11 +40,13 @@
                     id="delete-form-{{ $purchase_order->id }}">
                     @csrf
                     @method('DELETE')
-                    <button type="button" class="btn btn-danger btn-sm"
-                      onclick="confirmDelete({{ $purchase_order->id }})"
-                      id="delete-btn-{{ $purchase_order->id }}">{{ __('Delete') }}</button>
-
-                  </form>
+                    <form action="{{ route('purchase_orders.destroy', $purchase_order) }}" method="POST"
+                      class="d-inline">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" class="btn btn-danger btn-sm"
+                        onclick="return confirm('Are you sure you want to delete this purchase order?')">{{ __('Delete') }}</button>
+                    </form>
                 </td>
               </tr>
             @endforeach
@@ -55,7 +57,6 @@
 
     </div>
   </div>
-
   <script>
     function confirmDelete(id) {
       Swal.fire({
