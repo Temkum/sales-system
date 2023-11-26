@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-header d-flex justify-content-between">
       <div class="card-header mb-3">
-        <h3 class="mb-3 text-uppercase">Update sale record</h3>
+        <h3 class="mb-3 text-uppercase">{{ __('Update sale record') }}</h3>
       </div>
       <div class="search-box">
         <a href="{{ route('client-orders') }}" class="btn btn-secondary btn-sm">
@@ -33,29 +33,28 @@
                     @enderror
                   </div>
                   <div class="col-6 mb-3">
-                    <label for="Price" class="form-label">Price</label>
+                    <label for="Price" class="form-label">{{ __('Price') }}</label>
                     <input type="number" id="price" class="form-control" wire:model="price" min="0" />
                   </div>
                   <div class="col-6 mb-3">
-                    <label for="Price" class="form-label">Quantity</label>
+                    <label for="Price" class="form-label">{{ __('Quantity') }}</label>
                     <input type="number" id="qty" class="form-control" wire:model="quantity" min="0" />
                   </div>
                   <div class="col-6 mb-3">
-                    <label for="advance" class="form-label">Advance
-                      Paid</label>
+                    <label for="advance" class="form-label">{{ __('Advance') }}</label>
                     <input type="number" id="advance" class="form-control" wire:model="advance" min="0" />
                   </div>
                   <div class="col-6 mb-3">
-                    <label for="balance" class="form-label">Balance</label>
+                    <label for="balance" class="form-label">{{ __('Balance') }}</label>
                     <span
-                      class="balance">{{ $order->price == $order->advance && $order->balance === 0 ? 'Fully Paid' : number_format($order->balance) }}</span>
+                      class="balance">{{ $order->price == $order->advance && $order->balance === 0 ? __('Fully paid') : number_format($order->balance) }}</span>
                   </div>
                   <div class="col-6 mb-3">
-                    <label for="dueDate" class="form-label">Due date</label>
-                    <input id="due_date" class="form-control" wire:model="due_date" />
+                    <label for="dueDate" class="form-label">{{ __('Due date') }}</label>
+                    <input type="datetime-local" id="due_date" class="form-control" wire:model="due_date" />
                   </div>
                   <div class="col-6 mb-3">
-                    <label for="dueDate" class="form-label">Status</label>
+                    <label for="dueDate" class="form-label">{{ __('Status') }}</label>
                     <div class="d-flex justify-content-evenly align-items-center">
                       @if ($order->status == 'completed')
                         <span class="badge bg-success me-1 align-items-center">
@@ -66,37 +65,37 @@
                       @elseif($order->status == 'due')
                         <span class="badge bg-danger me-1">{{ $order->status }}</span>
                       @else
-                        <span class="badge bg-label-primary">Processing</span>
+                        <span class="badge bg-label-primary">{{ __('Processing') }}</span>
                       @endif
                       <div class="dropdown">
                         <button class="btn btn-sm btn-secondary dropdown-toggle" type="button"
                           data-bs-toggle="dropdown" aria-expanded="false">
-                          Update Status
+                          {{ __('Update status') }}
                         </button>
                         <ul class="dropdown-menu">
                           <li><a class="dropdown-item" href="#"
-                              wire:click.prevent="updateSaleStatus({{ $order->id }}, 'completed')">Completed</a>
+                              wire:click.prevent="updateSaleStatus({{ $order->id }}, 'completed')">{{ __('Completed') }}</a>
                           </li>
                           <li><a class="dropdown-item" href="#"
-                              wire:click.prevent="updateSaleStatus({{ $order->id }}, 'due')">Due</a>
+                              wire:click.prevent="updateSaleStatus({{ $order->id }}, 'due')">{{ __('Due') }}</a>
                           </li>
                           <li><a class="dropdown-item" href="#"
-                              wire:click.prevent="updateSaleStatus({{ $order->id }}, 'processing')">Pending</a>
+                              wire:click.prevent="updateSaleStatus({{ $order->id }}, 'processing')">{{ __('Pending') }}</a>
                           </li>
                           <li><a class="dropdown-item" href="#"
-                              wire:click.prevent="updateSaleStatus({{ $order->id }}, 'cancelled')">Cancelled</a>
+                              wire:click.prevent="updateSaleStatus({{ $order->id }}, 'cancelled')">{{ __('Cancelled') }}</a>
                           </li>
                         </ul>
                       </div>
                     </div>
                   </div>
-                  <div class="col-12 mb-3">
-                    <label for="description" class="form-label">Description</label>
+                  <div class="col-12 mb-1">
+                    <label for="description" class="form-label">{{ __('Description') }}</label>
                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" wire:model="description"></textarea>
                   </div>
                 </div>
                 <div class="modal-footer edit-modal-footer">
-                  <button type="submit" class="btn btn-primary">Update</button>
+                  <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>
                 </div>
               </div>
             </form>

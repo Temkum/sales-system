@@ -1,12 +1,17 @@
 <div>
-  @include('admin.components.breadcrumb')
+  {{-- @include('admin.components.breadcrumb') --}}
+
+  <h4 class="fw-bold py-3 mb-4">
+    <span class="text-muted fw-light"> <a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }} </a>/</span>
+    <span>{{ __('Clients') }}</span>
+  </h4>
 
   <!-- Basic Bootstrap Table -->
   <div class="card">
     <div class="card-header d-flex justify-content-between mb-4">
       <h5 class="md sm">
-        <a type="button" class="btn btn-sm btn-outline-success" href="{{ route('add-client') }}">
-          <i class="bx bx-plus"></i> {{ __('New') }}
+        <a type="button" class="btn btn-sm btn-outline-success me-3" href="{{ route('add-client') }}">
+          <i class="bx bx-plus"></i> {{ __('New client') }}
         </a>
         <a type="button" class="btn btn-sm btn-outline-success" href="{{ route('add-measurement') }}">
           <i class="bx bx-plus"></i> {{ __('New measurement') }}
@@ -58,7 +63,7 @@
               @endforeach
             @else
               <tr>
-                <td colspan='7' class="text-center text-bold">No clients available!</td>
+                <td colspan='7' class="text-center text-bold">{{ __('No clients available') }}</td>
               </tr>
             @endif
           </tbody>

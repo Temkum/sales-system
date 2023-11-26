@@ -2,10 +2,14 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Console\Commands\SendOrderDueDateReminders;
 use App\Models\Client as ModelsClient;
 use App\Models\Order;
+use App\Models\User;
+use App\Notifications\OrderDueDateReminder;
 use App\Notifications\OrderTransaction;
 use Illuminate\Notifications\Messages\VonageMessage;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
@@ -25,6 +29,7 @@ class Orders extends Component
     public $price, $advance, $quantity, $description, $due_date, $balance;
     public $current_page = 1;
     public $client_id;
+    public $notifications;
 
     use WithPagination;
 
@@ -34,6 +39,16 @@ class Orders extends Component
         'sweetalertConfirmed',
         'sweetalertDenied',
     ];
+
+    public function mount()
+    {
+        $this->notifications = Auth::user()->unreadNotifications;
+
+        if ($this->notifications->count() > 0) {
+            notyf()->addInfo(__('You have orders expiring soon! Please check your notifications'));
+        }
+        $this->orderNotify();
+    }
 
     public function render()
     {
@@ -59,7 +74,9 @@ class Orders extends Component
                 ->where('created_at', '<=', $this->end_date)->paginate($this->page_number);
         }
 
-        return view('livewire.admin.orders', ['orders' => $orders])->extends('base');
+        $notifications = auth()->user()->notifications;
+
+        return view('livewire.admin.orders', ['orders' => $orders, 'notifications' => $notifications])->extends('base');
     }
 
     public function updatedSearch()
@@ -79,6 +96,7 @@ class Orders extends Component
 
         if ($status == 'completed') {
             $sale->date_delivered = DB::raw('CURRENT_DATE');
+
             /*
             try {         
             // vonage api               
@@ -112,18 +130,14 @@ class Orders extends Component
                         )
                     );
             } catch (\Throwable $th) {
-                noty()->progressBar(false)->addError('Something went wrong. </br> Could not send message!');
+                noty()->progressBar(false)->addError(__('Something went wrong. </br> Could not send message!'));
                 throw $th;
             }
-        } elseif ($status == 'cancelled') {
-            $sale->date_cancelled = DB::raw('CURRENT_DATE');
         }
         $sale->save();
 
         return notyf()
-            ->position('x', 'center')
-            ->position('y', 'bottom')
-            ->duration(2000)->addSuccess('Status updated successfully!');
+            ->duration(2000)->addSuccess(__('Status updated successfully!'));
     }
 
     public function confirmDelete(int $id)
@@ -143,12 +157,10 @@ class Orders extends Component
         if ($sale) {
             $sale->delete();
             notyf()
-                ->position('x', 'center')
-                ->position('y', 'top')
                 ->duration(2000)
-                ->addSuccess('Record deleted successfully');
+                ->addSuccess(__('Record deleted successfully'));
         } else {
-            notyf()->position('x', 'right')->position('y', 'top')->addError('Record not found');
+            notyf()->position('x', 'right')->position('y', 'top')->addError(__('Record not found'));
         }
     }
 
@@ -162,5 +174,59 @@ class Orders extends Component
         $deleted_records = Order::onlyTrashed()->paginate(20);
 
         return view('livewire.admin.deleted-records', ['deleted_records' => $deleted_records])->extends('base');
+    }
+
+    /**
+     * Marks a notification as read.
+     *
+     * @param int $id The ID of the notification to mark as read.
+     * @return Illuminate\Http\RedirectResponse The redirect response.
+     */
+
+    public function markAsRead($id)
+    {
+        if ($id) {
+            $notification = auth()->user()->unreadNotifications->where('id', $id)->first();
+
+            if ($notification) {
+                $notification->delete();
+            }
+        }
+
+        return back();
+    }
+
+    /*  public function orderNotify()
+    {
+        $orders = Order::where('status', '!=', 'completed')
+            ->where(function ($query) {
+                $query->where('status', 'due')
+                    ->orWhereDate('due_date', '>=', now()->addDays(3));
+            })->get();
+
+        foreach ($orders as $order) {
+            auth()->user()->notify(new OrderDueDateReminder($order));
+        }
+    }
+ */
+    public function orderNotify()
+    {
+        $orders = Order::where('status', '!=', 'completed')
+            ->where(function ($query) {
+                $query->where('status', 'due')
+                    ->orWhereDate('due_date', '>=', now()->addDays(3));
+            })->whereNotExists(function ($query) {
+                $query->select(DB::raw(1))
+                    ->from('notifications')
+                    ->whereRaw('JSON_EXTRACT(data, "$.order_id") = orders.id')
+                    ->where('notifications.type', 'App\Notifications\OrderDueDateReminder');
+            })->with('client')->get();
+
+        foreach ($orders as $order) {
+            if ($order->client) {
+                $client = $order->client;
+                auth()->user()->notify(new OrderDueDateReminder($order, $client));
+            }
+        }
     }
 }

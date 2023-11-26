@@ -25,17 +25,43 @@
           {{-- <button class="btn btn-secondary" type="submit">Filter</button> --}}
         </form>
       </div>
+
+      {{-- <div class="h-20" style="height: 200px; overflow: auto">
+        <ul>
+          @foreach ($notifications as $notification)
+            <li>
+              Order #{{ $notification['order_id'] }} is due on {{ $notification['due_date'] }}
+              <button onclick="markAsRead('{{ $notification['id'] }}')" class="btn btn-info">Mark as read</button>
+            </li>
+          @endforeach
+        </ul>
+      </div> --}}
+
     </div>
     <div class="card-body">
       <div class="">
+        {{-- @if (Auth::user()->unreadNotifications->count() > 0)
+          <div class="h-20" style="height: 200px; overflow: auto">
+            <ul>
+              @foreach ($notifications as $notification)
+                <li>
+                  <a href="{{ $notification->data['action_url'] ?? '' }}">{{ $notification->data['message'] }}</a>
+                  <button wire:click.prevent="markAsRead('{{ $notification['id'] }}')"
+                    class="btn btn-sm btn-primary">{{ __('Mark as read') }}</button>
+                  <a href="{{ route('mark-as-read', $notification['id']) }}" class="btn btn-primary">Mark as read</a>
+                </li>
+              @endforeach
+            </ul>
+          </div>
+        @endif --}}
         <table class="table order-table table-responsive">
           <thead>
             <tr>
               <th>{{ __('Code') }}</th>
               <th>{{ __('Client') }}</th>
               <th>{{ __('Price') }} (Fcfa)</th>
-              <th>{{ __('Due Date') }}</th>
-              <th>{{ __('Advance Paid ') }}(Fcfa)</th>
+              <th>{{ __('Due date') }}</th>
+              <th>{{ __('Advance paid') }}(Fcfa)</th>
               <th>{{ __('Status') }}</th>
               <th>{{ __('Balance') }}</th>
               <th>{{ __('Update status') }}</th>
@@ -50,7 +76,10 @@
                 <tr class="{{ $order->status == 'cancelled' ? 'disabled' : '' }}">
                   <div>
                     <td>{{ $order->client->code ?? '' }}</td>
-                    <td>{{ $order->client->name ?? '' }}</td>
+                    <td>
+                      <a href="{{ route('client-details', $order->client->id) }}">{{ $order->client->name ?? '' }}</a>
+                    </td>
+                    {{-- <td>{{ $order->client->name ?? '' }}</td> --}}
                     <td><strong>{{ number_format($order->price) }}</strong></td>
                     <td>{{ date('j F y', strtotime($order->due_date)) }}</td>
                     <td>{{ number_format($order->advance) }}</td>

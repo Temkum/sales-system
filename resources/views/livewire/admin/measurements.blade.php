@@ -6,7 +6,7 @@
           <h3>{{ __('Client measurements') }}</h3>
           <h5 class="md sm">
             <a type="button" class="btn btn-outline-success" href="{{ route('add-measurement') }}">
-              <i class="bx bx-plus me-2"></i>{{ __('Add') }}
+              <i class="bx bx-plus me-2"></i>{{ __('New') }}
             </a>
           </h5>
         </div>

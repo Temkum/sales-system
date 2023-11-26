@@ -12,11 +12,11 @@
     </div>
 
     <div class="card-body order-details">
-      <p>Order for {{ $order->client->name ?? '' }}</p>
-      <p><b>Price</b>: {{ $order->price }}</p>
-      <p>Balance: {{ $order->balance }}</p>
-      <p>Status: <span class="badge bg-secondary">{{ $order->status }}</span></p>
-      <p>Order Date: {{ $order->created_at->format('Y-m-d') }}</p>
+      <p>{{ __('Order for') }} {{ $order->client->name ?? '' }}</p>
+      <p><b>{{ __('Price') }}</b>: {{ $order->price }}</p>
+      <p>{{ __('Balance') }}: {{ $order->balance }}</p>
+      <p>{{ __('Status') }}: <span class="badge bg-secondary">{{ __($order->status) }}</span></p>
+      <p>{{ __('Order date') }}: {{ $order->created_at->format('Y-m-d') }}</p>
     </div>
   </div>
 

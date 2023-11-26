@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\OrderDueDateReminder;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Notifications\Notifiable;

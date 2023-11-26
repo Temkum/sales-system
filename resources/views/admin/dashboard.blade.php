@@ -13,7 +13,7 @@
                   {{ __('You have done 72% more sales today. Check your sales.') }}
                 </p>
 
-                <a href="{{ route('orders') }}" class="btn btn-sm btn-outline-primary">{{ __('View Sales') }}</a>
+                <a href="{{ route('orders') }}" class="btn btn-sm btn-outline-primary">{{ __('View sales') }}</a>
               </div>
             </div>
             <div class="col-sm-5 text-center text-sm-left">
@@ -67,7 +67,7 @@
                       <i class="bx bx-dots-vertical-rounded"></i>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
-                      <a class="dropdown-item" href="javascript:void(0);">View More</a>
+                      <a class="dropdown-item" href="javascript:void(0);">View more</a>
                       <a class="dropdown-item" href="javascript:void(0);">Delete</a>
                     </div>
                   </div>
@@ -87,7 +87,7 @@
         <div class="card">
           <div class="row row-bordered g-0">
             <div class="col-md-8">
-              <h5 class="card-header m-0 me-2 pb-3">Total Revenue</h5>
+              <h5 class="card-header m-0 me-2 pb-3">{{ __('Total revenue') }}</h5>
               <div id="totalRevenueChart" class="px-2"></div>
             </div>
             <div class="col-md-4">
@@ -107,7 +107,7 @@
                 </div>
               </div>
               <div id="growthChart"></div>
-              <div class="text-center fw-semibold pt-3 mb-2">62% Company Growth</div>
+              <div class="text-center fw-semibold pt-3 mb-2">62% {{ __('Company Growth') }}</div>
 
               <div class="d-flex px-xxl-4 px-lg-2 p-4 gap-xxl-3 gap-lg-1 gap-3 justify-content-between">
                 <div class="d-flex">
@@ -149,8 +149,8 @@
                       <i class="bx bx-dots-vertical-rounded"></i>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt4">
-                      <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                      <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                      <a class="dropdown-item" href="javascript:void(0);">{{ __('View more') }}</a>
+                      <a class="dropdown-item" href="javascript:void(0);">{{ __('Delete') }}</a>
                     </div>
                   </div>
                 </div>
@@ -176,8 +176,8 @@
                       <i class="bx bx-dots-vertical-rounded"></i>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="cardOpt1">
-                      <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                      <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                      <a class="dropdown-item" href="javascript:void(0);">{{ __('View More') }}</a>
+                      <a class="dropdown-item" href="javascript:void(0);">{{ __('Delete') }}</a>
                     </div>
                   </div>
                 </div>
@@ -191,7 +191,7 @@
             </div>
           </div>
           <!-- </div>
-                                                <div class="row"> -->
+                                                                <div class="row"> -->
           <div class="col-12 mb-4">
             <div class="card">
               <div class="card-body">
@@ -224,8 +224,8 @@
         <div class="card h-100">
           <div class="card-header d-flex align-items-center justify-content-between pb-0">
             <div class="card-title mb-0">
-              <h5 class="m-0 me-2">Order Statistics</h5>
-              <small class="text-muted">42.82k Total Sales</small>
+              <h5 class="m-0 me-2">{{ __('Order statistics') }}</h5>
+              <small class="text-muted">42.82k {{ __('Total Sales') }}</small>
             </div>
             <div class="dropdown">
               <button class="btn p-0" type="button" id="orederStatistics" data-bs-toggle="dropdown"
@@ -233,9 +233,9 @@
                 <i class="bx bx-dots-vertical-rounded"></i>
               </button>
               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics">
-                <a class="dropdown-item" href="javascript:void(0);">Select All</a>
-                <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
-                <a class="dropdown-item" href="javascript:void(0);">Share</a>
+                <a class="dropdown-item" href="javascript:void(0);">{{ __('Select all') }}</a>
+                <a class="dropdown-item" href="javascript:void(0);">{{ __('Refresh') }}</a>
+                <a class="dropdown-item" href="javascript:void(0);">{{ __('Share') }}</a>
               </div>
             </div>
           </div>
@@ -319,14 +319,14 @@
                 <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
                   data-bs-target="#navs-tabs-line-card-income" aria-controls="navs-tabs-line-card-income"
                   aria-selected="true">
-                  Income
+                  {{ __('Income') }}
                 </button>
               </li>
               <li class="nav-item">
-                <button type="button" class="nav-link" role="tab">Expenses</button>
+                <button type="button" class="nav-link" role="tab">{{ __('Expenses') }}</button>
               </li>
               <li class="nav-item">
-                <button type="button" class="nav-link" role="tab">Profit</button>
+                <button type="button" class="nav-link" role="tab">{{ __('Profit') }}</button>
               </li>
             </ul>
           </div>
@@ -338,7 +338,7 @@
                     <img src="../assets/img/icons/unicons/wallet.png" alt="User" />
                   </div>
                   <div>
-                    <small class="text-muted d-block">Total Balance</small>
+                    <small class="text-muted d-block">{{ __('Total balance') }}</small>
                     <div class="d-flex align-items-center">
                       <h6 class="mb-0 me-1">$459.10</h6>
                       <small class="text-success fw-semibold">
@@ -354,8 +354,8 @@
                     <div id="expensesOfWeek"></div>
                   </div>
                   <div>
-                    <p class="mb-n1 mt-1">Expenses This Week</p>
-                    <small class="text-muted">$39 less than last week</small>
+                    <p class="mb-n1 mt-1">{{ __('Expenses this week') }}</p>
+                    <small class="text-muted">$39 {{ __('less than last week') }}</small>
                   </div>
                 </div>
               </div>

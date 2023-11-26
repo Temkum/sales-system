@@ -27,11 +27,14 @@ use App\Http\Livewire\Admin\DeletedRecords;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\RepairController;
 use App\Http\Controllers\PurchaseOrderController;
 use App\Http\Controllers\PurchaseOrderItemController;
+
 use App\Http\Livewire\Admin\AddMeasurement;
 use App\Http\Livewire\Admin\EditMeasurements;
 use App\Http\Livewire\Admin\ModifyOrder;
+use App\Http\Livewire\Admin\OrderReminder;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,7 +84,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::get('search', [OrderController::class, 'search'])->name('search');
     Route::get('date-search', [OrderController::class, 'dateSearch'])->name('date-search');
 
-    Route::get('/users/', [UserController::class, 'index'])->name('users');
+    Route::get('/users', [UserController::class, 'index'])->name('users');
     Route::get('/add-user', [UserController::class, 'create'])->name('add-user');
     Route::post('/users/store', [UserController::class, 'store'])->name('save-user');
     Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('edit-user');
@@ -95,6 +98,13 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
 
     Route::get('/contacts', Contacts::class)->name('contacts');
     Route::get('/deleted-records', DeletedRecords::class, 'deletedRecords')->name('deleted-records');
+
+    Route::get('/reminder', OrderReminder::class)->name('order-reminder');
+
+    Route::get('/notify', [Orders::class, 'notify']);
+    Route::get('/markread/{id}', [Orders::class, 'markAsRead'])->name('mark-as-read');
+
+    Route::resource('repairs', RepairController::class);
 
     Route::resource('purchase_orders', PurchaseOrderController::class)->name('index', 'purchase_orders');
     Route::delete('purchase_orders/{purchase_order}', [PurchaseOrderController::class, 'destroy'])->name('purchase_orders.destroy');

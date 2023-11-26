@@ -63,6 +63,15 @@ div.disable-row {
   color: rgb(81, 81, 236);
 }
 
+.dropdown-notifications .dropdown-menu {
+  width: 450px;
+}
+
+.dropdown-notifications-list.scrollable-container {
+  max-height: 800px;
+  overflow-y: auto;
+}
+
 @media screen and (max-width: 428px) {
   .measurement-table {
     width: 100%;

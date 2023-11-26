@@ -1075,5 +1075,3 @@ document.addEventListener("DOMContentLoaded", function () {
 ```
 
 With this code, when a client name is clicked, the associated orders list will be shown or hidden.
-
-

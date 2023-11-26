@@ -20,7 +20,7 @@
             <div class="col-md-6 col-lg-7">
               <select class="form-select mt-2 col-5 customized-select @error('client_id') is-invalid @enderror"
                 id="client_id" wire:model="client_id">
-                <option value="">{{ __('Select Client') }}</option>
+                <option value="">{{ __('Select client') }}</option>
                 @foreach ($clients as $client)
                   <option value="{{ $client->id }}">{{ $client->name }}</option>
                 @endforeach
@@ -30,9 +30,9 @@
               @enderror
             </div>
             <div class="col-md-3">
-              <a href="{{ route('add-client') }}" class="btn btn-success btn-sm">
+              <a href="{{ route('add-client') }}" class="btn btn-primary btn-sm">
                 <i class="bx bx-plus"></i>
-                {{ __('New') }}
+                {{ __('New client') }}
               </a>
             </div>
           </div>
@@ -58,21 +58,29 @@
                       <input wire:model="item_qty.0" class="form-control" type="number" min="0"
                         placeholder="{{ __('Qty') }}" name="item_qty" required>
                       @error('item_qty')
-                        <span class="text-danger error">{{ $message }}</span>
+                        <span class="text-danger error">{{ __($message) }}</span>
                       @enderror
                     </div>
                     <div class="col-lg-4 col-md-5">
-                      <label for="item-name">{{ __('Price') }}</label>
-                      <input wire:model="item_price.0" class="form-control" type="number"
-                        placeholder="{{ __('Enter item price') }}" name="item_price" required>
-                      @error('item_price')
-                        <span class="text-danger error">{{ $message }}</span>
-                      @enderror
+                      <div class="row">
+                        <div class="col-lg-10">
+                          <label for="item-name">{{ __('Price') }}</label>
+                          <input wire:model="item_price.0" class="form-control" type="number"
+                            placeholder="{{ __('Enter item price') }}" name="item_price" required>
+                          @error('item_price')
+                            <span class="text-danger error">{{ $message }}</span>
+                          @enderror
+                        </div>
+                        <div class="col-lg-2 mt-4">
+                          <button wire:click.prevent="addItem({{ $i }})"
+                            class="btn-primary btn btn-sm add-btn">
+                            {{ __('Add more') }}
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                    <div class="col-lg-2">
-                      <span wire:click.prevent="addItem({{ $i }})" class="btn-primary btn btn-sm add-btn">
-                        {{ __('Add more') }}
-                      </span>
+                    <div class="col-lg-2 col-md-2">
+
                     </div>
                   </div>
                   @if ($msg)
@@ -84,21 +92,21 @@
                         <input wire:model="item_name.{{ $value }}" class="form-control" type="text"
                           name="item_name" id="item_name" placeholder="{{ __('Enter item name') }}" required>
                         @error('item_name')
-                          <span class="text-danger error">{{ $message }}</span>
+                          <span class="text-danger error">{{ __($message) }}</span>
                         @enderror
                       </div>
                       <div class="col-lg-2 col-md-3">
                         <input wire:model="item_qty.{{ $value }}" class="form-control" type="number"
                           min="0" placeholder="{{ __('Qty') }}" required>
                         @error('item_qty')
-                          <span class="text-danger error">{{ $message }}</span>
+                          <span class="text-danger error">{{ __($message) }}</span>
                         @enderror
                       </div>
                       <div class="col-lg-4 col-md-5">
                         <input wire:model="item_price.{{ $value }}" class="form-control" type="number"
                           placeholder="{{ __('Enter item price') }}" required>
                         @error('item_price')
-                          <span class="text-danger error">{{ $message }}</span>
+                          <span class="text-danger error">{{ __($message) }}</span>
                         @enderror
                       </div>
                       <div class="col">
@@ -108,7 +116,7 @@
                       </div>
                     </div>
                   @endforeach
-                  <span class="btn btn-info btn-sm mt-2"
+                  <span class="btn btn-secondary btn-sm mt-2"
                     wire:click.prevent="addOrUpdateItem()">{{ __('Add items') }}</span>
                   <div class="card mt-2">
                     <div class="table-responsive text-nowrap">
@@ -163,23 +171,23 @@
                 </div>
               </div>
               <div class="mb-3 row">
-                <label for="html5-number-input" class="col-md-2 col-form-label">{{ __('Advance Paid') }}</label>
+                <label for="html5-number-input" class="col-md-2 col-form-label">{{ __('Advance paid') }}</label>
                 <div class="col-md-10">
                   <input class="form-control" type="number" placeholder="0.00" wire:model="advance" maxlength="15"
                     min="0" value="{{ old('advance') }}">
                   @error('advance')
-                    <span class="text-danger error">{{ $message }}</span>
+                    <span class="text-danger error">{{ __($message) }}</span>
                   @enderror
                 </div>
               </div>
 
               <div class="mb-3 row">
-                <label for="html5-datetime-local-input" class="col-md-2 col-form-label">{{ __('Due Date') }}</label>
+                <label for="html5-datetime-local-input" class="col-md-2 col-form-label">{{ __('Due date') }}</label>
                 <div class="col-md-10 col-sm-12">
                   <input class="form-control" type="datetime-local" placeholder="2023-06-18T12:30:00"
                     id="html5-datetime-local-input" wire:model="due_date" value="{{ old('due_date') }}">
                   @error('due_date')
-                    <span class="text-danger error">{{ $message }}</span>
+                    <span class="text-danger error">{{ __($message) }}</span>
                   @enderror
                 </div>
               </div>
@@ -189,7 +197,7 @@
                 <textarea class="form-control" id="" rows="3" wire:model="description"
                   placeholder="Consigne particulier | Echantillion du tissus">{{ old('description') }}</textarea>
                 @error('description')
-                  <span class="text-danger error">{{ $message }}</span>
+                  <span class="text-danger error">{{ __($message) }}</span>
                 @enderror
               </div>
               <div class="center-item">
@@ -221,7 +229,7 @@
             </div>
             <div class="d-flex flex-column align-items-center gap-1">
               @if ((int) $advance == $this->items_in_cart->sum('item_price') && $this->items_in_cart->sum('item_price'))
-                <small class="mb-2 badge bg-info">{{ __('Fully Paid') }}</small>
+                <small class="mb-2 badge bg-info">{{ __('Fully paid') }}</small>
               @elseif((int) $advance > $this->items_in_cart->sum('item_price'))
                 <small
                   class="mb-2 badge bg-secondary">{{ number_format((int) $advance - $this->items_in_cart->sum('item_price')) }}
