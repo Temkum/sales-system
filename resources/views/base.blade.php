@@ -72,12 +72,12 @@
                 <div>{{ __('Client orders') }}</div>
               </a>
             </li>
-            {{-- <li class="menu-item {{ request()->route()->named('client-orders')? 'active': '' }}">
+            <li class="menu-item {{ request()->route()->named('client-orders')? 'active': '' }}">
               <a href="{{ route('client-orders') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-cart"></i>
                 <div>{{ __('All orders') }}</div>
               </a>
-            </li> --}}
+            </li>
             <li class="menu-item {{ request()->route()->named('add-record')? 'active': '' }}">
               <a href="{{ route('add-record') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-cart"></i>
@@ -235,7 +235,7 @@
                     </li>
                     <li class="dropdown-notifications-list scrollable-container">
                       <ul class="list-group list-group-flush">
-                        @foreach ($notifications->take(6) as $notification)
+                        @foreach ($notifications->take(8) as $notification)
                           <li class="list-group-item list-group-item-action dropdown-notifications-item">
                             <div class="d-flex">
                               <div class="flex-shrink-0 me-3">
@@ -245,11 +245,11 @@
                                 </div>
                               </div>
                               <div class="flex-grow-1">
-                                <h6 class="mb-1">Client name</h6>
+                                <h6 class="mb-1">{{ $notification->data['client_name'] ?? 'No client' }}</h6>
                                 <a href="{{ $notification->data['action_url'] ?? '' }}">
                                   <p class="mb-0">{{ $notification->data['message'] }}</p>
                                 </a>
-                                <small class="text-muted">1h ago</small>
+                                <small class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
                               </div>
                               <div class="flex-shrink-0 dropdown-notifications-actions">
                                 <a class="dropdown-notifications-archive"

@@ -45,10 +45,7 @@ class Orders extends Component
         $this->notifications = Auth::user()->unreadNotifications;
 
         if ($this->notifications->count() > 0) {
-            notyf()
-                ->position('x', 'center')
-                ->position('y', 'top')
-                ->addError(__('You have orders expiring soon! Please check your notifications'));
+            notyf()->addInfo(__('You have orders expiring soon! Please check your notifications'));
         }
         $this->orderNotify();
     }
@@ -223,10 +220,13 @@ class Orders extends Component
                     ->from('notifications')
                     ->whereRaw('JSON_EXTRACT(data, "$.order_id") = orders.id')
                     ->where('notifications.type', 'App\Notifications\OrderDueDateReminder');
-            })->get();
+            })->with('client')->get();
 
         foreach ($orders as $order) {
-            auth()->user()->notify(new OrderDueDateReminder($order));
+            if ($order->client) {
+                $client = $order->client;
+                auth()->user()->notify(new OrderDueDateReminder($order, $client));
+            }
         }
     }
 }
