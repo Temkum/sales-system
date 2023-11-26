@@ -36,12 +36,17 @@
                     class="btn btn-primary btn-sm">{{ __('View') }}</a>
                   <a href="{{ route('purchase_orders.edit', $purchase_order) }}"
                     class="btn btn-secondary btn-sm">{{ __('Edit') }}</a>
-                  <form action="{{ route('purchase_orders.destroy', $purchase_order) }}" method="POST" class="d-inline">
+                  <form action="{{ route('purchase_orders.destroy', $purchase_order) }}" method="POST" class="d-inline"
+                    id="delete-form-{{ $purchase_order->id }}">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm"
-                      onclick="return confirm('Are you sure you want to delete this purchase order?')">{{ __('Delete') }}</button>
-                  </form>
+                    <form action="{{ route('purchase_orders.destroy', $purchase_order) }}" method="POST"
+                      class="d-inline">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" class="btn btn-danger btn-sm"
+                        onclick="return confirm('Are you sure you want to delete this purchase order?')">{{ __('Delete') }}</button>
+                    </form>
                 </td>
               </tr>
             @endforeach
@@ -52,4 +57,21 @@
 
     </div>
   </div>
+  <script>
+    function confirmDelete(id) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          document.getElementById('delete-form-' + id).submit();
+        }
+      })
+    }
+  </script>
 @endsection

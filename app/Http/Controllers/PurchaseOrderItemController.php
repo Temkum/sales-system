@@ -53,7 +53,7 @@ class PurchaseOrderItemController extends Controller
                 'price' => $data['price'][$index],
             ]);
         }
-        notyf()->addSuccess(__('Purchase order items added successfully.'));
+        notyf()->addSuccess(__('Purchase order item added successfully.'));
 
         // return redirect()->route('purchase_orders.show', $purchase_order);
         return redirect()->back();
