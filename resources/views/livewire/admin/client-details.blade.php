@@ -141,109 +141,101 @@
                 <h4 class="card-title mb-3">{{ __('Measurements') }}
                   <span class="badge bg-info text-200 fw-normal">{{ $client->measurements->count() }}</span>
                 </h4>
-                <div class="">
-                  <div class="table-responsive table-sm">
-                    <table class="table fs--1 mb-0">
-                      <thead>
-                        <tr>
-                          {{-- <th class="sort white-space-nowrap align-middle fs--2" scope="col" style="width:5%;">
-                          </th> 
-                          <th class="sort white-space-nowrap align-middle" scope="col"
-                            style="width:35%; min-width:250px;" data-sort="products">
-                            {{ __('Measurements') }}
-                          </th> --}}
+                <div class="table-responsive table-sm">
+                  <table class="table fs--1 mb-0">
+                    <thead>
+                      <tr>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @foreach ($client->measurements as $measurement)
+                        <tr class="hover-actions-trigger position-static">
+                          <td class="measurement btn-reveal-trigger" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasEnd-{{ $measurement->id }}"
+                            wire:click.prevent="selectMeasurement({{ $measurement->id }})"
+                            aria-controls="offcanvasEnd-{{ $measurement->id }}">
+                            {{ $measurement->title ?? '#' . $measurement->id }}
+                          </td>
                         </tr>
-                      </thead>
-                      <tbody>
-                        @foreach ($client->measurements as $measurement)
-                          <tr class="hover-actions-trigger position-static">
-                            <td class="measurement btn-reveal-trigger" data-bs-toggle="offcanvas"
-                              wire:click="selectMeasurement({{ $measurement->id }})"
-                              data-bs-target="#{{ $measurement->id }}">
-                              {{ $measurement->title ?? '#' . $measurement->id }}
-                              {{-- <span class="btn btn-primary btn-sm ms-4" data-bs-toggle="offcanvas"
-                                wire:click="selectMeasurement({{ $measurement->id }})"
-                                data-bs-target="#offcanvasBackdrop">
-                                {{ __('View details') }}
-                              </span> --}}
-                            </td>
-                          </tr>
-                        @endforeach
-                        <div class="col-lg-3 col-md-2">
-                          <div class="mt-3">
-                            <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ $selected_measurement }}"
-                              aria-labelledby="offcanvasBackdropLabel">
+                      @endforeach
+                      <div class="col-lg-3 col-md-6">
+                        <div class="mt-3">
+                          @if ($selected_measurement)
+                            <div class="offcanvas offcanvas-end" tabindex="-1"
+                              id="offcanvasEnd-{{ $measurement->id }}"
+                              aria-labelledby="offcanvasEndLabel-{{ $measurement->id }}">
+
                               <div class="offcanvas-header">
-                                <h5>{{ __('Measurement details') }}</h5>
+                                <h5 id="offcanvasEndLabel" class="offcanvas-title">{{ __('Measurement details') }}
+                                </h5>
+                                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                                  aria-label="Close"></button>
                               </div>
                               <div class="offcanvas-body my-auto mx-0 flex-grow-0">
-                                @if ($selected_measurement)
-                                  <span>Epaule {{ $selected_measurement->epaule }}</span>
-                                  <table class="table table-sm table-responsive table-borderless border">
-                                    <thead>
-                                      <th>Haut</th>
-                                      <th>Bas</th>
-                                    </thead>
-                                    <tbody>
-                                      <tr>
-                                        <td>Epaule {{ $selected_measurement->epaule }}</td>
-                                        <td>Taille {{ $selected_measurement->taille_b }}</td>
-                                      </tr>
-                                      <tr>
-                                        <td>Dos {{ $selected_measurement->dos }}</td>
-                                        <td>Bassin {{ $selected_measurement->bassin_b }}</td>
-                                      </tr>
-                                      <tr>
-                                        <td>Poitrine {{ $selected_measurement->poitrin }}</td>
-                                        <td>Fesses {{ $selected_measurement->fesse }}</td>
-                                      </tr>
-                                      <tr>
-                                        <td>Taille {{ $selected_measurement->taille_t }}</td>
-                                        <td>Cuisses {{ $selected_measurement->cuisses }}</td>
-                                      </tr>
-                                      <tr>
-                                        <td>L. Taille {{ $selected_measurement->taille_t }}</td>
-                                        <td>Longueur {{ $selected_measurement->longueur }}</td>
-                                      </tr>
-                                      <tr>
-                                        <td>L. Total {{ $selected_measurement->l_total }}</td>
-                                        <td>Fond {{ $selected_measurement->fond }}</td>
-                                      </tr>
-                                      <tr>
-                                        <td>Bassin {{ $selected_measurement->bassin_t }}</td>
-                                        <td>Braquette {{ $selected_measurement->braquette }}</td>
-                                      </tr>
-                                      <tr>
-                                        <td>L. Manche {{ $selected_measurement->l_manche }}</td>
-                                        <td>Pied {{ $selected_measurement->pied }}</td>
-                                      </tr>
-                                      <tr>
-                                        <td>T. Manche {{ $selected_measurement->t_manche }}</td>
-                                        <td>Nombre de poches {{ $selected_measurement->nb_poches_b }}</td>
-                                      </tr>
-                                      <tr>
-                                        <td>CV {{ $selected_measurement->cv }}</td>
-                                        <td>CD {{ $selected_measurement->cd }}</td>
-                                      </tr>
-                                      <tr>
-                                        <td>Col {{ $selected_measurement->col }}</td>
-                                        <td></td>
-                                      </tr>
-                                      <tr>
-                                        <td>Nombre de poches {{ $selected_measurement->nb_poches_t }}</td>
-                                        <td></td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                @endif
+                                <table class="table table-sm table-responsive table-borderless border">
+                                  <thead>
+                                    <th>Haut</th>
+                                    <th>Bas</th>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <td>Epaule {{ $measurement->epaule }}</td>
+                                      <td>Taille {{ $measurement->taille_b }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Dos {{ $measurement->dos }}</td>
+                                      <td>Bassin {{ $measurement->bassin_b }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Poitrine {{ $measurement->poitrin }}</td>
+                                      <td>Fesses {{ $measurement->fesse }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Taille {{ $measurement->taille_t }}</td>
+                                      <td>Cuisses {{ $measurement->cuisses }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>L. Taille {{ $measurement->taille_t }}</td>
+                                      <td>Longueur {{ $measurement->longueur }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>L. Total {{ $measurement->l_total }}</td>
+                                      <td>Fond {{ $measurement->fond }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Bassin {{ $measurement->bassin_t }}</td>
+                                      <td>Braquette {{ $measurement->braquette }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>L. Manche {{ $measurement->l_manche }}</td>
+                                      <td>Pied {{ $measurement->pied }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>T. Manche {{ $measurement->t_manche }}</td>
+                                      <td>Nombre de poches {{ $measurement->nb_poches_b }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>CV {{ $measurement->cv }}</td>
+                                      <td>CD {{ $measurement->cd }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Col {{ $measurement->col }}</td>
+                                      <td></td>
+                                    </tr>
+                                    <tr>
+                                      <td>Nombre de poches {{ $measurement->nb_poches_t }}</td>
+                                      <td></td>
+                                    </tr>
+                                  </tbody>
+                                </table>
                               </div>
                             </div>
-                          </div>
+                          @endif
                         </div>
-                  </div>
-                  </tbody>
-                  </table>
+                      </div>
+                    </tbody>
                 </div>
+                </table>
               </div>
             </div>
             <div class="card-footer">
@@ -376,3 +368,20 @@
     </div>
   </div>
 </div>
+{{-- <script>
+  // Hide all measurement details initially
+  document.querySelectorAll('.measurement-details').forEach(function(details) {
+    details.style.display = 'none';
+  });
+
+  // Add event listeners to show/hide measurement details when offcanvas is triggered
+  document.querySelectorAll('.measurement.btn-reveal-trigger').forEach(function(trigger) {
+    trigger.addEventListener('click', function() {
+      var detailsId = this.getAttribute('data-bs-target').substring(1);
+      var details = document.getElementById(detailsId);
+      if (details) {
+        details.style.display = 'block';
+      }
+    });
+  });
+</script> --}}

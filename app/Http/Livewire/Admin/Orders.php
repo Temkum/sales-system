@@ -110,7 +110,7 @@ class Orders extends Component
             $twilio = new Client(config('services.twilio.account_sid'), config('services.twilio.auth_token'));
             $msg_body = __("Your order has been completed. Please drop by the shop to pick it up. Thanks for trusting us! Call +237 650-858-532 for more information.");
 
-            try {
+            /* try {
                 $message = $twilio->messages
                     ->create(
                         "+237675827455", // to
@@ -132,7 +132,7 @@ class Orders extends Component
             } catch (\Throwable $th) {
                 noty()->progressBar(false)->addError(__('Something went wrong. </br> Could not send message!'));
                 throw $th;
-            }
+            } */
         }
         $sale->save();
 
