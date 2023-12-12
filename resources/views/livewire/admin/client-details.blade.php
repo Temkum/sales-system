@@ -164,6 +164,7 @@
                             <div class="offcanvas offcanvas-end" tabindex="-1"
                               id="offcanvasEnd-{{ $measurement->id }}"
                               aria-labelledby="offcanvasEndLabel-{{ $measurement->id }}">
+
                               <div class="offcanvas-header">
                                 <h5 id="offcanvasEndLabel" class="offcanvas-title">{{ __('Measurement details') }}
                                 </h5>
