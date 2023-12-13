@@ -110,7 +110,7 @@ class Orders extends Component
             $twilio = new Client(config('services.twilio.account_sid'), config('services.twilio.auth_token'));
             $msg_body = __("Your order has been completed. Please drop by the shop to pick it up. Thanks for trusting us! Call +237 650-858-532 for more information.");
 
-            try {
+            /* try {
                 $message = $twilio->messages
                     ->create(
                         "+237675827455", // to
@@ -132,7 +132,7 @@ class Orders extends Component
             } catch (\Throwable $th) {
                 noty()->progressBar(false)->addError(__('Something went wrong. </br> Could not send message!'));
                 throw $th;
-            }
+            } */
         }
         $sale->save();
 
@@ -156,9 +156,7 @@ class Orders extends Component
 
         if ($sale) {
             $sale->delete();
-            notyf()
-                ->duration(2000)
-                ->addSuccess(__('Record deleted successfully'));
+            notyf()->addSuccess(__('Record deleted successfully'));
         } else {
             notyf()->position('x', 'right')->position('y', 'top')->addError(__('Record not found'));
         }
@@ -196,19 +194,6 @@ class Orders extends Component
         return back();
     }
 
-    /*  public function orderNotify()
-    {
-        $orders = Order::where('status', '!=', 'completed')
-            ->where(function ($query) {
-                $query->where('status', 'due')
-                    ->orWhereDate('due_date', '>=', now()->addDays(3));
-            })->get();
-
-        foreach ($orders as $order) {
-            auth()->user()->notify(new OrderDueDateReminder($order));
-        }
-    }
- */
     public function orderNotify()
     {
         $orders = Order::where('status', '!=', 'completed')
