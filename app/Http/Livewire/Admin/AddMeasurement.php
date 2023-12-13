@@ -8,7 +8,7 @@ use Livewire\Component;
 
 class AddMeasurement extends Component
 {
-    public $client_id;
+    public $client_id, $title;
     public $epaule, $taille_t, $taille_b, $dos, $bassin_t, $bassin_b, $poitrine, $fesse, $cuisses, $l_taille, $longueur, $l_total, $fond, $braquette, $l_manche, $pied, $t_manche, $col, $nb_poches_t, $nb_poches_b, $cv, $cd;
 
     public function render()
@@ -25,7 +25,8 @@ class AddMeasurement extends Component
     function save()
     {
         $this->validate([
-            'client_id'    => 'required',
+            'title' => 'required',
+            'client_id' => 'required',
             'epaule' => 'required',
             'taille_t' => 'required',
             'taille_b' => 'required',
@@ -51,6 +52,7 @@ class AddMeasurement extends Component
         ]);
 
         Measurement::create([
+            'title' => $this->title,
             'client_id' => $this->client_id,
             'epaule' => $this->epaule,
             'taille_t' => $this->taille_t,
@@ -78,14 +80,12 @@ class AddMeasurement extends Component
 
         $this->resetFields();
 
-        notyf()
-            ->position('x', 'center')
-            ->position('y', 'top')
-            ->addSuccess("Measurements added successfully!");
+        notyf()->addSuccess(__("Measurements added successfully!"));
     }
 
     function resetFields(): void
     {
+        $this->title = '';
         $this->client_id = '';
         $this->epaule = '';
         $this->taille_t = '';

@@ -62,7 +62,7 @@ class NewOrder extends Component
       return notyf()
         ->position('x', 'center')
         ->position('y', 'top')
-        ->addInfo("Quantity can't be less than 1. $break Increase the quantity or remove the item!");
+        ->addInfo(__("Quantity can't be less than 1. $break Increase the quantity or remove the item!"));
     }
 
     $cart_product->decrement('product_qty', 1);

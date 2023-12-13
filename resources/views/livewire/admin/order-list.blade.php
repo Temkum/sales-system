@@ -6,16 +6,16 @@
           <h3>{{ __('All customer orders') }}</h3>
           <h5 class="md sm">
             <a type="button" class="btn btn-outline-success" href="{{ route('add-record') }}">
-              <i class="bx bx-plus me-2"></i> {{ __('Add') }}
+              <i class="bx bx-plus me-2"></i> {{ __('New order') }}
             </a>
           </h5>
         </div>
         <div class="card-body">
           <div class="col-lg-6">
             <div class="form-group">
-              <label for="client">Client Filter:</label>
+              <label for="client">{{ __('Client Filter') }}:</label>
               <select class="form-select" id="client_id" wire:model="client_id">
-                <option value="">All Clients</option>
+                <option value="">{{ __('All clients') }}</option>
                 @foreach ($clients as $client)
                   <option value="{{ $client->id }}">{{ $client->name }}</option>
                 @endforeach
@@ -26,7 +26,7 @@
                 @foreach ($orders as $order)
                   <li class="list-group-item">
                     <a href="{{ route('orders.show', ['order' => $order->id]) }}">
-                      Order #{{ $order->id }}
+                      {{ __('Order') }} #{{ $order->id }}
                     </a>
                     for
                     @if ($order->client)
@@ -34,7 +34,7 @@
                         {{ $order->client->name }}
                       </a>
                     @else
-                      <span>No associated client</span>
+                      <span>{{ __('No associated client') }}</span>
                     @endif
                   </li>
                 @endforeach

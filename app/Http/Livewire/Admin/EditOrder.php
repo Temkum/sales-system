@@ -59,10 +59,7 @@ class EditOrder extends Component
         }
         $sale->save();
 
-        return notyf()
-            ->position('x', 'right')
-            ->position('y', 'top')
-            ->addSuccess('Status updated successfully!');
+        return notyf()->addSuccess(__('Status updated successfully!'));
     }
 
     public function update()
@@ -87,9 +84,10 @@ class EditOrder extends Component
         $sale_record->save();
 
         notyf()
+            ->ripple(true)
             ->position('x', 'right')
-            ->position('y', 'top')
-            ->addSuccess('Record update successful');
+            ->position('y', 'bottom')
+            ->addSuccess(__('Record updated successfully!'));
         redirect()->to(route('orders'));
     }
 }

@@ -73,6 +73,17 @@ div.disable-row {
     }
 }
 
+.dropdown-notifications {
+    .dropdown-menu {
+        width: 450px;
+    }
+}
+
+.dropdown-notifications-list.scrollable-container {
+    max-height: 800px;
+    overflow-y: auto;
+}
+
 @media screen and (max-width:428px) {
     .measurement-table {
         width: 100%;

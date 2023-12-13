@@ -2,7 +2,7 @@
   <div class="row center-item">
     <div class="col-lg-8">
       <div class="card">
-        <div class="card-header d-flex justify-content-between mb-4">
+        <div class="card-header d-flex justify-content-between mb-2">
           <h3>{{ __('Add New Customer') }}</h3>
           <h5 class="md sm">
             <a type="button" class="btn btn-outline-primary" href="{{ route('measurements') }}">
@@ -28,7 +28,7 @@
                 @enderror
               </div>
               <div class="col-md-3 mt-3">
-                <a href="{{ route('add-client') }}" class="btn btn-success btn-sm">
+                <a href="{{ route('add-client') }}" class="btn btn-success btn-sm" tooltip="Adde">
                   <i class="bx bx-plus"></i>
                   {{ __('New') }}
                 </a>
@@ -44,6 +44,16 @@
               <tbody>
                 <form wire:submit.prevent="save">
                   @csrf
+                  <div class="title mb-4">
+                    <div class="input-group input-group-sm">
+                      <span class="input-group-text sm">{{ __('Title') }}</span>
+                      <input type="text" class="form-control form-control-sm" aria-label="Title"
+                        wire:model="title" />
+                    </div>
+                    @error('title')
+                      <span class="text-danger error">{{ __('This field is required') }}</span>
+                    @enderror
+                  </div>
                   <tr>
                     <td>
                       <div class="input-group input-group-sm">

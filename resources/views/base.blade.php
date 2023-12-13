@@ -29,8 +29,8 @@
   {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
   <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
 
-  @livewireStyles
   @vite(['resources/css/app.css', 'resources/js/app.js'])
+  @livewireStyles
 </head>
 
 <body>
@@ -73,12 +73,12 @@
                 <div>{{ __('Client orders') }}</div>
               </a>
             </li>
-            {{-- <li class="menu-item {{ request()->route()->named('client-orders')? 'active': '' }}">
+            <li class="menu-item {{ request()->route()->named('client-orders')? 'active': '' }}">
               <a href="{{ route('client-orders') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-cart"></i>
                 <div>{{ __('All orders') }}</div>
               </a>
-            </li> --}}
+            </li>
             <li class="menu-item {{ request()->route()->named('add-record')? 'active': '' }}">
               <a href="{{ route('add-record') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-cart"></i>
@@ -87,7 +87,7 @@
             </li>
             {{-- product --}}
             <li class="menu-header small text-uppercase ">
-              <span class="menu-header-text">{{ __('Product Categories') }}</span>
+              <span class="menu-header-text">{{ __('Product categories') }}</span>
             </li>
             <li class="menu-item {{ request()->route()->named('purchase_orders')? 'active': '' }}">
               <a href="{{ route('purchase_orders') }}" class="menu-link">
@@ -107,19 +107,11 @@
                 <div>{{ __('Add Product') }}</div>
               </a>
             </li>
-
-            {{-- account --}}
-            <li class="menu-header small text-uppercase ">
-              <span class="menu-header-text">{{ __('Account') }}</span>
-            </li>
-            <li class="menu-item {{ request()->route()->named('user.profile')? 'active': '' }}">
-              <a href="{{ route('user.profile') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-user-circle"></i>
-                <div>{{ __('Profile') }}</div>
-              </a>
-            </li>
-
+            {{-- Client --}}
             @can('is-admin')
+              <li class="menu-header small text-uppercase ">
+                <span class="menu-header-text">{{ __('Clients') }}</span>
+              </li>
               <li class="menu-item {{ request()->route()->named('clients')? 'active': '' }}">
                 <a href="{{ route('clients') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-group"></i>
@@ -132,6 +124,20 @@
                   <div>{{ __('Measurements') }}</div>
                 </a>
               </li>
+              <li class="menu-item {{ request()->route()->named('repairs.index')? 'active': '' }}">
+                <a href="{{ route('repairs.index') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-group"></i>
+                  <div>{{ __('Repairs') }}</div>
+                </a>
+              </li>
+            @endcan
+
+            {{-- account --}}
+            <li class="menu-header small text-uppercase ">
+              <span class="menu-header-text">{{ __('Account') }}</span>
+            </li>
+
+            @can('is-admin')
               <li class="menu-item {{ request()->route()->named('users')? 'active': '' }}">
                 <a href="{{ route('users') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-group"></i>
@@ -145,18 +151,26 @@
                 </a>
               </li>
             @endcan
+
+            <li class="menu-item {{ request()->route()->named('user.profile')? 'active': '' }}">
+              <a href="{{ route('user.profile') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-user-circle"></i>
+                <div>{{ __('Profile') }}</div>
+              </a>
+            </li>
             <!-- Misc -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ __('Misc') }}</span>
+            </li>
             <li class="menu-item">
               <a href="#" target="_blank" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-support"></i>
-                <div data-i18n="Support">Support</div>
+                <div data-i18n="Support">{{ __('Support') }}</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="#" target="_blank" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-file"></i>
-                <div data-i18n="Documentation">Documentation</div>
+                <div data-i18n="Documentation">{{ __('Documentation') }}</div>
               </a>
             </li>
           </ul>
@@ -188,12 +202,13 @@
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 {{-- language --}}
-                <li class="nav-item lh-1 me-3">
+                <li class="nav-item lh-1 me-1">
                   <div class="btn-group" id="dropdown-icon-demo">
                     @if (count(config('app.languages')) > 1)
                       <button type="button" class="btn btn-sm dropdown-toggle" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        <img src="{{ asset('assets/icons/united-states.png') }}" alt="ENG" width="25px">
+                        <i class="bx bx-globe bx-sm"></i>
+                        {{-- <img src="{{ asset('assets/icons/france.png') }}" alt="ENG" width="25px"> --}}
                       </button>
                       <ul class="dropdown-menu" style="">
                         @foreach (config('app.languages') as $lang_locale => $lang_name)
@@ -206,12 +221,68 @@
                     @endif
                   </div>
                 </li>
+                <!-- Notification -->
+                <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-3">
+                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown"
+                    data-bs-auto-close="outside" aria-expanded="false">
+                    <i class="bx bx-bell bx-sm"></i>
+                    <span class="badge bg-danger rounded-pill badge-notifications">
+                      {{ Auth::user()->unreadNotifications->count() }}
+                    </span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end py-0">
+                    <li class="dropdown-menu-header border-bottom">
+                      <div class="dropdown-header d-flex align-items-center py-3">
+                        <h5 class="text-body mb-0 me-auto">{{ __('Notifications') }}</h5>
+                        <a href="javascript:void(0)" class="dropdown-notifications-all text-body"
+                          data-bs-toggle="tooltip" data-bs-placement="top" title="Mark all as read">
+                          <i class="bx fs-4 bx-envelope-open"></i>
+                        </a>
+                      </div>
+                    </li>
+                    <li class="dropdown-notifications-list scrollable-container">
+                      <ul class="list-group list-group-flush">
+                        @foreach ($notifications->take(8) as $notification)
+                          <li class="list-group-item list-group-item-action dropdown-notifications-item">
+                            <div class="d-flex">
+                              <div class="flex-shrink-0 me-3">
+                                <div class="avatar">
+                                  <img src="{{ asset('assets/img/avatars/avatar.jpg') }}" alt="user-avatar"
+                                    class="w-px-40 h-auto rounded-circle">
+                                </div>
+                              </div>
+                              <div class="flex-grow-1">
+                                <h6 class="mb-1">{{ $notification->data['client_name'] ?? 'No client' }}</h6>
+                                <a href="{{ $notification->data['action_url'] ?? '' }}">
+                                  <p class="mb-0">{{ $notification->data['message'] }}</p>
+                                </a>
+                                <small class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
+                              </div>
+                              <div class="flex-shrink-0 dropdown-notifications-actions">
+                                <a class="dropdown-notifications-archive"
+                                  href="{{ route('mark-as-read', $notification['id']) }}" data-bs-toggle="tooltip"
+                                  data-bs-offset="0,4" data-bs-placement="left" data-bs-html="true"
+                                  data-bs-original-title="{{ __('Mark as read') }}">
+                                  <span class="bx bx-x"></span>
+                                </a>
+                              </div>
+                            </div>
+                          </li>
+                        @endforeach
+                      </ul>
+                    </li>
+                    {{-- <li class="dropdown-menu-footer border-top p-3">
+                      <button
+                        class="btn btn-primary text-uppercase w-100 view-all-notifications">{{ __('view all notifications') }}</button>
+                    </li> --}}
+                  </ul>
+                </li>
                 <!-- User -->
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                     data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                      <img src="{{ asset('assets/img/avatars/Jude.png') }}" alt="user avatar"
+                      <img src="{{ asset('assets/img/avatars/user-avatar.png') }}" alt="user avatar"
                         class="w-px-40 h-auto rounded-circle" />
                     </div>
                   </a>
@@ -221,7 +292,7 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img src="{{ asset('assets/img/avatars/Jude.png') }}" alt="avatar"
+                              <img src="{{ asset('assets/img/avatars/user-avatar.png') }}" alt="avatar"
                                 class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </div>
