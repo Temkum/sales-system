@@ -156,9 +156,7 @@ class Orders extends Component
 
         if ($sale) {
             $sale->delete();
-            notyf()
-                ->duration(2000)
-                ->addSuccess(__('Record deleted successfully'));
+            notyf()->addSuccess(__('Record deleted successfully'));
         } else {
             notyf()->position('x', 'right')->position('y', 'top')->addError(__('Record not found'));
         }
@@ -196,19 +194,6 @@ class Orders extends Component
         return back();
     }
 
-    /*  public function orderNotify()
-    {
-        $orders = Order::where('status', '!=', 'completed')
-            ->where(function ($query) {
-                $query->where('status', 'due')
-                    ->orWhereDate('due_date', '>=', now()->addDays(3));
-            })->get();
-
-        foreach ($orders as $order) {
-            auth()->user()->notify(new OrderDueDateReminder($order));
-        }
-    }
- */
     public function orderNotify()
     {
         $orders = Order::where('status', '!=', 'completed')
