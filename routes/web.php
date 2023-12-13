@@ -35,6 +35,7 @@ use App\Http\Livewire\Admin\AddMeasurement;
 use App\Http\Livewire\Admin\EditMeasurements;
 use App\Http\Livewire\Admin\ModifyOrder;
 use App\Http\Livewire\Admin\OrderReminder;
+use App\Models\Measurement;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +72,8 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::get('/measure/add', AddMeasurement::class)->name('add-measurement');
     Route::get('/measurements', Measurements::class)->name('measurements');
     Route::get('/measurement/{measurement_id}', EditMeasurements::class)->name('edit-measurement');
+    Route::get('/measurement/edit/{measurement_id}', EditMeasurements::class)->name('measure.edit');
+    Route::get('/measurement/{measurement_id}', [Measurements::class, 'show'])->name('measurement-details');
 
     Route::post('/orders/add', [OrderController::class, 'store'])->name('store-order');
     Route::get('/new-record', NewRecord::class)->name('add-record');

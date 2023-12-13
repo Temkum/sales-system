@@ -4,19 +4,38 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\Client;
 use App\Models\Measurement;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Measurements extends Component
 {
     public $epaule, $taille_t, $taille_b, $dos, $bassin_t, $bassin_b, $poitrine, $fesse, $cuisses, $l_taille, $longueur, $l_total, $fond, $braquette, $l_manche, $pied, $t_manche, $col, $nb_poches_t, $nb_poches_b, $cv, $cd;
 
-    public $client_id = null;
+    public $client_id;
     public $client_measurement_count;
+    public $measurement_id;
+    public $measurement;
 
-    public function render()
-    {
-        $clients = Client::withCount('measurements')->get();
-        return view('livewire.admin.measurements', ['clients' => $clients])->extends('base');
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
+
+    public function render () {
+        $clients = Client::all();
+        $measurement_query = Measurement::query();
+
+        if ($this->client_id) {
+            $measurement_query->where('client_id', $this->client_id);
+        }
+
+        $measurements = $measurement_query->with('client')->orderBy('created_at', 'DESC')->paginate(15);
+        $client_with_measurements = Client::has('measurements')->get();
+
+        return view('livewire.admin.measurements',
+        ['clients' => $clients,
+        'measurements' => $measurements,
+        'client_with_measurements' => $client_with_measurements]
+        )->extends('base');
     }
 
     function store()
@@ -78,5 +97,12 @@ class Measurements extends Component
             ->position('x', 'center')
             ->position('y', 'top')
             ->addSuccess("Measurements added successfully!");
+    }
+
+    public function show($measurement_id) {
+
+        $measurement = Measurement::find($measurement_id);
+        
+        return view('livewire.admin.measurement-details', ['measurement' => $measurement])->extends('base');
     }
 }

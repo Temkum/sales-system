@@ -15,10 +15,11 @@ class EditMeasurements extends Component
 
     function mount($measurement_id)
     {
-        $this->clients = Client::all();
-
+        
         $this->measurement_id = $measurement_id;
         $measurement = Measurement::find($measurement_id);
+ 
+        $this->clients = Client::all();
 
         $this->client_id = $measurement->client_id;
         $this->epaule = $measurement->epaule;
@@ -79,6 +80,8 @@ class EditMeasurements extends Component
         ]);
 
         $record = Measurement::find($this->measurement_id);
+        // dd($record);
+        
         $record->client_id = $this->client_id;
         $record->epaule = $this->epaule;
         $record->taille_t = $this->taille_t;
@@ -108,5 +111,7 @@ class EditMeasurements extends Component
             ->position('x', 'center')
             ->position('y', 'top')
             ->addSuccess("Measurements updated successfully!");
+
+            return redirect('admin/measurement/' . $record->id);
     }
 }
