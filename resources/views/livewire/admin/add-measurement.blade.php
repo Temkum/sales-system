@@ -3,7 +3,7 @@
     <div class="col-lg-8">
       <div class="card">
         <div class="card-header d-flex justify-content-between mb-2">
-          <h3>{{ __('Add New Customer') }}</h3>
+          <h3>{{ __('New measurement') }}</h3>
           <h5 class="md sm">
             <a type="button" class="btn btn-outline-primary" href="{{ route('measurements') }}">
               <i class="bx bx-category me-2"></i> {{ __('Measurements') }}
@@ -28,7 +28,7 @@
                 @enderror
               </div>
               <div class="col-md-3 mt-3">
-                <a href="{{ route('add-client') }}" class="btn btn-success btn-sm" tooltip="Adde">
+                <a href="{{ route('add-client') }}" class="btn btn-success btn-sm" tooltip="Add client">
                   <i class="bx bx-plus"></i>
                   {{ __('New') }}
                 </a>
@@ -58,7 +58,7 @@
                     <td>
                       <div class="input-group input-group-sm">
                         <span class="input-group-text sm">{{ __('Epaule') }}</span>
-                        <input type="text" class="form-control form-control-sm" aria-label="Epaule"
+                        <input type="number" class="form-control form-control-sm" aria-label="Epaule"
                           wire:model="epaule" />
                       </div>
                       @error('epaule')
@@ -68,7 +68,7 @@
                     <td>
                       <div class="input-group input-group-sm">
                         <span class="input-group-text sm">{{ __('Taille') }}</span>
-                        <input type="text" class="form-control form-control-sm" aria-label="Taille"
+                        <input type="number" class="form-control form-control-sm" aria-label="Taille"
                           wire:model="taille_b" />
                       </div>
                       @error('taille_b')
@@ -80,7 +80,7 @@
                     <td>
                       <div class="input-group input-group-sm">
                         <span class="input-group-text sm">{{ __('Dos') }}</span>
-                        <input type="text" class="form-control form-control-sm" aria-label="Dos" wire:model="dos" />
+                        <input type="number" class="form-control form-control-sm" aria-label="Dos" wire:model="dos" />
                       </div>
                       @error('dos')
                         <span class="text-danger error">{{ __('This field is required') }}</span>
@@ -89,7 +89,7 @@
                     <td>
                       <div class="input-group input-group-sm">
                         <span class="input-group-text sm">{{ __('Bassin') }}</span>
-                        <input type="text" class="form-control form-control-sm" aria-label="Bassin"
+                        <input type="number" class="form-control form-control-sm" aria-label="Bassin"
                           wire:model="bassin_b" />
                       </div>
                       @error('bassin_b')
@@ -101,7 +101,7 @@
                     <td>
                       <div class="input-group input-group-sm">
                         <span class="input-group-text sm">{{ __('Poitrin') }}</span>
-                        <input type="text" class="form-control form-control-sm" aria-label="Poitrin"
+                        <input type="number" class="form-control form-control-sm" aria-label="Poitrin"
                           wire:model="poitrine" />
                       </div>
                       @error('poitrine')
@@ -111,7 +111,7 @@
                     <td>
                       <div class="input-group input-group-sm">
                         <span class="input-group-text sm">{{ __('Fesse') }}</span>
-                        <input type="text" class="form-control form-control-sm" aria-label="Fesse"
+                        <input type="number" class="form-control form-control-sm" aria-label="Fesse"
                           wire:model="fesse" />
                       </div>
                       @error('fesse')
@@ -123,7 +123,7 @@
                     <td>
                       <div class="input-group input-group-sm">
                         <span class="input-group-text sm">{{ __('Taille') }}</span>
-                        <input type="text" class="form-control form-control-sm" aria-label="Taille"
+                        <input type="number" class="form-control form-control-sm" aria-label="Taille"
                           wire:model="taille_t" />
                       </div>
                       @error('taille_t')
@@ -133,7 +133,7 @@
                     <td>
                       <div class="input-group input-group-sm">
                         <span class="input-group-text sm">{{ __('Cuisses') }}</span>
-                        <input type="text" class="form-control form-control-sm" aria-label="Cuisses"
+                        <input type="number" class="form-control form-control-sm" aria-label="Cuisses"
                           wire:model="cuisses" />
                       </div>
                       @error('cuisses')
@@ -145,7 +145,7 @@
                     <td>
                       <div class="input-group input-group-sm">
                         <span class="input-group-text sm">{{ __('L. Taille') }}</span>
-                        <input type="text" class="form-control form-control-sm" aria-label="L. Total"
+                        <input type="number" class="form-control form-control-sm" aria-label="L. Total"
                           wire:model="l_taille" />
                       </div>
                       @error('l_taille')
@@ -155,7 +155,7 @@
                     <td>
                       <div class="input-group input-group-sm">
                         <span class="input-group-text sm">{{ __('Longueur') }}</span>
-                        <input type="text" class="form-control form-control-sm" aria-label="Longueur"
+                        <input type="number" class="form-control form-control-sm" aria-label="Longueur"
                           wire:model="longueur" />
                       </div>
                       @error('longueur')
@@ -167,7 +167,7 @@
                     <td>
                       <div class="input-group input-group-sm">
                         <span class="input-group-text sm">{{ __('L. Total') }}</span>
-                        <input type="text" class="form-control form-control-sm" aria-label="L. Total"
+                        <input type="number" class="form-control form-control-sm" aria-label="L. Total"
                           wire:model="l_total" />
                       </div>
                       @error('l_total')
@@ -177,7 +177,7 @@
                     <td>
                       <div class="input-group input-group-sm">
                         <span class="input-group-text sm">{{ __('Fond') }}</span>
-                        <input type="text" class="form-control form-control-sm" aria-label="Fond"
+                        <input type="number" class="form-control form-control-sm" aria-label="Fond"
                           wire:model="fond" />
                       </div>
                       @error('fond')
@@ -189,7 +189,7 @@
                     <td>
                       <div class="input-group input-group-sm">
                         <span class="input-group-text sm">{{ __('Bassin') }}</span>
-                        <input type="text" class="form-control form-control-sm" aria-label="Bassin"
+                        <input type="number" class="form-control form-control-sm" aria-label="Bassin"
                           wire:model="bassin_t" />
                       </div>
                       @error('bassin_t')
@@ -199,7 +199,7 @@
                     <td>
                       <div class="input-group input-group-sm">
                         <span class="input-group-text sm">{{ __('Braquette') }}</span>
-                        <input type="text" class="form-control form-control-sm" aria-label="Braquette"
+                        <input type="number" class="form-control form-control-sm" aria-label="Braquette"
                           wire:model="braquette" />
                       </div>
                       @error('braquette')
@@ -211,7 +211,7 @@
                     <td>
                       <div class="input-group input-group-sm">
                         <span class="input-group-text sm">{{ __('L. Manche') }}</span>
-                        <input type="text" class="form-control form-control-sm" aria-label="L. Manche"
+                        <input type="number" class="form-control form-control-sm" aria-label="L. Manche"
                           wire:model="l_manche" />
                       </div>
                       @error('l_manche')
@@ -221,7 +221,7 @@
                     <td>
                       <div class="input-group input-group-sm">
                         <span class="input-group-text sm">{{ __('Pied') }}</span>
-                        <input type="text" class="form-control form-control-sm" aria-label="Pied"
+                        <input type="number" class="form-control form-control-sm" aria-label="Pied"
                           wire:model="pied" />
                       </div>
                       @error('pied')
@@ -233,7 +233,7 @@
                     <td>
                       <div class="input-group input-group-sm">
                         <span class="input-group-text sm">{{ __('T. Manche') }}</span>
-                        <input type="text" class="form-control form-control-sm" aria-label="T. Manche"
+                        <input type="number" class="form-control form-control-sm" aria-label="T. Manche"
                           wire:model="t_manche" />
                       </div>
                       @error('t_manche')
@@ -243,7 +243,7 @@
                     <td>
                       <div class="input-group input-group-sm">
                         <span class="input-group-text sm">{{ __('Nombre de poches') }}</span>
-                        <input type="text" class="form-control form-control-sm" aria-label="Nombre de poches"
+                        <input type="number" class="form-control form-control-sm" aria-label="Nombre de poches"
                           wire:model="nb_poches_b" />
                       </div>
                       @error('nb_poches_b')
@@ -255,7 +255,7 @@
                     <td>
                       <div class="input-group input-group-sm">
                         <span class="input-group-text sm">{{ __('CV') }}</span>
-                        <input type="text" class="form-control form-control-sm" aria-label="CV"
+                        <input type="number" class="form-control form-control-sm" aria-label="CV"
                           wire:model="cv" />
                       </div>
                       @error('cv')
@@ -265,7 +265,7 @@
                     <td>
                       <div class="input-group input-group-sm">
                         <span class="input-group-text sm">{{ __('CD') }}</span>
-                        <input type="text" class="form-control form-control-sm" aria-label="CD"
+                        <input type="number" class="form-control form-control-sm" aria-label="CD"
                           wire:model="cd" />
                       </div>
                       @error('cd')
@@ -277,7 +277,7 @@
                     <td>
                       <div class="input-group input-group-sm">
                         <span class="input-group-text sm">{{ __('Col') }}</span>
-                        <input type="text" class="form-control form-control-sm" aria-label="Col"
+                        <input type="number" class="form-control form-control-sm" aria-label="Col"
                           wire:model="col" />
                       </div>
                       @error('col')
@@ -290,7 +290,7 @@
                     <td colspan="2">
                       <div class="input-group input-group-sm">
                         <span class="input-group-text sm">{{ __('Nombre de poches') }}</span>
-                        <input type="text" class="form-control form-control-sm" aria-label="Nombre de poches"
+                        <input type="number" class="form-control form-control-sm" aria-label="Nombre de poches"
                           wire:model="nb_poches_t" />
                       </div>
                       @error('nb_poches_t')

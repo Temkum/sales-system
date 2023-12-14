@@ -29,7 +29,7 @@ class Measurements extends Component
         }
 
         $measurements = $measurement_query->with('client')->orderBy('created_at', 'DESC')->paginate(15);
-        $client_with_measurements = Client::has('measurements')->get();
+        $client_with_measurements = Client::has('measurements')->get();;
 
         return view('livewire.admin.measurements',
         ['clients' => $clients,

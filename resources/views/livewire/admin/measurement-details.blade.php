@@ -11,7 +11,7 @@
         <div class="mt-3">
           <div class="">
             <div class="mb-3 d-flex justify-content-between">
-              <span>{{ __('Measurement ID') }}: {{ $measurement->title }}</span>
+              <span><b>{{ $measurement->title }}</b></span>
               <a href="{{ route('measure.edit', ['measurement_id' => $measurement->id]) }}"
                 class="btn btn-sm btn-info">{{ __('Edit') }}</a>
             </div>

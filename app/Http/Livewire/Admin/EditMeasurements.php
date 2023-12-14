@@ -11,6 +11,7 @@ class EditMeasurements extends Component
     public $measurement_id;
     public $client_id;
     public $clients;
+    public $title;
     public $epaule, $taille_t, $taille_b, $dos, $bassin_t, $bassin_b, $poitrine, $fesse, $cuisses, $l_taille, $longueur, $l_total, $fond, $braquette, $l_manche, $pied, $t_manche, $col, $nb_poches_t, $nb_poches_b, $cv, $cd;
 
     function mount($measurement_id)
@@ -22,6 +23,7 @@ class EditMeasurements extends Component
         $this->clients = Client::all();
 
         $this->client_id = $measurement->client_id;
+        $this->title = $measurement->title;
         $this->epaule = $measurement->epaule;
         $this->taille_t = $measurement->taille_t;
         $this->taille_b = $measurement->taille_b;
@@ -55,6 +57,7 @@ class EditMeasurements extends Component
     {
         $this->validate([
             'client_id'    => 'required',
+            'title'    => 'required',
             'epaule' => 'required',
             'taille_t' => 'required',
             'taille_b' => 'required',
@@ -84,6 +87,7 @@ class EditMeasurements extends Component
         
         $record->client_id = $this->client_id;
         $record->epaule = $this->epaule;
+        $record->title = $this->title;
         $record->taille_t = $this->taille_t;
         $record->taille_b = $this->taille_b;
         $record->dos = $this->dos;
