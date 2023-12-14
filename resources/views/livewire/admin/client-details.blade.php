@@ -81,80 +81,87 @@
     </div>
     <!-- Customer Content -->
     <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
-      <ul class="nav nav-pills flex-column flex-md-row mb-4">
-        <li class="nav-item"><a class="nav-link active" href="javascript:void(0);">
-            <i class="bx bx-user me-1"></i>
-            {{ __('Overview') }}</a>
+      <ul class="nav nav-pills flex-column flex-md-row mb-4" roll="tablist">
+        <li class="nav-item">
+          <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
+            data-bs-target="#navs-pills-justified-home" aria-controls="navs-pills-justified-home" aria-selected="true">
+            <i class="tf-icons bx bx-home"></i> {{ __('Orders') }}
+            <span
+              class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">{{ $client->orders->count() }}</span>
+          </button>
+        </li>
+        <li class="nav-item">
+          <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+            data-bs-target="#navs-pills-justified-profile" aria-controls="navs-pills-justified-profile"
+            aria-selected="false">
+            <i class="tf-icons bx bx-user"></i> {{ __('Measurements') }}
+            <span class="badge bg-info text-200 fw-normal">{{ $client->measurements->count() }}</span>
+          </button>
         </li>
       </ul>
-      <!-- order table -->
-      <div class="card mb-4">
-        <div class="table-responsive mb-3">
-          <table class="table datatables-customer-order border-top">
-            <thead>
-              <tr>
-                <th></th>
-                <th>{{ __('Quantity') }}</th>
-                <th>{{ __('Order date') }}</th>
-                <th>{{ __('Status') }}</th>
-                <th>{{ __('Spent') }}</th>
-                <th>{{ __('Due') }}</th>
-                <th class="text-md-center"></th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach ($orders as $order)
-                <tr class="{{ $order->status == 'due' ? 'bg-label-danger' : '' }}">
-                  <td>#{{ $order->id }}</td>
-                  <td>{{ $order->quantity }}</td>
-                  <td>{{ $order->created_at->diffForHumans() }}</td>
-                  <td>
-                    @if ($order->status == 'completed')
-                      <span class="badge bg-label-success me-1">{{ __('Completed') }}</span>
-                    @elseif($order->status == 'cancelled')
-                      <span class="badge bg-label-secondary me-1">{{ __('Cancelled') }}</span>
-                    @elseif($order->status == 'due')
-                      <span class="mb-0 w-px-100 text-danger">
-                        <i class="bx bxs-circle fs-tiny me-2"></i>{{ __('Due') }}</span>
-                    @else
-                      <span class="badge bg-label-primary me-1">{{ __('Processing') }}</span>
-                    @endif
-                  </td>
-                  <td>{{ $order->advance }}</td>
-                  <td>{{ \Carbon\Carbon::parse($order->due_date)->isoFormat('D MMMM YYYY') }}</td>
-                  <td></td>
-                </tr>
-              @endforeach
-            </tbody>
-          </table>
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="navs-pills-justified-home" role="tabpanel">
+          <div class="card mb-4">
+            <div class="table-responsive mb-3">
+              <table class="table datatables-customer-order border-top">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>{{ __('Quantity') }}</th>
+                    <th>{{ __('Order date') }}</th>
+                    <th>{{ __('Status') }}</th>
+                    <th>{{ __('Spent') }}</th>
+                    <th>{{ __('Due') }}</th>
+                    <th class="text-md-center"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach ($orders as $order)
+                    <tr class="{{ $order->status == 'due' ? 'bg-label-danger' : '' }}">
+                      <td>#{{ $order->id }}</td>
+                      <td>{{ $order->quantity }}</td>
+                      <td>{{ $order->created_at->diffForHumans() }}</td>
+                      <td>
+                        @if ($order->status == 'completed')
+                          <span class="badge bg-label-success me-1">{{ __('Completed') }}</span>
+                        @elseif($order->status == 'cancelled')
+                          <span class="badge bg-label-secondary me-1">{{ __('Cancelled') }}</span>
+                        @elseif($order->status == 'due')
+                          <span class="mb-0 w-px-100 text-danger">
+                            <i class="bx bxs-circle fs-tiny me-2"></i>{{ __('Due') }}</span>
+                        @else
+                          <span class="badge bg-label-primary me-1">{{ __('Processing') }}</span>
+                        @endif
+                      </td>
+                      <td>{{ $order->advance }}</td>
+                      <td>{{ \Carbon\Carbon::parse($order->due_date)->isoFormat('D MMMM YYYY') }}</td>
+                      <td></td>
+                    </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
+            <div class="card-footer">
+              {{ $orders->links() }}
+            </div>
+          </div>
         </div>
-        <div class="card-footer">
-          {{ $orders->links() }}
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-5 col-lg-7 mb-4">
+        <div class="tab-pane fade" id="navs-pills-justified-profile" role="tabpanel">
           <div class="card h-100">
             <div class="card-body">
               <div class="card-info">
-                <h4 class="card-title mb-3">{{ __('Measurements') }}
-                  <span class="badge bg-info text-200 fw-normal">{{ $client->measurements->count() }}</span>
-                </h4>
                 <div class="table-responsive table-sm">
                   <table class="table fs--1 mb-0">
-                    <thead>
+                    {{-- <thead>
                       <tr>
                       </tr>
-                    </thead>
+                    </thead> --}}
                     <tbody>
                       @foreach ($client->measurements as $measurement)
                         <tr class="hover-actions-trigger position-static">
-                          <td class="measurement btn-reveal-trigger" data-bs-toggle="offcanvas"
-                            data-bs-target="#offcanvasEnd-{{ $measurement->id }}"
-                            wire:click.prevent="selectMeasurement({{ $measurement->id }})"
-                            aria-controls="offcanvasEnd-{{ $measurement->id }}">
-                            {{ $measurement->title ?? '#' . $measurement->id }}
+                          <td class="measurement btn-reveal-trigger">
+                            <a
+                              href="{{ route('measurement-details', ['measurement_id' => $measurement->id]) }}">{{ $measurement->title ?? '#' . $measurement->id }}</a>
                           </td>
                         </tr>
                       @endforeach
@@ -164,7 +171,7 @@
               </div>
             </div>
             <div class="card-footer">
-              {{-- {{ $client->measurements->links() }} --}}
+              {{ $client_measurements->links() }}
             </div>
           </div>
         </div>
@@ -293,20 +300,3 @@
     </div>
   </div>
 </div>
-{{-- <script>
-  // Hide all measurement details initially
-  document.querySelectorAll('.measurement-details').forEach(function(details) {
-    details.style.display = 'none';
-  });
-
-  // Add event listeners to show/hide measurement details when offcanvas is triggered
-  document.querySelectorAll('.measurement.btn-reveal-trigger').forEach(function(trigger) {
-    trigger.addEventListener('click', function() {
-      var detailsId = this.getAttribute('data-bs-target').substring(1);
-      var details = document.getElementById(detailsId);
-      if (details) {
-        details.style.display = 'block';
-      }
-    });
-  });
-</script> --}}

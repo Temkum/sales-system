@@ -12,6 +12,7 @@ class ClientDetails extends Component
 {
     public $name, $address, $phone, $code, $client_id;
     public $selected_measurement = null;
+    // public $client_measurements;
 
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
@@ -27,13 +28,15 @@ class ClientDetails extends Component
         }
 
         $orders = $orders_query->with('client')->orderBy('created_at', 'DESC')->paginate(8);
+        $client_measurements = Client::with('measurements')->find($this->client_id)->paginate(15);
 
-        return view('livewire.admin.client-details', ['client' => $client, 'orders' => $orders])->extends('base');
+        return view('livewire.admin.client-details', ['client' => $client, 'orders' => $orders, 'client_measurements' => $client_measurements])->extends('base');
     }
 
     function mount($client_id)
     {
         $client = Client::with('measurements')->find($client_id);
+        
 
         $this->name = $client->name;
         $this->address = $client->address;
