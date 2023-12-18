@@ -64,7 +64,7 @@ class UserController extends Controller
 
         Password::sendResetLink($request->only(['email']));
 
-        $request->session()->flash('success', "User created successfully!");
+        notyf()->addSuccess(__('User created successfully!'));
 
         return redirect(route('users'));
     }
@@ -103,7 +103,7 @@ class UserController extends Controller
         $user = User::findOrFail($id); // findOrFail prevents deleting users who don't exist
 
         if (!$user) {
-            $request->session()->flash('error', 'You can not edit this user!');
+            notyf()->addError(__('You can not edit this user!'));
 
             return redirect(route('users'));
         }
@@ -111,7 +111,7 @@ class UserController extends Controller
         $user->update($request->except(['_token', 'roles']));
         $user->roles()->sync($request->roles);
 
-        $request->session()->flash('success', "User updated successfully!");
+        notyf()->addSuccess(__("User updated successfully!"));
 
         return redirect(route('users'));
     }
@@ -126,7 +126,7 @@ class UserController extends Controller
     {
         User::destroy($id);
 
-        $request->session()->flash('success', "User deleted successfully!");
+        notyf()->addSuccess(__("User deleted successfully!"));
 
         return redirect(route('users'));
     }
