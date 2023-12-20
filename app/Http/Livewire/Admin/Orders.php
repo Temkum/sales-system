@@ -98,10 +98,10 @@ class Orders extends Component
             $sale->date_delivered = DB::raw('CURRENT_DATE');
 
             /*
-            try {         
-            // vonage api               
+            try {
+            // vonage api
             /* Notification::route('vonage', env('VONAGE_SMS_FROM'))
-                    ->notify(new OrderTransaction()); 
+                    ->notify(new OrderTransaction());
             } catch (\Throwable $th) {
                 return noty()->progressBar(false)->addError('Something went wrong. </br> Could not send message!');
             }
