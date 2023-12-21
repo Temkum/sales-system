@@ -3,12 +3,6 @@
 @section('content')
   <div class="container">
     <h3>{{ __('Purchase Orders') }}</h3>
-
-    @if (session('success'))
-      <div class="alert alert-success mb-3">
-        {{ session('success') }}
-      </div>
-    @endif
     <div class="card">
       <div class="card-header">
         <a href="{{ route('purchase_orders.create') }}" class="btn btn-success mb-3">{{ __('Create purchase order') }}</a>
@@ -25,31 +19,31 @@
             </tr>
           </thead>
           <tbody>
-            @foreach ($purchase_orders as $purchase_order)
-              <tr>
-                <td>{{ $purchase_order->supplier }}</td>
-                <td>{{ $purchase_order->phone_number }}</td>
-                <td>{{ $purchase_order->notes }}</td>
-                <td>{{ $purchase_order->order_date }}</td>
-                <td>
-                  <a href="{{ route('purchase_orders.show', $purchase_order) }}"
-                    class="btn btn-primary btn-sm">{{ __('View') }}</a>
-                  <a href="{{ route('purchase_orders.edit', $purchase_order) }}"
-                    class="btn btn-secondary btn-sm">{{ __('Edit') }}</a>
-                  <form action="{{ route('purchase_orders.destroy', $purchase_order) }}" method="POST" class="d-inline"
-                    id="delete-form-{{ $purchase_order->id }}">
-                    @csrf
-                    @method('DELETE')
-                    <form action="{{ route('purchase_orders.destroy', $purchase_order) }}" method="POST"
-                      class="d-inline">
+            @if ($purchase_orders->count() > 0)
+              @foreach ($purchase_orders as $purchase_order)
+                <tr>
+                  <td>{{ $purchase_order->supplier }}</td>
+                  <td>{{ $purchase_order->phone_number }}</td>
+                  <td>{{ $purchase_order->notes }}</td>
+                  <td>{{ $purchase_order->order_date }}</td>
+                  <td class="d-flex">
+                    <a href="{{ route('purchase_orders.show', $purchase_order) }}"
+                      class="btn btn-primary btn-sm">{{ __('View') }}</a>
+                    <a href="{{ route('purchase_orders.edit', $purchase_order) }}"
+                      class="btn btn-secondary btn-sm">{{ __('Edit') }}</a>
+                    <form id="deleteForm" action="{{ route('item.delete', $purchase_order->id) }}" method="POST">
                       @csrf
                       @method('DELETE')
-                      <button type="submit" class="btn btn-danger btn-sm"
-                        onclick="return confirm('Are you sure you want to delete this purchase order?')">{{ __('Delete') }}</button>
+                      <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                     </form>
-                </td>
+                  </td>
+                </tr>
+              @endforeach
+            @else
+              <tr>
+                <td colspan="6" class="text-center text-bold"> {{ __('No purchase orders available!') }}</td>
               </tr>
-            @endforeach
+            @endif
           </tbody>
         </table>
 
@@ -57,21 +51,27 @@
 
     </div>
   </div>
+@endsection
+
+@section('script')
   <script>
-    function confirmDelete(id) {
-      Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          document.getElementById('delete-form-' + id).submit();
-        }
-      })
+    const deleteForm = document.getElementById('deleteForm');
+
+    if (deleteForm !== null) {
+      deleteForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        swal({
+          title: 'Are you sure?',
+          text: 'Once deleted, you will not be able to recover this item!',
+          icon: 'warning',
+          buttons: true,
+          dangerMode: true,
+        }).then((willDelete) => {
+          if (willDelete) {
+            event.target.submit();
+          }
+        });
+      });
     }
   </script>
 @endsection

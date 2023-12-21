@@ -77,12 +77,11 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
 
     Route::post('/orders/add', [OrderController::class, 'store'])->name('store-order');
     Route::get('/new-record', NewRecord::class)->name('add-record');
-    // Route::get('/order/{order_id}', ModifyOrder::class)->name('modify-order');
 
     Route::get('/orders', Orders::class)->name('orders');
-    // Route::get('/add-order', NewOrder::class)->name('add-order');
     Route::get('/orders/{order_id}', OrderDetails::class)->name('order-details');
     Route::get('/order/{order_id}', EditOrder::class)->name('update');
+    Route::delete('/purchase_order/{id}', [PurchaseOrderController::class, 'deleteItem'])->name('item.delete');
 
     Route::get('search', [OrderController::class, 'search'])->name('search');
     Route::get('date-search', [OrderController::class, 'dateSearch'])->name('date-search');
@@ -100,7 +99,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::get('/product/{product_code}', EditProduct::class)->name('edit-product');
 
     Route::get('/contacts', Contacts::class)->name('contacts');
-    Route::get('/deleted-records', DeletedRecords::class, 'deletedRecords')->name('deleted-records');
+    Route::get('/deleted-records', [DeletedRecords::class, 'deletedRecords'])->name('deleted-records');
 
     Route::get('/reminder', OrderReminder::class)->name('order-reminder');
 
