@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('purchase_orders', function (Blueprint $table) {
             $table->id();
-            $table->string('order_number')->unique();
+            $table->string('phone_number');
             $table->string('supplier');
             $table->date('order_date');
             $table->text('notes')->nullable();

@@ -46,7 +46,7 @@ class OrdersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-      public function show(Order $order)
+    public function show(Order $order)
     {
         $items = json_decode($order->items);
         $client = Client::find($order->client_id);
@@ -97,8 +97,17 @@ class OrdersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        Order::findOrFail($id)->delete();
+        return redirect()->route('orders');
+    }
+
+    public function deleteOrder($id)
+    {
+        $item = Order::find($id);
+        $item->delete();
+
+        return redirect()->route('orders');
     }
 }

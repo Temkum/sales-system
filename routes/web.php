@@ -81,7 +81,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::get('/orders', Orders::class)->name('orders');
     Route::get('/orders/{order_id}', OrderDetails::class)->name('order-details');
     Route::get('/order/{order_id}', EditOrder::class)->name('update');
-    Route::delete('/purchase_order/{id}', [PurchaseOrderController::class, 'deleteItem'])->name('item.delete');
+    Route::delete('/order/{order_id}', [OrdersController::class, 'destroy'])->name('order-delete');
 
     Route::get('search', [OrderController::class, 'search'])->name('search');
     Route::get('date-search', [OrderController::class, 'dateSearch'])->name('date-search');
@@ -110,6 +110,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
 
     Route::resource('purchase_orders', PurchaseOrderController::class)->name('index', 'purchase_orders');
     Route::delete('purchase_orders/{purchase_order}', [PurchaseOrderController::class, 'destroy'])->name('purchase_orders.destroy');
+    Route::delete('/purchase_order/{id}', [PurchaseOrderController::class, 'deleteItem'])->name('item.delete');
 
     Route::post('purchase_orders/{purchase_order}/items', [PurchaseOrderItemController::class, 'store'])->name('purchase_orders.items.store');
     Route::get('/purchase_orders/{purchase_order}/items/{id}/edit', [PurchaseOrderItemController::class, 'edit'])->name('purchase_order_items.edit');

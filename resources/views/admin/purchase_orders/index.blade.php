@@ -34,7 +34,7 @@
                     <form id="deleteForm" action="{{ route('item.delete', $purchase_order->id) }}" method="POST">
                       @csrf
                       @method('DELETE')
-                      <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                      <button type="submit" class="btn btn-danger btn-sm">{{ __('Delete') }}</button>
                     </form>
                   </td>
                 </tr>
@@ -61,8 +61,8 @@
       deleteForm.addEventListener('submit', function(event) {
         event.preventDefault();
         swal({
-          title: 'Are you sure?',
-          text: 'Once deleted, you will not be able to recover this item!',
+          title: '{{ __('Are you sure?') }}',
+          text: '{{ __('Once deleted, you will not be able to recover this item!') }}',
           icon: 'warning',
           buttons: true,
           dangerMode: true,
