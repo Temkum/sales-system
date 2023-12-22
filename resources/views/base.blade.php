@@ -119,7 +119,14 @@
                   <div>{{ __('Clients') }}</div>
                 </a>
               </li>
-              <li class="menu-item {{ request()->route()->named('measurements')? 'active': '' }}">
+              <li class="menu-item {{ request()->route()->named('add-client')? 'active': '' }}">
+                <a href="{{ route('add-client') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bxs-user-plus"></i>
+                  <div>{{ __('Add client') }}</div>
+                </a>
+              </li>
+              <li class="menu-item
+                    {{ request()->route()->named('measurements')? 'active': '' }}">
                 <a href="{{ route('measurements') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-ruler"></i>
                   <div>{{ __('Measurements') }}</div>
@@ -193,11 +200,11 @@
               <!-- Search -->
               <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
+                  {{-- <i class="bx bx-search fs-4 lh-0"></i>
                   <form action="" method="GET">
                     <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
                       wire:model="search" aria-label="Search..." name="search" id="search" />
-                  </form>
+                  </form> --}}
                 </div>
               </div>
 

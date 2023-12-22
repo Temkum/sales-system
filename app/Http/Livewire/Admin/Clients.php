@@ -40,10 +40,12 @@ class Clients extends Component
 
     public function confirmDelete(int $id)
     {
+        $client = Client::find($id);
+
         $this->dispatchBrowserEvent('swal-confirm', [
             'type' => 'warning',
-            'title' => "Sure you want to remove $this->name?",
-            'text' => '',
+            'title' => __("Sure you want to remove $client->name?"),
+            'text' => __('This can not be undone!'),
             'id' =>  $id
         ]);
     }
@@ -54,13 +56,9 @@ class Clients extends Component
 
         if ($client) {
             $client->delete();
-            notyf()
-                ->position('x', 'center')
-                ->position('y', 'top')
-                ->duration(2000)
-                ->addSuccess('Client deleted successfully');
+            notyf()->addSuccess(__('Client deleted successfully'));
         } else {
-            notyf()->position('x', 'right')->position('y', 'top')->addError('Record not found');
+            notyf()->position('x', 'right')->position('y', 'top')->addError(__('Record not found'));
         }
     }
 

@@ -1,4 +1,4 @@
-<form wire:submit.prevent="addClient">
+<form wire:submit.prevent="saveClient">
   @csrf
   <div class="mb-3">
     <label class="form-label" for="client-name">{{ __("Customer's code") }}</label>

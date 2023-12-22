@@ -26,7 +26,7 @@ class AddClient extends Component
         return view('livewire.admin.add-client')->extends('base');
     }
 
-    public function addClient()
+    public function saveClient()
     {
         $this->validate([
             'name' => 'required',
@@ -50,11 +50,12 @@ class AddClient extends Component
             ]);
             notyf()->addSuccess(__("Client updated successfully!"));
         } else {
+            // $code = strtoupper($this->code);
             Client::create([
                 'name' => $this->name,
                 'address' => $this->address,
                 'phone' => $this->phone,
-                'code' => $this->code,
+                'code' => $code,
             ]);
             notyf()->addSuccess(__("Client added successfully!"));
 
