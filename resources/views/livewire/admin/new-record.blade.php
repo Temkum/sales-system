@@ -68,13 +68,13 @@
                           <input wire:model="item_price.0" class="form-control" type="number"
                             placeholder="{{ __('Enter item price') }}" name="item_price" required>
                           @error('item_price')
-                            <span class="text-danger error">{{ $message }}</span>
+                            <span class="text-danger error">{{ __($message) }}</span>
                           @enderror
                         </div>
                         <div class="col-lg-2 mt-4">
                           <button wire:click.prevent="addItem({{ $i }})"
                             class="btn-primary btn btn-sm add-btn">
-                            {{ __('Add more') }}
+                            {{ __('Another item') }}
                           </button>
                         </div>
                       </div>
@@ -117,7 +117,7 @@
                     </div>
                   @endforeach
                   <span class="btn btn-secondary btn-sm mt-2"
-                    wire:click.prevent="addOrUpdateItem()">{{ __('Add items') }}</span>
+                    wire:click.prevent="addOrUpdateItem()">{{ __('Submit') }}</span>
                   <div class="card mt-2">
                     <div class="table-responsive text-nowrap">
                       <table class="table table-sm">
@@ -303,7 +303,7 @@
                   @endif
                   <span class="text-muted">XAF</span>
                 </div>
-                <span>Total</span>
+                <span>{{ __('Total amount') }}</span>
               </div>
             </div>
           </div>

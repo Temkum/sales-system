@@ -41,7 +41,7 @@ class RepairController extends Controller
      */
     public function create()
     {
-        return view('admin.repairs.create');
+        return response()->view('admin.repairs.create');
     }
 
     /**
@@ -57,7 +57,7 @@ class RepairController extends Controller
         $repair->phone_number = $request->phone_number;
         $repair->save();
 
-        notyf()->addSuccess("Added successfully!");
+        notyf()->addSuccess(__("Added successfully!"));
 
         return redirect()->route('repairs.index');
     }
@@ -72,7 +72,7 @@ class RepairController extends Controller
     {
         $repair = Repair::findOrFail($id);
 
-        return view('admin.repairs.show', ['repair' => $repair]);
+        return response()->view('admin.repairs.show', ['repair' => $repair]);
     }
 
     /**
@@ -85,7 +85,7 @@ class RepairController extends Controller
     {
         $repair = Repair::findOrFail($id);
 
-        return view('admin.repairs.edit', ['repair' => $repair]);
+        return response()->view('admin.repairs.edit', ['repair' => $repair]);
     }
 
     /**
@@ -102,7 +102,7 @@ class RepairController extends Controller
         $repair->phone_number = $request->phone_number;
         $repair->save();
 
-        notyf()->addSuccess("Updated successfully!");
+        notyf()->addSuccess(__("Updated successfully!"));
 
         return redirect()->route('repairs.index');
     }
@@ -118,7 +118,7 @@ class RepairController extends Controller
         $repair = Repair::findOrFail($id);
         $repair->delete();
 
-        notyf()->addSuccess("Deleted successfully!");
+        notyf()->addSuccess(__("Deleted successfully!"));
 
         return redirect()->route('repairs.index');
     }
