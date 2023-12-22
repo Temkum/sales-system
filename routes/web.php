@@ -99,7 +99,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::get('/product/{product_code}', EditProduct::class)->name('edit-product');
 
     Route::get('/contacts', Contacts::class)->name('contacts');
-    Route::get('/deleted-records', [DeletedRecords::class, 'deletedRecords'])->name('deleted-records');
+    Route::get('/deleted-records', DeletedRecords::class)->name('deleted-records');
 
     Route::get('/reminder', OrderReminder::class)->name('order-reminder');
 

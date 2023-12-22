@@ -145,7 +145,7 @@ class Orders extends Component
         $this->dispatchBrowserEvent('swal-confirm', [
             'type' => 'warning',
             'title' => __('Are you sure?'),
-            'text' => '',
+            'text' => __("You won't be able to revert this!"),
             'id' =>  $id
         ]);
     }

@@ -5,7 +5,7 @@
         <h5 class="mb-3 text-uppercase">{{ __('Update sale record') }}</h5>
       </div>
       <div class="search-box">
-        <a href="{{ route('client-orders') }}" class="btn btn-secondary btn-sm">
+        <a href="{{ route('orders') }}" class="btn btn-secondary btn-sm">
           <i class="bx bx-arrow-back"></i>
           {{ __('Back') }}
         </a>

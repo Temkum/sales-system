@@ -10,7 +10,7 @@
       <div class="d-flex flex-column justify-content-center">
         <h5 class="mb-1 mt-3">{{ __('Order') }} #{{ $order->id }}
           <span class="badge bg-label-success me-2 ms-2">{{ __('Paid') }}</span>
-          <span class="badge bg-label-info">{{ __('Ready to Pickup') }}</span>
+          <span class="badge bg-label-info">{{ __('Ready to pickup') }}</span>
         </h5>
         <p class="text-body"> {{ __('Order Date') }} :
           {{ \Carbon\Carbon::parse($order->created_at)->isoFormat('D MMMM YYYY') }}

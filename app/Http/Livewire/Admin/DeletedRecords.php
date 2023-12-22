@@ -10,10 +10,10 @@ class DeletedRecords extends Component
 {
     public function render()
     {
-        $deleted_records = Order::onlyTrashed()->paginate(20);
+        $deleted_orders = Order::onlyTrashed()->paginate(20);
         $deleted_clients = Client::onlyTrashed()->paginate(20);
 
-        return view('livewire.admin.deleted-records', ['deleted_records' => $deleted_records, 'delete_clients' => $deleted_clients])->extends('base');
+        return view('livewire.admin.deleted-records', ['deleted_orders' => $deleted_orders, 'delete_clients' => $deleted_clients])->extends('base');
     }
 
     function restore($id)
@@ -34,7 +34,7 @@ class DeletedRecords extends Component
 
         if ($record) {
             $record->forceDelete();
-            notyf()->position('x', 'right')->position('y', 'top')->addInfo('Record removed successfully!');
+            notyf()->position('x', 'right')->position('y', 'top')->addSuccess('Record removed successfully!');
         }
     }
 }
