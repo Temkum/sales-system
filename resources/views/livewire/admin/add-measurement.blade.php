@@ -18,7 +18,7 @@
               <div class="col-md-6 col-lg-7">
                 <select class="form-select mt-2 col-3 customized-select @error('client_id') is-invalid @enderror"
                   id="client_id" wire:model="client_id">
-                  <option value="">{{ __('Select Client') }}</option>
+                  <option value="">{{ __('Select client') }}</option>
                   @foreach ($clients as $client)
                     <option value="{{ $client->id }}">{{ $client->name }}</option>
                   @endforeach

@@ -2,7 +2,7 @@
 
 @section('content')
   <div class="container">
-    <h3>{{ __('Purchase Orders') }}</h3>
+    <h3>{{ __('Purchase orders') }}</h3>
     <div class="card">
       <div class="card-header">
         <a href="{{ route('purchase_orders.create') }}" class="btn btn-success mb-3">{{ __('Create purchase order') }}</a>

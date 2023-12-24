@@ -14,7 +14,7 @@
           <div class="col-lg-6">
             <div class="form-group">
               <select class="form-select" id="client_id" wire:model="client_id">
-                <option value="">{{ __('Filter measurements by clients') }}</option>
+                <option value="">{{ __('Filter measurements by client') }}</option>
                 @foreach ($clients as $client)
                   <option value="{{ $client->id }}">{{ $client->name }}</option>
                 @endforeach
@@ -28,7 +28,7 @@
                       <a href="{{ route('measurement-details', ['measurement_id' => $measure->id]) }}">
                         {{ $measure->title }}
                       </a>
-                      for
+                      {{ __('for') }}
                       <a href="{{ route('client-details', ['client_id' => $measure->client->id]) }}">
                         {{ $measure->client->name }}
                       </a>

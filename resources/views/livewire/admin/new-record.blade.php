@@ -10,9 +10,6 @@
         <div class="card-header d-flex justify-content-between align-items-center">
           <h5 class="mb-0 text-uppercase">{{ __('Add new record') }}</h5>
         </div>
-        @if (Session::has('message'))
-          <div class="alert alert-success" role="alert">{{ Session::get('message') }}</div>
-        @endif
         <div class="card-body">
           {{-- Select client first --}}
           <div class="mb-4 row">
@@ -29,7 +26,7 @@
                 <span class="badge bg-danger">{{ __('The customer is required') }}</span>
               @enderror
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 mt-2">
               <a href="{{ route('add-client') }}" class="btn btn-primary btn-sm">
                 <i class="bx bx-plus"></i>
                 {{ __('New client') }}
@@ -53,7 +50,7 @@
                         <span class="text-danger error">{{ __($message) }}</span>
                       @enderror
                     </div>
-                    <div class="col-lg-2 col-md-3">
+                    <div class="col-lg-2 col-md-2">
                       <label for="item-name">{{ __('Qty') }}</label>
                       <input wire:model="item_qty.0" class="form-control" type="number" min="0"
                         placeholder="{{ __('Qty') }}" name="item_qty" required>
@@ -63,7 +60,7 @@
                     </div>
                     <div class="col-lg-4 col-md-5">
                       <div class="row">
-                        <div class="col-lg-10">
+                        <div class="col-lg-10 col-md-8">
                           <label for="item-name">{{ __('Price') }}</label>
                           <input wire:model="item_price.0" class="form-control" type="number"
                             placeholder="{{ __('Enter item price') }}" name="item_price" required>
@@ -71,16 +68,12 @@
                             <span class="text-danger error">{{ __($message) }}</span>
                           @enderror
                         </div>
-                        <div class="col-lg-2 mt-4">
+                        <div class="col-lg-2 col-md-1 mt-4">
                           <button wire:click.prevent="addItem({{ $i }})"
-                            class="btn-primary btn btn-sm add-btn">
-                            {{ __('Another item') }}
+                            class="btn-primary btn btn-sm add-btn"><i class="bx bx-plus"></i>
                           </button>
                         </div>
                       </div>
-                    </div>
-                    <div class="col-lg-2 col-md-2">
-
                     </div>
                   </div>
                   @if ($msg)
@@ -88,30 +81,31 @@
                   @endif
                   @foreach ($items as $key => $value)
                     <div class="row mt-3">
-                      <div class="col-lg-4 col-md-5">
+                      <div class="col-lg-4 col-md-4">
                         <input wire:model="item_name.{{ $value }}" class="form-control" type="text"
                           name="item_name" id="item_name" placeholder="{{ __('Enter item name') }}" required>
                         @error('item_name')
                           <span class="text-danger error">{{ __($message) }}</span>
                         @enderror
                       </div>
-                      <div class="col-lg-2 col-md-3">
+                      <div class="col-lg-2 col-md-2">
                         <input wire:model="item_qty.{{ $value }}" class="form-control" type="number"
                           min="0" placeholder="{{ __('Qty') }}" required>
                         @error('item_qty')
                           <span class="text-danger error">{{ __($message) }}</span>
                         @enderror
                       </div>
-                      <div class="col-lg-4 col-md-5">
+                      <div class="col-lg-4 col-md-4">
                         <input wire:model="item_price.{{ $value }}" class="form-control" type="number"
                           placeholder="{{ __('Enter item price') }}" required>
                         @error('item_price')
                           <span class="text-danger error">{{ __($message) }}</span>
                         @enderror
                       </div>
-                      <div class="col">
-                        <span wire:click.prevent="removeItem({{ $key }})"
-                          class="btn-danger btn btn-sm mt-2">{{ __('Remove') }}
+                      <div class="col-lg-2 col-md-1">
+                        <span wire:click.prevent="removeItem({{ $key }})" class="btn-danger btn btn-sm mt-2">
+                          <span class="d-none d-lg-inline">{{ __('Remove') }}</span>
+                          <span class="d-lg-none"><i class="bx bx-trash"></i></span>
                         </span>
                       </div>
                     </div>
@@ -329,10 +323,10 @@
   });
 </script>
 
-{{-- @push('scripts')
+@push('scripts')
   <script>
     $(document).ready(function() {
       $('#client').select2();
     });
   </script>
-@endpush --}}
+@endpush
