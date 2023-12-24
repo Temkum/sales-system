@@ -6,13 +6,13 @@
     <div class="card-header d-flex justify-content-between mb-4">
       <h5 class="md sm">
         <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#newProdModal">
-          <i class="bx bx-plus"></i> New
+          <i class="bx bx-plus"></i>{{ __('New product') }}
         </button>
       </h5>
       {{-- search --}}
       <div class="search-box">
         <form action="" method="GET">
-          <input type="text" id="search" placeholder="Search item..." class="form-control" name="search"
+          <input type="text" id="search" placeholder="{{ __('Search item') }}" class="form-control" name="search"
             wire:model='search_item' />
         </form>
       </div>
@@ -23,11 +23,11 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Product</th>
-              <th>Price (Xaf)</th>
-              <th>Image</th>
-              <th>Description</th>
-              <th>Actions</th>
+              <th>{{ __('Product') }}</th>
+              <th>{{ __('Price') }} (Xaf)</th>
+              <th>{{ __('Image') }}</th>
+              <th>{{ __('Description') }}</th>
+              <th>{{ __('Actions') }}</th>
             </tr>
           </thead>
           <tbody class="allproducts">
@@ -49,7 +49,7 @@
                         Edit</a>
                       <button class="btn btn-sm btn-outline-danger" role="button"
                         onclick="confirm('Sure you want to delete this product?') || event.stopImmediatePropagation()"
-                        wire:click.prevent="deleteProduct({{ $product->id }})">Delete</button>
+                        wire:click.prevent="deleteProduct({{ $product->id }})">{{ __('Delete') }}</button>
                     </div>
 
                   </td>
@@ -57,7 +57,7 @@
               @endforeach
             @else
               <tr>
-                <td colspan='7' class="text-center text-bold"> No products available!</td>
+                <td colspan='7' class="text-center text-bold">{{ __('No products available') }}</td>
               </tr>
             @endif
           </tbody>
@@ -66,35 +66,6 @@
     </div>
     <div class="card-footer">
       <nav aria-label="Page navigation">
-        {{-- <ul class="pagination">
-          <li class="page-item first">
-            <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-left"></i></a>
-          </li>
-          <li class="page-item prev">
-            <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-left"></i></a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="javascript:void(0);">1</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="javascript:void(0);">2</a>
-          </li>
-          <li class="page-item active">
-            <a class="page-link" href="javascript:void(0);">3</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="javascript:void(0);">4</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="javascript:void(0);">5</a>
-          </li>
-          <li class="page-item next">
-            <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-right"></i></a>
-          </li>
-          <li class="page-item last">
-            <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-right"></i></a>
-          </li>
-        </ul> --}}
         {{ $products->links() }}
       </nav>
     </div>
@@ -105,7 +76,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel4">New Product</h5>
+          <h5 class="modal-title" id="exampleModalLabel4">{{ __('New product') }}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">

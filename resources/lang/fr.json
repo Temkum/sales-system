@@ -268,5 +268,9 @@
     "All customers orders": "Toutes les commandes des clients",
     "New order": "Nouvelle commande",
     "Filter orders by client": "Filtrer les commandes par client",
-    "No associated client": "Aucun client n'a été trouvé"
+    "No associated client": "Aucun client n'a été trouvé",
+    "Product": "Produit",
+    "New product": "Nouveau produit",
+    "No products available": "Aucun produit disponible",
+    "Modify": "Modifier"
 }

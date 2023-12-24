@@ -1,6 +1,5 @@
 @extends('base')
 
-
 @section('content')
   @include('admin.components.breadcrumb')
 
@@ -12,7 +11,7 @@
         </div>
         <div class="card-body">
           <div class=" image d-flex flex-column justify-content-center align-items-center">
-            <img src="{{ asset('assets/img/avatars/Jude.png') }}" height="100" width="100" class="br-100" />
+            <img src="{{ asset('assets/img/avatars/user-avatar.png') }}" height="100" width="100" class="br-100" />
             <span class="name mt-3">{{ auth()->user()->name }}</span>
             <span class="mb-3">{{ auth()->user()->email }}</span>
             <span class="bg-secondary p-1 px-4 rounded text-white">{{ auth()->user()->getRoleNames()->first() }}</span>
