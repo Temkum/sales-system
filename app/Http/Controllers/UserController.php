@@ -23,17 +23,15 @@ class UserController extends Controller
         $roles = Role::all();
 
         if (Gate::denies('logged-in')) {
-            return view('auth.login');
+            return response()->view('auth.login');
         }
 
         if (Gate::allows('is-admin')) {
-            return view('admin.users', ['users' => $users, 'roles' => $roles]);
+            return response()->view('admin.users', ['users' => $users, 'roles' => $roles]);
         } else {
 
             return view('admin.users')->with('error', 'You do not have permission to access this page!');
         }
-
-        return view('admin.users', ['users' => $users, 'roles' => Role::all()]);
     }
 
     /**
@@ -45,7 +43,7 @@ class UserController extends Controller
     {
         $roles = Role::all();
 
-        return view('admin.add-user', ['roles' => $roles]);
+        return response()->view('admin.add-user', ['roles' => $roles]);
     }
 
     /**
@@ -88,7 +86,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.edit-user', ['roles' => Role::all(), 'user' => User::find($id)]);
+        return response()->view('admin.edit-user', ['roles' => Role::all(), 'user' => User::find($id)]);
     }
 
     /**
@@ -105,7 +103,7 @@ class UserController extends Controller
         if (!$user) {
             notyf()->addError(__('You can not edit this user!'));
 
-            return redirect(route('users'));
+            return response()->redirect(route('users'));
         }
 
         $user->update($request->except(['_token', 'roles']));
@@ -113,7 +111,7 @@ class UserController extends Controller
 
         notyf()->addSuccess(__("User updated successfully!"));
 
-        return redirect(route('users'));
+        return response()->redirect(route('users'));
     }
 
     /**
@@ -128,6 +126,6 @@ class UserController extends Controller
 
         notyf()->addSuccess(__("User deleted successfully!"));
 
-        return redirect(route('users'));
+        return response()->redirect(route('users'));
     }
 }

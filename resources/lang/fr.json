@@ -272,5 +272,18 @@
     "Product": "Produit",
     "New product": "Nouveau produit",
     "No products available": "Aucun produit disponible",
-    "Modify": "Modifier"
+    "Modify": "Modifier",
+    "Joined": "Inscription",
+    "Reset": "Reinitialiser",
+    "Allowed JPG, GIF or PNG. Max size of 800KB": "JPG, GIF ou PNG. Taille maximale de 800KB",
+    "Upload new photo": "Charger une nouvelle photo",
+    "Full name": "Nom et prenom",
+    "Select language": "Choisir la langue",
+    "Save changes": "Sauvegarder les modifications",
+    "Delete account": "Supprimer le compte",
+    "Are you sure you want to delete your account?": "Voulez-vous vraiment supprimer votre compte ?",
+    "Once you delete your account, there is no going back. PLease be certain": "Une fois supprimé, vous ne pourrez plus le reinitialiser. Veuillez vous assurer",
+    "I confirm my account deactivation": "Je confirme la désactivation de mon compte",
+    "Deactive account": "Supprimer le compte",
+    "User profile": "Profil de l'utilisateur"
 }

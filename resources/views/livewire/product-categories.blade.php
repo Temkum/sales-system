@@ -46,7 +46,7 @@
                     <div class="d-flex">
                       <a class="me-4 btn btn-sm btn-outline-primary"
                         href="{{ route('edit-product', ['product_slug' => $product->slug]) }}">
-                        Edit</a>
+                        {{ __('Edit') }}</a>
                       <button class="btn btn-sm btn-outline-danger" role="button"
                         onclick="confirm('Sure you want to delete this product?') || event.stopImmediatePropagation()"
                         wire:click.prevent="deleteProduct({{ $product->id }})">{{ __('Delete') }}</button>

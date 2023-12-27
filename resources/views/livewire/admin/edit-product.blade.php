@@ -19,14 +19,14 @@
               <input type="text" class="form-control" placeholder="Ex. Afritude" wire:model='prod_name'
                 wire:keyup="generateSlug">
               @error('prod_name')
-                <p class="text-danger">{{ $message ?? '' }}</p>
+                <p class="text-danger">{{ __($message) ?? '' }}</p>
               @enderror
             </div>
             <div class="mb-3">
               <label class="form-label" for="basic-default-phone">{{ __('Price') }}</label>
               <input type="number" class="form-control" placeholder="75,000" wire:model="price">
               @error('price')
-                <p class="text-danger">{{ $message ?? '' }}</p>
+                <p class="text-danger">{{ __($message) ?? '' }}</p>
               @enderror
             </div>
             <div class="mb-3">
@@ -38,7 +38,7 @@
                 <img src="{{ asset('assets/img/products') }}/{{ $image }}" width="120" />
               @endif
               @error('image')
-                <p class="text-danger">{{ $message ?? '' }}</p>
+                <p class="text-danger">{{ __($message) ?? '' }}</p>
               @enderror
             </div>
             <div class="mb-3">
@@ -46,7 +46,7 @@
               <textarea id="basic-default-message" class="form-control" placeholder="{{ __('Enter product description') }}"
                 wire:model='short_desc'></textarea>
               @error('short_desc')
-                <p class="text-danger">{{ $message ?? '' }}</p>
+                <p class="text-danger">{{ __($message) ?? '' }}</p>
               @enderror
             </div>
             <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>

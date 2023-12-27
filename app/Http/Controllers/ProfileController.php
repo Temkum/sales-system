@@ -18,4 +18,25 @@ class ProfileController extends Controller
 
         return view('profile', compact('users'));
     }
+
+    public function edit($id)
+    {
+        $user = User::find($id);
+
+        return view('profile', ['user' => $user]);
+    }
+
+    public function update(Request $request, $id)
+    {
+
+        $user = User::findOrFail($id);
+        $user->name = request('name');
+        $user->email = request('email');
+        $user->password = request('password');
+        $user->save();
+
+        notyf()->addSuccess(__("Info updated successfully!"));
+
+        return redirect()->route('profile.index');
+    }
 }

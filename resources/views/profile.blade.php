@@ -1,7 +1,13 @@
 @extends('base')
 
 @section('content')
-  @include('admin.components.breadcrumb')
+  {{-- @include('admin.components.breadcrumb') --}}
+
+  <h4 class="fw-bold py-3 mb-4">
+    <span class="text-muted fw-light"> <a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }} </a>/</span>
+    <span class="text-muted fw-light"><a href="{{ route('users') }}">{{ __('Users') }}</a> /</span>
+    <span>{{ __('User profile') }}</span>
+  </h4>
 
   <div class="row">
     <div class="col-md-5 col-lg-4 mb-4">
@@ -16,7 +22,7 @@
             <span class="mb-3">{{ auth()->user()->email }}</span>
             <span class="bg-secondary p-1 px-4 rounded text-white">{{ auth()->user()->getRoleNames()->first() }}</span>
             {{-- <div class="text mt-3"> <span>{{ __('Address') }}</span> </div> --}}
-            <div class="px-2 rounded mt-4 date"> <span class="join">{{ __('Joined') }}
+            <div class="px-2 rounded mt-4 date"> <span class="join">{{ __('Joined') }}:
                 {{ auth()->user()->created_at->format('d M, Y') }}</span> </div>
           </div>
         </div>
@@ -52,14 +58,13 @@
             enctype="multipart/form-data">
             @csrf
             @method('PUT')
-
             <div class="row">
               <div class="mb-3 col-md-6">
-                <label for="firstName" class="form-label">{{ __('Full Name') }}</label>
+                <label for="firstName" class="form-label">{{ __('Full name') }}</label>
                 <input class="form-control @error('name') is-invalid @enderror" type="text" id="name"
                   name="name" value="{{ auth()->user()->name ?? '' }}" />
                 @error('name')
-                  <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                  <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                 @enderror
               </div>
               <div class="mb-3 col-md-6">
@@ -67,34 +72,34 @@
                 <input class="form-control @error('email') is-invalid @enderror" type="email" id="email"
                   name="email" value="{{ auth()->user()->email ?? '' }}" />
                 @error('email')
-                  <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                  <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                 @enderror
               </div>
               <div class="mb-3 col-md-6">
-                <label class="form-label" for="phoneNumber">{{ __('Phone Number') }}</label>
+                <label class="form-label" for="phoneNumber">{{ __('Phone number') }}</label>
                 <div class="input-group input-group-merge">
-                  <span class="input-group-text">US (+1)</span>
+                  <span class="input-group-text">CMR (+237)</span>
                   <input type="text" id="phoneNumber" name="phoneNumber" class="form-control"
-                    placeholder="202 555 0111" />
+                    placeholder="675 827 455" />
                 </div>
               </div>
               <div class="mb-3 col-md-6">
                 <label for="address" class="form-label">{{ __('Address') }}</label>
                 <input type="text" class="form-control" id="address" name="address" placeholder="Address" />
               </div>
-              <div class="mb-3 col-md-6">
-                <label for="zipCode" class="form-label">{{ __('Zip Code') }}</label>
+              {{-- <div class="mb-3 col-md-6">
+                <label for="zipCode" class="form-label">{{ __('Zip code') }}</label>
                 <input type="text" class="form-control" id="zipCode" name="zipCode" placeholder="231465"
                   maxlength="6" />
-              </div>
-              <div class="mb-3 col-md-6">
+              </div> --}}
+              {{-- <div class="mb-3 col-md-6">
                 <label for="language" class="form-label">{{ __('Language') }}</label>
                 <select id="language" class="select2 form-select">
-                  <option value="">{{ __('Select Language') }}</option>
+                  <option value="">{{ __('Select language') }}</option>
                   <option value="en">{{ __('English') }}</option>
                   <option value="fr">{{ __('French') }}</option>
                 </select>
-              </div>
+              </div> --}}
             </div>
             <div class="mt-2">
               <button type="submit" class="btn btn-primary me-2">{{ __('Save changes') }}</button>
@@ -105,7 +110,7 @@
         <!-- /Account -->
       </div>
       <div class="card">
-        <h5 class="card-header">{{ __('Delete Account') }}</h5>
+        <h5 class="card-header">{{ __('Delete account') }}</h5>
         <div class="card-body">
           <div class="mb-3 col-12 mb-0">
             <div class="alert alert-warning">
@@ -119,7 +124,7 @@
               <label class="form-check-label"
                 for="accountActivation">{{ __('I confirm my account deactivation') }}</label>
             </div>
-            <button type="submit" class="btn btn-danger deactivate-account">{{ __('Deactivate Account') }}</button>
+            <button type="submit" class="btn btn-danger deactivate-account">{{ __('Deactivate account') }}</button>
           </form>
         </div>
       </div>
