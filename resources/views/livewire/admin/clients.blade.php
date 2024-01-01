@@ -56,7 +56,8 @@
                         <i class="bx bx-pencil"></i>
                       </a>
                       <button class="btn btn-sm btn-outline-danger" role="button"
-                        wire:click.prevent="confirmDelete({{ $client->id }})"><i class="bx bx-trash"></i></button>
+                        wire:click.prevent="confirmDelete({{ $client->id }})"><i class="bx bx-trash"></i>
+                      </button>
                     </div>
                   </td>
                 </tr>

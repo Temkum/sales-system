@@ -24,44 +24,43 @@
         </div>
       </div>
       <div class="card-body">
-        <div class="">
-          <table class="table table-responsive table-sm">
-            <thead>
-              <tr>
-                <th>{{ __('Name') }}</th>
-                <th>{{ __('Phone') }}</th>
-                <th>{{ __('Actions') }}</th>
-              </tr>
-            </thead>
-            <tbody class="allclients">
-              <?php $index = 1; ?>
+        <table class="table table-responsive table-sm">
+          <thead>
+            <tr>
+              <th>{{ __('Name') }}</th>
+              <th>{{ __('Phone') }}</th>
+              <th>{{ __('Actions') }}</th>
+            </tr>
+          </thead>
+          <tbody class="allclients">
+            <?php $index = 1; ?>
 
-              @if (count($repairs) >= 1)
-                @foreach ($repairs as $repair)
-                  <tr>
-                    <td>{{ $repair->name }}</td>
-                    <td>{{ $repair->phone_number }}</td>
-                    <td>
-                      <a class="btn btn-sm btn-outline-primary mr-3" href="{{ route('repairs.edit', $repair) }}">
-                        <i class="bx bx-pencil"></i>
-                      </a>
-                      <form method="POST" action="{{ route('repairs.destroy', $repair) }}">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-outline-danger ml-3""><i
-                            class="bx bx-trash"></i></button>
-                      </form>
-                    </td>
-                  </tr>
-                @endforeach
-              @else
+            @if (count($repairs) >= 1)
+              @foreach ($repairs as $repair)
                 <tr>
-                  <td colspan='7' class="text-center text-bold">{{ __('No repairs available') }}</td>
+                  <td>{{ $repair->name }}</td>
+                  <td>{{ $repair->phone_number }}</td>
+                  <td class="btn-group">
+                    <a class="btn btn-sm btn-outline-primary mr-3" href="{{ route('repairs.edit', $repair) }}">
+                      <i class="bx bx-pencil"></i>
+                    </a>
+                    <form method="POST" action="{{ route('repairs.destroy', $repair) }}">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" class="btn btn-sm btn-outline-danger ml-3""><i
+                          class="bx bx-trash"></i></button>
+                    </form>
+                  </td>
                 </tr>
-              @endif
-            </tbody>
-          </table>
-        </div>
+              @endforeach
+            @else
+              <tr>
+                <td colspan='7' class="text-center text-bold">{{ __('No repairs available') }}</td>
+              </tr>
+            @endif
+          </tbody>
+        </table>
+
       </div>
       <div class="card-footer">
         <nav aria-label="Page navigation">

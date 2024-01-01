@@ -238,12 +238,9 @@ class NewRecord extends Component
             throw $th;
         } */
 
-        notyf()
-            ->position('x', 'right')
-            ->position('y', 'bottom')
-            ->addSuccess(__('Order placed successfully!'));
+        notyf()->addSuccess(__('Order placed successfully!'));
 
-        redirect(route('client-orders'));
+        redirect(route('orders'));
     }
 
     /**

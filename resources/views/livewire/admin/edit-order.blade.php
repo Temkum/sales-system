@@ -1,11 +1,11 @@
 <div>
   <div class="card">
     <div class="card-header d-flex justify-content-between">
-      <div class="card-header mb-3">
-        <h3 class="mb-3 text-uppercase">{{ __('Update sale record') }}</h3>
+      <div class="card-header mb-1">
+        <h5 class="mb-3 text-uppercase">{{ __('Update sale record') }}</h5>
       </div>
       <div class="search-box">
-        <a href="{{ route('client-orders') }}" class="btn btn-secondary btn-sm">
+        <a href="{{ route('orders') }}" class="btn btn-secondary btn-sm">
           <i class="bx bx-arrow-back"></i>
           {{ __('Back') }}
         </a>

@@ -18,6 +18,6 @@ class Measurement extends Model
 
     function client()
     {
-        return $this->belongsTo(App\Models\Client::class);
+        return $this->belongsTo(Client::class);
     }
 }

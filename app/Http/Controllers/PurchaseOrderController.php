@@ -16,7 +16,9 @@ class PurchaseOrderController extends Controller
     public function index()
     {
         $purchase_orders = PurchaseOrder::orderBy('order_date', 'desc')->get();
-        return view('admin.purchase_orders.index', compact('purchase_orders'));
+
+        // return response()->view('admin.purchase_orders.index', compact('purchase_orders'));
+        return response()->view('admin.purchase_orders.index', ['purchase_orders' => $purchase_orders]);
     }
 
     /**
@@ -26,7 +28,7 @@ class PurchaseOrderController extends Controller
      */
     public function create()
     {
-        return view('admin.purchase_orders.create');
+        return response()->view('admin.purchase_orders.create');
     }
 
     /**
@@ -79,7 +81,7 @@ class PurchaseOrderController extends Controller
         $purchase_order->load('items');
         $grouped_items = $purchase_order->items->groupBy('purchase_order_id');
 
-        return view('admin.purchase_orders.show', compact('purchase_order', 'item', 'grouped_items'));
+        return response()->view('admin.purchase_orders.show', compact('purchase_order', 'item', 'grouped_items'));
     }
 
     /**
@@ -90,7 +92,7 @@ class PurchaseOrderController extends Controller
      */
     public function edit(PurchaseOrder $purchase_order)
     {
-        return view('admin.purchase_orders.edit', compact('purchase_order'));
+        return response()->view('admin.purchase_orders.edit', compact('purchase_order'));
     }
 
     /**
@@ -229,5 +231,13 @@ class PurchaseOrderController extends Controller
         notyf()->addSuccess(__('Purchase order deleted successfully.'));
 
         return redirect()->route('purchase_orders', $purchase_order);
+    }
+
+    public function deleteItem($id)
+    {
+        $item = PurchaseOrder::find($id);
+        $item->delete();
+
+        return redirect()->route('purchase_orders');
     }
 }

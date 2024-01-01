@@ -2,7 +2,7 @@
   <table class="table table-sm">
     <thead>
       <tr>
-        <th>{{ __('Sale code') }}</th>
+        <th>{{ __('Code') }}</th>
         <th>{{ __('Client') }}</th>
         <th>{{ __('Address') }}</th>
         <th>{{ __('Price') }}</th>
@@ -17,9 +17,9 @@
       </tr>
     </thead>
     <tbody>
-      @foreach ($deleted_records as $record)
+      @foreach ($deleted_orders as $record)
         <tr>
-          <td>{{ $record->sale_code }}</td>
+          <td>{{ $record->code }}</td>
           <td>{{ $record->name }}</td>
           <td>{{ $record->address }}</td>
           <td>{{ $record->price }}</td>

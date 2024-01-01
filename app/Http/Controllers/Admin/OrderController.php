@@ -113,7 +113,7 @@ class OrderController extends Controller
 
         foreach ($orders as $key => $order) {
 
-            $output .= ' 
+            $output .= '
             <tr>
                 <td>' . ++$key . '</td>
                 <td>' . $order->name . '</td>

@@ -67,6 +67,12 @@
                 <div data-i18n="Analytics">{{ __('Dashboard') }}</div>
               </a>
             </li>
+            <li class="menu-item {{ request()->route()->named('add-record')? 'active': '' }}">
+              <a href="{{ route('add-record') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-cart"></i>
+                <div>{{ __('New Sale') }}</div>
+              </a>
+            </li>
             <li class="menu-item {{ request()->route()->named('orders')? 'active': '' }}">
               <a href="{{ route('orders') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-money"></i>
@@ -75,14 +81,8 @@
             </li>
             <li class="menu-item {{ request()->route()->named('client-orders')? 'active': '' }}">
               <a href="{{ route('client-orders') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-cart"></i>
+                <i class="menu-icon tf-icons bx bx-euro"></i>
                 <div>{{ __('All orders') }}</div>
-              </a>
-            </li>
-            <li class="menu-item {{ request()->route()->named('add-record')? 'active': '' }}">
-              <a href="{{ route('add-record') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-cart"></i>
-                <div>{{ __('New Sale') }}</div>
               </a>
             </li>
             {{-- product --}}
@@ -91,7 +91,8 @@
             </li>
             <li class="menu-item {{ request()->route()->named('purchase_orders')? 'active': '' }}">
               <a href="{{ route('purchase_orders') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-category"></i>
+                <i class="menu-icon tf-icons bx bx-barcode"></i>
+
                 <div>{{ __('Purchase orders') }}</div>
               </a>
             </li>
@@ -118,15 +119,22 @@
                   <div>{{ __('Clients') }}</div>
                 </a>
               </li>
-              <li class="menu-item {{ request()->route()->named('measurements')? 'active': '' }}">
+              <li class="menu-item {{ request()->route()->named('add-client')? 'active': '' }}">
+                <a href="{{ route('add-client') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bxs-user-plus"></i>
+                  <div>{{ __('Add client') }}</div>
+                </a>
+              </li>
+              <li class="menu-item
+                    {{ request()->route()->named('measurements')? 'active': '' }}">
                 <a href="{{ route('measurements') }}" class="menu-link">
-                  <i class="menu-icon tf-icons bx bx-group"></i>
+                  <i class="menu-icon tf-icons bx bx-ruler"></i>
                   <div>{{ __('Measurements') }}</div>
                 </a>
               </li>
               <li class="menu-item {{ request()->route()->named('repairs.index')? 'active': '' }}">
                 <a href="{{ route('repairs.index') }}" class="menu-link">
-                  <i class="menu-icon tf-icons bx bx-group"></i>
+                  <i class="menu-icon tf-icons bx bx-cog"></i>
                   <div>{{ __('Repairs') }}</div>
                 </a>
               </li>
@@ -192,11 +200,11 @@
               <!-- Search -->
               <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
+                  {{-- <i class="bx bx-search fs-4 lh-0"></i>
                   <form action="" method="GET">
                     <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
                       wire:model="search" aria-label="Search..." name="search" id="search" />
-                  </form>
+                  </form> --}}
                 </div>
               </div>
 
