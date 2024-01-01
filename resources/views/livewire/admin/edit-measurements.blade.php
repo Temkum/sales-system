@@ -11,25 +11,21 @@
     </div>
     <div class="card-body">
       <div class="mb-3">
-        <label for="defaultSelect" class="col-lg-2">{{ __('Client') }}</label>
         <div class="row">
           <div class="col-md-5">
-            <select class="form-select mt-2 col-3 customized-select @error('client_id') is-invalid @enderror"
-              id="client_id" wire:model="client_id">
-              <option value="">{{ __('Select Client') }}</option>
-              @foreach ($clients as $client)
-                <option value="{{ $client->id }}">{{ $client->name ?? '' }}</option>
-              @endforeach
-            </select>
-            @error('client_id')
-              <span class="badge bg-danger">{{ __('The customer is required') }}</span>
-            @enderror
-          </div>
-          <div class="col-md-3 mt-3">
-            <a href="{{ route('add-client') }}" class="btn btn-success btn-sm">
-              <i class="bx bx-plus"></i>
-              {{ __('New') }}
-            </a>
+            <div class="input-group input-group-sm">
+              <span class="input-group-text ">{{ __('Client') }}</span>
+              <select class="form-select col-3 customized-select @error('client_id') is-invalid @enderror"
+                id="client_id" wire:model="client_id">
+                <option value="">{{ __('Select Client') }}</option>
+                @foreach ($clients as $client)
+                  <option value="{{ $client->id }}">{{ $client->name ?? '' }}</option>
+                @endforeach
+              </select>
+              @error('client_id')
+                <span class="badge bg-danger">{{ __('The customer is required') }}</span>
+              @enderror
+            </div>
           </div>
         </div>
       </div>
@@ -42,6 +38,17 @@
           <tbody>
             <form wire:submit.prevent="update">
               @csrf
+              <tr>
+                <div class="title mb-4">
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text sm">{{ __('Title') }}</span>
+                    <input type="text" class="form-control form-control-sm" aria-label="Title" wire:model="title" />
+                  </div>
+                  @error('title')
+                    <span class="text-danger error">{{ __('This field is required') }}</span>
+                  @enderror
+                </div>
+              </tr>
               <tr>
                 <td>
                   <div class="input-group input-group-sm">

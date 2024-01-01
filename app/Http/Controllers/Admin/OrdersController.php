@@ -48,8 +48,18 @@ class OrdersController extends Controller
      */
     public function show(Order $order)
     {
-        return view('admin.show-details', ['order' => $order]);
+        $items = json_decode($order->items);
+        $client = Client::find($order->client_id);
+
+        // get client's total orders
+        $total_orders = $client->orders->count();
+
+        return response()->view(
+            'admin.show-details',
+            ['order' => $order, 'items' => $items, 'client' => $client, 'total_orders' => $total_orders]
+        );
     }
+
 
     public function showClientOrders(Client $client)
     {
@@ -87,8 +97,17 @@ class OrdersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        Order::findOrFail($id)->delete();
+        return redirect()->route('orders');
+    }
+
+    public function deleteOrder($id)
+    {
+        $item = Order::find($id);
+        $item->delete();
+
+        return redirect()->route('orders');
     }
 }

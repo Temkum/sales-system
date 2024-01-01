@@ -28,7 +28,7 @@
     </div>
     <div class="card-body">
       <div class="">
-       <table class="table order-table table-responsive">
+        <table class="table order-table table-responsive">
           <thead>
             <tr>
               <th>{{ __('Code') }}</th>
@@ -53,7 +53,6 @@
                     <td>
                       <a href="{{ route('client-details', $order->client->id) }}">{{ $order->client->name ?? '' }}</a>
                     </td>
-                    {{-- <td>{{ $order->client->name ?? '' }}</td> --}}
                     <td><strong>{{ number_format($order->price) }}</strong></td>
                     <td>{{ date('j F y', strtotime($order->due_date)) }}</td>
                     <td>{{ number_format($order->advance) }}</td>
@@ -150,6 +149,8 @@
       icon: event.detail.type,
       buttons: true,
       dangerMode: true,
+      //   cancelButtonText: "{{ __('alerts.cancel') }}",
+      cancelButtonText: "alerts.cancel",
     }).then((willDelete) => {
       if (willDelete) {
         window.livewire.emit('delete', event.detail.id);

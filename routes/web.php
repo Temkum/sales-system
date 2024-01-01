@@ -35,6 +35,7 @@ use App\Http\Livewire\Admin\AddMeasurement;
 use App\Http\Livewire\Admin\EditMeasurements;
 use App\Http\Livewire\Admin\ModifyOrder;
 use App\Http\Livewire\Admin\OrderReminder;
+use App\Models\Measurement;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,15 +72,16 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::get('/measure/add', AddMeasurement::class)->name('add-measurement');
     Route::get('/measurements', Measurements::class)->name('measurements');
     Route::get('/measurement/{measurement_id}', EditMeasurements::class)->name('edit-measurement');
+    Route::get('/measurement/edit/{measurement_id}', EditMeasurements::class)->name('measure.edit');
+    Route::get('/measurement/{measurement_id}', [Measurements::class, 'show'])->name('measurement-details');
 
     Route::post('/orders/add', [OrderController::class, 'store'])->name('store-order');
     Route::get('/new-record', NewRecord::class)->name('add-record');
-    // Route::get('/order/{order_id}', ModifyOrder::class)->name('modify-order');
 
     Route::get('/orders', Orders::class)->name('orders');
-    // Route::get('/add-order', NewOrder::class)->name('add-order');
     Route::get('/orders/{order_id}', OrderDetails::class)->name('order-details');
     Route::get('/order/{order_id}', EditOrder::class)->name('update');
+    Route::delete('/order/{order_id}', [OrdersController::class, 'destroy'])->name('order-delete');
 
     Route::get('search', [OrderController::class, 'search'])->name('search');
     Route::get('date-search', [OrderController::class, 'dateSearch'])->name('date-search');
@@ -97,7 +99,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::get('/product/{product_code}', EditProduct::class)->name('edit-product');
 
     Route::get('/contacts', Contacts::class)->name('contacts');
-    Route::get('/deleted-records', DeletedRecords::class, 'deletedRecords')->name('deleted-records');
+    Route::get('/deleted-records', DeletedRecords::class)->name('deleted-records');
 
     Route::get('/reminder', OrderReminder::class)->name('order-reminder');
 
@@ -108,6 +110,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
 
     Route::resource('purchase_orders', PurchaseOrderController::class)->name('index', 'purchase_orders');
     Route::delete('purchase_orders/{purchase_order}', [PurchaseOrderController::class, 'destroy'])->name('purchase_orders.destroy');
+    Route::delete('/purchase_order/{id}', [PurchaseOrderController::class, 'deleteItem'])->name('item.delete');
 
     Route::post('purchase_orders/{purchase_order}/items', [PurchaseOrderItemController::class, 'store'])->name('purchase_orders.items.store');
     Route::get('/purchase_orders/{purchase_order}/items/{id}/edit', [PurchaseOrderItemController::class, 'edit'])->name('purchase_order_items.edit');

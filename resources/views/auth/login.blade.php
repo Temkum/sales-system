@@ -26,7 +26,7 @@
                 name="email" placeholder="{{ __('Enter your email') }}" autofocus value="{{ old('email') }}"
                 aria-describedby="email" />
               @error('email')
-                <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
               @enderror
             </div>
             <div class="mb-3 form-password-toggle">
@@ -37,7 +37,7 @@
                     name="password" placeholder="*******" aria-describedby="password" />
                   <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   @error('password')
-                    <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                    <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                   @enderror
                 </div>
               </div>

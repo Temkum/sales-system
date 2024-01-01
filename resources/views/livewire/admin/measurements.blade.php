@@ -12,20 +12,39 @@
         </div>
         <div class="card-body">
           <div class="col-lg-6">
-            {{-- <small class="text-light fw-semibold">With Bagdes & Pills</small> --}}
+            <div class="form-group">
+              <select class="form-select" id="client_id" wire:model="client_id">
+                <option value="">{{ __('Filter measurements by client') }}</option>
+                @foreach ($clients as $client)
+                  <option value="{{ $client->id }}">{{ $client->name }}</option>
+                @endforeach
+              </select>
+            </div>
             <div class="demo-inline-spacing mt-3">
               <ul class="list-group">
-                @foreach ($clients as $client)
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <a href="{{ route('client-details', ['client_id' => $client->id]) }}">
-                      {{ $client->name }}
-                    </a>
-                    <span class="badge bg-secondary">{{ $client->measurements_count }}</span>
-                  </li>
-                @endforeach
+                @if ($measurements->count() > 0)
+                  @foreach ($measurements as $measure)
+                    <li class="list-group-item">
+                      <a href="{{ route('measurement-details', ['measurement_id' => $measure->id]) }}">
+                        {{ $measure->title }}
+                      </a>
+                      {{ __('for') }}
+                      <a href="{{ route('client-details', ['client_id' => $measure->client->id]) }}">
+                        {{ $measure->client->name }}
+                      </a>
+                    </li>
+                  @endforeach
+                @else
+                  <h6 class="text-center">{{ __('Client has no measurements yet') }}</h6>
+                @endif
               </ul>
             </div>
           </div>
+        </div>
+        <div class="card-footer">
+          <nav aria-label="Page navigation">
+            {{ $measurements->links() }}
+          </nav>
         </div>
       </div>
     </div>

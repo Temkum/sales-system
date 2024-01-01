@@ -6,7 +6,7 @@
     <div class="card-header d-flex justify-content-between mb-4">
       <h5 class="md sm">
         <a type="button" class="btn btn-sm btn-outline-success" href="{{ route('add-product') }}">
-          <i class="bx bx-plus"></i> New
+          <i class="bx bx-plus"></i> {{ __('New product') }}
         </a>
       </h5>
       {{-- search --}}
@@ -23,11 +23,11 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Product</th>
-              <th>Price (Xaf)</th>
-              <th>Image</th>
-              <th>Description</th>
-              <th>Actions</th>
+              <th>{{ __('Product') }}</th>
+              <th>{{ __('Price') }} (Xaf)</th>
+              <th>{{ __('Image') }}</th>
+              <th>{{ __('Description') }}</th>
+              <th>{{ __('Actions') }}</th>
             </tr>
           </thead>
           <tbody class="allproducts">
@@ -50,18 +50,18 @@
                     <div class="btn-group">
                       <a class="btn btn-sm btn-outline-primary"
                         href="{{ route('edit-product', ['product_code' => $product->product_code]) }}">
-                        Modify
+                        {{ __('Modify') }}
                       </a>
                       <button class="btn btn-sm btn-outline-danger" role="button"
                         onclick="confirm('Sure you want to delete {{ $product->prod_name }}?') || event.stopImmediatePropagation()"
-                        wire:click.prevent="deleteProduct({{ $product->id }})">Delete</button>
+                        wire:click.prevent="deleteProduct({{ $product->id }})">{{ __('Delete') }}</button>
                     </div>
                   </td>
                 </tr>
               @endforeach
             @else
               <tr>
-                <td colspan='7' class="text-center text-bold"> No products available!</td>
+                <td colspan='7' class="text-center text-bold">{{ __('No products available') }}</td>
               </tr>
             @endif
           </tbody>
